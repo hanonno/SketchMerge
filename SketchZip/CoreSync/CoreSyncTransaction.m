@@ -26,11 +26,14 @@
 
 - (instancetype)initWithTransactionType:(CSTransactionType)type
                                 keyPath:(NSString *)keyPath
-                                  value:(NSObject *)value {
+                                  value:(NSObject *)value
+                             artboardID:artboardID
+{
     if (self == [super init]) {
         self.transactionType = type;
         self.keyPath = keyPath;
         self.value = value;
+        self.artboardID = artboardID;
     }
     
     return self;

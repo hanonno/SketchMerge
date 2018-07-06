@@ -16,6 +16,9 @@
 		552F296420EE59AF00A845B2 /* NSDictionary+CoreSync.m in Sources */ = {isa = PBXBuildFile; fileRef = 552F295C20EE59AE00A845B2 /* NSDictionary+CoreSync.m */; };
 		552F296520EE59AF00A845B2 /* NSMutableDictionary+CoreSync.m in Sources */ = {isa = PBXBuildFile; fileRef = 552F295F20EE59AE00A845B2 /* NSMutableDictionary+CoreSync.m */; };
 		552F296720EE77C500A845B2 /* Artboards-Root.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 552F296620EE77C500A845B2 /* Artboards-Root.sketch */; };
+		5548B88D20EF720E00D3A081 /* SketchFilePlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 5548B88B20EF720E00D3A081 /* SketchFilePlugin.m */; };
+		5548B89020EF72C000D3A081 /* NSImage+PNGAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5548B88E20EF72C000D3A081 /* NSImage+PNGAdditions.m */; };
+		5548B89320EF7A9300D3A081 /* ArtboardGridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5548B89220EF7A9300D3A081 /* ArtboardGridViewController.m */; };
 		55BE520120ADABFB0059EC77 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 55BE520020ADABFB0059EC77 /* AppDelegate.m */; };
 		55BE520320ADABFD0059EC77 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55BE520220ADABFD0059EC77 /* Assets.xcassets */; };
 		55BE520620ADABFD0059EC77 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55BE520420ADABFD0059EC77 /* MainMenu.xib */; };
@@ -76,6 +79,12 @@
 		552F295F20EE59AE00A845B2 /* NSMutableDictionary+CoreSync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableDictionary+CoreSync.m"; sourceTree = "<group>"; };
 		552F296020EE59AE00A845B2 /* CoreSyncTransaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreSyncTransaction.h; sourceTree = "<group>"; };
 		552F296620EE77C500A845B2 /* Artboards-Root.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Artboards-Root.sketch"; sourceTree = "<group>"; };
+		5548B88B20EF720E00D3A081 /* SketchFilePlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SketchFilePlugin.m; sourceTree = "<group>"; };
+		5548B88C20EF720E00D3A081 /* SketchFilePlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SketchFilePlugin.h; sourceTree = "<group>"; };
+		5548B88E20EF72C000D3A081 /* NSImage+PNGAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSImage+PNGAdditions.m"; sourceTree = "<group>"; };
+		5548B88F20EF72C000D3A081 /* NSImage+PNGAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSImage+PNGAdditions.h"; sourceTree = "<group>"; };
+		5548B89120EF7A9300D3A081 /* ArtboardGridViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArtboardGridViewController.h; sourceTree = "<group>"; };
+		5548B89220EF7A9300D3A081 /* ArtboardGridViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArtboardGridViewController.m; sourceTree = "<group>"; };
 		55BE51FC20ADABFB0059EC77 /* SketchZip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SketchZip.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		55BE51FF20ADABFB0059EC77 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		55BE520020ADABFB0059EC77 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -201,6 +210,12 @@
 				55BE520020ADABFB0059EC77 /* AppDelegate.m */,
 				552F294F20EE191500A845B2 /* SketchFile.h */,
 				552F295020EE191500A845B2 /* SketchFile.m */,
+				5548B88C20EF720E00D3A081 /* SketchFilePlugin.h */,
+				5548B88B20EF720E00D3A081 /* SketchFilePlugin.m */,
+				5548B89120EF7A9300D3A081 /* ArtboardGridViewController.h */,
+				5548B89220EF7A9300D3A081 /* ArtboardGridViewController.m */,
+				5548B88F20EF72C000D3A081 /* NSImage+PNGAdditions.h */,
+				5548B88E20EF72C000D3A081 /* NSImage+PNGAdditions.m */,
 				55BE526A20ADAE720059EC77 /* TestFile1.sketch */,
 				552F296620EE77C500A845B2 /* Artboards-Root.sketch */,
 				552F295220EE3D0A00A845B2 /* Artboards-A.sketch */,
@@ -439,6 +454,7 @@
 				55BE526820ADAD410059EC77 /* SSZipArchive.m in Sources */,
 				55BE520920ADABFD0059EC77 /* main.m in Sources */,
 				55BE526320ADAD410059EC77 /* sha1.c in Sources */,
+				5548B89020EF72C000D3A081 /* NSImage+PNGAdditions.m in Sources */,
 				55BE525D20ADAD410059EC77 /* ioapi_mem.c in Sources */,
 				552F296420EE59AF00A845B2 /* NSDictionary+CoreSync.m in Sources */,
 				552F296120EE59AF00A845B2 /* CoreSyncTransaction.m in Sources */,
@@ -446,11 +462,13 @@
 				55BE526220ADAD410059EC77 /* fileenc.c in Sources */,
 				55BE525920ADAD410059EC77 /* unzip.c in Sources */,
 				55BE525A20ADAD410059EC77 /* zip.c in Sources */,
+				5548B88D20EF720E00D3A081 /* SketchFilePlugin.m in Sources */,
 				55BE526420ADAD410059EC77 /* aes_ni.c in Sources */,
 				55BE525E20ADAD410059EC77 /* minishared.c in Sources */,
 				552F296320EE59AF00A845B2 /* CoreSync.m in Sources */,
 				552F296520EE59AF00A845B2 /* NSMutableDictionary+CoreSync.m in Sources */,
 				55BE526720ADAD410059EC77 /* aestab.c in Sources */,
+				5548B89320EF7A9300D3A081 /* ArtboardGridViewController.m in Sources */,
 				55BE520120ADABFB0059EC77 /* AppDelegate.m in Sources */,
 				55BE526120ADAD410059EC77 /* aescrypt.c in Sources */,
 				55BE526520ADAD410059EC77 /* prng.c in Sources */,

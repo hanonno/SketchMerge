@@ -9,12 +9,26 @@
 #import "SketchFile.h"
 #import "SSZipArchive.h"
 #import "CoreSync.h"
+#import "NSImage+PNGAdditions.h"
 
 
 static const BOOL kLoggingEnabled = NO;
 
 
 @implementation SketchFile
+
+- (id)init {
+    self = [super init];
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    self.sketchToolPath = @"/Applications/Sketch.app/Contents/Resources/sketchtool/bin/sketchtool";
+    
+    if (![fileManager fileExistsAtPath:self.sketchToolPath]) {
+        self.sketchToolPath = [[NSBundle mainBundle] pathForResource:@"sketchtool/bin/sketchtool" ofType:nil];
+    }
+    
+    return self;
+}
 
 - (NSDictionary *)artboardsForFileWithURL:(NSURL *)fileURL {
     // Extract Zip
@@ -99,6 +113,61 @@ static const BOOL kLoggingEnabled = NO;
     return artboards;
 }
 
+- (NSImage *)imageForArtboardWithID:(NSString *)artboardID inFileWithURL:(NSURL *)fileURL maxSize:(CGSize)maxSize {
+    NSImage *image;
+    NSURL *tempDir = [NSURL fileURLWithPath:NSTemporaryDirectory()];
+    tempDir = [tempDir URLByAppendingPathComponent:[NSUUID UUID].UUIDString];
+    
+    [[NSFileManager defaultManager] createDirectoryAtPath:tempDir.path withIntermediateDirectories:YES attributes:nil error:NULL];
+    
+    NSTask *task = [[NSTask alloc] init];
+    [task setLaunchPath:self.sketchToolPath];
+    [task setArguments:@[
+                         @"export",
+                         @"artboards",
+                         fileURL.path,
+                         [NSString stringWithFormat:@"--output=%@", tempDir.path],
+                         @"--use-id-for-name",
+                         [NSString stringWithFormat:@"--item=%@", artboardID]
+                         ]];
+    
+    NSLog(@"%@", tempDir.path);
+    
+    NSPipe *outputPipe = [[NSPipe alloc] init];
+    task.standardOutput = outputPipe;
+    NSFileHandle *outputFile = outputPipe.fileHandleForReading;
+    
+    NSPipe *errorPipe = [[NSPipe alloc] init];
+    task.standardError = errorPipe;
+    NSFileHandle *errorFile = errorPipe.fileHandleForReading;
+    
+    [task launch];
+    
+    NSData *errorData = [errorFile readDataToEndOfFile];
+    
+    //    DDLogVerbose(@"SketchFilePlugin: sketchtool for %@ in %f ms", fileURL.relativeString, [now timeIntervalSinceNow]);
+    
+    NSString *result;
+    if (errorData.length == 0) {
+        result = [[NSString alloc] initWithData:[outputFile readDataToEndOfFile] encoding:NSUTF8StringEncoding];
+        
+        if ([result hasPrefix:@"Exported "]) {
+            NSString *outputFilePath = [[tempDir.path stringByAppendingPathComponent:artboardID] stringByAppendingPathExtension:@"png"];
+            image = [[NSImage alloc] initWithContentsOfFile:outputFilePath];
+        }
+    } else {
+        result = [[NSString alloc] initWithData:errorData encoding:NSASCIIStringEncoding];
+        //        DDLogError(@"SketchFilePlugin error: %@", result);
+    }
+    
+    //    DDLogVerbose(@"SketchFilePlugin: %@", result);
+    
+    image = [image scaleToSize:maxSize];
+    
+    return image;
+}
+
+
 - (NSArray *)diffFromFile:(NSURL *)oldFile to:(NSURL *)newFile {
     
     NSDictionary *oldPages = [self _pagesFromFileAtURL:oldFile];
@@ -117,14 +186,6 @@ static const BOOL kLoggingEnabled = NO;
 - (NSString *)pageID {
     NSArray *parts = [self.keyPath componentsSeparatedByString:@"/"];
     return [parts objectAtIndex:1];
-}
-
-- (NSInteger)artboardIndex {
-    NSArray *parts = [self.keyPath componentsSeparatedByString:@"/"];
-
-    NSString *index = [parts objectAtIndex:3];
-    
-    return [index integerValue];
 }
 
 @end

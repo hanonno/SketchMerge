@@ -12,9 +12,13 @@
 
 @interface SketchFile : NSObject
 
+@property (strong) NSString *sketchToolPath;
+
 - (NSDictionary *)artboardsForFileWithURL:(NSURL *)fileURL;
 
 - (NSDictionary *)_pagesFromFileAtURL:(NSURL *)fileURL;
+
+- (NSImage *)imageForArtboardWithID:(NSString *)artboardID inFileWithURL:(NSURL *)fileURL maxSize:(CGSize)maxSize;
 
 - (NSArray *)diffFromFile:(NSURL *)oldFile to:(NSURL *)newFile;
 
@@ -24,6 +28,5 @@
 @interface CoreSyncTransaction (Sketch)
 
 - (NSString *)pageID;
-- (NSInteger)artboardIndex;
 
 @end
