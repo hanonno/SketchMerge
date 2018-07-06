@@ -51,7 +51,6 @@ static const BOOL kLoggingEnabled = NO;
         // Decode JSON
         NSData *pageData = [NSData dataWithContentsOfFile:currentPagePath];
         NSDictionary *pageJSON = [NSJSONSerialization JSONObjectWithData:pageData options:0 error:nil];
-//        NSLog(@"%@", pageJSON[@"layers"]);
         NSArray *layers = pageJSON[@"layers"];
         
         if(layers == nil || layers.count == 0) {
@@ -61,7 +60,6 @@ static const BOOL kLoggingEnabled = NO;
         // Load artboards
         NSDictionary *artboards = [self _getArtboardsFromLayers:pageJSON[@"layers"]];
         [artboardLookup addEntriesFromDictionary:artboards];
-        
     }
     
     return artboardLookup;
@@ -169,13 +167,27 @@ static const BOOL kLoggingEnabled = NO;
 
 
 - (NSArray *)diffFromFile:(NSURL *)oldFile to:(NSURL *)newFile {
-    
     NSDictionary *oldPages = [self _pagesFromFileAtURL:oldFile];
     NSDictionary *newPages = [self _pagesFromFileAtURL:newFile];
     
     NSArray *diff = [CoreSync diffAsTransactions:oldPages :newPages];
     
-    return diff;
+    NSMutableDictionary *diffLookup = [[NSMutableDictionary alloc] init];
+    
+    for(CoreSyncTransaction *transaction in diff) {
+        // Don't overwrite delete transactions
+        if([(CoreSyncTransaction *)diffLookup[transaction.artboardID] transactionType] == CSTransactionTypeDeletion) {
+            continue;
+        }
+        
+//        if(transaction.artboardID == nil) {
+//            continue;
+//        }
+
+        diffLookup[transaction.artboardID] = transaction;
+    }
+
+    return diffLookup.allValues;
 }
 
 @end

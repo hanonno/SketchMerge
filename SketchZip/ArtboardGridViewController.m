@@ -125,7 +125,16 @@
     CoreSyncTransaction *transaction = [self transactionAtIndexPath:indexPath];
 
     item.artboardImageView.image = transaction.image;
-    item.titleLabel.stringValue = transaction.artboardName;
+    
+    if(transaction.transactionType == CSTransactionTypeDeletion) {
+        item.titleLabel.stringValue = [NSString stringWithFormat:@"Deleted %@", transaction.artboardName];
+    }
+    else if(transaction.transactionType == CSTransactionTypeAddition) {
+        item.titleLabel.stringValue = [NSString stringWithFormat:@"Added %@", transaction.artboardName];
+    }
+    else if(transaction.transactionType == CSTransactionTypeEdit) {
+        item.titleLabel.stringValue = [NSString stringWithFormat:@"Updated %@", transaction.artboardName];
+    }
     
     return item;
 }
