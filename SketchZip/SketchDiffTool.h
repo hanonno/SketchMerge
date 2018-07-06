@@ -10,7 +10,7 @@
 #import "CoreSyncTransaction.h"
 
 
-@interface SketchFile : NSObject
+@interface SketchDiffTool : NSObject
 
 @property (strong) NSString *sketchToolPath;
 

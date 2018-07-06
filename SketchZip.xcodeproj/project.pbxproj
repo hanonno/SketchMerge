@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		552F295120EE191500A845B2 /* SketchFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 552F295020EE191500A845B2 /* SketchFile.m */; };
+		552F295120EE191500A845B2 /* SketchDiffTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 552F295020EE191500A845B2 /* SketchDiffTool.m */; };
 		552F295320EE3D0A00A845B2 /* Artboards-A.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 552F295220EE3D0A00A845B2 /* Artboards-A.sketch */; };
 		552F295520EE4B0A00A845B2 /* Artboards-B.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 552F295420EE4B0A00A845B2 /* Artboards-B.sketch */; };
 		552F296120EE59AF00A845B2 /* CoreSyncTransaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 552F295820EE59AE00A845B2 /* CoreSyncTransaction.m */; };
@@ -64,8 +64,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		552F294F20EE191500A845B2 /* SketchFile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchFile.h; sourceTree = "<group>"; };
-		552F295020EE191500A845B2 /* SketchFile.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SketchFile.m; sourceTree = "<group>"; };
+		552F294F20EE191500A845B2 /* SketchDiffTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchDiffTool.h; sourceTree = "<group>"; };
+		552F295020EE191500A845B2 /* SketchDiffTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SketchDiffTool.m; sourceTree = "<group>"; };
 		552F295220EE3D0A00A845B2 /* Artboards-A.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Artboards-A.sketch"; sourceTree = "<group>"; };
 		552F295420EE4B0A00A845B2 /* Artboards-B.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Artboards-B.sketch"; sourceTree = "<group>"; };
 		552F295720EE59AE00A845B2 /* NSDictionary+CoreSync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+CoreSync.h"; sourceTree = "<group>"; };
@@ -208,8 +208,8 @@
 			children = (
 				55BE51FF20ADABFB0059EC77 /* AppDelegate.h */,
 				55BE520020ADABFB0059EC77 /* AppDelegate.m */,
-				552F294F20EE191500A845B2 /* SketchFile.h */,
-				552F295020EE191500A845B2 /* SketchFile.m */,
+				552F294F20EE191500A845B2 /* SketchDiffTool.h */,
+				552F295020EE191500A845B2 /* SketchDiffTool.m */,
 				5548B88C20EF720E00D3A081 /* SketchFilePlugin.h */,
 				5548B88B20EF720E00D3A081 /* SketchFilePlugin.m */,
 				5548B89120EF7A9300D3A081 /* ArtboardGridViewController.h */,
@@ -447,7 +447,7 @@
 			files = (
 				552F296220EE59AF00A845B2 /* NSArray+CoreSync.m in Sources */,
 				55BE525B20ADAD410059EC77 /* ioapi.c in Sources */,
-				552F295120EE191500A845B2 /* SketchFile.m in Sources */,
+				552F295120EE191500A845B2 /* SketchDiffTool.m in Sources */,
 				55BE525820ADAD410059EC77 /* crypt.c in Sources */,
 				55BE525C20ADAD410059EC77 /* ioapi_buf.c in Sources */,
 				55BE526620ADAD410059EC77 /* pwd2key.c in Sources */,

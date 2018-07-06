@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "SSZipArchive.h"
-#import "SketchFile.h"
+#import "SketchDiffTool.h"
 #import "SketchFilePlugin.h"
 #import "CoreSync.h"
 #import "CoreSyncTransaction.h"
@@ -47,7 +47,7 @@
     NSURL *rootFileURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Artboards-Root" ofType:@"sketch"]];
     NSURL *changedFileURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Artboards-B" ofType:@"sketch"]];
     
-    SketchFile *sketchFile = [[SketchFile alloc] init];
+    SketchDiffTool *sketchFile = [[SketchDiffTool alloc] init];
     
     NSDictionary *pages = [sketchFile _pagesFromFileAtURL:rootFileURL];
     NSArray *transactions = [sketchFile diffFromFile:rootFileURL to:changedFileURL];

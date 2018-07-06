@@ -8,7 +8,7 @@
 
 #import "ArtboardGridViewController.h"
 #import "CoreSyncTransaction.h"
-#import "SketchFile.h"
+#import "SketchDiffTool.h"
 
 
 @implementation ArtboardCollectionViewItem
@@ -31,7 +31,7 @@
 
 @interface ArtboardGridViewController ()
 
-@property (strong) SketchFile           *sketchFile;
+@property (strong) SketchDiffTool       *sketchDiffTool;
 @property (strong) NSArray              *transactions;
 @property (strong) NSProgressIndicator  *progressIndicator;
 
@@ -44,7 +44,7 @@
     self = [super init];
     
     self.transactions = @[];
-    self.sketchFile = [[SketchFile alloc] init];
+    self.sketchDiffTool = [[SketchDiffTool alloc] init];
     
     return self;
 }
@@ -90,12 +90,12 @@
     [self.collectionView reloadData];
     
     dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
-        NSArray *transactions = [self.sketchFile diffFromFile:oldFileURL to:newFileURL];
+        NSArray *transactions = [self.sketchDiffTool diffFromFile:oldFileURL to:newFileURL];
         
         for (CoreSyncTransaction *transaction in transactions) {
             NSLog(@"page: %@ > layer index: %@", transaction.pageID, transaction.artboardID);
             
-            NSImage *image = [self.sketchFile imageForArtboardWithID:transaction.artboardID inFileWithURL:newFileURL maxSize:CGSizeMake(1280, 1280)];
+            NSImage *image = [self.sketchDiffTool imageForArtboardWithID:transaction.artboardID inFileWithURL:newFileURL maxSize:CGSizeMake(1280, 1280)];
             transaction.image = image;
         }
 

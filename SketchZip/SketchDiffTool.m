@@ -6,7 +6,7 @@
 //  Copyright © 2018 Motion Pixel. All rights reserved.
 //
 
-#import "SketchFile.h"
+#import "SketchDiffTool.h"
 #import "SSZipArchive.h"
 #import "CoreSync.h"
 #import "NSImage+PNGAdditions.h"
@@ -15,7 +15,7 @@
 static const BOOL kLoggingEnabled = NO;
 
 
-@implementation SketchFile
+@implementation SketchDiffTool
 
 - (id)init {
     self = [super init];
