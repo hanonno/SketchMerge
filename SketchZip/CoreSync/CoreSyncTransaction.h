@@ -32,16 +32,19 @@ typedef enum : NSUInteger {
 @property (nonatomic, assign) CSTransactionType     transactionType;
 @property (nonatomic, strong) NSString              *keyPath;
 @property (nonatomic, strong) NSObject              *value;
-@property (nonatomic, strong) NSString              *artboardID;
+@property (nonatomic, strong) NSDictionary          *info;
 @property (nonatomic, strong) NSImage               *image;
 
 - (instancetype)initWithTransactionType:(CSTransactionType)type
                                 keyPath:(NSString *)keyPath
                                   value:(NSObject *)value
-                             artboardID:(NSString *)artboardID;
+                                   info:(NSDictionary *)info;
 
 - (instancetype)initWithDictionary:(NSDictionary *)dict;
 
 - (NSDictionary *)toDictionary;
+
+- (NSString *)artboardID;
+- (NSString *)artboardName;
 
 @end

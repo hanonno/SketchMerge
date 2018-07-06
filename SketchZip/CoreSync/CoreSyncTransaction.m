@@ -27,13 +27,13 @@
 - (instancetype)initWithTransactionType:(CSTransactionType)type
                                 keyPath:(NSString *)keyPath
                                   value:(NSObject *)value
-                             artboardID:artboardID
+                                   info:(NSDictionary *)info
 {
     if (self == [super init]) {
         self.transactionType = type;
         self.keyPath = keyPath;
         self.value = value;
-        self.artboardID = artboardID;
+        self.info = info;
     }
     
     return self;
@@ -102,6 +102,14 @@
 - (NSString *)description
 {
     return [NSString stringWithFormat:@"Type: %lu, Keypath: %@, Value: %@", (unsigned long)self.transactionType, self.keyPath, self.value];
+}
+
+- (NSString *)artboardID {
+    return self.info[@"artboardID"];
+}
+
+- (NSString *)artboardName {
+    return self.info[@"artboardName"];
 }
 
 @end

@@ -34,19 +34,19 @@ static const BOOL kShouldLog = NO;
 
 + (NSArray *)diffAsTransactions:(NSDictionary *)a :(NSDictionary *)b
 {
-    return [self diffDictionary:[a mutableDeepCopy] :[b mutableDeepCopy] root:@"" artboardID:nil];
+    return [self diffDictionary:[a mutableDeepCopy] :[b mutableDeepCopy] root:@"" info:nil];
 }
 
 + (NSArray *)diffAsDictionary:(NSDictionary *)a :(NSDictionary *)b
 {
-    NSMutableArray* transactions = [self diffDictionary:[a mutableDeepCopy] :[b mutableDeepCopy] root:@"" artboardID:nil];
+    NSMutableArray* transactions = [self diffDictionary:[a mutableDeepCopy] :[b mutableDeepCopy] root:@"" info:nil];
     
     return [self serializeTransactionsToArray:transactions];
 }
 
 + (NSString *)diffAsJSON:(NSDictionary *)a :(NSDictionary *)b
 {
-    NSMutableArray* transactions = [self diffDictionary:[a mutableDeepCopy] :[b mutableDeepCopy] root:@"" artboardID:nil];
+    NSMutableArray* transactions = [self diffDictionary:[a mutableDeepCopy] :[b mutableDeepCopy] root:@"" info:nil];
     
     NSArray* toArray = [self serializeTransactionsToArray:transactions];
 
@@ -93,34 +93,34 @@ static const BOOL kShouldLog = NO;
     return [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
 }
 
-+ (CoreSyncTransaction *)editWithPath:(id)path value:(NSObject *)value artboardID:(NSString *)artboardID
++ (CoreSyncTransaction *)editWithPath:(id)path value:(NSObject *)value info:(NSDictionary *)info
 {
     return [[CoreSyncTransaction alloc] initWithTransactionType:CSTransactionTypeEdit
                                                         keyPath:path
                                                           value:value
-                                                     artboardID:artboardID];
+                                                     info:info];
 }
 
-+ (CoreSyncTransaction *)deletionWithPath:(id)path artboardID:(NSString *)artboardID
++ (CoreSyncTransaction *)deletionWithPath:(id)path info:(NSDictionary *)info
 {
     return [[CoreSyncTransaction alloc] initWithTransactionType:CSTransactionTypeDeletion
                                                         keyPath:path
                                                           value:nil
-                                                     artboardID:artboardID];
+                                                     info:info];
 }
 
-+ (CoreSyncTransaction *)additionWithPath:(id)path value:(NSObject *)value artboardID:(NSString *)artboardID
++ (CoreSyncTransaction *)additionWithPath:(id)path value:(NSObject *)value info:(NSDictionary *)info
 {
     return [[CoreSyncTransaction alloc] initWithTransactionType:CSTransactionTypeAddition
                                                         keyPath:path
                                                           value:value
-                                                     artboardID:artboardID];
+                                                     info:info];
 }
 
 
 #pragma mark - Core Diff Algorithm
 
-+ (NSMutableArray *)diffDictionary:(NSMutableDictionary *)a :(NSMutableDictionary *)b root:(NSString *)root artboardID:(NSString *)artboardID
++ (NSMutableArray *)diffDictionary:(NSMutableDictionary *)a :(NSMutableDictionary *)b root:(NSString *)root info:(NSDictionary *)info
 {
     NSMutableArray* transactions = [[NSMutableArray alloc] init];
     
@@ -130,7 +130,10 @@ static const BOOL kShouldLog = NO;
         NSString* fullRoot = [NSString stringWithFormat:@"%@/%@", root, aKey];
         
         if([a[@"_class"] isEqualToString:@"artboard"]) {
-            artboardID = a[@"do_objectID"];
+            info = @{
+                @"artboardID": a[@"do_objectID"],
+                @"artboardName": a[@"name"]
+            };
         }
 
         if (! b[aKey]) {
@@ -138,7 +141,7 @@ static const BOOL kShouldLog = NO;
                 NSLog(@"Key: %@/%@ was removed", root, aKey);
             }
             
-            CoreSyncTransaction* delete = [self deletionWithPath:fullRoot artboardID:artboardID];
+            CoreSyncTransaction* delete = [self deletionWithPath:fullRoot info:info];
             [transactions addObject:delete];
         }
         else {
@@ -152,17 +155,17 @@ static const BOOL kShouldLog = NO;
             }
             else {
                 if ([aValue isKindOfClass:[NSDictionary class]]) {
-                    [transactions addObjectsFromArray:[self diffDictionary:aValue :bValue root:fullRoot artboardID:artboardID]];
+                    [transactions addObjectsFromArray:[self diffDictionary:aValue :bValue root:fullRoot info:info]];
                 }
                 else if ([aValue isKindOfClass:[NSArray class]]) {
-                    [transactions addObjectsFromArray:[self diffArray:aValue :bValue root:fullRoot artboardID:artboardID]];
+                    [transactions addObjectsFromArray:[self diffArray:aValue :bValue root:fullRoot info:info]];
                 }
                 else {
                     if (kShouldLog) {
                         NSLog(@"Key: %@/%@ has changed: %@ -> %@", root, aKey, aValue, bValue);
                     }
                     
-                    CoreSyncTransaction* edit = [self editWithPath:fullRoot value:bValue artboardID:artboardID];
+                    CoreSyncTransaction* edit = [self editWithPath:fullRoot value:bValue info:info];
                     [transactions addObject:edit];
                 }
             }
@@ -179,10 +182,13 @@ static const BOOL kShouldLog = NO;
             NSString* fullRoot = [NSString stringWithFormat:@"%@/%@", root, bKey];
             
             if([b[@"_class"] isEqualToString:@"artboard"]) {
-                artboardID = a[@"do_objectID"];
+                info = @{
+                    @"artboardID": b[@"do_objectID"],
+                    @"artboardName": b[@"name"]
+                };
             }
 
-            CoreSyncTransaction* add = [self additionWithPath:fullRoot value:b[bKey] artboardID:artboardID];
+            CoreSyncTransaction* add = [self additionWithPath:fullRoot value:b[bKey] info:info];
             [transactions addObject:add];
         }
     }
@@ -190,7 +196,7 @@ static const BOOL kShouldLog = NO;
     return transactions;
 }
 
-+ (NSMutableArray *)diffArray:(NSArray *)a :(NSArray *)b root:(NSString *)root artboardID:(NSString *)artboardID
++ (NSMutableArray *)diffArray:(NSArray *)a :(NSArray *)b root:(NSString *)root info:(NSDictionary *)info
 {
     NSMutableArray* transactions = [[NSMutableArray alloc] init];
     
@@ -208,17 +214,17 @@ static const BOOL kShouldLog = NO;
             NSString* fullPath = [NSString stringWithFormat:@"%@/%@", root, index];
 
             if ([a[i] isKindOfClass:[NSDictionary class]]) {
-                [transactions addObjectsFromArray:[self diffDictionary:a[i] :b[i] root:fullPath artboardID:nil]];
+                [transactions addObjectsFromArray:[self diffDictionary:a[i] :b[i] root:fullPath info:nil]];
             }
             else if ([a[i] isKindOfClass:[NSArray class]]) {
-                [transactions addObjectsFromArray:[self diffArray:a :b root:fullPath artboardID:artboardID]];
+                [transactions addObjectsFromArray:[self diffArray:a :b root:fullPath info:info]];
             }
             else {
                 if (kShouldLog) {
                     NSLog(@"Key: %@/%lu element changed: %@ -> %@", root, i, a[i], b[i]);
                 }
                 
-                CoreSyncTransaction* edit = [self editWithPath:fullPath value:b[i] artboardID:artboardID];
+                CoreSyncTransaction* edit = [self editWithPath:fullPath value:b[i] info:info];
                 [transactions addObject:edit];
             }
         }
@@ -234,7 +240,7 @@ static const BOOL kShouldLog = NO;
                 NSLog(@"Key: %@/%lu element was added: %@", root, i, b[i]);
             }
 
-            CoreSyncTransaction* addition = [self additionWithPath:fullPath value:b[i] artboardID:artboardID];
+            CoreSyncTransaction* addition = [self additionWithPath:fullPath value:b[i] info:info];
             [transactions addObject:addition];
         }
         else {
@@ -243,7 +249,7 @@ static const BOOL kShouldLog = NO;
                 NSLog(@"Key: %@/%lu element was removed: %@", root, i, a[i]);   
             }
             
-            CoreSyncTransaction* deletion = [self deletionWithPath:fullPath artboardID:artboardID];
+            CoreSyncTransaction* deletion = [self deletionWithPath:fullPath info:info];
             [transactions addObject:deletion];
         }
     }

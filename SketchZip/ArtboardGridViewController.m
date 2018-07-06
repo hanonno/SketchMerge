@@ -125,7 +125,7 @@
     CoreSyncTransaction *transaction = [self transactionAtIndexPath:indexPath];
 
     item.artboardImageView.image = transaction.image;
-    item.titleLabel.stringValue = transaction.artboardID;
+    item.titleLabel.stringValue = transaction.artboardName;
     
     return item;
 }
