@@ -19,6 +19,8 @@
 		5548B88D20EF720E00D3A081 /* SketchFilePlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 5548B88B20EF720E00D3A081 /* SketchFilePlugin.m */; };
 		5548B89020EF72C000D3A081 /* NSImage+PNGAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5548B88E20EF72C000D3A081 /* NSImage+PNGAdditions.m */; };
 		5548B89320EF7A9300D3A081 /* ArtboardGridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5548B89220EF7A9300D3A081 /* ArtboardGridViewController.m */; };
+		5548B89C20F3708000D3A081 /* Cartfile in Resources */ = {isa = PBXBuildFile; fileRef = 5548B89B20F3708000D3A081 /* Cartfile */; };
+		5586E97620F37430000BCB2F /* PureLayout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5586E97320F373E0000BCB2F /* PureLayout.framework */; };
 		55BE520120ADABFB0059EC77 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 55BE520020ADABFB0059EC77 /* AppDelegate.m */; };
 		55BE520320ADABFD0059EC77 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55BE520220ADABFD0059EC77 /* Assets.xcassets */; };
 		55BE520620ADABFD0059EC77 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55BE520420ADABFD0059EC77 /* MainMenu.xib */; };
@@ -85,6 +87,8 @@
 		5548B88F20EF72C000D3A081 /* NSImage+PNGAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSImage+PNGAdditions.h"; sourceTree = "<group>"; };
 		5548B89120EF7A9300D3A081 /* ArtboardGridViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArtboardGridViewController.h; sourceTree = "<group>"; };
 		5548B89220EF7A9300D3A081 /* ArtboardGridViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArtboardGridViewController.m; sourceTree = "<group>"; };
+		5548B89B20F3708000D3A081 /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = SOURCE_ROOT; };
+		5586E97320F373E0000BCB2F /* PureLayout.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PureLayout.framework; path = Carthage/Build/Mac/PureLayout.framework; sourceTree = SOURCE_ROOT; };
 		55BE51FC20ADABFB0059EC77 /* SketchZip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SketchZip.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		55BE51FF20ADABFB0059EC77 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		55BE520020ADABFB0059EC77 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -146,6 +150,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5586E97620F37430000BCB2F /* PureLayout.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -183,6 +188,13 @@
 			path = CoreSync;
 			sourceTree = "<group>";
 		};
+		5586E97520F37430000BCB2F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		55BE51F320ADABFB0059EC77 = {
 			isa = PBXGroup;
 			children = (
@@ -190,6 +202,7 @@
 				55BE521220ADABFD0059EC77 /* SketchZipTests */,
 				55BE521D20ADABFD0059EC77 /* SketchZipUITests */,
 				55BE51FD20ADABFB0059EC77 /* Products */,
+				5586E97520F37430000BCB2F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -225,8 +238,10 @@
 				55BE520220ADABFD0059EC77 /* Assets.xcassets */,
 				55BE520420ADABFD0059EC77 /* MainMenu.xib */,
 				55BE520720ADABFD0059EC77 /* Info.plist */,
+				5548B89B20F3708000D3A081 /* Cartfile */,
 				55BE520820ADABFD0059EC77 /* main.m */,
 				55BE520A20ADABFD0059EC77 /* SketchZip.entitlements */,
+				5586E97320F373E0000BCB2F /* PureLayout.framework */,
 			);
 			path = SketchZip;
 			sourceTree = "<group>";
@@ -321,6 +336,7 @@
 				55BE51F820ADABFB0059EC77 /* Sources */,
 				55BE51F920ADABFB0059EC77 /* Frameworks */,
 				55BE51FA20ADABFB0059EC77 /* Resources */,
+				5586E97720F37468000BCB2F /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -416,6 +432,7 @@
 			files = (
 				552F295320EE3D0A00A845B2 /* Artboards-A.sketch in Resources */,
 				552F296720EE77C500A845B2 /* Artboards-Root.sketch in Resources */,
+				5548B89C20F3708000D3A081 /* Cartfile in Resources */,
 				55BE526920ADAD410059EC77 /* Info.plist in Resources */,
 				55BE526B20ADAE720059EC77 /* TestFile1.sketch in Resources */,
 				552F295520EE4B0A00A845B2 /* Artboards-B.sketch in Resources */,
@@ -439,6 +456,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5586E97720F37468000BCB2F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/Mac/PureLayout.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		55BE51F820ADABFB0059EC77 /* Sources */ = {
@@ -636,6 +670,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = B7ZKW23KJ2;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				INFOPLIST_FILE = SketchZip/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -654,6 +692,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = B7ZKW23KJ2;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				INFOPLIST_FILE = SketchZip/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

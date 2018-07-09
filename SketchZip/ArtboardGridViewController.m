@@ -9,6 +9,7 @@
 #import "ArtboardGridViewController.h"
 #import "CoreSyncTransaction.h"
 #import "SketchDiffTool.h"
+#import <PureLayout/PureLayout.h>
 
 
 @implementation ArtboardCollectionViewItem
@@ -19,10 +20,21 @@
 //    self.view.layer.backgroundColor = [[NSColor redColor] CGColor];
     
     self.artboardImageView = [[NSImageView alloc] initWithFrame:NSMakeRect(0, 0, 320, 320)];
+    self.artboardImageView.wantsLayer = YES;
+    self.artboardImageView.layer.backgroundColor = [[NSColor lightGrayColor] CGColor];
+    self.artboardImageView.layer.cornerRadius = 8;
     [self.view addSubview:self.artboardImageView];
     
-    self.titleLabel = [NSTextField labelWithString:@"Hello;lkasdf;lka;ls df;lkja sdf;lkj ;lkj asdfasdfasdf"];
+    self.titleLabel = [NSTextField labelWithString:@"Test"];
+    self.titleLabel.alignment = NSTextAlignmentCenter;
     [self.view addSubview:self.titleLabel];
+    
+    // Auto Layout
+    [self.artboardImageView autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, 0, 0, 0) excludingEdge:ALEdgeBottom];
+    [self.artboardImageView autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:self.titleLabel withOffset:-4];
+    
+    [self.titleLabel autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, 0, 0, 0) excludingEdge:ALEdgeTop];
+    [self.titleLabel autoSetDimension:ALDimensionHeight toSize:22];
 }
 
 @end
@@ -53,6 +65,9 @@
     self.view = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, 640, 640)];
     
     self.scrollView = [[NSScrollView alloc] initWithFrame:NSMakeRect(0, 0, 640, 640)];
+    self.scrollView.backgroundColor = [NSColor redColor];
+//    self.scrollView.automaticallyAdjustsContentInsets = NO;
+//    self.scrollView.contentInsets = NSEdgeInsetsMake(16, 16, 16, 16);
     [self.view addSubview:self.scrollView];
     
     self.gridLayout = [[NSCollectionViewGridLayout alloc] init];
@@ -60,6 +75,7 @@
     self.gridLayout.maximumItemSize = NSMakeSize(64, 64);
     self.gridLayout.minimumLineSpacing = 16;
     self.gridLayout.minimumInteritemSpacing = 16;
+    self.gridLayout.margins = NSEdgeInsetsMake(16, 16, 16, 16);
     
     self.collectionView = [[NSCollectionView alloc] initWithFrame:self.view.bounds];
     self.collectionView.dataSource = self;
@@ -76,6 +92,9 @@
     [self.view addSubview:self.progressIndicator];
     
     [self.collectionView reloadData];
+    
+    // Auto Layout
+    [self.scrollView autoPinEdgesToSuperviewEdges];
 }
 
 - (void)loadChangesFromFile:(NSURL *)oldFileURL to:(NSURL *)newFileURL {

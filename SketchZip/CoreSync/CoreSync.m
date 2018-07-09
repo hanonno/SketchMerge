@@ -121,6 +121,26 @@ static const BOOL kShouldLog = NO;
 //
 //}
 
++ (NSDictionary *)infoFromDictionary:(NSDictionary *)dictionary withExistingInfo:(NSDictionary *)info {
+    NSString *currentClass = dictionary[@"_class"];
+    
+    if([currentClass isEqualToString:@"artboard"]) {
+        info = @{
+            @"artboardID": dictionary[@"do_objectID"],
+            @"artboardName": dictionary[@"name"]
+        };
+    }
+
+    if([currentClass isEqualToString:@"layer"]) {
+        info = @{
+            @"layerID": dictionary[@"do_objectID"],
+            @"layerName": dictionary[@"name"]
+        };
+    }
+           
+    return info;
+}
+
 
 #pragma mark - Core Diff Algorithm
 
@@ -134,13 +154,8 @@ static const BOOL kShouldLog = NO;
         NSString* fullRoot = [NSString stringWithFormat:@"%@/%@", root, aKey];
         NSString *currentClass = a[@"_class"];
         
-        if([currentClass isEqualToString:@"artboard"]) {
-            info = @{
-                @"artboardID": a[@"do_objectID"],
-                @"artboardName": a[@"name"]
-            };
-        }
-
+        info = [CoreSync infoFromDictionary:a withExistingInfo:info];
+        
         if (! b[aKey]) {
             if (kShouldLog) {
                 NSLog(@"Key: %@/%@ was removed", root, aKey);
@@ -188,12 +203,7 @@ static const BOOL kShouldLog = NO;
             
             NSString* fullRoot = [NSString stringWithFormat:@"%@/%@", root, bKey];
             
-            if([b[@"_class"] isEqualToString:@"artboard"]) {
-                info = @{
-                    @"artboardID": b[@"do_objectID"],
-                    @"artboardName": b[@"name"]
-                };
-            }
+            info = [CoreSync infoFromDictionary:b withExistingInfo:info];
 
             CoreSyncTransaction* add = [self additionWithPath:fullRoot value:b[bKey] info:info];
             [transactions addObject:add];
@@ -221,12 +231,7 @@ static const BOOL kShouldLog = NO;
             NSString* fullPath = [NSString stringWithFormat:@"%@/%@", root, index];
 
             if ([a[i] isKindOfClass:[NSDictionary class]]) {
-                if([a[i][@"_class"] isEqualToString:@"artboard"]) {
-                    info = @{
-                         @"artboardID": a[i][@"do_objectID"],
-                         @"artboardName": a[i][@"name"]
-                     };
-                }
+                info = [CoreSync infoFromDictionary:a[i] withExistingInfo:info];
 
                 [transactions addObjectsFromArray:[self diffDictionary:a[i] :b[i] root:fullPath info:info]];
             }
@@ -254,12 +259,7 @@ static const BOOL kShouldLog = NO;
                 NSLog(@"Key: %@/%lu element was added: %@", root, i, b[i]);
             }
             
-            if([b[i][@"_class"] isEqualToString:@"artboard"]) {
-                info = @{
-                     @"artboardID": b[i][@"do_objectID"],
-                     @"artboardName": b[i][@"name"]
-                 };
-            }
+            info = [CoreSync infoFromDictionary:b[i] withExistingInfo:info];
 
             CoreSyncTransaction* addition = [self additionWithPath:fullPath value:b[i] info:info];
             [transactions addObject:addition];
@@ -270,12 +270,7 @@ static const BOOL kShouldLog = NO;
                 NSLog(@"Key: %@/%lu element was removed: %@", root, i, a[i]);   
             }
             
-            if([a[i][@"_class"] isEqualToString:@"artboard"]) {
-                info = @{
-                         @"artboardID": a[i][@"do_objectID"],
-                         @"artboardName": a[i][@"name"]
-                 };
-            }
+            info = [CoreSync infoFromDictionary:a[i] withExistingInfo:info];
             
             CoreSyncTransaction* deletion = [self deletionWithPath:fullPath info:info];
             [transactions addObject:deletion];

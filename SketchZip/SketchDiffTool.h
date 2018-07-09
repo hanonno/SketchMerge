@@ -12,11 +12,11 @@
 
 @interface SketchDiffTool : NSObject
 
-@property (strong) NSString *sketchToolPath;
+@property (strong) NSString             *sketchToolPath;
+@property (strong) NSOperationQueue     *artboardImageQueue;
 
 - (NSDictionary *)artboardsForFileWithURL:(NSURL *)fileURL;
-
-- (NSDictionary *)_pagesFromFileAtURL:(NSURL *)fileURL;
+- (NSDictionary *)pagesFromFileAtURL:(NSURL *)fileURL;
 
 - (NSImage *)imageForArtboardWithID:(NSString *)artboardID inFileWithURL:(NSURL *)fileURL maxSize:(CGSize)maxSize;
 

@@ -1,0 +1,9 @@
+{
+  "commitish" : "v3.0.2",
+  "Mac" : [
+    {
+      "name" : "PureLayout",
+      "hash" : "113282cb254b6617d7a9615f604a088f464a26c3e38e927e1a1679f8b41dbd40"
+    }
+  ]
+}

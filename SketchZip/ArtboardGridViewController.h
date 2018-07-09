@@ -11,8 +11,8 @@
 
 @interface ArtboardCollectionViewItem : NSCollectionViewItem
 
-@property (strong) NSTextField   *titleLabel;
-@property (strong) NSImageView   *artboardImageView;
+@property (strong) NSTextField  *titleLabel;
+@property (strong) NSImageView  *artboardImageView;
 
 @end
 

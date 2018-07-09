@@ -12,8 +12,9 @@
 #import "SketchFilePlugin.h"
 #import "CoreSync.h"
 #import "CoreSyncTransaction.h"
-
 #import "ArtboardGridViewController.h"
+
+#import <PureLayout/PureLayout.h>
 
 
 @interface AppDelegate ()
@@ -29,6 +30,7 @@
     
     self.artboardGridViewController = [[ArtboardGridViewController alloc] init];
     [self.window.contentView addSubview:self.artboardGridViewController.view];
+    [self.artboardGridViewController.view autoPinEdgesToSuperviewEdges];
     
     NSButton *button = [NSButton buttonWithTitle:@"Reload" target:self action:@selector(reloadFile:)];
     
@@ -49,7 +51,7 @@
     
     SketchDiffTool *sketchFile = [[SketchDiffTool alloc] init];
     
-    NSDictionary *pages = [sketchFile _pagesFromFileAtURL:rootFileURL];
+//    NSDictionary *pages = [sketchFile pagesFromFileAtURL:rootFileURL];
     NSArray *transactions = [sketchFile diffFromFile:rootFileURL to:changedFileURL];
     
     for (CoreSyncTransaction *transaction in transactions) {
@@ -59,37 +61,9 @@
         
         SketchFilePlugin *plugin = [[SketchFilePlugin alloc] init];
         
-        NSImage *image = [plugin imageForArtboardWithID:transaction.artboardID inFileWithURL:rootFileURL maxSize:CGSizeMake(1280, 1280)];
+//        NSImage *image = [plugin imageForArtboardWithID:transaction.artboardID inFileWithURL:rootFileURL maxSize:CGSizeMake(1280, 1280)];
         
     }
-    
-    //    sketchtool export artboards path/to/document.sketch --formats=jpg,png,svg
-    //    sketchtool export artboards path/to/document.sketch --scales=1,2
-    
-    //    NSURL *rootFileURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Artboards-Root" ofType:@"sketch"]];
-    //    NSURL *myFileURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Artboards-A" ofType:@"sketch"]];
-    //    NSURL *theirFileURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Artboards-B" ofType:@"sketch"]];
-    //
-    //    SketchFile *sketchFile = [[SketchFile alloc] init];
-    //
-    //    NSArray *myDiff = [sketchFile diffFromFile:rootFileURL to:myFileURL];
-    //    NSArray *theirDiff = [sketchFile diffFromFile:rootFileURL to:theirFileURL];
-    //
-    //    NSDictionary *myTransactions = @{ @"transactions": myDiff };
-    //    NSDictionary *theirTransactios = @{ @"transactions": theirDiff };
-    //
-    //    NSArray *diff = [CoreSync diffAsTransactions:myTransactions :theirTransactios];
-    
-    //    NSDictionary *originalArtboards = [sketchFile artboardsForFileWithURL:originalFileURL];
-    //    NSDictionary *newArtboards = [sketchFile artboardsForFileWithURL:newFileURL];
-    //
-    //    if([originalArtboards isEqualToDictionary:newArtboards]) {
-    //        NSLog(@"Equal!");
-    //    }
-    //
-    //    NSArray* JSONChanges = [CoreSync diffAsTransactions:originalArtboards :newArtboards];
-    //    NSLog(@"%@", JSONChanges);
-
 }
 
 - (void)test {
