@@ -27,7 +27,7 @@
 
 @implementation CoreSync
 
-static const BOOL kShouldLog = YES;
+static const BOOL kShouldLog = NO;
 
 
 #pragma mark - Diff API
@@ -122,6 +122,8 @@ static const BOOL kShouldLog = YES;
 //}
 
 + (NSDictionary *)infoFromDictionary:(NSDictionary *)dictionary withExistingInfo:(NSDictionary *)info {
+    return [NSDictionary dictionary];
+    
     NSString *currentClass = dictionary[@"_class"];
     
     if([currentClass isEqualToString:@"artboard"]) {

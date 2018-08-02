@@ -40,7 +40,6 @@
 @end
 
 
-
 @interface ArtboardGridViewController ()
 
 @property (strong) SketchDiffTool       *sketchDiffTool;

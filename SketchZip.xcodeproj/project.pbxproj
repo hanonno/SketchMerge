@@ -46,6 +46,12 @@
 		55BE526820ADAD410059EC77 /* SSZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 55BE525620ADAD410059EC77 /* SSZipArchive.m */; };
 		55BE526920ADAD410059EC77 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 55BE525720ADAD410059EC77 /* Info.plist */; };
 		55BE526B20ADAE720059EC77 /* TestFile1.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 55BE526A20ADAE720059EC77 /* TestFile1.sketch */; };
+		7D7CCFC621133AB60061EBB0 /* Version-2.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7D7CCFC421133AB60061EBB0 /* Version-2.sketch */; };
+		7D7CCFC721133AB60061EBB0 /* Version-1.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7D7CCFC521133AB60061EBB0 /* Version-1.sketch */; };
+		7D7CCFC921133BAB0061EBB0 /* Version-3.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7D7CCFC821133BAB0061EBB0 /* Version-3.sketch */; };
+		7D7CCFCB21133BEA0061EBB0 /* Version-4.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7D7CCFCA21133BE90061EBB0 /* Version-4.sketch */; };
+		7D7CCFCD21133C160061EBB0 /* Version-5.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7D7CCFCC21133C160061EBB0 /* Version-5.sketch */; };
+		7D7CCFCF21133C630061EBB0 /* Version-6.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7D7CCFCE21133C4D0061EBB0 /* Version-6.sketch */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -143,6 +149,12 @@
 		55BE525620ADAD410059EC77 /* SSZipArchive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSZipArchive.m; sourceTree = "<group>"; };
 		55BE525720ADAD410059EC77 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		55BE526A20ADAE720059EC77 /* TestFile1.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; name = TestFile1.sketch; path = SketchZip/TestFile1.sketch; sourceTree = SOURCE_ROOT; };
+		7D7CCFC421133AB60061EBB0 /* Version-2.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Version-2.sketch"; sourceTree = "<group>"; };
+		7D7CCFC521133AB60061EBB0 /* Version-1.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Version-1.sketch"; sourceTree = "<group>"; };
+		7D7CCFC821133BAB0061EBB0 /* Version-3.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Version-3.sketch"; sourceTree = "<group>"; };
+		7D7CCFCA21133BE90061EBB0 /* Version-4.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Version-4.sketch"; sourceTree = "<group>"; };
+		7D7CCFCC21133C160061EBB0 /* Version-5.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Version-5.sketch"; sourceTree = "<group>"; };
+		7D7CCFCE21133C4D0061EBB0 /* Version-6.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Version-6.sketch"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -233,6 +245,12 @@
 				552F296620EE77C500A845B2 /* Artboards-Root.sketch */,
 				552F295220EE3D0A00A845B2 /* Artboards-A.sketch */,
 				552F295420EE4B0A00A845B2 /* Artboards-B.sketch */,
+				7D7CCFC521133AB60061EBB0 /* Version-1.sketch */,
+				7D7CCFC421133AB60061EBB0 /* Version-2.sketch */,
+				7D7CCFC821133BAB0061EBB0 /* Version-3.sketch */,
+				7D7CCFCA21133BE90061EBB0 /* Version-4.sketch */,
+				7D7CCFCC21133C160061EBB0 /* Version-5.sketch */,
+				7D7CCFCE21133C4D0061EBB0 /* Version-6.sketch */,
 				552F295620EE59AE00A845B2 /* CoreSync */,
 				55BE522E20ADAD410059EC77 /* SSZipArchive */,
 				55BE520220ADABFD0059EC77 /* Assets.xcassets */,
@@ -433,11 +451,17 @@
 				552F295320EE3D0A00A845B2 /* Artboards-A.sketch in Resources */,
 				552F296720EE77C500A845B2 /* Artboards-Root.sketch in Resources */,
 				5548B89C20F3708000D3A081 /* Cartfile in Resources */,
+				7D7CCFCF21133C630061EBB0 /* Version-6.sketch in Resources */,
 				55BE526920ADAD410059EC77 /* Info.plist in Resources */,
+				7D7CCFC721133AB60061EBB0 /* Version-1.sketch in Resources */,
 				55BE526B20ADAE720059EC77 /* TestFile1.sketch in Resources */,
 				552F295520EE4B0A00A845B2 /* Artboards-B.sketch in Resources */,
 				55BE520320ADABFD0059EC77 /* Assets.xcassets in Resources */,
+				7D7CCFC921133BAB0061EBB0 /* Version-3.sketch in Resources */,
+				7D7CCFC621133AB60061EBB0 /* Version-2.sketch in Resources */,
+				7D7CCFCD21133C160061EBB0 /* Version-5.sketch in Resources */,
 				55BE520620ADABFD0059EC77 /* MainMenu.xib in Resources */,
+				7D7CCFCB21133BEA0061EBB0 /* Version-4.sketch in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

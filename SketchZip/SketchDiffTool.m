@@ -270,7 +270,8 @@ static const BOOL kLoggingEnabled = YES;
 
 - (void)artboardsFromPages:(NSDictionary *)pagesA to:(NSDictionary *)pagesB {
     
-    NSString *pageID = @"4BDB2ECE-DFE7-40CF-A522-C09CC3A27D9F";
+//    NSString *pageID = @"4BDB2ECE-DFE7-40CF-A522-C09CC3A27D9F";
+    NSString *pageID = @"B191CBD4-B571-4E41-837D-17C2B942EAFE";
 //    NSString *pageID = @"E8E9DABE-83B8-4C0A-9CE8-3C797F9835E5";
     
     NSDictionary *pageA = pagesA[pageID];
@@ -279,7 +280,7 @@ static const BOOL kLoggingEnabled = YES;
     NSDictionary *artboardsA = [self artboardsFromPage:pageA];
     NSDictionary *artboardsB = [self artboardsFromPage:pageB];
 
-    NSMutableArray *artboardIDs = [[NSMutableArray alloc] init];
+    NSMutableSet *artboardIDs = [[NSMutableSet alloc] init];
     [artboardIDs addObjectsFromArray:[artboardsA allKeys]];
     [artboardIDs addObjectsFromArray:[artboardsB allKeys]];
 
@@ -300,7 +301,7 @@ static const BOOL kLoggingEnabled = YES;
         else {
             NSArray *diff = [CoreSync diffAsTransactions:artboardA :artboardB];
             
-            if(diff) {
+            if(diff && [diff count]) {
                 NSLog(@"Artboard changed!");
             }
             else {
