@@ -22,6 +22,9 @@
 @property (weak) IBOutlet NSWindow              *window;
 @property (strong) ArtboardGridViewController   *artboardGridViewController;
 
+@property (strong) NSURL                        *rootFileURL;
+@property (strong) NSURL                        *changedFileURL;
+
 @end
 
 @implementation AppDelegate
@@ -35,50 +38,37 @@
     NSButton *button = [NSButton buttonWithTitle:@"Reload" target:self action:@selector(reloadFile:)];
     
     [self.window.contentView addSubview:button];
-    
 }
 
-- (IBAction)reloadFile:(id)sender {
-    NSURL *rootFileURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Artboards-Root" ofType:@"sketch"]];
-    NSURL *changedFileURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Artboards-B" ofType:@"sketch"]];
+- (IBAction)pickRootFile:(id)sender {
+    NSOpenPanel *openPanel = [NSOpenPanel openPanel];
+    NSModalResponse response = [openPanel runModal];
     
-    [self.artboardGridViewController loadChangesFromFile:rootFileURL to:changedFileURL];
-}
-
-- (void)test2 {
-    NSURL *rootFileURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Artboards-Root" ofType:@"sketch"]];
-    NSURL *changedFileURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Artboards-B" ofType:@"sketch"]];
-    
-    SketchDiffTool *sketchFile = [[SketchDiffTool alloc] init];
-    
-//    NSDictionary *pages = [sketchFile pagesFromFileAtURL:rootFileURL];
-    NSArray *transactions = [sketchFile diffFromFile:rootFileURL to:changedFileURL];
-    
-    for (CoreSyncTransaction *transaction in transactions) {
-        //        NSLog(@"%@", transaction.keyPath);
-        
-        NSLog(@"page: %@ > layer index: %@", transaction.pageID, transaction.artboardID);
-        
-        SketchFilePlugin *plugin = [[SketchFilePlugin alloc] init];
-        
-//        NSImage *image = [plugin imageForArtboardWithID:transaction.artboardID inFileWithURL:rootFileURL maxSize:CGSizeMake(1280, 1280)];
-        
+    if(response == NSModalResponseOK) {
+        self.rootFileURL = openPanel.URLs[0];
     }
 }
 
-- (void)test {
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"TestFile1" ofType:@"sketch"];
+- (IBAction)pickChangedFile:(id)sender {
+    NSOpenPanel *openPanel = [NSOpenPanel openPanel];
+    NSModalResponse response = [openPanel runModal];
     
-    NSString *destination = [NSTemporaryDirectory() stringByAppendingPathComponent:@"TestFile1"];
-    NSString *rezipped = [NSTemporaryDirectory() stringByAppendingPathComponent:@"TestFile2"];
-    
-    [SSZipArchive unzipFileAtPath:path toDestination:destination];
-    [SSZipArchive createZipFileAtPath:rezipped withContentsOfDirectory:destination];
-    
-    NSLog(@"Destination: %@", destination);
-    NSLog(@"Rezipped: %@", rezipped);
+    if(response == NSModalResponseOK) {
+        self.changedFileURL = openPanel.URLs[0];
+    }
 }
 
+
+- (IBAction)reloadFile:(id)sender {
+//    NSURL *rootFileURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Artboards-Root" ofType:@"sketch"]];
+//    NSURL *rootFileURL = self.rootFileURL ? self.rootFileURL : [NSURL fileURLWithPath:@"/Users/hanno/Desktop/Root.sketch"];
+//    NSURL *changedFileURL = self.changedFileURL ? self.changedFileURL : [NSURL fileURLWithPath:@"/Users/hanno/Desktop/Root-A.sketch"];
+
+    NSURL *rootFileURL = self.rootFileURL ? self.rootFileURL : [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Artboards-A" ofType:@"sketch"]];
+    NSURL *changedFileURL = self.changedFileURL ? self.changedFileURL : [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Artboards-B" ofType:@"sketch"]];
+    
+    [self.artboardGridViewController loadChangesFromFile:rootFileURL to:changedFileURL];
+}
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
     // Insert code here to tear down your application

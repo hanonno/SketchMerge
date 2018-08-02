@@ -65,4 +65,7 @@
  */
 + (NSDictionary *)patch:(NSDictionary *)a withJSON:(NSString *)json;
 
+
++ (NSMutableArray *)diffDictionary:(NSMutableDictionary *)a :(NSMutableDictionary *)b root:(NSString *)root info:(NSDictionary *)info;
+
 @end

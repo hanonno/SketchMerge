@@ -12,7 +12,7 @@
 #import "NSImage+PNGAdditions.h"
 
 
-static const BOOL kLoggingEnabled = NO;
+static const BOOL kLoggingEnabled = YES;
 
 
 @interface SketchArtboardImageOperation : NSOperation
@@ -161,12 +161,15 @@ static const BOOL kLoggingEnabled = NO;
     NSString *destinationPath = [NSTemporaryDirectory() stringByAppendingPathComponent:fileURL.lastPathComponent];
     [SSZipArchive unzipFileAtPath:fileURL.path toDestination:destinationPath];
     
+    if(kLoggingEnabled) NSLog(@"Source: %@", fileURL.path);
     if(kLoggingEnabled) NSLog(@"Destination: %@", destinationPath);
     
     // Load all page files
     NSString *pagesDirectory = [destinationPath stringByAppendingPathComponent:@"pages"];
     NSDirectoryEnumerator *directoryEnumerator = [[NSFileManager defaultManager] enumeratorAtPath:pagesDirectory];
     
+    if(kLoggingEnabled) NSLog(@"Pages: %@", pagesDirectory);
+
     NSString *currentFilename = nil;
 //    NSMutableDictionary *artboardLookup = [[NSMutableDictionary alloc] init];
     NSMutableDictionary *pagesLookup = [[NSMutableDictionary alloc] init];
@@ -252,22 +255,84 @@ static const BOOL kLoggingEnabled = NO;
     return image;
 }
 
+- (NSDictionary *)artboardsFromPage:(NSDictionary *)page {
+    NSArray *layers = page[@"layers"];
+    NSMutableDictionary *artboards = [[NSMutableDictionary alloc] init];
+    
+    for (NSDictionary *layer in layers) {
+        if([layer[@"_class"] isEqualToString:@"artboard"] && layer[@"do_objectID"] != nil) {
+            artboards[layer[@"do_objectID"]] = layer;
+        }
+    }
+    
+    return artboards;
+}
+
+- (void)artboardsFromPages:(NSDictionary *)pagesA to:(NSDictionary *)pagesB {
+    
+    NSString *pageID = @"4BDB2ECE-DFE7-40CF-A522-C09CC3A27D9F";
+//    NSString *pageID = @"E8E9DABE-83B8-4C0A-9CE8-3C797F9835E5";
+    
+    NSDictionary *pageA = pagesA[pageID];
+    NSDictionary *pageB = pagesB[pageID];
+
+    NSDictionary *artboardsA = [self artboardsFromPage:pageA];
+    NSDictionary *artboardsB = [self artboardsFromPage:pageB];
+
+    NSMutableArray *artboardIDs = [[NSMutableArray alloc] init];
+    [artboardIDs addObjectsFromArray:[artboardsA allKeys]];
+    [artboardIDs addObjectsFromArray:[artboardsB allKeys]];
+
+    for (NSString *artboardID in artboardIDs) {
+        NSLog(@"artboard: %@", artboardID);
+        
+        NSDictionary *artboardA = artboardsA[artboardID];
+        NSDictionary *artboardB = artboardsB[artboardID];
+        
+        if(artboardA == nil) {
+            NSLog(@"Artboard added!");
+        }
+        
+        else if(artboardB == nil) {
+            NSLog(@"Artboard deleted!");
+        }
+        
+        else {
+            NSArray *diff = [CoreSync diffAsTransactions:artboardA :artboardB];
+            
+            if(diff) {
+                NSLog(@"Artboard changed!");
+            }
+            else {
+                NSLog(@"Artboard is the same!");
+            }
+        }
+    }
+    
+}
+
 - (NSArray *)diffFromFile:(NSURL *)oldFile to:(NSURL *)newFile {
     NSDictionary *oldPages = [self pagesFromFileAtURL:oldFile];
     NSDictionary *newPages = [self pagesFromFileAtURL:newFile];
     
-    NSArray *diff = [CoreSync diffAsTransactions:oldPages :newPages];
+    [self artboardsFromPages:oldPages to:newPages];
+    
+//    NSArray *diff = [CoreSync diffAsTransactions:oldPages :newPages];
     
     NSMutableDictionary *diffLookup = [[NSMutableDictionary alloc] init];
     
-    for(CoreSyncTransaction *transaction in diff) {
-        // Don't overwrite delete transactions
-        if([(CoreSyncTransaction *)diffLookup[transaction.artboardID] transactionType] == CSTransactionTypeDeletion) {
-            continue;
-        }
-
-        diffLookup[transaction.artboardID] = transaction;
-    }
+//    for(CoreSyncTransaction *transaction in diff) {
+//        // Don't overwrite delete transactions
+//        if([(CoreSyncTransaction *)diffLookup[transaction.artboardID] transactionType] == CSTransactionTypeDeletion) {
+//            continue;
+//        }
+//
+////        if([(CoreSyncTransaction *)diffLookup[transaction.artboardID] transactionType] == CSTransactionTypeAddition) {
+////            continue;
+////        }
+//
+//        diffLookup[transaction.artboardID] = transaction;
+//    }
 
     return diffLookup.allValues;
 }

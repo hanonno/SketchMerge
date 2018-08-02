@@ -27,7 +27,7 @@
 
 @implementation CoreSync
 
-static const BOOL kShouldLog = NO;
+static const BOOL kShouldLog = YES;
 
 
 #pragma mark - Diff API
@@ -126,24 +126,29 @@ static const BOOL kShouldLog = NO;
     
     if([currentClass isEqualToString:@"artboard"]) {
         info = @{
+            @"class": currentClass,
             @"artboardID": dictionary[@"do_objectID"],
             @"artboardName": dictionary[@"name"]
         };
+        
+        if([info[@"artboardName"] isEqualToString:@"Artbored"]) {
+            NSLog(@"%@", info[@"artboardID"]);
+        }
     }
 
     if([currentClass isEqualToString:@"layer"]) {
         info = @{
+            @"class": currentClass,
             @"layerID": dictionary[@"do_objectID"],
             @"layerName": dictionary[@"name"]
         };
     }
-           
+
     return info;
 }
 
 
 #pragma mark - Core Diff Algorithm
-
 + (NSMutableArray *)diffDictionary:(NSMutableDictionary *)a :(NSMutableDictionary *)b root:(NSString *)root info:(NSDictionary *)info
 {
     NSMutableArray* transactions = [[NSMutableArray alloc] init];
@@ -152,19 +157,16 @@ static const BOOL kShouldLog = NO;
 
     for (NSString* aKey in aKeys) {
         NSString* fullRoot = [NSString stringWithFormat:@"%@/%@", root, aKey];
-        NSString *currentClass = a[@"_class"];
-        
-        info = [CoreSync infoFromDictionary:a withExistingInfo:info];
         
         if (! b[aKey]) {
             if (kShouldLog) {
                 NSLog(@"Key: %@/%@ was removed", root, aKey);
             }
             
-            if([currentClass isEqualToString:@"artboard"]) {
-                CoreSyncTransaction* delete = [self deletionWithPath:fullRoot info:info];
-                [transactions addObject:delete];
-            }            
+            info = [CoreSync infoFromDictionary:a[aKey] withExistingInfo:info];
+            
+            CoreSyncTransaction* delete = [self deletionWithPath:fullRoot info:info];
+            [transactions addObject:delete];
         }
         else {
             id aValue = a[aKey];
@@ -186,6 +188,8 @@ static const BOOL kShouldLog = NO;
                     if (kShouldLog) {
                         NSLog(@"Key: %@/%@ has changed: %@ -> %@", root, aKey, aValue, bValue);
                     }
+
+                    info = [CoreSync infoFromDictionary:b withExistingInfo:info];
                     
                     CoreSyncTransaction* edit = [self editWithPath:fullRoot value:bValue info:info];
                     [transactions addObject:edit];

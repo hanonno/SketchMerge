@@ -10,6 +10,7 @@
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
+- (IBAction)pickRootFile:(id)sender;
+- (IBAction)pickChangedFile:(id)sender;
 
 @end
-
