@@ -43,7 +43,7 @@
 @interface ArtboardGridViewController ()
 
 @property (strong) SketchDiffTool       *sketchDiffTool;
-@property (strong) NSArray              *transactions;
+@property (strong) NSArray              *artboards;
 @property (strong) NSProgressIndicator  *progressIndicator;
 
 @end
@@ -54,7 +54,7 @@
 - (id)init {
     self = [super init];
     
-    self.transactions = @[];
+    self.artboards = @[];
     self.sketchDiffTool = [[SketchDiffTool alloc] init];
     
     return self;
@@ -104,21 +104,21 @@
     
     [self.progressIndicator startAnimation:self];
     
-    self.transactions = @[];
+    self.artboards = @[];
     [self.collectionView reloadData];
     
     dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
-        NSArray *transactions = [self.sketchDiffTool diffFromFile:oldFileURL to:newFileURL];
+        NSArray *artboards = [self.sketchDiffTool diffFromFile:oldFileURL to:newFileURL];
         
-        for (CoreSyncTransaction *transaction in transactions) {
-            NSLog(@"page: %@ > layer index: %@", transaction.pageID, transaction.artboardID);
+        for (SketchArtboard *artboard in artboards) {
+            NSLog(@"page: %@ > layer index: %@", @"bla", artboard.objectId);
             
-            NSImage *image = [self.sketchDiffTool imageForArtboardWithID:transaction.artboardID inFileWithURL:newFileURL maxSize:CGSizeMake(1280, 1280)];
-            transaction.image = image;
+            NSImage *image = [self.sketchDiffTool imageForArtboardWithID:artboard.objectId inFileWithURL:newFileURL maxSize:CGSizeMake(1280, 1280)];
+            artboard.image = image;
         }
 
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.transactions = transactions;
+            self.artboards = artboards;
             
             [self.collectionView reloadData];
             [self.progressIndicator stopAnimation:self];
@@ -126,8 +126,8 @@
     });
 }
 
-- (CoreSyncTransaction *)transactionAtIndexPath:(NSIndexPath *)indexPath {
-    return [self.transactions objectAtIndex:indexPath.item];
+- (SketchArtboard *)artboardAtIndexPath:(NSIndexPath *)indexPath {
+    return [self.artboards objectAtIndex:indexPath.item];
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(NSCollectionView *)collectionView {
@@ -135,23 +135,23 @@
 }
 
 - (NSInteger)collectionView:(NSCollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.transactions.count;
+    return self.artboards.count;
 }
 
 - (NSCollectionViewItem *)collectionView:(NSCollectionView *)collectionView itemForRepresentedObjectAtIndexPath:(NSIndexPath *)indexPath {
     ArtboardCollectionViewItem *item = [collectionView makeItemWithIdentifier:@"ArtboardCollectionViewItemIdentifier" forIndexPath:indexPath];
-    CoreSyncTransaction *transaction = [self transactionAtIndexPath:indexPath];
+    SketchArtboard *artboard = [self artboardAtIndexPath:indexPath];
 
-    item.artboardImageView.image = transaction.image;
+    item.artboardImageView.image = artboard.image;
     
-    if(transaction.transactionType == CSTransactionTypeDeletion) {
-        item.titleLabel.stringValue = [NSString stringWithFormat:@"Deleted %@", transaction.artboardName];
+    if(artboard.operationType == SketchOperationTypeDelete) {
+        item.titleLabel.stringValue = [NSString stringWithFormat:@"Deleted %@", artboard.name];
     }
-    else if(transaction.transactionType == CSTransactionTypeAddition) {
-        item.titleLabel.stringValue = [NSString stringWithFormat:@"Added %@", transaction.artboardName];
+    else if(artboard.operationType == SketchOperationTypeInsert) {
+        item.titleLabel.stringValue = [NSString stringWithFormat:@"Added %@", artboard.name];
     }
-    else if(transaction.transactionType == CSTransactionTypeEdit) {
-        item.titleLabel.stringValue = [NSString stringWithFormat:@"Updated %@", transaction.artboardName];
+    else if(artboard.operationType == SketchOperationTypeUpdate) {
+        item.titleLabel.stringValue = [NSString stringWithFormat:@"Updated %@", artboard.name];
     }
     
     return item;

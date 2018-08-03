@@ -10,6 +10,7 @@
 #import "SSZipArchive.h"
 #import "CoreSync.h"
 #import "NSImage+PNGAdditions.h"
+#import "SketchPage.h"
 
 
 static const BOOL kLoggingEnabled = YES;
@@ -256,6 +257,10 @@ static const BOOL kLoggingEnabled = YES;
 }
 
 - (NSDictionary *)artboardsFromPage:(NSDictionary *)page {
+    if(page == nil) {
+        return [[NSDictionary alloc] init];
+    }
+    
     NSArray *layers = page[@"layers"];
     NSMutableDictionary *artboards = [[NSMutableDictionary alloc] init];
     
@@ -268,34 +273,36 @@ static const BOOL kLoggingEnabled = YES;
     return artboards;
 }
 
-- (void)artboardsFromPages:(NSDictionary *)pagesA to:(NSDictionary *)pagesB {
+- (NSArray *)artboardsFromPageA:(SketchPage *)pageA toPageB:(SketchPage *)pageB {
+    NSDictionary *artboardsA = [self artboardsFromPage:pageA.JSON];
+    NSDictionary *artboardsB = [self artboardsFromPage:pageB.JSON];
     
-//    NSString *pageID = @"4BDB2ECE-DFE7-40CF-A522-C09CC3A27D9F";
-    NSString *pageID = @"B191CBD4-B571-4E41-837D-17C2B942EAFE";
-//    NSString *pageID = @"E8E9DABE-83B8-4C0A-9CE8-3C797F9835E5";
-    
-    NSDictionary *pageA = pagesA[pageID];
-    NSDictionary *pageB = pagesB[pageID];
-
-    NSDictionary *artboardsA = [self artboardsFromPage:pageA];
-    NSDictionary *artboardsB = [self artboardsFromPage:pageB];
-
     NSMutableSet *artboardIDs = [[NSMutableSet alloc] init];
     [artboardIDs addObjectsFromArray:[artboardsA allKeys]];
     [artboardIDs addObjectsFromArray:[artboardsB allKeys]];
 
+    NSMutableArray *artboards = [[NSMutableArray alloc] init];
+    
     for (NSString *artboardID in artboardIDs) {
         NSLog(@"artboard: %@", artboardID);
         
         NSDictionary *artboardA = artboardsA[artboardID];
         NSDictionary *artboardB = artboardsB[artboardID];
         
-        if(artboardA == nil) {
+        if(artboardA == nil && artboardB != nil) {
             NSLog(@"Artboard added!");
+            
+            SketchArtboard *artboard = [[SketchArtboard alloc] initWithJSON:artboardB];
+            artboard.operationType = SketchOperationTypeInsert;
+            [artboards addObject:artboard];
         }
         
-        else if(artboardB == nil) {
+        else if(artboardB == nil && artboardA != nil) {
             NSLog(@"Artboard deleted!");
+            
+            SketchArtboard *artboard = [[SketchArtboard alloc] initWithJSON:artboardA];
+            artboard.operationType = SketchOperationTypeDelete;
+            [artboards addObject:artboard];
         }
         
         else {
@@ -303,6 +310,10 @@ static const BOOL kLoggingEnabled = YES;
             
             if(diff && [diff count]) {
                 NSLog(@"Artboard changed!");
+                
+                SketchArtboard *artboard = [[SketchArtboard alloc] initWithJSON:artboardB];
+                artboard.operationType = SketchOperationTypeUpdate;
+                [artboards addObject:artboard];
             }
             else {
                 NSLog(@"Artboard is the same!");
@@ -310,32 +321,66 @@ static const BOOL kLoggingEnabled = YES;
         }
     }
     
+    return artboards;
 }
 
 - (NSArray *)diffFromFile:(NSURL *)oldFile to:(NSURL *)newFile {
-    NSDictionary *oldPages = [self pagesFromFileAtURL:oldFile];
-    NSDictionary *newPages = [self pagesFromFileAtURL:newFile];
+    NSDictionary *pagesA = [self pagesFromFileAtURL:oldFile];
+    NSDictionary *pagesB = [self pagesFromFileAtURL:newFile];
     
-    [self artboardsFromPages:oldPages to:newPages];
+    NSMutableArray *pages = [[NSMutableArray alloc] init];
+    NSMutableArray *changedArtboards = [[NSMutableArray alloc] init];
+    NSMutableSet *pageIDs = [[NSMutableSet alloc] init];
     
-//    NSArray *diff = [CoreSync diffAsTransactions:oldPages :newPages];
+    [pageIDs addObjectsFromArray:[pagesA allKeys]];
+    [pageIDs addObjectsFromArray:[pagesB allKeys]];
     
-    NSMutableDictionary *diffLookup = [[NSMutableDictionary alloc] init];
     
-//    for(CoreSyncTransaction *transaction in diff) {
-//        // Don't overwrite delete transactions
-//        if([(CoreSyncTransaction *)diffLookup[transaction.artboardID] transactionType] == CSTransactionTypeDeletion) {
-//            continue;
-//        }
-//
-////        if([(CoreSyncTransaction *)diffLookup[transaction.artboardID] transactionType] == CSTransactionTypeAddition) {
-////            continue;
-////        }
-//
-//        diffLookup[transaction.artboardID] = transaction;
-//    }
+    for (NSString *pageID in pageIDs) {
+        NSDictionary *pageA = pagesA[pageID];
+        NSDictionary *pageB = pagesB[pageID];
 
-    return diffLookup.allValues;
+        if(pageA == nil && pageB != nil) {
+            NSLog(@"Page added!");
+            SketchPage *page = [[SketchPage alloc] initWithJSON:pageB];
+            page.operationType = SketchOperationTypeInsert;
+            [pages addObject:page];
+            
+            NSArray *artboards = [self artboardsFromPageA:nil toPageB:page];
+            if(artboards) {
+                page.changedArtboards = artboards;
+                [changedArtboards addObjectsFromArray:artboards];
+            }
+        }
+        
+        else if(pageB == nil && pageA != nil) {
+            NSLog(@"Page deleted!");
+            SketchPage *page = [[SketchPage alloc] initWithJSON:pageA];
+            page.operationType = SketchOperationTypeDelete;
+            [pages addObject:page];
+            
+            NSArray *artboards = [self artboardsFromPageA:page toPageB:nil];
+            if(artboards) {
+                page.changedArtboards = artboards;
+                [changedArtboards addObjectsFromArray:artboards];
+            }
+        }
+        
+        else {
+            NSLog(@"Page updated!");
+            SketchPage *page = [[SketchPage alloc] initWithJSON:pageB];
+            page.operationType = SketchOperationTypeUpdate;
+            [pages addObject:page];
+            
+            NSArray *artboards = [self artboardsFromPageA:[[SketchPage alloc] initWithJSON:pageA] toPageB:[[SketchPage alloc] initWithJSON:pageB]];
+            if(artboards) {
+                page.changedArtboards = artboards;
+                [changedArtboards addObjectsFromArray:artboards];
+            }
+        }
+    }
+    
+    return changedArtboards;
 }
 
 @end

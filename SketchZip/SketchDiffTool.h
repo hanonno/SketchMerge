@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "CoreSyncTransaction.h"
+#import "SketchPage.h"
 
 
 @interface SketchDiffTool : NSObject
