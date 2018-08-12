@@ -25,8 +25,6 @@ typedef enum : NSUInteger {
 @property (nonatomic, strong) NSString                          *name;
 @property (nonatomic, strong) NSString                          *objectId;
 @property (nonatomic, assign) SketchOperationType               operationType;
-@property (nonatomic, strong) NSError                           *error;
-@property (nonatomic, strong) SketchArtboardPreviewOperation    *previewOperation;
 
 - (id)initWithJSON:(NSDictionary *)JSON;
 
@@ -39,6 +37,9 @@ typedef enum : NSUInteger {
 @property (nonatomic, strong) NSArray               *artboards;
 @property (nonatomic, strong) NSArray               *changedArtboards;
 @property (nonatomic, assign) SketchOperationType   operationType;
+
+@property (nonatomic, strong) NSString              *filePathA;
+@property (nonatomic, strong) NSString              *filePathB;
 
 - (id)initWithJSON:(NSDictionary *)JSON;
 

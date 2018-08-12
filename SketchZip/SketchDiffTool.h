@@ -11,17 +11,6 @@
 #import "SketchPage.h"
 
 
-@interface SketchArtboardPreviewOperation : NSOperation
-
-@property (strong) NSString         *sketchToolPath;
-@property (strong) NSString         *filePath;
-@property (strong) SketchArtboard   *artboard;
-
-- (id)initWithFilePath:(NSString *)filePath artboard:(SketchArtboard *)artboard;
-
-@end
-
-
 @interface SketchDiffTool : NSObject
 
 @property (strong) NSString             *sketchToolPath;
@@ -30,10 +19,9 @@
 - (NSDictionary *)artboardsForFileWithURL:(NSURL *)fileURL;
 - (NSDictionary *)pagesFromFileAtURL:(NSURL *)fileURL;
 
-- (NSImage *)imageForArtboardWithID:(NSString *)artboardID inFileWithURL:(NSURL *)fileURL maxSize:(CGSize)maxSize;
 - (void)generatePreviewsForArtboards:(NSArray *)artboards fromFileWithURL:(NSURL *)fileURL;
 
-- (NSArray *)diffFromFile:(NSURL *)oldFile to:(NSURL *)newFile;
+- (NSArray *)diffFromFile:(NSURL *)fileA to:(NSURL *)fileB;
 
 @end
 

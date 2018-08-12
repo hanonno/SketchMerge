@@ -23,12 +23,13 @@
     
     self.artboardImageView = [[NSImageView alloc] initWithFrame:NSMakeRect(0, 0, 320, 320)];
     self.artboardImageView.wantsLayer = YES;
-    self.artboardImageView.layer.backgroundColor = [[NSColor lightGrayColor] CGColor];
-    self.artboardImageView.layer.cornerRadius = 8;
+    self.artboardImageView.layer.backgroundColor = [[NSColor colorWithCalibratedWhite:0.9 alpha:1.0] CGColor];
+    self.artboardImageView.layer.cornerRadius = 4;
     [self.view addSubview:self.artboardImageView];
     
     self.titleLabel = [NSTextField labelWithString:@"Test"];
     self.titleLabel.alignment = NSTextAlignmentCenter;
+    self.titleLabel.font = [NSFont systemFontOfSize:12];
     [self.view addSubview:self.titleLabel];
     
     // Auto Layout
@@ -77,7 +78,7 @@
     [self.view addSubview:self.scrollView];
     
     self.gridLayout = [[NSCollectionViewGridLayout alloc] init];
-    self.gridLayout.minimumItemSize = NSMakeSize(320-16, 320-16);
+    self.gridLayout.minimumItemSize = NSMakeSize(240-16, 240-16);
     self.gridLayout.maximumItemSize = NSMakeSize(64, 64);
     self.gridLayout.minimumLineSpacing = 16;
     self.gridLayout.minimumInteritemSpacing = 16;

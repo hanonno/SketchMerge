@@ -72,13 +72,9 @@
     task.standardError = errorPipe;
     NSFileHandle *errorFile = errorPipe.fileHandleForReading;
     
-    NSDate *now = [NSDate date];
-    
     [task launch];
     
     NSData *errorData = [errorFile readDataToEndOfFile];
-    
-//    DDLogVerbose(@"SketchFilePlugin: sketchtool for %@ in %f ms", fileURL.relativeString, [now timeIntervalSinceNow]);
 
     NSString *result;
     if (errorData.length == 0) {
