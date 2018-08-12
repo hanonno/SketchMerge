@@ -16,23 +16,13 @@
 static const BOOL kLoggingEnabled = YES;
 
 
-@interface SketchArtboardImageOperation : NSOperation
+@implementation SketchArtboardPreviewOperation
 
-@property (strong) NSString *sketchToolPath;
-@property (strong) NSString *filePath;
-@property (strong) NSString *artboardID;
-@property (strong) NSImage  *artboardImage;
-
-@end
-
-
-@implementation SketchArtboardImageOperation
-
-- (id)initWithFilePath:(NSString *)filePath artboardID:(NSString *)artboardID {
+- (id)initWithFilePath:(NSString *)filePath artboard:(SketchArtboard *)artboard {
     self = [super init];
     
     self.filePath = filePath;
-    self.artboardID = artboardID;
+    self.artboard = artboard;
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
     self.sketchToolPath = @"/Applications/Sketch.app/Contents/Resources/sketchtool/bin/sketchtool";
@@ -59,10 +49,8 @@ static const BOOL kLoggingEnabled = YES;
                          self.filePath,
                          [NSString stringWithFormat:@"--output=%@", tempDir.path],
                          @"--use-id-for-name",
-                         [NSString stringWithFormat:@"--item=%@", self.artboardID]
+                         [NSString stringWithFormat:@"--item=%@", self.artboard.objectId]
                          ]];
-    
-    NSLog(@"%@", tempDir.path);
     
     NSPipe *outputPipe = [[NSPipe alloc] init];
     task.standardOutput = outputPipe;
@@ -83,17 +71,16 @@ static const BOOL kLoggingEnabled = YES;
         result = [[NSString alloc] initWithData:[outputFile readDataToEndOfFile] encoding:NSUTF8StringEncoding];
         
         if ([result hasPrefix:@"Exported "]) {
-            NSString *outputFilePath = [[tempDir.path stringByAppendingPathComponent:self.artboardID] stringByAppendingPathExtension:@"png"];
+            NSString *outputFilePath = [[tempDir.path stringByAppendingPathComponent:self.artboard.objectId] stringByAppendingPathExtension:@"png"];
             image = [[NSImage alloc] initWithContentsOfFile:outputFilePath];
+            self.artboard.image = [image scaleToSize:NSMakeSize(1280, 1280)];
         }
     } else {
         result = [[NSString alloc] initWithData:errorData encoding:NSASCIIStringEncoding];
         //        DDLogError(@"SketchFilePlugin error: %@", result);
+        self.artboard.error = [[NSError alloc] initWithDomain:@"Folio" code:001 userInfo:nil];
+        //    DDLogVerbose(@"SketchFilePlugin: %@", result);
     }
-    
-    //    DDLogVerbose(@"SketchFilePlugin: %@", result);
-    
-    self.artboardImage = [image scaleToSize:NSMakeSize(1280, 1280)];
 }
 
 @end
@@ -191,18 +178,68 @@ static const BOOL kLoggingEnabled = YES;
     return pagesLookup;
 }
 
-- (NSImage *)_imageForArtboardWithID:(NSString *)artboardID inFileWithURL:(NSURL *)fileURL maxSize:(CGSize)maxSize {
-    SketchArtboardImageOperation *op = [[SketchArtboardImageOperation alloc] initWithFilePath:fileURL.path artboardID:artboardID];
-    op.completionBlock = ^{
-        NSLog(@"DONE!");
-    };
+- (void)generatePreviewsForArtboards:(NSArray *)artboards fromFileWithURL:(NSURL *)fileURL {
+    NSImage *image;
+    NSURL *tempDir = [NSURL fileURLWithPath:NSTemporaryDirectory()];
+    tempDir = [tempDir URLByAppendingPathComponent:[NSUUID UUID].UUIDString];
     
-    [self.artboardImageQueue addOperation:op];
+    NSMutableArray *artboardIds = [[NSMutableArray alloc] init];
     
-    return nil;
+    for (SketchArtboard *artboard in artboards) {
+        NSString *artboardId = artboard.objectId;
+        
+        if(artboardId != nil) {
+            [artboardIds addObject:artboardId];
+        }
+    }
+    
+    [[NSFileManager defaultManager] createDirectoryAtPath:tempDir.path withIntermediateDirectories:YES attributes:nil error:NULL];
+    
+    NSTask *task = [[NSTask alloc] init];
+    [task setLaunchPath:self.sketchToolPath];
+    [task setArguments:@[
+                         @"export",
+                         @"artboards",
+                         fileURL.path,
+                         [NSString stringWithFormat:@"--output=%@", tempDir.path],
+                         @"--use-id-for-name",
+                         [NSString stringWithFormat:@"--items=%@", [artboardIds componentsJoinedByString:@","]]
+                         ]];
+    
+    NSPipe *outputPipe = [[NSPipe alloc] init];
+    task.standardOutput = outputPipe;
+    NSFileHandle *outputFile = outputPipe.fileHandleForReading;
+    
+    NSPipe *errorPipe = [[NSPipe alloc] init];
+    task.standardError = errorPipe;
+    NSFileHandle *errorFile = errorPipe.fileHandleForReading;
+    
+    [task launch];
+    
+    NSData *errorData = [errorFile readDataToEndOfFile];
+    
+    //    DDLogVerbose(@"SketchFilePlugin: sketchtool for %@ in %f ms", fileURL.relativeString, [now timeIntervalSinceNow]);
+    
+    NSString *result;
+    if (errorData.length == 0) {
+        result = [[NSString alloc] initWithData:[outputFile readDataToEndOfFile] encoding:NSUTF8StringEncoding];
+        
+        if ([result hasPrefix:@"Exported "]) {
+            for (SketchArtboard *artboard in artboards) {
+                NSString *outputFilePath = [[tempDir.path stringByAppendingPathComponent:artboard.objectId] stringByAppendingPathExtension:@"png"];
+                image = [[NSImage alloc] initWithContentsOfFile:outputFilePath];
+                artboard.image = image;
+            }
+        }
+    } else {
+        result = [[NSString alloc] initWithData:errorData encoding:NSASCIIStringEncoding];
+        //        DDLogError(@"SketchFilePlugin error: %@", result);
+    }
+    
+    //    DDLogVerbose(@"SketchFilePlugin: %@", result);
 }
 
-- (NSImage *)imageForArtboardWithID:(NSString *)artboardID inFileWithURL:(NSURL *)fileURL maxSize:(CGSize)maxSize {
+- (NSImage *)_imageForArtboardWithID:(NSString *)artboardID inFileWithURL:(NSURL *)fileURL maxSize:(CGSize)maxSize {
     NSImage *image;
     NSURL *tempDir = [NSURL fileURLWithPath:NSTemporaryDirectory()];
     tempDir = [tempDir URLByAppendingPathComponent:[NSUUID UUID].UUIDString];
@@ -219,8 +256,6 @@ static const BOOL kLoggingEnabled = YES;
         @"--use-id-for-name",
         [NSString stringWithFormat:@"--item=%@", artboardID]
     ]];
-    
-    NSLog(@"%@", tempDir.path);
     
     NSPipe *outputPipe = [[NSPipe alloc] init];
     task.standardOutput = outputPipe;

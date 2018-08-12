@@ -7,12 +7,14 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "SketchPage.h"
 
 
 @interface ArtboardCollectionViewItem : NSCollectionViewItem
 
-@property (strong) NSTextField  *titleLabel;
-@property (strong) NSImageView  *artboardImageView;
+@property (strong) SketchArtboard   *artboard;
+@property (strong) NSTextField      *titleLabel;
+@property (strong) NSImageView      *artboardImageView;
 
 @end
 
@@ -23,6 +25,6 @@
 @property (strong) NSCollectionView             *collectionView;
 @property (strong) NSCollectionViewGridLayout   *gridLayout;
 
-- (void)loadChangesFromFile:(NSURL *)oldFileURL to:(NSURL *)newFileURL;
+- (void)loadChangesFromFile:(NSURL *)fileA to:(NSURL *)fileB;
 
 @end

@@ -7,6 +7,8 @@
 //
 
 #import "SketchPage.h"
+#import "SketchDiffTool.h"
+
 
 @implementation SketchArtboard
 

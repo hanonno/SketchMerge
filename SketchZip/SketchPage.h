@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 
 
+@class SketchArtboardPreviewOperation;
+
+
 typedef enum : NSUInteger {
     SketchOperationTypeInsert,
     SketchOperationTypeUpdate,
@@ -17,11 +20,13 @@ typedef enum : NSUInteger {
 
 @interface SketchArtboard : NSObject
 
-@property (nonatomic, strong) NSDictionary          *JSON;
-@property (nonatomic, strong) NSImage               *image;
-@property (nonatomic, strong) NSString              *name;
-@property (nonatomic, strong) NSString              *objectId;
-@property (nonatomic, assign) SketchOperationType   operationType;
+@property (nonatomic, strong) NSDictionary                      *JSON;
+@property (nonatomic, strong) NSImage                           *image;
+@property (nonatomic, strong) NSString                          *name;
+@property (nonatomic, strong) NSString                          *objectId;
+@property (nonatomic, assign) SketchOperationType               operationType;
+@property (nonatomic, strong) NSError                           *error;
+@property (nonatomic, strong) SketchArtboardPreviewOperation    *previewOperation;
 
 - (id)initWithJSON:(NSDictionary *)JSON;
 

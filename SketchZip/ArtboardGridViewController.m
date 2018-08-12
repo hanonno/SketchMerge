@@ -14,6 +14,8 @@
 
 @implementation ArtboardCollectionViewItem
 
+@synthesize artboard = _artboard;
+
 - (void)loadView {
     self.view = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, 320, 320)];
     self.view.wantsLayer = YES;
@@ -43,7 +45,11 @@
 @interface ArtboardGridViewController ()
 
 @property (strong) SketchDiffTool       *sketchDiffTool;
+
+@property (strong) NSURL                *fileA;
+@property (strong) NSURL                *fileB;
 @property (strong) NSArray              *artboards;
+@property (strong) NSOperationQueue     *artboardPreviewOperationQueue;
 @property (strong) NSProgressIndicator  *progressIndicator;
 
 @end
@@ -56,6 +62,7 @@
     
     self.artboards = @[];
     self.sketchDiffTool = [[SketchDiffTool alloc] init];
+    self.artboardPreviewOperationQueue = [[NSOperationQueue alloc] init];
     
     return self;
 }
@@ -96,7 +103,10 @@
     [self.scrollView autoPinEdgesToSuperviewEdges];
 }
 
-- (void)loadChangesFromFile:(NSURL *)oldFileURL to:(NSURL *)newFileURL {
+- (void)loadChangesFromFile:(NSURL *)fileA to:(NSURL *)fileB {
+    self.fileA = fileA;
+    self.fileB = fileB;
+    
     [self.progressIndicator setFrameOrigin:NSMakePoint(
         (NSWidth([self.progressIndicator.superview bounds]) - NSWidth([self.progressIndicator frame])) / 2,
         (NSHeight([self.progressIndicator.superview bounds]) - NSHeight([self.progressIndicator frame])) / 2
@@ -108,14 +118,9 @@
     [self.collectionView reloadData];
     
     dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
-        NSArray *artboards = [self.sketchDiffTool diffFromFile:oldFileURL to:newFileURL];
+        NSArray *artboards = [self.sketchDiffTool diffFromFile:fileA to:fileB];
         
-        for (SketchArtboard *artboard in artboards) {
-            NSLog(@"page: %@ > layer index: %@", @"bla", artboard.objectId);
-            
-            NSImage *image = [self.sketchDiffTool imageForArtboardWithID:artboard.objectId inFileWithURL:newFileURL maxSize:CGSizeMake(1280, 1280)];
-            artboard.image = image;
-        }
+        [self.sketchDiffTool generatePreviewsForArtboards:artboards fromFileWithURL:self.fileB];
 
         dispatch_async(dispatch_get_main_queue(), ^{
             self.artboards = artboards;
@@ -142,6 +147,7 @@
     ArtboardCollectionViewItem *item = [collectionView makeItemWithIdentifier:@"ArtboardCollectionViewItemIdentifier" forIndexPath:indexPath];
     SketchArtboard *artboard = [self artboardAtIndexPath:indexPath];
 
+    item.artboard = artboard;
     item.artboardImageView.image = artboard.image;
     
     if(artboard.operationType == SketchOperationTypeDelete) {
