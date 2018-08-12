@@ -12,7 +12,7 @@
 
 @interface ArtboardCollectionViewItem : NSCollectionViewItem
 
-@property (strong) SketchArtboard   *artboard;
+@property (strong) SketchLayer   *artboard;
 @property (strong) NSTextField      *titleLabel;
 @property (strong) NSImageView      *artboardImageView;
 

@@ -19,7 +19,7 @@
 - (NSDictionary *)artboardsForFileWithURL:(NSURL *)fileURL;
 - (NSDictionary *)pagesFromFileAtURL:(NSURL *)fileURL;
 
-- (void)generatePreviewsForArtboards:(NSArray *)artboards fromFileWithURL:(NSURL *)fileURL;
+- (void)generatePreviewsForArtboards:(NSArray *)artboards;
 
 - (NSArray *)diffFromFile:(NSURL *)fileA to:(NSURL *)fileB;
 

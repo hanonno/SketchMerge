@@ -128,18 +128,23 @@ static const BOOL kLoggingEnabled = YES;
 ////    [self]
 //}
 
-- (void)generatePreviewsForArtboards:(NSArray *)artboards fromFileWithURL:(NSURL *)fileURL {
+- (void)generatePreviewsForArtboards:(NSArray *)operations {
     NSImage *image;
     NSURL *tempDir = [NSURL fileURLWithPath:NSTemporaryDirectory()];
     tempDir = [tempDir URLByAppendingPathComponent:[NSUUID UUID].UUIDString];
+    NSString *filePath = nil;
     
-    NSMutableArray *artboardIds = [[NSMutableArray alloc] init];
+    NSMutableArray *objectIds = [[NSMutableArray alloc] init];
     
-    for (SketchArtboard *artboard in artboards) {
-        NSString *artboardId = artboard.objectId;
+    for (SketchOperation *operation in operations) {
+        NSString *objectId = operation.objectId;
         
-        if(artboardId != nil) {
-            [artboardIds addObject:artboardId];
+        if(filePath == nil) {
+            filePath = operation.layerB.page.fileURL.path;
+        }
+        
+        if(objectId != nil) {
+            [objectIds addObject:objectId];
         }
     }
     
@@ -150,10 +155,10 @@ static const BOOL kLoggingEnabled = YES;
     [task setArguments:@[
         @"export",
         @"artboards",
-        fileURL.path,
+        filePath,
         [NSString stringWithFormat:@"--output=%@", tempDir.path],
         @"--use-id-for-name",
-        [NSString stringWithFormat:@"--items=%@", [artboardIds componentsJoinedByString:@","]]
+        [NSString stringWithFormat:@"--items=%@", [objectIds componentsJoinedByString:@","]]
     ]];
     
     NSPipe *outputPipe = [[NSPipe alloc] init];
@@ -170,15 +175,17 @@ static const BOOL kLoggingEnabled = YES;
     
     //    DDLogVerbose(@"SketchFilePlugin: sketchtool for %@ in %f ms", fileURL.relativeString, [now timeIntervalSinceNow]);
     
+    NSLog(@"OUTPUT DIR: %@", tempDir);
+    
     NSString *result;
     if (errorData.length == 0) {
         result = [[NSString alloc] initWithData:[outputFile readDataToEndOfFile] encoding:NSUTF8StringEncoding];
         
         if ([result hasPrefix:@"Exported "]) {
-            for (SketchArtboard *artboard in artboards) {
-                NSString *outputFilePath = [[tempDir.path stringByAppendingPathComponent:artboard.objectId] stringByAppendingPathExtension:@"png"];
+            for (SketchOperation *operation in operations) {
+                NSString *outputFilePath = [[tempDir.path stringByAppendingPathComponent:operation.objectId] stringByAppendingPathExtension:@"png"];
                 image = [[NSImage alloc] initWithContentsOfFile:outputFilePath];
-                artboard.image = image;
+                operation.previewImageB = image;
             }
         }
     } else {
@@ -187,72 +194,83 @@ static const BOOL kLoggingEnabled = YES;
     }
 }
 
-- (NSDictionary *)artboardsFromPage:(NSDictionary *)page {
+- (NSDictionary *)layersFromPage:(NSDictionary *)page {
     if(page == nil) {
         return [[NSDictionary alloc] init];
     }
     
-    NSArray *layers = page[@"layers"];
-    NSMutableDictionary *artboards = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *layers = [[NSMutableDictionary alloc] init];
     
-    for (NSDictionary *layer in layers) {
-        if([layer[@"_class"] isEqualToString:@"artboard"] && layer[@"do_objectID"] != nil) {
-            artboards[layer[@"do_objectID"]] = layer;
+    for (NSDictionary *layer in page[@"layers"]) {
+        if(layer[@"do_objectID"] != nil) {
+            layers[layer[@"do_objectID"]] = layer;
         }
     }
     
-    return artboards;
+    return layers;
 }
 
-- (NSArray *)artboardsFromPageA:(SketchPage *)pageA toPageB:(SketchPage *)pageB {
-    NSDictionary *artboardsA = [self artboardsFromPage:pageA.JSON];
-    NSDictionary *artboardsB = [self artboardsFromPage:pageB.JSON];
+- (NSArray *)operationsFromPageA:(SketchPage *)pageA toPageB:(SketchPage *)pageB {
+    NSDictionary *layersA = [self layersFromPage:pageA.JSON];
+    NSDictionary *layersB = [self layersFromPage:pageB.JSON];
     
-    NSMutableSet *artboardIDs = [[NSMutableSet alloc] init];
-    [artboardIDs addObjectsFromArray:[artboardsA allKeys]];
-    [artboardIDs addObjectsFromArray:[artboardsB allKeys]];
+    NSMutableSet *layerIds = [[NSMutableSet alloc] init];
+    [layerIds addObjectsFromArray:[layersA allKeys]];
+    [layerIds addObjectsFromArray:[layersB allKeys]];
 
-    NSMutableArray *artboards = [[NSMutableArray alloc] init];
+    NSMutableArray *operations = [[NSMutableArray alloc] init];
     
-    for (NSString *artboardID in artboardIDs) {
-        NSLog(@"artboard: %@", artboardID);
+    for (NSString *layerId in layerIds) {
+        NSLog(@"artboard: %@", layerId);
         
-        NSDictionary *artboardA = artboardsA[artboardID];
-        NSDictionary *artboardB = artboardsB[artboardID];
+        NSDictionary *layerA = layersA[layerId];
+        NSDictionary *layerB = layersB[layerId];
         
-        if(artboardA == nil && artboardB != nil) {
-            NSLog(@"Artboard added!");
+        if(layerA == nil && layerB != nil) {
+            NSLog(@"Layer added!");
             
-            SketchArtboard *artboard = [[SketchArtboard alloc] initWithJSON:artboardB];
-            artboard.operationType = SketchOperationTypeInsert;
-            [artboards addObject:artboard];
+            SketchOperation *operation = [[SketchOperation alloc] init];
+            operation.type = SketchOperationTypeInsert;
+            operation.layerB = [[SketchLayer alloc] initWithJSON:layerB fromPage:pageB];
+            operation.objectId = operation.layerB.objectId;
+            [operations addObject:operation];
         }
         
-        else if(artboardB == nil && artboardA != nil) {
-            NSLog(@"Artboard deleted!");
+        else if(layerB == nil && layerA != nil) {
+            NSLog(@"Layer deleted!");
             
-            SketchArtboard *artboard = [[SketchArtboard alloc] initWithJSON:artboardA];
-            artboard.operationType = SketchOperationTypeDelete;
-            [artboards addObject:artboard];
+            SketchOperation *operation = [[SketchOperation alloc] init];
+            operation.type = SketchOperationTypeDelete;
+            operation.layerA = [[SketchLayer alloc] initWithJSON:layerA fromPage:pageA];
+            operation.objectId = operation.layerA.objectId;
+            [operations addObject:operation];
         }
         
         else {
-            NSArray *diff = [CoreSync diffAsTransactions:artboardA :artboardB];
+            NSArray *diff = [CoreSync diffAsTransactions:layerA :layerB];
             
             if(diff && [diff count]) {
-                NSLog(@"Artboard changed!");
-                
-                SketchArtboard *artboard = [[SketchArtboard alloc] initWithJSON:artboardB];
-                artboard.operationType = SketchOperationTypeUpdate;
-                [artboards addObject:artboard];
+                NSLog(@"Layer updated!");
+                SketchOperation *operation = [[SketchOperation alloc] init];
+                operation.type = SketchOperationTypeUpdate;
+                operation.layerA = [[SketchLayer alloc] initWithJSON:layerA fromPage:pageA];
+                operation.layerB = [[SketchLayer alloc] initWithJSON:layerB fromPage:pageB];
+                operation.objectId = operation.layerB.objectId;
+                [operations addObject:operation];
             }
             else {
-                NSLog(@"Artboard is the same!");
+                NSLog(@"Layer is the same!");
+                SketchOperation *operation = [[SketchOperation alloc] init];
+                operation.type = SketchOperationTypeNone;
+                operation.layerA = [[SketchLayer alloc] initWithJSON:layerA fromPage:pageA];
+                operation.layerB = [[SketchLayer alloc] initWithJSON:layerB fromPage:pageB];
+                operation.objectId = operation.layerB.objectId;
+                [operations addObject:operation];
             }
         }
     }
     
-    return artboards;
+    return operations;
 }
 
 - (NSArray *)diffFromFile:(NSURL *)fileA to:(NSURL *)fileB {
@@ -272,43 +290,43 @@ static const BOOL kLoggingEnabled = YES;
 
         if(pageA == nil && pageB != nil) {
             NSLog(@"Page added!");
-            SketchPage *page = [[SketchPage alloc] initWithJSON:pageB];
+            SketchPage *page = [[SketchPage alloc] initWithJSON:pageB fileURL:fileB];
             page.operationType = SketchOperationTypeInsert;
-            page.filePathB = fileB.path;
+            page.fileURL = fileB;
             [pages addObject:page];
             
-            NSArray *artboards = [self artboardsFromPageA:nil toPageB:page];
+            NSArray *artboards = [self operationsFromPageA:nil toPageB:page];
             if(artboards) {
-                page.changedArtboards = artboards;
                 [changedArtboards addObjectsFromArray:artboards];
             }
         }
         
         else if(pageB == nil && pageA != nil) {
             NSLog(@"Page deleted!");
-            SketchPage *page = [[SketchPage alloc] initWithJSON:pageA];
+            SketchPage *page = [[SketchPage alloc] initWithJSON:pageA fileURL:fileA];
             page.operationType = SketchOperationTypeDelete;
-            page.filePathA = fileA.path;
+            page.fileURL = fileA;
             [pages addObject:page];
             
-            NSArray *artboards = [self artboardsFromPageA:page toPageB:nil];
+            NSArray *artboards = [self operationsFromPageA:page toPageB:nil];
             if(artboards) {
-                page.changedArtboards = artboards;
                 [changedArtboards addObjectsFromArray:artboards];
             }
         }
         
         else {
             NSLog(@"Page updated!");
-            SketchPage *page = [[SketchPage alloc] initWithJSON:pageB];
-            page.operationType = SketchOperationTypeUpdate;
-            page.filePathA = fileA.path;
-            page.filePathB = fileB.path;
-            [pages addObject:page];
+            SketchPage *pageAA = [[SketchPage alloc] initWithJSON:pageA fileURL:fileA];
+            SketchPage *pageBB = [[SketchPage alloc] initWithJSON:pageB fileURL:fileB];
+            pageAA.operationType = SketchOperationTypeUpdate;
+            pageAA.fileURL = fileA;
+            pageBB.operationType = SketchOperationTypeUpdate;
+            pageBB.fileURL = fileB;
+
+            [pages addObject:pageB];
             
-            NSArray *artboards = [self artboardsFromPageA:[[SketchPage alloc] initWithJSON:pageA] toPageB:[[SketchPage alloc] initWithJSON:pageB]];
+            NSArray *artboards = [self operationsFromPageA:pageAA toPageB:pageBB];
             if(artboards) {
-                page.changedArtboards = artboards;
                 [changedArtboards addObjectsFromArray:artboards];
             }
         }

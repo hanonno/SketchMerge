@@ -10,15 +10,17 @@
 #import "SketchDiffTool.h"
 
 
-@implementation SketchArtboard
+@implementation SketchLayer
 
-- (id)initWithJSON:(NSDictionary *)JSON {
+- (id)initWithJSON:(NSDictionary *)JSON fromPage:(SketchPage *)page {
     self = [super init];
 
     _JSON = JSON;
+    _page = page;
     _objectId = JSON[@"do_objectID"];
+    _objectClass = JSON[@"_class"];
     _image = nil;
-    
+
     return self;
 }
 
@@ -29,27 +31,32 @@
 @end
 
 
+@implementation SketchOperation
+
+@end
+
+
 @implementation SketchPage
 
-- (id)initWithJSON:(NSDictionary *)JSON {
+- (id)initWithJSON:(NSDictionary *)JSON fileURL:(NSURL *)fileURL {
     self = [super init];
     
     _JSON = JSON;
+    _fileURL = fileURL;
     _artboards = nil;
-    _changedArtboards = nil;
     
     return self;
 }
 
-- (void)insertArtboard:(SketchArtboard *)artboard {
+- (void)insertLayer:(SketchLayer *)artboard {
     
 }
 
-- (void)updateArtboard:(SketchArtboard *)artboard {
+- (void)updateLayer:(SketchLayer *)artboard {
     
 }
 
-- (void)deleteArtboard:(SketchArtboard *)artboard {
+- (void)deleteLayer:(SketchLayer *)artboard {
     
 }
 

@@ -12,21 +12,41 @@
 @class SketchArtboardPreviewOperation;
 
 
+@class SketchPage;
+
+
 typedef enum : NSUInteger {
     SketchOperationTypeInsert,
     SketchOperationTypeUpdate,
     SketchOperationTypeDelete,
+    SketchOperationTypeNone
 } SketchOperationType;
 
-@interface SketchArtboard : NSObject
 
-@property (nonatomic, strong) NSDictionary                      *JSON;
-@property (nonatomic, strong) NSImage                           *image;
-@property (nonatomic, strong) NSString                          *name;
-@property (nonatomic, strong) NSString                          *objectId;
-@property (nonatomic, assign) SketchOperationType               operationType;
+@interface SketchLayer : NSObject
 
-- (id)initWithJSON:(NSDictionary *)JSON;
+@property (nonatomic, strong) NSDictionary  *JSON;
+@property (nonatomic, strong) NSImage       *image;
+@property (nonatomic, strong) NSString      *name;
+@property (nonatomic, strong) NSString      *objectId;
+@property (nonatomic, strong) NSString      *objectClass;
+@property (nonatomic, strong) SketchPage    *page;
+
+- (id)initWithJSON:(NSDictionary *)JSON fromPage:(SketchPage *)page;
+
+@end
+
+
+@interface SketchOperation : NSObject
+
+@property (nonatomic, strong) NSString              *objectId;
+@property (nonatomic, assign) SketchOperationType   type;
+
+@property (nonatomic, strong) SketchLayer           *layerA;
+@property (nonatomic, strong) NSImage               *previewImageA;
+
+@property (nonatomic, strong) SketchLayer           *layerB;
+@property (nonatomic, strong) NSImage               *previewImageB;
 
 @end
 
@@ -35,16 +55,14 @@ typedef enum : NSUInteger {
 
 @property (nonatomic, strong) NSDictionary          *JSON;
 @property (nonatomic, strong) NSArray               *artboards;
-@property (nonatomic, strong) NSArray               *changedArtboards;
 @property (nonatomic, assign) SketchOperationType   operationType;
 
-@property (nonatomic, strong) NSString              *filePathA;
-@property (nonatomic, strong) NSString              *filePathB;
+@property (nonatomic, strong) NSURL                 *fileURL;
 
-- (id)initWithJSON:(NSDictionary *)JSON;
+- (id)initWithJSON:(NSDictionary *)JSON fileURL:(NSURL *)fileURL;
 
-- (void)insertArtboard:(SketchArtboard *)artboard;
-- (void)updateArtboard:(SketchArtboard *)artboard;
-- (void)deleteArtboard:(SketchArtboard *)artboard;
+- (void)insertLayer:(SketchLayer *)artboard;
+- (void)updateLayer:(SketchLayer *)artboard;
+- (void)deleteLayer:(SketchLayer *)artboard;
 
 @end

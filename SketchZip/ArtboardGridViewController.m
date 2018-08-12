@@ -49,7 +49,7 @@
 
 @property (strong) NSURL                *fileA;
 @property (strong) NSURL                *fileB;
-@property (strong) NSArray              *artboards;
+@property (strong) NSArray              *operations;
 @property (strong) NSOperationQueue     *artboardPreviewOperationQueue;
 @property (strong) NSProgressIndicator  *progressIndicator;
 
@@ -61,7 +61,7 @@
 - (id)init {
     self = [super init];
     
-    self.artboards = @[];
+    self.operations = @[];
     self.sketchDiffTool = [[SketchDiffTool alloc] init];
     self.artboardPreviewOperationQueue = [[NSOperationQueue alloc] init];
     
@@ -115,16 +115,16 @@
     
     [self.progressIndicator startAnimation:self];
     
-    self.artboards = @[];
+    self.operations = @[];
     [self.collectionView reloadData];
     
     dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
-        NSArray *artboards = [self.sketchDiffTool diffFromFile:fileA to:fileB];
+        NSArray *operations = [self.sketchDiffTool diffFromFile:fileA to:fileB];
         
-        [self.sketchDiffTool generatePreviewsForArtboards:artboards fromFileWithURL:self.fileB];
+        [self.sketchDiffTool generatePreviewsForArtboards:operations];
 
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.artboards = artboards;
+            self.operations = operations;
             
             [self.collectionView reloadData];
             [self.progressIndicator stopAnimation:self];
@@ -132,8 +132,8 @@
     });
 }
 
-- (SketchArtboard *)artboardAtIndexPath:(NSIndexPath *)indexPath {
-    return [self.artboards objectAtIndex:indexPath.item];
+- (SketchOperation *)operationAtIndexPath:(NSIndexPath *)indexPath {
+    return [self.operations objectAtIndex:indexPath.item];
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(NSCollectionView *)collectionView {
@@ -141,24 +141,23 @@
 }
 
 - (NSInteger)collectionView:(NSCollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.artboards.count;
+    return self.operations.count;
 }
 
 - (NSCollectionViewItem *)collectionView:(NSCollectionView *)collectionView itemForRepresentedObjectAtIndexPath:(NSIndexPath *)indexPath {
     ArtboardCollectionViewItem *item = [collectionView makeItemWithIdentifier:@"ArtboardCollectionViewItemIdentifier" forIndexPath:indexPath];
-    SketchArtboard *artboard = [self artboardAtIndexPath:indexPath];
+    SketchOperation *operation = [self operationAtIndexPath:indexPath];
 
-    item.artboard = artboard;
-    item.artboardImageView.image = artboard.image;
+    item.artboardImageView.image = operation.previewImageB;
     
-    if(artboard.operationType == SketchOperationTypeDelete) {
-        item.titleLabel.stringValue = [NSString stringWithFormat:@"Deleted %@", artboard.name];
+    if(operation.type == SketchOperationTypeDelete) {
+        item.titleLabel.stringValue = [NSString stringWithFormat:@"Deleted %@ - %@", operation.layerA.objectClass, operation.layerA.name];
     }
-    else if(artboard.operationType == SketchOperationTypeInsert) {
-        item.titleLabel.stringValue = [NSString stringWithFormat:@"Added %@", artboard.name];
+    else if(operation.type == SketchOperationTypeInsert) {
+        item.titleLabel.stringValue = [NSString stringWithFormat:@"Added %@ - %@",operation.layerB.objectClass, operation.layerB.name];
     }
-    else if(artboard.operationType == SketchOperationTypeUpdate) {
-        item.titleLabel.stringValue = [NSString stringWithFormat:@"Updated %@", artboard.name];
+    else if(operation.type == SketchOperationTypeUpdate) {
+        item.titleLabel.stringValue = [NSString stringWithFormat:@"Updated %@ — %@", operation.layerB.objectClass, operation.layerB.name];
     }
     
     return item;
