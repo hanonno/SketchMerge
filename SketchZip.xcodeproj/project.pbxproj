@@ -55,6 +55,7 @@
 		7D7CCFD221133DD50061EBB0 /* SketchPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D7CCFD121133DD50061EBB0 /* SketchPage.m */; };
 		7D7CCFD42114697A0061EBB0 /* UW-Shipping.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7D7CCFD3211469790061EBB0 /* UW-Shipping.sketch */; };
 		7D7CCFD6211474AF0061EBB0 /* UW-Shipping-B.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7D7CCFD5211474AF0061EBB0 /* UW-Shipping-B.sketch */; };
+		7D828F962122DBCB00ADBD7E /* SketchOperationTypeIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D828F952122DBCB00ADBD7E /* SketchOperationTypeIndicator.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -162,6 +163,8 @@
 		7D7CCFD121133DD50061EBB0 /* SketchPage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SketchPage.m; sourceTree = "<group>"; };
 		7D7CCFD3211469790061EBB0 /* UW-Shipping.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = "UW-Shipping.sketch"; sourceTree = "<group>"; };
 		7D7CCFD5211474AF0061EBB0 /* UW-Shipping-B.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = "UW-Shipping-B.sketch"; sourceTree = "<group>"; };
+		7D828F942122DBCB00ADBD7E /* SketchOperationTypeIndicator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchOperationTypeIndicator.h; sourceTree = "<group>"; };
+		7D828F952122DBCB00ADBD7E /* SketchOperationTypeIndicator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SketchOperationTypeIndicator.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -248,6 +251,8 @@
 				7D7CCFD121133DD50061EBB0 /* SketchPage.m */,
 				5548B89120EF7A9300D3A081 /* ArtboardGridViewController.h */,
 				5548B89220EF7A9300D3A081 /* ArtboardGridViewController.m */,
+				7D828F942122DBCB00ADBD7E /* SketchOperationTypeIndicator.h */,
+				7D828F952122DBCB00ADBD7E /* SketchOperationTypeIndicator.m */,
 				5548B88F20EF72C000D3A081 /* NSImage+PNGAdditions.h */,
 				5548B88E20EF72C000D3A081 /* NSImage+PNGAdditions.m */,
 				55BE526A20ADAE720059EC77 /* TestFile1.sketch */,
@@ -537,6 +542,7 @@
 				5548B88D20EF720E00D3A081 /* SketchFilePlugin.m in Sources */,
 				55BE526420ADAD410059EC77 /* aes_ni.c in Sources */,
 				55BE525E20ADAD410059EC77 /* minishared.c in Sources */,
+				7D828F962122DBCB00ADBD7E /* SketchOperationTypeIndicator.m in Sources */,
 				552F296320EE59AF00A845B2 /* CoreSync.m in Sources */,
 				552F296520EE59AF00A845B2 /* NSMutableDictionary+CoreSync.m in Sources */,
 				55BE526720ADAD410059EC77 /* aestab.c in Sources */,

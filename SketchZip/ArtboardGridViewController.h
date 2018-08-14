@@ -8,13 +8,16 @@
 
 #import <Cocoa/Cocoa.h>
 #import "SketchPage.h"
+#import "SketchOperationTypeIndicator.h"
 
 
 @interface ArtboardCollectionViewItem : NSCollectionViewItem
 
-@property (strong) SketchLayer   *artboard;
-@property (strong) NSTextField      *titleLabel;
-@property (strong) NSImageView      *artboardImageView;
+@property (strong) SketchLayer      *artboard;
+
+@property (strong) NSTextField                      *titleLabel;
+@property (strong) NSImageView                      *artboardImageView;
+@property (strong) SketchOperationTypeIndicator     *statusView;
 
 @end
 
@@ -23,7 +26,7 @@
 
 @property (strong) NSScrollView                 *scrollView;
 @property (strong) NSCollectionView             *collectionView;
-@property (strong) NSCollectionViewGridLayout   *gridLayout;
+@property (strong) NSCollectionViewFlowLayout   *layout;
 
 - (void)loadChangesFromFile:(NSURL *)fileA to:(NSURL *)fileB;
 

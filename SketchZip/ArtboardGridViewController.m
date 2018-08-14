@@ -19,13 +19,15 @@
 - (void)loadView {
     self.view = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, 320, 320)];
     self.view.wantsLayer = YES;
-//    self.view.layer.backgroundColor = [[NSColor redColor] CGColor];
     
     self.artboardImageView = [[NSImageView alloc] initWithFrame:NSMakeRect(0, 0, 320, 320)];
     self.artboardImageView.wantsLayer = YES;
     self.artboardImageView.layer.backgroundColor = [[NSColor colorWithCalibratedWhite:0.9 alpha:1.0] CGColor];
     self.artboardImageView.layer.cornerRadius = 4;
     [self.view addSubview:self.artboardImageView];
+    
+    self.statusView = [[SketchOperationTypeIndicator alloc] init];
+    [self.view addSubview:self.statusView];
     
     self.titleLabel = [NSTextField labelWithString:@"Test"];
     self.titleLabel.alignment = NSTextAlignmentCenter;
@@ -36,7 +38,12 @@
     [self.artboardImageView autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, 0, 0, 0) excludingEdge:ALEdgeBottom];
     [self.artboardImageView autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:self.titleLabel withOffset:-4];
     
-    [self.titleLabel autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, 0, 0, 0) excludingEdge:ALEdgeTop];
+    [self.statusView autoSetDimensionsToSize:CGSizeMake(12, 12)];
+    [self.statusView autoPinEdgeToSuperviewEdge:ALEdgeLeft];
+    [self.statusView autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:8];
+    
+    [self.titleLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:self.statusView withOffset:4];
+    [self.titleLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self.statusView];
     [self.titleLabel autoSetDimension:ALDimensionHeight toSize:22];
 }
 
@@ -50,6 +57,7 @@
 @property (strong) NSURL                *fileA;
 @property (strong) NSURL                *fileB;
 @property (strong) NSArray              *operations;
+@property (strong) NSDictionary         *operationsByType;
 @property (strong) NSOperationQueue     *artboardPreviewOperationQueue;
 @property (strong) NSProgressIndicator  *progressIndicator;
 
@@ -73,21 +81,18 @@
     
     self.scrollView = [[NSScrollView alloc] initWithFrame:NSMakeRect(0, 0, 640, 640)];
     self.scrollView.backgroundColor = [NSColor redColor];
-//    self.scrollView.automaticallyAdjustsContentInsets = NO;
-//    self.scrollView.contentInsets = NSEdgeInsetsMake(16, 16, 16, 16);
     [self.view addSubview:self.scrollView];
     
-    self.gridLayout = [[NSCollectionViewGridLayout alloc] init];
-    self.gridLayout.minimumItemSize = NSMakeSize(240-16, 240-16);
-    self.gridLayout.maximumItemSize = NSMakeSize(64, 64);
-    self.gridLayout.minimumLineSpacing = 16;
-    self.gridLayout.minimumInteritemSpacing = 16;
-    self.gridLayout.margins = NSEdgeInsetsMake(16, 16, 16, 16);
+    self.layout = [[NSCollectionViewFlowLayout alloc] init];
+    self.layout.itemSize = NSMakeSize(240, 240);
+    self.layout.minimumLineSpacing = 16;
+    self.layout.minimumInteritemSpacing = 16;
+    self.layout.sectionInset = NSEdgeInsetsMake(16, 16, 16, 16);
     
     self.collectionView = [[NSCollectionView alloc] initWithFrame:self.view.bounds];
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
-    self.collectionView.collectionViewLayout = self.gridLayout;
+    self.collectionView.collectionViewLayout = self.layout;
     [self.collectionView registerClass:[ArtboardCollectionViewItem class] forItemWithIdentifier:@"ArtboardCollectionViewItemIdentifier"];
     self.scrollView.documentView = self.collectionView;
     
@@ -149,17 +154,15 @@
     SketchOperation *operation = [self operationAtIndexPath:indexPath];
 
     item.artboardImageView.image = operation.previewImageB;
+    item.statusView.type = operation.type;
     
     if(operation.type == SketchOperationTypeDelete) {
-        item.titleLabel.stringValue = [NSString stringWithFormat:@"Deleted %@ - %@", operation.layerA.objectClass, operation.layerA.name];
+        item.titleLabel.stringValue = [NSString stringWithFormat:@"%@ - %@", operation.layerA.objectClass, operation.layerA.name];
     }
-    else if(operation.type == SketchOperationTypeInsert) {
-        item.titleLabel.stringValue = [NSString stringWithFormat:@"Added %@ - %@",operation.layerB.objectClass, operation.layerB.name];
+    else {
+        item.titleLabel.stringValue = [NSString stringWithFormat:@"%@ - %@",operation.layerB.objectClass, operation.layerB.name];
     }
-    else if(operation.type == SketchOperationTypeUpdate) {
-        item.titleLabel.stringValue = [NSString stringWithFormat:@"Updated %@ — %@", operation.layerB.objectClass, operation.layerB.name];
-    }
-    
+
     return item;
 }
 
