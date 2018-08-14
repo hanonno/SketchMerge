@@ -38,12 +38,12 @@
 
 @implementation SketchPage
 
-- (id)initWithJSON:(NSDictionary *)JSON fileURL:(NSURL *)fileURL {
+- (id)initWithJSON:(NSDictionary *)JSON sketchFile:(SketchFile *)sketchFile {
     self = [super init];
     
     _JSON = JSON;
     _name = JSON[@"name"];
-    _fileURL = fileURL;
+    _sketchFile = sketchFile;
     _operations = nil;
     
     return self;
@@ -59,6 +59,22 @@
 
 - (void)deleteLayer:(SketchLayer *)artboard {
     
+}
+
+@end
+
+
+
+@implementation SketchFile
+
++ (SketchFile *)readFromURL:(NSURL *)fileURL {
+    SketchFile *sketchFile = [[SketchFile alloc] init];
+    sketchFile.fileURL = fileURL;
+    
+    SketchDiffTool *sketchDiffTool = [[SketchDiffTool alloc] init];
+    sketchFile.pages = [sketchDiffTool pagesFromFileAtURL:sketchFile.fileURL];
+    
+    return sketchFile;
 }
 
 @end

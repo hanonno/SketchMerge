@@ -144,7 +144,7 @@ static const BOOL kLoggingEnabled = YES;
         NSString *objectId = operation.objectId;
         
         if(filePath == nil) {
-            filePath = operation.layerB.page.fileURL.path;
+            filePath = operation.layerB.page.sketchFile.fileURL.path;
         }
         
         if(objectId != nil) {
@@ -277,9 +277,9 @@ static const BOOL kLoggingEnabled = YES;
     return operations;
 }
 
-- (NSArray *)diffFromFile:(NSURL *)fileA to:(NSURL *)fileB {
-    NSDictionary *pagesA = [self pagesFromFileAtURL:fileA];
-    NSDictionary *pagesB = [self pagesFromFileAtURL:fileB];
+- (NSArray *)diffFromFile:(SketchFile *)fileA to:(SketchFile *)fileB {
+    NSDictionary *pagesA = fileA.pages;
+    NSDictionary *pagesB = fileB.pages;
     
     NSMutableArray *pages = [[NSMutableArray alloc] init];
     NSMutableSet *pageIDs = [[NSMutableSet alloc] init];
@@ -293,30 +293,26 @@ static const BOOL kLoggingEnabled = YES;
 
         if(pageA == nil && pageB != nil) {
             NSLog(@"Page added!");
-            SketchPage *page = [[SketchPage alloc] initWithJSON:pageB fileURL:fileB];
+            SketchPage *page = [[SketchPage alloc] initWithJSON:pageB sketchFile:fileB];
             page.operationType = SketchOperationTypeInsert;
-            page.fileURL = fileB;
             page.operations = [self operationsFromPageA:nil toPageB:page];
             [pages addObject:page];
         }
         
         else if(pageB == nil && pageA != nil) {
             NSLog(@"Page deleted!");
-            SketchPage *page = [[SketchPage alloc] initWithJSON:pageA fileURL:fileA];
+            SketchPage *page = [[SketchPage alloc] initWithJSON:pageA sketchFile:fileA];
             page.operationType = SketchOperationTypeDelete;
-            page.fileURL = fileA;
             page.operations = [self operationsFromPageA:page toPageB:nil];
             [pages addObject:page];
         }
         
         else {
             NSLog(@"Page updated!");
-            SketchPage *pageAA = [[SketchPage alloc] initWithJSON:pageA fileURL:fileA];
-            SketchPage *pageBB = [[SketchPage alloc] initWithJSON:pageB fileURL:fileB];
+            SketchPage *pageAA = [[SketchPage alloc] initWithJSON:pageA sketchFile:fileA];
+            SketchPage *pageBB = [[SketchPage alloc] initWithJSON:pageB sketchFile:fileB];
             pageAA.operationType = SketchOperationTypeUpdate;
-            pageAA.fileURL = fileA;
             pageBB.operationType = SketchOperationTypeUpdate;
-            pageBB.fileURL = fileB;
             pageBB.operations = [self operationsFromPageA:pageAA toPageB:pageBB];
             
             [pages addObject:pageBB];

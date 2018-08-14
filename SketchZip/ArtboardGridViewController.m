@@ -68,7 +68,7 @@
     self = [super initWithFrame:frame];
     
     self.wantsLayer = YES;
-    self.layer.backgroundColor = [[NSColor lightGrayColor] CGColor];
+    self.layer.backgroundColor = [[NSColor colorWithCalibratedWhite:0.951 alpha:1.000] CGColor];
     
     self.titleLabel = [NSTextField labelWithString:@"Page Name"];
     [self addSubview:self.titleLabel];
