@@ -19,7 +19,7 @@ typedef enum : NSUInteger {
     SketchOperationTypeInsert,
     SketchOperationTypeUpdate,
     SketchOperationTypeDelete,
-    SketchOperationTypeNone
+    SketchOperationTypeIgnore
 } SketchOperationType;
 
 
@@ -54,7 +54,9 @@ typedef enum : NSUInteger {
 @interface SketchPage : NSObject
 
 @property (nonatomic, strong) NSDictionary          *JSON;
-@property (nonatomic, strong) NSArray               *artboards;
+
+@property (nonatomic, strong) NSString              *name;
+@property (nonatomic, strong) NSArray               *operations;
 @property (nonatomic, assign) SketchOperationType   operationType;
 
 @property (nonatomic, strong) NSURL                 *fileURL;

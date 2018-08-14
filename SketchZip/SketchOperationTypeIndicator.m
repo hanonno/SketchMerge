@@ -27,7 +27,7 @@
             color = [NSColor colorWithRed:0.998 green:0.231 blue:0.187 alpha:1];
             break;
             
-        case SketchOperationTypeNone:
+        case SketchOperationTypeIgnore:
             color = [NSColor colorWithRed:0.900 green:0.900 blue:0.900 alpha:1];
             break;
     }

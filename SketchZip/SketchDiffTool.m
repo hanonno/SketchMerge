@@ -129,6 +129,10 @@ static const BOOL kLoggingEnabled = YES;
 //}
 
 - (void)generatePreviewsForArtboards:(NSArray *)operations {
+    if(operations == nil || operations.count == 0) {
+        return;
+    }
+    
     NSImage *image;
     NSURL *tempDir = [NSURL fileURLWithPath:NSTemporaryDirectory()];
     tempDir = [tempDir URLByAppendingPathComponent:[NSUUID UUID].UUIDString];
@@ -261,7 +265,7 @@ static const BOOL kLoggingEnabled = YES;
             else {
                 NSLog(@"Layer is the same!");
                 SketchOperation *operation = [[SketchOperation alloc] init];
-                operation.type = SketchOperationTypeNone;
+                operation.type = SketchOperationTypeIgnore;
                 operation.layerA = [[SketchLayer alloc] initWithJSON:layerA fromPage:pageA];
                 operation.layerB = [[SketchLayer alloc] initWithJSON:layerB fromPage:pageB];
                 operation.objectId = operation.layerB.objectId;
@@ -278,7 +282,6 @@ static const BOOL kLoggingEnabled = YES;
     NSDictionary *pagesB = [self pagesFromFileAtURL:fileB];
     
     NSMutableArray *pages = [[NSMutableArray alloc] init];
-    NSMutableArray *changedArtboards = [[NSMutableArray alloc] init];
     NSMutableSet *pageIDs = [[NSMutableSet alloc] init];
     
     [pageIDs addObjectsFromArray:[pagesA allKeys]];
@@ -293,12 +296,8 @@ static const BOOL kLoggingEnabled = YES;
             SketchPage *page = [[SketchPage alloc] initWithJSON:pageB fileURL:fileB];
             page.operationType = SketchOperationTypeInsert;
             page.fileURL = fileB;
+            page.operations = [self operationsFromPageA:nil toPageB:page];
             [pages addObject:page];
-            
-            NSArray *artboards = [self operationsFromPageA:nil toPageB:page];
-            if(artboards) {
-                [changedArtboards addObjectsFromArray:artboards];
-            }
         }
         
         else if(pageB == nil && pageA != nil) {
@@ -306,12 +305,8 @@ static const BOOL kLoggingEnabled = YES;
             SketchPage *page = [[SketchPage alloc] initWithJSON:pageA fileURL:fileA];
             page.operationType = SketchOperationTypeDelete;
             page.fileURL = fileA;
+            page.operations = [self operationsFromPageA:page toPageB:nil];
             [pages addObject:page];
-            
-            NSArray *artboards = [self operationsFromPageA:page toPageB:nil];
-            if(artboards) {
-                [changedArtboards addObjectsFromArray:artboards];
-            }
         }
         
         else {
@@ -322,17 +317,13 @@ static const BOOL kLoggingEnabled = YES;
             pageAA.fileURL = fileA;
             pageBB.operationType = SketchOperationTypeUpdate;
             pageBB.fileURL = fileB;
-
-            [pages addObject:pageB];
+            pageBB.operations = [self operationsFromPageA:pageAA toPageB:pageBB];
             
-            NSArray *artboards = [self operationsFromPageA:pageAA toPageB:pageBB];
-            if(artboards) {
-                [changedArtboards addObjectsFromArray:artboards];
-            }
+            [pages addObject:pageBB];
         }
     }
     
-    return changedArtboards;
+    return pages;
 }
 
 @end

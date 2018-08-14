@@ -56,6 +56,12 @@
 		7D7CCFD42114697A0061EBB0 /* UW-Shipping.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7D7CCFD3211469790061EBB0 /* UW-Shipping.sketch */; };
 		7D7CCFD6211474AF0061EBB0 /* UW-Shipping-B.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7D7CCFD5211474AF0061EBB0 /* UW-Shipping-B.sketch */; };
 		7D828F962122DBCB00ADBD7E /* SketchOperationTypeIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D828F952122DBCB00ADBD7E /* SketchOperationTypeIndicator.m */; };
+		7D828FA12122E27E00ADBD7E /* Sketch-Root.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7D828F9E2122E27E00ADBD7E /* Sketch-Root.sketch */; };
+		7D828FA22122E27E00ADBD7E /* Sketch-Root.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7D828F9E2122E27E00ADBD7E /* Sketch-Root.sketch */; };
+		7D828FA32122E27E00ADBD7E /* Sketch-A.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7D828F9F2122E27E00ADBD7E /* Sketch-A.sketch */; };
+		7D828FA42122E27E00ADBD7E /* Sketch-A.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7D828F9F2122E27E00ADBD7E /* Sketch-A.sketch */; };
+		7D828FA52122E27E00ADBD7E /* Sketch-B.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7D828FA02122E27E00ADBD7E /* Sketch-B.sketch */; };
+		7D828FA62122E27E00ADBD7E /* Sketch-B.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7D828FA02122E27E00ADBD7E /* Sketch-B.sketch */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -165,6 +171,9 @@
 		7D7CCFD5211474AF0061EBB0 /* UW-Shipping-B.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = "UW-Shipping-B.sketch"; sourceTree = "<group>"; };
 		7D828F942122DBCB00ADBD7E /* SketchOperationTypeIndicator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchOperationTypeIndicator.h; sourceTree = "<group>"; };
 		7D828F952122DBCB00ADBD7E /* SketchOperationTypeIndicator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SketchOperationTypeIndicator.m; sourceTree = "<group>"; };
+		7D828F9E2122E27E00ADBD7E /* Sketch-Root.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sketch-Root.sketch"; sourceTree = "<group>"; };
+		7D828F9F2122E27E00ADBD7E /* Sketch-A.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sketch-A.sketch"; sourceTree = "<group>"; };
+		7D828FA02122E27E00ADBD7E /* Sketch-B.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sketch-B.sketch"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -255,6 +264,7 @@
 				7D828F952122DBCB00ADBD7E /* SketchOperationTypeIndicator.m */,
 				5548B88F20EF72C000D3A081 /* NSImage+PNGAdditions.h */,
 				5548B88E20EF72C000D3A081 /* NSImage+PNGAdditions.m */,
+				7D828F9D2122E0E300ADBD7E /* Sketch */,
 				55BE526A20ADAE720059EC77 /* TestFile1.sketch */,
 				552F296620EE77C500A845B2 /* Artboards-Root.sketch */,
 				552F295220EE3D0A00A845B2 /* Artboards-A.sketch */,
@@ -358,6 +368,16 @@
 				55BE525320ADAD410059EC77 /* fileenc.h */,
 			);
 			path = aes;
+			sourceTree = "<group>";
+		};
+		7D828F9D2122E0E300ADBD7E /* Sketch */ = {
+			isa = PBXGroup;
+			children = (
+				7D828F9F2122E27E00ADBD7E /* Sketch-A.sketch */,
+				7D828FA02122E27E00ADBD7E /* Sketch-B.sketch */,
+				7D828F9E2122E27E00ADBD7E /* Sketch-Root.sketch */,
+			);
+			path = Sketch;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -467,7 +487,9 @@
 				552F295320EE3D0A00A845B2 /* Artboards-A.sketch in Resources */,
 				552F296720EE77C500A845B2 /* Artboards-Root.sketch in Resources */,
 				5548B89C20F3708000D3A081 /* Cartfile in Resources */,
+				7D828FA32122E27E00ADBD7E /* Sketch-A.sketch in Resources */,
 				7D7CCFCF21133C630061EBB0 /* Version-6.sketch in Resources */,
+				7D828FA52122E27E00ADBD7E /* Sketch-B.sketch in Resources */,
 				55BE526920ADAD410059EC77 /* Info.plist in Resources */,
 				7D7CCFC721133AB60061EBB0 /* Version-1.sketch in Resources */,
 				55BE526B20ADAE720059EC77 /* TestFile1.sketch in Resources */,
@@ -475,6 +497,7 @@
 				55BE520320ADABFD0059EC77 /* Assets.xcassets in Resources */,
 				7D7CCFC921133BAB0061EBB0 /* Version-3.sketch in Resources */,
 				7D7CCFC621133AB60061EBB0 /* Version-2.sketch in Resources */,
+				7D828FA12122E27E00ADBD7E /* Sketch-Root.sketch in Resources */,
 				7D7CCFCD21133C160061EBB0 /* Version-5.sketch in Resources */,
 				55BE520620ADABFD0059EC77 /* MainMenu.xib in Resources */,
 				7D7CCFD42114697A0061EBB0 /* UW-Shipping.sketch in Resources */,
@@ -487,6 +510,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D828FA22122E27E00ADBD7E /* Sketch-Root.sketch in Resources */,
+				7D828FA62122E27E00ADBD7E /* Sketch-B.sketch in Resources */,
+				7D828FA42122E27E00ADBD7E /* Sketch-A.sketch in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

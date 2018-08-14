@@ -13,11 +13,16 @@
 
 @interface ArtboardCollectionViewItem : NSCollectionViewItem
 
-@property (strong) SketchLayer      *artboard;
-
 @property (strong) NSTextField                      *titleLabel;
 @property (strong) NSImageView                      *artboardImageView;
 @property (strong) SketchOperationTypeIndicator     *statusView;
+
+@end
+
+
+@interface PageHeaderView : NSView
+
+@property (strong) NSTextField  *titleLabel;
 
 @end
 
@@ -27,7 +32,12 @@
 @property (strong) NSScrollView                 *scrollView;
 @property (strong) NSCollectionView             *collectionView;
 @property (strong) NSCollectionViewFlowLayout   *layout;
+@property (strong) NSArray                      *pages;
 
-- (void)loadChangesFromFile:(NSURL *)fileA to:(NSURL *)fileB;
+
+- (void)startLoading;
+- (void)finishLoading;
+
+- (void)collapseAll;
 
 @end

@@ -42,8 +42,9 @@
     self = [super init];
     
     _JSON = JSON;
+    _name = JSON[@"name"];
     _fileURL = fileURL;
-    _artboards = nil;
+    _operations = nil;
     
     return self;
 }

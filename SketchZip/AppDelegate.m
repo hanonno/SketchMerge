@@ -22,6 +22,8 @@
 @property (weak) IBOutlet NSWindow              *window;
 @property (strong) ArtboardGridViewController   *artboardGridViewController;
 
+@property (strong) SketchDiffTool               *sketchDiffTool;
+
 @property (strong) NSURL                        *rootFileURL;
 @property (strong) NSURL                        *changedFileURL;
 
@@ -30,6 +32,7 @@
 @implementation AppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)notification {
+    self.sketchDiffTool = [[SketchDiffTool alloc] init];
     
     self.artboardGridViewController = [[ArtboardGridViewController alloc] init];
     [self.window.contentView addSubview:self.artboardGridViewController.view];
@@ -67,10 +70,26 @@
 //    NSURL *rootFileURL = self.rootFileURL ? self.rootFileURL : [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"UW-Shipping" ofType:@"sketch"]];
 //    NSURL *changedFileURL = self.changedFileURL ? self.changedFileURL : [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"UW-Shipping-B" ofType:@"sketch"]];
 
-    NSURL *rootFileURL = self.rootFileURL ? self.rootFileURL : [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Version-1" ofType:@"sketch"]];
-    NSURL *changedFileURL = self.changedFileURL ? self.changedFileURL : [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"UW-Shipping-B" ofType:@"sketch"]];
+    NSURL *fileRoot = self.rootFileURL ? self.rootFileURL : [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Sketch-Root" ofType:@"sketch"]];
+    NSURL *fileA = self.changedFileURL ? self.changedFileURL : [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Sketch-A" ofType:@"sketch"]];
+    NSURL *fileB = self.changedFileURL ? self.changedFileURL : [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Sketch-B" ofType:@"sketch"]];
     
-    [self.artboardGridViewController loadChangesFromFile:rootFileURL to:changedFileURL];
+    [self.artboardGridViewController startLoading];
+    
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+        NSArray *pagesA = [self.sketchDiffTool diffFromFile:fileRoot to:fileA];
+        NSArray *pagesB = [self.sketchDiffTool diffFromFile:fileRoot to:fileB];
+
+        SketchPage *pageA = pagesA.firstObject;
+        
+        [self.sketchDiffTool generatePreviewsForArtboards:pageA.operations];
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.artboardGridViewController.pages = pagesA;
+            [self.artboardGridViewController.collectionView reloadData];
+            [self.artboardGridViewController finishLoading];
+        });
+    });
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {

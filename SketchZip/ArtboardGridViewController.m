@@ -14,8 +14,6 @@
 
 @implementation ArtboardCollectionViewItem
 
-@synthesize artboard = _artboard;
-
 - (void)loadView {
     self.view = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, 320, 320)];
     self.view.wantsLayer = YES;
@@ -24,6 +22,7 @@
     self.artboardImageView.wantsLayer = YES;
     self.artboardImageView.layer.backgroundColor = [[NSColor colorWithCalibratedWhite:0.9 alpha:1.0] CGColor];
     self.artboardImageView.layer.cornerRadius = 4;
+    self.artboardImageView.layer.borderWidth = 2;
     [self.view addSubview:self.artboardImageView];
     
     self.statusView = [[SketchOperationTypeIndicator alloc] init];
@@ -45,6 +44,40 @@
     [self.titleLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:self.statusView withOffset:4];
     [self.titleLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self.statusView];
     [self.titleLabel autoSetDimension:ALDimensionHeight toSize:22];
+    
+    self.selected = NO;
+}
+
+- (void)setSelected:(BOOL)selected {
+    [super setSelected:selected];
+    
+    if(selected) {
+        self.artboardImageView.layer.borderColor = [[NSColor redColor] CGColor];
+    }
+    else {
+        self.artboardImageView.layer.borderColor = [[NSColor greenColor] CGColor];
+    }
+}
+
+@end
+
+
+@implementation PageHeaderView
+
+- (id)initWithFrame:(NSRect)frame {
+    self = [super initWithFrame:frame];
+    
+    self.wantsLayer = YES;
+    self.layer.backgroundColor = [[NSColor lightGrayColor] CGColor];
+    
+    self.titleLabel = [NSTextField labelWithString:@"Page Name"];
+    [self addSubview:self.titleLabel];
+    
+    [self.titleLabel autoAlignAxisToSuperviewAxis:ALAxisHorizontal];
+    [self.titleLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:16];
+    [self.titleLabel autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:16];
+    
+    return self;
 }
 
 @end
@@ -54,10 +87,6 @@
 
 @property (strong) SketchDiffTool       *sketchDiffTool;
 
-@property (strong) NSURL                *fileA;
-@property (strong) NSURL                *fileB;
-@property (strong) NSArray              *operations;
-@property (strong) NSDictionary         *operationsByType;
 @property (strong) NSOperationQueue     *artboardPreviewOperationQueue;
 @property (strong) NSProgressIndicator  *progressIndicator;
 
@@ -69,7 +98,7 @@
 - (id)init {
     self = [super init];
     
-    self.operations = @[];
+    self.pages = @[];
     self.sketchDiffTool = [[SketchDiffTool alloc] init];
     self.artboardPreviewOperationQueue = [[NSOperationQueue alloc] init];
     
@@ -87,13 +116,18 @@
     self.layout.itemSize = NSMakeSize(240, 240);
     self.layout.minimumLineSpacing = 16;
     self.layout.minimumInteritemSpacing = 16;
+    self.layout.headerReferenceSize = NSMakeSize(320, 44);
     self.layout.sectionInset = NSEdgeInsetsMake(16, 16, 16, 16);
+    self.layout.sectionHeadersPinToVisibleBounds = YES;
     
     self.collectionView = [[NSCollectionView alloc] initWithFrame:self.view.bounds];
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
     self.collectionView.collectionViewLayout = self.layout;
+    self.collectionView.selectable = YES;
+    self.collectionView.allowsMultipleSelection = YES;
     [self.collectionView registerClass:[ArtboardCollectionViewItem class] forItemWithIdentifier:@"ArtboardCollectionViewItemIdentifier"];
+    [self.collectionView registerClass:[PageHeaderView class] forSupplementaryViewOfKind:NSCollectionElementKindSectionHeader withIdentifier:@"PageHeaderViewIdentifier"];
     self.scrollView.documentView = self.collectionView;
     
     self.progressIndicator = [[NSProgressIndicator alloc] init];
@@ -109,44 +143,42 @@
     [self.scrollView autoPinEdgesToSuperviewEdges];
 }
 
-- (void)loadChangesFromFile:(NSURL *)fileA to:(NSURL *)fileB {
-    self.fileA = fileA;
-    self.fileB = fileB;
-    
-    [self.progressIndicator setFrameOrigin:NSMakePoint(
-        (NSWidth([self.progressIndicator.superview bounds]) - NSWidth([self.progressIndicator frame])) / 2,
-        (NSHeight([self.progressIndicator.superview bounds]) - NSHeight([self.progressIndicator frame])) / 2
-    )];
-    
-    [self.progressIndicator startAnimation:self];
-    
-    self.operations = @[];
+- (void)startLoading {
+    self.pages = @[];
     [self.collectionView reloadData];
     
-    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
-        NSArray *operations = [self.sketchDiffTool diffFromFile:fileA to:fileB];
-        
-        [self.sketchDiffTool generatePreviewsForArtboards:operations];
+    [self.progressIndicator setFrameOrigin:NSMakePoint(
+       (NSWidth([self.progressIndicator.superview bounds]) - NSWidth([self.progressIndicator frame])) / 2,
+       (NSHeight([self.progressIndicator.superview bounds]) - NSHeight([self.progressIndicator frame])) / 2
+   )];
+    
+    [self.progressIndicator startAnimation:self];
+}
 
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.operations = operations;
-            
-            [self.collectionView reloadData];
-            [self.progressIndicator stopAnimation:self];
-        });
-    });
+- (void)finishLoading {
+    [self.progressIndicator stopAnimation:self];
+}
+
+- (void)collapseAll {
+    NSInteger index = 0, count = self.pages.count;
+    
+    for (index = 0; index < count; index++) {
+        [self.layout collapseSectionAtIndex:index];
+    }
 }
 
 - (SketchOperation *)operationAtIndexPath:(NSIndexPath *)indexPath {
-    return [self.operations objectAtIndex:indexPath.item];
+    SketchPage *page = [self.pages objectAtIndex:indexPath.section];
+    return [page.operations objectAtIndex:indexPath.item];
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(NSCollectionView *)collectionView {
-    return 1;
+    return self.pages.count;
 }
 
 - (NSInteger)collectionView:(NSCollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.operations.count;
+    SketchPage *page = [self.pages objectAtIndex:section];
+    return page.operations.count;
 }
 
 - (NSCollectionViewItem *)collectionView:(NSCollectionView *)collectionView itemForRepresentedObjectAtIndexPath:(NSIndexPath *)indexPath {
@@ -164,6 +196,16 @@
     }
 
     return item;
+}
+
+- (NSView *)collectionView:(NSCollectionView *)collectionView viewForSupplementaryElementOfKind:(NSCollectionViewSupplementaryElementKind)kind atIndexPath:(NSIndexPath *)indexPath {
+    PageHeaderView *headerView = [collectionView makeSupplementaryViewOfKind:NSCollectionElementKindSectionHeader withIdentifier:@"PageHeaderViewIdentifier" forIndexPath:indexPath];
+    
+    SketchPage *page = [self.pages objectAtIndex:indexPath.section];
+    
+    headerView.titleLabel.stringValue = page.name;
+    
+    return headerView;
 }
 
 - (void)collectionView:(NSCollectionView *)collectionView didSelectItemsAtIndexPaths:(NSSet<NSIndexPath *> *)indexPaths {

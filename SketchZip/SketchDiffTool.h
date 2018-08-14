@@ -22,6 +22,7 @@
 - (void)generatePreviewsForArtboards:(NSArray *)artboards;
 
 - (NSArray *)diffFromFile:(NSURL *)fileA to:(NSURL *)fileB;
+//- (NSArray *)operationsFromRoot:(NSURL *)fileRoot toA:(NSURL *)fileA toB:(NSURL *)fileB;
 
 @end
 
