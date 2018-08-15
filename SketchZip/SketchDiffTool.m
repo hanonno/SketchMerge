@@ -15,6 +15,9 @@
 
 static const BOOL kLoggingEnabled = YES;
 
+@implementation SketchDiff
+@end
+
 
 @implementation SketchDiffTool
 
@@ -222,7 +225,11 @@ static const BOOL kLoggingEnabled = YES;
     [layerIds addObjectsFromArray:[layersA allKeys]];
     [layerIds addObjectsFromArray:[layersB allKeys]];
 
-    NSMutableArray *operations = [[NSMutableArray alloc] init];
+    NSMutableArray *insertOperations = [[NSMutableArray alloc] init];
+    NSMutableArray *updateOperations = [[NSMutableArray alloc] init];
+    NSMutableArray *deleteOperations = [[NSMutableArray alloc] init];
+    NSMutableArray *ignoreOperations = [[NSMutableArray alloc] init];
+    NSMutableArray *allOperations = [[NSMutableArray alloc] init];
     
     for (NSString *layerId in layerIds) {
         NSLog(@"artboard: %@", layerId);
@@ -237,7 +244,8 @@ static const BOOL kLoggingEnabled = YES;
             operation.type = SketchOperationTypeInsert;
             operation.layerB = [[SketchLayer alloc] initWithJSON:layerB fromPage:pageB];
             operation.objectId = operation.layerB.objectId;
-            [operations addObject:operation];
+            [insertOperations addObject:operation];
+            [allOperations addObject:operation];
         }
         
         else if(layerB == nil && layerA != nil) {
@@ -247,7 +255,8 @@ static const BOOL kLoggingEnabled = YES;
             operation.type = SketchOperationTypeDelete;
             operation.layerA = [[SketchLayer alloc] initWithJSON:layerA fromPage:pageA];
             operation.objectId = operation.layerA.objectId;
-            [operations addObject:operation];
+            [deleteOperations addObject:operation];
+            [allOperations addObject:operation];
         }
         
         else {
@@ -260,7 +269,8 @@ static const BOOL kLoggingEnabled = YES;
                 operation.layerA = [[SketchLayer alloc] initWithJSON:layerA fromPage:pageA];
                 operation.layerB = [[SketchLayer alloc] initWithJSON:layerB fromPage:pageB];
                 operation.objectId = operation.layerB.objectId;
-                [operations addObject:operation];
+                [updateOperations addObject:operation];
+                [allOperations addObject:operation];
             }
             else {
                 NSLog(@"Layer is the same!");
@@ -269,19 +279,31 @@ static const BOOL kLoggingEnabled = YES;
                 operation.layerA = [[SketchLayer alloc] initWithJSON:layerA fromPage:pageA];
                 operation.layerB = [[SketchLayer alloc] initWithJSON:layerB fromPage:pageB];
                 operation.objectId = operation.layerB.objectId;
-                [operations addObject:operation];
+                [ignoreOperations addObject:operation];
+                [allOperations addObject:operation];
             }
         }
     }
     
-    return operations;
+    SketchDiff *diff = [[SketchDiff alloc] init];
+    diff.insertOperations = insertOperations;
+    diff.updateOperations = updateOperations;
+    diff.deleteOperations = deleteOperations;
+    diff.ignoreOperations = ignoreOperations;
+    
+    return allOperations;
 }
 
-- (NSArray *)diffFromFile:(SketchFile *)fileA to:(SketchFile *)fileB {
+- (SketchDiff *)diffFromFile:(SketchFile *)fileA to:(SketchFile *)fileB {
     NSDictionary *pagesA = fileA.pages;
     NSDictionary *pagesB = fileB.pages;
     
-    NSMutableArray *pages = [[NSMutableArray alloc] init];
+    NSMutableArray *insertOperations = [[NSMutableArray alloc] init];
+    NSMutableArray *updateOperations = [[NSMutableArray alloc] init];
+    NSMutableArray *deleteOperations = [[NSMutableArray alloc] init];
+    NSMutableArray *ignoreOperations = [[NSMutableArray alloc] init];
+    NSMutableArray *allOperations = [[NSMutableArray alloc] init];
+
     NSMutableSet *pageIDs = [[NSMutableSet alloc] init];
     
     [pageIDs addObjectsFromArray:[pagesA allKeys]];
@@ -296,7 +318,8 @@ static const BOOL kLoggingEnabled = YES;
             SketchPage *page = [[SketchPage alloc] initWithJSON:pageB sketchFile:fileB];
             page.operationType = SketchOperationTypeInsert;
             page.operations = [self operationsFromPageA:nil toPageB:page];
-            [pages addObject:page];
+            [insertOperations addObject:page];
+            [allOperations addObject:page];
         }
         
         else if(pageB == nil && pageA != nil) {
@@ -304,7 +327,8 @@ static const BOOL kLoggingEnabled = YES;
             SketchPage *page = [[SketchPage alloc] initWithJSON:pageA sketchFile:fileA];
             page.operationType = SketchOperationTypeDelete;
             page.operations = [self operationsFromPageA:page toPageB:nil];
-            [pages addObject:page];
+            [deleteOperations addObject:page];
+            [allOperations addObject:page];
         }
         
         else {
@@ -314,12 +338,19 @@ static const BOOL kLoggingEnabled = YES;
             pageAA.operationType = SketchOperationTypeUpdate;
             pageBB.operationType = SketchOperationTypeUpdate;
             pageBB.operations = [self operationsFromPageA:pageAA toPageB:pageBB];
-            
-            [pages addObject:pageBB];
+            [updateOperations addObject:pageBB];
+            [allOperations addObject:pageBB];
         }
     }
     
-    return pages;
+    SketchDiff *diff = [[SketchDiff alloc] init];
+    diff.insertOperations = insertOperations;
+    diff.updateOperations = updateOperations;
+    diff.deleteOperations = deleteOperations;
+    diff.ignoreOperations = ignoreOperations;
+    diff.allOperations = allOperations;
+    
+    return diff;
 }
 
 @end

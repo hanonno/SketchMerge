@@ -11,6 +11,17 @@
 #import "SketchPage.h"
 
 
+@interface SketchDiff : NSObject
+
+@property (strong) NSArray *insertOperations;
+@property (strong) NSArray *updateOperations;
+@property (strong) NSArray *deleteOperations;
+@property (strong) NSArray *ignoreOperations;
+@property (strong) NSArray *allOperations;
+
+@end
+
+
 @interface SketchDiffTool : NSObject
 
 @property (strong) NSString             *sketchToolPath;
@@ -21,7 +32,7 @@
 
 - (void)generatePreviewsForArtboards:(NSArray *)artboards;
 
-- (NSArray *)diffFromFile:(SketchFile *)fileA to:(SketchFile *)fileB;
+- (SketchDiff *)diffFromFile:(SketchFile *)fileA to:(SketchFile *)fileB;
 //- (NSArray *)operationsFromRoot:(NSURL *)fileRoot toA:(NSURL *)fileA toB:(NSURL *)fileB;
 
 @end

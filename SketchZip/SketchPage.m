@@ -43,6 +43,7 @@
     
     _JSON = JSON;
     _name = JSON[@"name"];
+    _objectId = JSON[@"do_objectID"];
     _sketchFile = sketchFile;
     _operations = nil;
     
@@ -75,6 +76,24 @@
     sketchFile.pages = [sketchDiffTool pagesFromFileAtURL:sketchFile.fileURL];
     
     return sketchFile;
+}
+
+- (void)applyDiff:(SketchDiff *)diff {
+    for (SketchPage *page in diff.insertOperations) {
+        [self.pages setValue:page forKey:page.objectId];
+    }
+}
+
+- (void)insertPage:(SketchPage *)page {
+    
+}
+
+- (void)updatePage:(SketchPage *)page {
+    
+}
+
+- (void)deletePage:(SketchPage *)page {
+    
 }
 
 @end

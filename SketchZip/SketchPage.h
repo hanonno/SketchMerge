@@ -12,7 +12,7 @@
 @class SketchArtboardPreviewOperation;
 
 
-@class SketchFile, SketchPage;
+@class SketchFile, SketchPage, SketchDiff;
 
 
 typedef enum : NSUInteger {
@@ -55,6 +55,7 @@ typedef enum : NSUInteger {
 
 @property (nonatomic, strong) NSDictionary          *JSON;
 
+@property (nonatomic, strong) NSString              *objectId;
 @property (nonatomic, strong) NSString              *name;
 @property (nonatomic, strong) NSArray               *operations;
 @property (nonatomic, assign) SketchOperationType   operationType;
@@ -76,5 +77,10 @@ typedef enum : NSUInteger {
 @property (strong) NSDictionary *pages;
 
 + (SketchFile *)readFromURL:(NSURL *)fileURL;
+
+- (void)applyDiff:(SketchDiff *)diff;
+- (void)insertPage:(SketchPage *)page;
+- (void)updatePage:(SketchPage *)page;
+- (void)deletePage:(SketchPage *)page;
 
 @end
