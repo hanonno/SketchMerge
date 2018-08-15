@@ -78,8 +78,8 @@
     SketchFile *fileRoot = [SketchFile readFromURL:fileURLRoot];
     SketchFile *fileA = [SketchFile readFromURL:fileURLA];
     SketchFile *fileB = [SketchFile readFromURL:fileURLB];
-    SketchFile *fileResult = [SketchFile readFromURL:fileURLResult];
-    
+    SketchFile *fileResult = [[SketchFile alloc] initWithFileURL:fileURLResult];
+
     [self.artboardGridViewController startLoading];
     
     dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
@@ -95,6 +95,8 @@
         [fileResult applyDiff:diff];
         
         NSLog(@"after page count %lu", (unsigned long)fileRoot.pages.count);
+        
+        [fileResult writePages];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             self.artboardGridViewController.pages = pages;

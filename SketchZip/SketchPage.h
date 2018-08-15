@@ -78,6 +78,10 @@ typedef enum : NSUInteger {
 
 + (SketchFile *)readFromURL:(NSURL *)fileURL;
 
+- (id)initWithFileURL:(NSURL *)fileURL;
+
+- (void)writePages;
+
 - (void)applyDiff:(SketchDiff *)diff;
 - (void)insertPage:(SketchPage *)page;
 - (void)updatePage:(SketchPage *)page;
