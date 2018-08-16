@@ -218,15 +218,15 @@ static const BOOL kLoggingEnabled = YES;
     for (NSString *layerId in layerIds) {
         NSLog(@"artboard: %@", layerId);
         
-        NSDictionary *layerA = layersA[layerId];
-        NSDictionary *layerB = layersB[layerId];
+        SketchLayer *layerA = layersA[layerId];
+        SketchLayer *layerB = layersB[layerId];
         
         if(layerA == nil && layerB != nil) {
             NSLog(@"Layer added!");
             
             SketchOperation *operation = [[SketchOperation alloc] init];
             operation.type = SketchOperationTypeInsert;
-            operation.layerB = [[SketchLayer alloc] initWithJSON:layerB fromPage:pageB];
+            operation.layerB = layerB;
             operation.objectId = operation.layerB.objectId;
             [insertOperations addObject:operation];
             [allOperations addObject:operation];
@@ -237,21 +237,21 @@ static const BOOL kLoggingEnabled = YES;
             
             SketchOperation *operation = [[SketchOperation alloc] init];
             operation.type = SketchOperationTypeDelete;
-            operation.layerA = [[SketchLayer alloc] initWithJSON:layerA fromPage:pageA];
+            operation.layerA = layerA;
             operation.objectId = operation.layerA.objectId;
             [deleteOperations addObject:operation];
             [allOperations addObject:operation];
         }
         
         else {
-            NSArray *diff = [CoreSync diffAsTransactions:layerA :layerB];
+            NSArray *diff = [CoreSync diffAsTransactions:layerA.JSON :layerB.JSON];
             
             if(diff && [diff count]) {
                 NSLog(@"Layer updated!");
                 SketchOperation *operation = [[SketchOperation alloc] init];
                 operation.type = SketchOperationTypeUpdate;
-                operation.layerA = [[SketchLayer alloc] initWithJSON:layerA fromPage:pageA];
-                operation.layerB = [[SketchLayer alloc] initWithJSON:layerB fromPage:pageB];
+                operation.layerA = layerA;
+                operation.layerB = layerB;
                 operation.objectId = operation.layerB.objectId;
                 [updateOperations addObject:operation];
                 [allOperations addObject:operation];
@@ -260,8 +260,8 @@ static const BOOL kLoggingEnabled = YES;
                 NSLog(@"Layer is the same!");
                 SketchOperation *operation = [[SketchOperation alloc] init];
                 operation.type = SketchOperationTypeIgnore;
-                operation.layerA = [[SketchLayer alloc] initWithJSON:layerA fromPage:pageA];
-                operation.layerB = [[SketchLayer alloc] initWithJSON:layerB fromPage:pageB];
+                operation.layerA = layerA;
+                operation.layerB = layerB;
                 operation.objectId = operation.layerB.objectId;
                 [ignoreOperations addObject:operation];
                 [allOperations addObject:operation];

@@ -83,18 +83,18 @@
     [self.artboardGridViewController startLoading];
     
     dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
-        SketchDiff *diff = [self.sketchDiffTool diffFromFile:fileRoot to:fileA];
+        SketchDiff *diff = [self.sketchDiffTool diffFromFile:fileRoot to:fileResult];
         NSArray *pages = diff.allOperations;
-        SketchPage *page = pages.firstObject;
+        SketchPage *page = pages.lastObject;
         
         [self.sketchDiffTool generatePreviewsForArtboards:page.operations];
 
         // Merge
-        NSLog(@"before page count %lu", (unsigned long)fileRoot.pages.count);
+        NSLog(@"before page count %lu", (unsigned long)fileResult.pages.count);
         
         [fileResult applyDiff:diff];
         
-        NSLog(@"after page count %lu", (unsigned long)fileRoot.pages.count);
+        NSLog(@"after page count %lu", (unsigned long)fileResult.pages.count);
         
         [fileResult writePages];
         

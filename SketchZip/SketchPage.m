@@ -21,8 +21,6 @@ static const BOOL kLoggingEnabled = YES;
 
     _JSON = JSON;
     _page = page;
-    _objectId = JSON[@"do_objectID"];
-    _objectClass = JSON[@"_class"];
     _image = nil;
 
     return self;
@@ -30,6 +28,14 @@ static const BOOL kLoggingEnabled = YES;
 
 - (NSString *)name {
     return _JSON[@"name"];
+}
+
+- (NSString *)objectId {
+    return _JSON[@"do_objectID"];
+}
+
+- (NSString *)objectClass {
+    return _JSON[@"_class"];
 }
 
 @end
@@ -46,8 +52,6 @@ static const BOOL kLoggingEnabled = YES;
     self = [super init];
     
     _JSON = JSON;
-    _name = JSON[@"name"];
-    _objectId = JSON[@"do_objectID"];
     _sketchFile = sketchFile;
     _operations = nil;
     
@@ -55,7 +59,7 @@ static const BOOL kLoggingEnabled = YES;
     
     for (NSDictionary *layer in _JSON[@"layers"]) {
         if(layer[@"do_objectID"] != nil) {
-            layers[layer[@"do_objectID"]] = layer;
+            layers[layer[@"do_objectID"]] = [[SketchLayer alloc] initWithJSON:layer fromPage:self];
         }
     }
     
@@ -64,16 +68,47 @@ static const BOOL kLoggingEnabled = YES;
     return self;
 }
 
+- (NSString *)objectId {
+    return _JSON[@"do_objectID"];
+}
+
+- (NSString *)name {
+    return _JSON[@"name"];
+}
+
 - (void)insertLayer:(SketchLayer *)layer {
-    
+    [_JSON[@"layers"] insertObject:layer.JSON atIndex:0];
 }
 
 - (void)updateLayer:(SketchLayer *)layer {
-    
+//    self.layers[layer.objectId] = layer;
 }
 
 - (void)deleteLayer:(SketchLayer *)layer {
+    if(layer == nil) {
+        return NSLog(@"Trying to delete nil layer");
+    }
     
+    NSInteger index = 0;
+    NSInteger target = NSIntegerMax;
+    
+    for (NSDictionary *layerJSON in _JSON[@"layers"]) {
+        if([layerJSON[@"do_objectID"] isEqualToString:layer.objectId]) {
+            target = index;
+        }
+        
+        if(target != NSIntegerMax) {
+            break;
+        }
+        
+        index++;
+    }
+    
+    if(target != NSIntegerMax) {
+        [_JSON[@"layers"] removeObjectAtIndex:target];
+    }
+
+    [self.layers removeObjectForKey:layer.objectId];
 }
 
 @end
@@ -115,7 +150,6 @@ static const BOOL kLoggingEnabled = YES;
     if(kLoggingEnabled) NSLog(@"Pages: %@", pagesDirectory);
     
     NSString *currentFilename = nil;
-    //    NSMutableDictionary *artboardLookup = [[NSMutableDictionary alloc] init];
     NSMutableDictionary *pagesLookup = [[NSMutableDictionary alloc] init];
     
     while (currentFilename = [directoryEnumerator nextObject]) {
@@ -124,7 +158,7 @@ static const BOOL kLoggingEnabled = YES;
         
         // Decode JSON
         NSData *pageData = [NSData dataWithContentsOfFile:currentPagePath];
-        NSDictionary *pageJSON = [NSJSONSerialization JSONObjectWithData:pageData options:0 error:nil];
+        NSDictionary *pageJSON = [NSJSONSerialization JSONObjectWithData:pageData options:NSJSONReadingMutableContainers error:nil];
         
         NSString *objectID = pageJSON[@"do_objectID"];
         

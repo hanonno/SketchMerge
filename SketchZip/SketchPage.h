@@ -25,12 +25,12 @@ typedef enum : NSUInteger {
 
 @interface SketchLayer : NSObject
 
-@property (nonatomic, strong) NSDictionary  *JSON;
-@property (nonatomic, strong) NSImage       *image;
-@property (nonatomic, strong) NSString      *name;
-@property (nonatomic, strong) NSString      *objectId;
-@property (nonatomic, strong) NSString      *objectClass;
-@property (nonatomic, strong) SketchPage    *page;
+@property (nonatomic, strong) NSDictionary          *JSON;
+@property (nonatomic, strong) NSImage               *image;
+@property (nonatomic, strong, readonly) NSString    *name;
+@property (nonatomic, strong, readonly) NSString    *objectId;
+@property (nonatomic, strong, readonly) NSString    *objectClass;
+@property (nonatomic, strong) SketchPage            *page;
 
 - (id)initWithJSON:(NSDictionary *)JSON fromPage:(SketchPage *)page;
 
@@ -55,9 +55,9 @@ typedef enum : NSUInteger {
 
 @property (nonatomic, strong) NSDictionary          *JSON;
 
-@property (nonatomic, strong) NSString              *objectId;
-@property (nonatomic, strong) NSString              *name;
-@property (nonatomic, strong) NSDictionary          *layers;
+@property (nonatomic, strong, readonly) NSString    *objectId;
+@property (nonatomic, strong, readonly) NSString    *name;
+@property (nonatomic, strong) NSMutableDictionary   *layers;
 
 @property (nonatomic, strong) NSArray               *operations;
 @property (nonatomic, assign) SketchOperationType   operationType; // Should move to diff
