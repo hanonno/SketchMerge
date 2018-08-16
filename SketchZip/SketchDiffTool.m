@@ -155,6 +155,10 @@ static const BOOL kLoggingEnabled = YES;
         }
     }
     
+    if(filePath == nil) {
+        return;
+    }
+    
     [[NSFileManager defaultManager] createDirectoryAtPath:tempDir.path withIntermediateDirectories:YES attributes:nil error:NULL];
     
     NSTask *task = [[NSTask alloc] init];
@@ -201,7 +205,7 @@ static const BOOL kLoggingEnabled = YES;
     }
 }
 
-- (NSArray *)operationsFromPageA:(SketchPage *)pageA toPageB:(SketchPage *)pageB {
+- (SketchDiff *)operationsFromPageA:(SketchPage *)pageA toPageB:(SketchPage *)pageB {
     NSDictionary *layersA = pageA.layers;
     NSDictionary *layersB = pageB.layers;
     
@@ -274,8 +278,9 @@ static const BOOL kLoggingEnabled = YES;
     diff.updateOperations = updateOperations;
     diff.deleteOperations = deleteOperations;
     diff.ignoreOperations = ignoreOperations;
+    diff.allOperations = allOperations;
     
-    return allOperations;
+    return diff;
 }
 
 - (SketchDiff *)diffFromFile:(SketchFile *)fileA to:(SketchFile *)fileB {
@@ -300,7 +305,7 @@ static const BOOL kLoggingEnabled = YES;
         if(pageA == nil && pageB != nil) {
             NSLog(@"Page added!");
             pageB.operationType = SketchOperationTypeInsert;
-            pageB.operations = [self operationsFromPageA:nil toPageB:pageB];
+            pageB.diff = [self operationsFromPageA:nil toPageB:pageB];
             [insertOperations addObject:pageB];
             [allOperations addObject:pageB];
         }
@@ -308,7 +313,7 @@ static const BOOL kLoggingEnabled = YES;
         else if(pageB == nil && pageA != nil) {
             NSLog(@"Page deleted!");
             pageA.operationType = SketchOperationTypeDelete;
-            pageA.operations = [self operationsFromPageA:pageA toPageB:nil];
+            pageA.diff = [self operationsFromPageA:pageA toPageB:nil];
             [deleteOperations addObject:pageA];
             [allOperations addObject:pageA];
         }
@@ -317,7 +322,7 @@ static const BOOL kLoggingEnabled = YES;
             NSLog(@"Page updated!");
             pageA.operationType = SketchOperationTypeUpdate;
             pageB.operationType = SketchOperationTypeUpdate;
-            pageB.operations = [self operationsFromPageA:pageA toPageB:pageB];
+            pageB.diff = [self operationsFromPageA:pageA toPageB:pageB];
             [updateOperations addObject:pageB];
             [allOperations addObject:pageB];
         }

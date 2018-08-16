@@ -169,7 +169,7 @@
 
 - (SketchOperation *)operationAtIndexPath:(NSIndexPath *)indexPath {
     SketchPage *page = [self.pages objectAtIndex:indexPath.section];
-    return [page.operations objectAtIndex:indexPath.item];
+    return [page.diff.allOperations objectAtIndex:indexPath.item];
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(NSCollectionView *)collectionView {
@@ -178,7 +178,7 @@
 
 - (NSInteger)collectionView:(NSCollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     SketchPage *page = [self.pages objectAtIndex:section];
-    return page.operations.count;
+    return page.diff.allOperations.count;
 }
 
 - (NSCollectionViewItem *)collectionView:(NSCollectionView *)collectionView itemForRepresentedObjectAtIndexPath:(NSIndexPath *)indexPath {

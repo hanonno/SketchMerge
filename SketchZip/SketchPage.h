@@ -59,10 +59,10 @@ typedef enum : NSUInteger {
 @property (nonatomic, strong, readonly) NSString    *name;
 @property (nonatomic, strong) NSMutableDictionary   *layers;
 
-@property (nonatomic, strong) NSArray               *operations;
 @property (nonatomic, assign) SketchOperationType   operationType; // Should move to diff
 
-@property (nonatomic, strong) SketchFile             *sketchFile;
+@property (nonatomic, strong) SketchDiff            *diff;
+@property (nonatomic, strong) SketchFile            *sketchFile;
 
 - (id)initWithJSON:(NSDictionary *)JSON sketchFile:(SketchFile *)sketchFile;
 

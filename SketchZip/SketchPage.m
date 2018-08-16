@@ -53,7 +53,6 @@ static const BOOL kLoggingEnabled = YES;
     
     _JSON = JSON;
     _sketchFile = sketchFile;
-    _operations = nil;
     
     NSMutableDictionary *layers = [[NSMutableDictionary alloc] init];
     

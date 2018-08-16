@@ -73,7 +73,7 @@
     NSURL *fileURLRoot = self.rootFileURL ? self.rootFileURL : [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Sketch-Root" ofType:@"sketch"]];
     NSURL *fileURLA = self.changedFileURL ? self.changedFileURL : [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Sketch-A" ofType:@"sketch"]];
     NSURL *fileURLB = self.changedFileURL ? self.changedFileURL : [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Sketch-B" ofType:@"sketch"]];
-    NSURL *fileURLResult = self.changedFileURL ? self.changedFileURL : [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Sketch-Result" ofType:@"sketch"]];
+    NSURL *fileURLResult = self.changedFileURL ? self.changedFileURL : [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"UW-Shipping" ofType:@"sketch"]];
     
     SketchFile *fileRoot = [[SketchFile alloc] initWithFileURL:fileURLRoot];
     SketchFile *fileA = [[SketchFile alloc] initWithFileURL:fileURLA];
@@ -83,20 +83,27 @@
     [self.artboardGridViewController startLoading];
     
     dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+        
+        
         SketchDiff *diff = [self.sketchDiffTool diffFromFile:fileRoot to:fileResult];
         NSArray *pages = diff.allOperations;
-        SketchPage *page = pages.lastObject;
         
-        [self.sketchDiffTool generatePreviewsForArtboards:page.operations];
-
-        // Merge
-        NSLog(@"before page count %lu", (unsigned long)fileResult.pages.count);
+        for (SketchPage *page in pages) {
+            [self.sketchDiffTool generatePreviewsForArtboards:page.diff.allOperations];
+        }
         
-        [fileResult applyDiff:diff];
-        
-        NSLog(@"after page count %lu", (unsigned long)fileResult.pages.count);
-        
-        [fileResult writePages];
+//        SketchPage *page = pages.lastObject;
+//
+//
+//
+//        // Merge
+//        NSLog(@"before page count %lu", (unsigned long)fileResult.pages.count);
+//
+//        [fileResult applyDiff:diff];
+//
+//        NSLog(@"after page count %lu", (unsigned long)fileResult.pages.count);
+//
+//        [fileResult writePages];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             self.artboardGridViewController.pages = pages;
@@ -104,8 +111,6 @@
             [self.artboardGridViewController finishLoading];
         });
     });
-    
-
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
