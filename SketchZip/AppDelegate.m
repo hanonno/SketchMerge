@@ -75,9 +75,9 @@
     NSURL *fileURLB = self.changedFileURL ? self.changedFileURL : [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Sketch-B" ofType:@"sketch"]];
     NSURL *fileURLResult = self.changedFileURL ? self.changedFileURL : [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Sketch-Result" ofType:@"sketch"]];
     
-    SketchFile *fileRoot = [SketchFile readFromURL:fileURLRoot];
-    SketchFile *fileA = [SketchFile readFromURL:fileURLA];
-    SketchFile *fileB = [SketchFile readFromURL:fileURLB];
+    SketchFile *fileRoot = [[SketchFile alloc] initWithFileURL:fileURLRoot];
+    SketchFile *fileA = [[SketchFile alloc] initWithFileURL:fileURLA];
+    SketchFile *fileB = [[SketchFile alloc] initWithFileURL:fileURLB];
     SketchFile *fileResult = [[SketchFile alloc] initWithFileURL:fileURLResult];
 
     [self.artboardGridViewController startLoading];

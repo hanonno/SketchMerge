@@ -51,18 +51,28 @@ static const BOOL kLoggingEnabled = YES;
     _sketchFile = sketchFile;
     _operations = nil;
     
+    NSMutableDictionary *layers = [[NSMutableDictionary alloc] init];
+    
+    for (NSDictionary *layer in _JSON[@"layers"]) {
+        if(layer[@"do_objectID"] != nil) {
+            layers[layer[@"do_objectID"]] = layer;
+        }
+    }
+    
+    _layers = layers;
+    
     return self;
 }
 
-- (void)insertLayer:(SketchLayer *)artboard {
+- (void)insertLayer:(SketchLayer *)layer {
     
 }
 
-- (void)updateLayer:(SketchLayer *)artboard {
+- (void)updateLayer:(SketchLayer *)layer {
     
 }
 
-- (void)deleteLayer:(SketchLayer *)artboard {
+- (void)deleteLayer:(SketchLayer *)layer {
     
 }
 
@@ -80,16 +90,6 @@ static const BOOL kLoggingEnabled = YES;
 
 
 @implementation SketchFile
-
-+ (SketchFile *)readFromURL:(NSURL *)fileURL {
-    SketchFile *sketchFile = [[SketchFile alloc] init];
-    sketchFile.fileURL = fileURL;
-    
-    SketchDiffTool *sketchDiffTool = [[SketchDiffTool alloc] init];
-    sketchFile.pages = [sketchDiffTool pagesFromFileAtURL:sketchFile.fileURL];
-    
-    return sketchFile;
-}
 
 - (id)initWithFileURL:(NSURL *)fileURL {
     self = [super init];
@@ -140,11 +140,7 @@ static const BOOL kLoggingEnabled = YES;
     
     NSString *metaDataPath = [[self.tempFileURL.path stringByAppendingPathComponent:@"meta"] stringByAppendingPathExtension:@"json"];
     NSData *metaData = [NSData dataWithContentsOfFile:metaDataPath];
-    self.metaJSON = [NSJSONSerialization JSONObjectWithData:metaData options:0 error:nil];
-
-    
-    
-//    
+    self.metaJSON = [NSJSONSerialization JSONObjectWithData:metaData options:0 error:nil];    
 }
 
 - (void)writePages {
@@ -166,6 +162,7 @@ static const BOOL kLoggingEnabled = YES;
         NSLog(@"Write to file: %@", pageFileName);
     }
     
+    // Write pages to document.json
     NSMutableArray *pagesJSON = [[NSMutableArray alloc] init];
     
     for (NSString *pageId in self.pages.allKeys) {
@@ -179,7 +176,7 @@ static const BOOL kLoggingEnabled = YES;
         
         [pagesJSON addObject:pageJSON];
     }
-    
+
     NSMutableDictionary *documentJSON = [self.documentJSON mutableCopy];
     documentJSON[@"pages"] = pagesJSON;
     
@@ -196,23 +193,20 @@ static const BOOL kLoggingEnabled = YES;
     else {
         NSLog(@"Hoera! %@", homeDirectory);
     }
-
-
-    
 }
 
 - (void)applyDiff:(SketchDiff *)diff {
     for (SketchPage *page in diff.insertOperations) {
-        [self.pages setValue:page forKey:page.objectId];
+        [self insertPage:page];
     }
 }
 
 - (void)insertPage:(SketchPage *)page {
-    
+    [self.pages setValue:page forKey:page.objectId];
 }
 
 - (void)updatePage:(SketchPage *)page {
-    
+    [self.pages setValue:page forKey:page.objectId];
 }
 
 - (void)deletePage:(SketchPage *)page {

@@ -57,16 +57,18 @@ typedef enum : NSUInteger {
 
 @property (nonatomic, strong) NSString              *objectId;
 @property (nonatomic, strong) NSString              *name;
+@property (nonatomic, strong) NSDictionary          *layers;
+
 @property (nonatomic, strong) NSArray               *operations;
-@property (nonatomic, assign) SketchOperationType   operationType;
+@property (nonatomic, assign) SketchOperationType   operationType; // Should move to diff
 
 @property (nonatomic, strong) SketchFile             *sketchFile;
 
 - (id)initWithJSON:(NSDictionary *)JSON sketchFile:(SketchFile *)sketchFile;
 
-- (void)insertLayer:(SketchLayer *)artboard;
-- (void)updateLayer:(SketchLayer *)artboard;
-- (void)deleteLayer:(SketchLayer *)artboard;
+- (void)insertLayer:(SketchLayer *)layer;
+- (void)updateLayer:(SketchLayer *)layer;
+- (void)deleteLayer:(SketchLayer *)layer;
 
 @end
 
@@ -75,8 +77,6 @@ typedef enum : NSUInteger {
 
 @property (strong) NSURL        *fileURL;
 @property (strong) NSDictionary *pages;
-
-+ (SketchFile *)readFromURL:(NSURL *)fileURL;
 
 - (id)initWithFileURL:(NSURL *)fileURL;
 

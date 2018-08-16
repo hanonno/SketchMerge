@@ -201,25 +201,9 @@ static const BOOL kLoggingEnabled = YES;
     }
 }
 
-- (NSDictionary *)layersFromPage:(NSDictionary *)page {
-    if(page == nil) {
-        return [[NSDictionary alloc] init];
-    }
-    
-    NSMutableDictionary *layers = [[NSMutableDictionary alloc] init];
-    
-    for (NSDictionary *layer in page[@"layers"]) {
-        if(layer[@"do_objectID"] != nil) {
-            layers[layer[@"do_objectID"]] = layer;
-        }
-    }
-    
-    return layers;
-}
-
 - (NSArray *)operationsFromPageA:(SketchPage *)pageA toPageB:(SketchPage *)pageB {
-    NSDictionary *layersA = [self layersFromPage:pageA.JSON];
-    NSDictionary *layersB = [self layersFromPage:pageB.JSON];
+    NSDictionary *layersA = pageA.layers;
+    NSDictionary *layersB = pageB.layers;
     
     NSMutableSet *layerIds = [[NSMutableSet alloc] init];
     [layerIds addObjectsFromArray:[layersA allKeys]];
@@ -310,36 +294,32 @@ static const BOOL kLoggingEnabled = YES;
     [pageIDs addObjectsFromArray:[pagesB allKeys]];
     
     for (NSString *pageID in pageIDs) {
-        NSDictionary *pageA = pagesA[pageID];
-        NSDictionary *pageB = pagesB[pageID];
+        SketchPage *pageA = pagesA[pageID];
+        SketchPage *pageB = pagesB[pageID];
 
         if(pageA == nil && pageB != nil) {
             NSLog(@"Page added!");
-            SketchPage *page = [[SketchPage alloc] initWithJSON:pageB sketchFile:fileB];
-            page.operationType = SketchOperationTypeInsert;
-            page.operations = [self operationsFromPageA:nil toPageB:page];
-            [insertOperations addObject:page];
-            [allOperations addObject:page];
+            pageB.operationType = SketchOperationTypeInsert;
+            pageB.operations = [self operationsFromPageA:nil toPageB:pageB];
+            [insertOperations addObject:pageB];
+            [allOperations addObject:pageB];
         }
         
         else if(pageB == nil && pageA != nil) {
             NSLog(@"Page deleted!");
-            SketchPage *page = [[SketchPage alloc] initWithJSON:pageA sketchFile:fileA];
-            page.operationType = SketchOperationTypeDelete;
-            page.operations = [self operationsFromPageA:page toPageB:nil];
-            [deleteOperations addObject:page];
-            [allOperations addObject:page];
+            pageA.operationType = SketchOperationTypeDelete;
+            pageA.operations = [self operationsFromPageA:pageA toPageB:nil];
+            [deleteOperations addObject:pageA];
+            [allOperations addObject:pageA];
         }
         
         else {
             NSLog(@"Page updated!");
-            SketchPage *pageAA = [[SketchPage alloc] initWithJSON:pageA sketchFile:fileA];
-            SketchPage *pageBB = [[SketchPage alloc] initWithJSON:pageB sketchFile:fileB];
-            pageAA.operationType = SketchOperationTypeUpdate;
-            pageBB.operationType = SketchOperationTypeUpdate;
-            pageBB.operations = [self operationsFromPageA:pageAA toPageB:pageBB];
-            [updateOperations addObject:pageBB];
-            [allOperations addObject:pageBB];
+            pageA.operationType = SketchOperationTypeUpdate;
+            pageB.operationType = SketchOperationTypeUpdate;
+            pageB.operations = [self operationsFromPageA:pageA toPageB:pageB];
+            [updateOperations addObject:pageB];
+            [allOperations addObject:pageB];
         }
     }
     
