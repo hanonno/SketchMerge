@@ -64,6 +64,8 @@
 		7D828FA62122E27E00ADBD7E /* Sketch-B.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7D828FA02122E27E00ADBD7E /* Sketch-B.sketch */; };
 		7D828FA82122FE8700ADBD7E /* Sketch-Result.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7D828FA72122FE8700ADBD7E /* Sketch-Result.sketch */; };
 		7D828FA92122FE8700ADBD7E /* Sketch-Result.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7D828FA72122FE8700ADBD7E /* Sketch-Result.sketch */; };
+		7D828FAC2125B90100ADBD7E /* artboard.json in Resources */ = {isa = PBXBuildFile; fileRef = 7D828FAB2125B90100ADBD7E /* artboard.json */; };
+		7D828FAD2125B90100ADBD7E /* artboard.json in Resources */ = {isa = PBXBuildFile; fileRef = 7D828FAB2125B90100ADBD7E /* artboard.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -177,6 +179,7 @@
 		7D828F9F2122E27E00ADBD7E /* Sketch-A.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sketch-A.sketch"; sourceTree = "<group>"; };
 		7D828FA02122E27E00ADBD7E /* Sketch-B.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sketch-B.sketch"; sourceTree = "<group>"; };
 		7D828FA72122FE8700ADBD7E /* Sketch-Result.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sketch-Result.sketch"; sourceTree = "<group>"; };
+		7D828FAB2125B90100ADBD7E /* artboard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = artboard.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -376,12 +379,21 @@
 		7D828F9D2122E0E300ADBD7E /* Sketch */ = {
 			isa = PBXGroup;
 			children = (
+				7D828FAA2125B8B600ADBD7E /* templates */,
 				7D828F9F2122E27E00ADBD7E /* Sketch-A.sketch */,
 				7D828FA02122E27E00ADBD7E /* Sketch-B.sketch */,
 				7D828F9E2122E27E00ADBD7E /* Sketch-Root.sketch */,
 				7D828FA72122FE8700ADBD7E /* Sketch-Result.sketch */,
 			);
 			path = Sketch;
+			sourceTree = "<group>";
+		};
+		7D828FAA2125B8B600ADBD7E /* templates */ = {
+			isa = PBXGroup;
+			children = (
+				7D828FAB2125B90100ADBD7E /* artboard.json */,
+			);
+			path = templates;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -513,6 +525,7 @@
 				7D7CCFD42114697A0061EBB0 /* UW-Shipping.sketch in Resources */,
 				7D7CCFD6211474AF0061EBB0 /* UW-Shipping-B.sketch in Resources */,
 				7D7CCFCB21133BEA0061EBB0 /* Version-4.sketch in Resources */,
+				7D828FAC2125B90100ADBD7E /* artboard.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -520,6 +533,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D828FAD2125B90100ADBD7E /* artboard.json in Resources */,
 				7D828FA22122E27E00ADBD7E /* Sketch-Root.sketch in Resources */,
 				7D828FA62122E27E00ADBD7E /* Sketch-B.sketch in Resources */,
 				7D828FA92122FE8700ADBD7E /* Sketch-Result.sketch in Resources */,

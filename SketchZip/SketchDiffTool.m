@@ -155,6 +155,7 @@ static const BOOL kLoggingEnabled = YES;
         }
     }
     
+    // This should be improved, goes wrong mainly when generating previews from deleted artboards (we now always use the path from layerB)
     if(filePath == nil) {
         return;
     }

@@ -73,7 +73,7 @@
     NSURL *fileURLRoot = self.rootFileURL ? self.rootFileURL : [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Sketch-Root" ofType:@"sketch"]];
     NSURL *fileURLA = self.changedFileURL ? self.changedFileURL : [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Sketch-A" ofType:@"sketch"]];
     NSURL *fileURLB = self.changedFileURL ? self.changedFileURL : [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Sketch-B" ofType:@"sketch"]];
-    NSURL *fileURLResult = self.changedFileURL ? self.changedFileURL : [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"UW-Shipping" ofType:@"sketch"]];
+    NSURL *fileURLResult = self.changedFileURL ? self.changedFileURL : [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Sketch-B" ofType:@"sketch"]];
     
     SketchFile *fileRoot = [[SketchFile alloc] initWithFileURL:fileURLRoot];
     SketchFile *fileA = [[SketchFile alloc] initWithFileURL:fileURLA];
@@ -88,7 +88,10 @@
         SketchDiff *diff = [self.sketchDiffTool diffFromFile:fileRoot to:fileResult];
         NSArray *pages = diff.allOperations;
         
+        SketchArtboard *artboard = [[SketchArtboard alloc] init];
+        
         for (SketchPage *page in pages) {
+            [page insertLayer:artboard];
             [self.sketchDiffTool generatePreviewsForArtboards:page.diff.allOperations];
         }
         
@@ -96,14 +99,14 @@
 //
 //
 //
-//        // Merge
-//        NSLog(@"before page count %lu", (unsigned long)fileResult.pages.count);
-//
-//        [fileResult applyDiff:diff];
-//
-//        NSLog(@"after page count %lu", (unsigned long)fileResult.pages.count);
-//
-//        [fileResult writePages];
+        // Merge
+        NSLog(@"before page count %lu", (unsigned long)fileResult.pages.count);
+
+        [fileResult applyDiff:diff];
+
+        NSLog(@"after page count %lu", (unsigned long)fileResult.pages.count);
+
+        [fileResult writePages];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             self.artboardGridViewController.pages = pages;

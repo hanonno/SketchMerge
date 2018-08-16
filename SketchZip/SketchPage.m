@@ -41,6 +41,22 @@ static const BOOL kLoggingEnabled = YES;
 @end
 
 
+@implementation SketchArtboard
+
+- (id)init {
+    NSData *artboardData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"artboard" ofType:@"json"]];
+    NSDictionary *artboardJSON = [NSJSONSerialization JSONObjectWithData:artboardData options:NSJSONReadingMutableContainers|NSJSONReadingMutableLeaves error:nil];
+    
+    self = [super initWithJSON:artboardJSON fromPage:nil];
+    
+    self.JSON[@"do_objectID"] = @"260B03D6-46CF-47AD-94FF-82C6B4C7718D";
+    
+    return self;
+}
+
+@end
+
+
 @implementation SketchOperation
 
 @end

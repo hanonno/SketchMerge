@@ -1,0 +1,172 @@
+{
+  "isFlippedHorizontal": false,
+  "style": {
+    "windingRule": 1,
+    "_class": "style",
+    "miterLimit": 10,
+    "startMarkerType": 0,
+    "endMarkerType": 0
+  },
+  "rotation": 0,
+  "frame": {
+    "x": 2175,
+    "y": 50,
+    "_class": "rect",
+    "constrainProportions": false,
+    "height": 667,
+    "width": 375
+  },
+  "do_objectID": "260B03D6-46CF-47AD-94FF-82C6B4C7715D",
+  "layerListExpandedType": 0,
+  "exportOptions": {
+    "shouldTrim": false,
+    "includedLayerIds": [],
+    "layerOptions": 0,
+    "_class": "exportOptions",
+    "exportFormats": []
+  },
+  "hasClickThrough": true,
+  "hasBackgroundColor": true,
+  "horizontalRulerData": {
+    "base": 0,
+    "_class": "rulerData",
+    "guides": []
+  },
+  "backgroundColor": {
+    "red": 0.816203773021698,
+    "_class": "color",
+    "alpha": 1,
+    "blue": 0.1066960170865059,
+    "green": 0.007513228338211775
+  },
+  "includeInCloudUpload": true,
+  "resizesContent": false,
+  "verticalRulerData": {
+    "base": 0,
+    "_class": "rulerData",
+    "guides": []
+  },
+  "isFlippedVertical": false,
+  "nameIsFixed": true,
+  "name": "Artboard-Generated",
+  "isVisible": true,
+  "resizingType": 0,
+  "layers": [
+    {
+      "isFlippedHorizontal": false,
+      "style": {
+        "textStyle": {
+          "verticalAlignment": 0,
+          "_class": "textStyle",
+          "encodedAttributes": {
+            "MSAttributedStringFontAttribute": {
+              "attributes": {
+                "name": "SFProText-Bold",
+                "size": 32
+              },
+              "_class": "fontDescriptor"
+            },
+            "MSAttributedStringColorAttribute": {
+              "red": 1,
+              "_class": "color",
+              "alpha": 1,
+              "blue": 1,
+              "green": 1
+            },
+            "textStyleVerticalAlignmentKey": 0,
+            "paragraphStyle": {
+              "_class": "paragraphStyle",
+              "alignment": 2
+            }
+          }
+        },
+        "windingRule": 1,
+        "_class": "style",
+        "miterLimit": 10,
+        "startMarkerType": 0,
+        "endMarkerType": 0
+      },
+      "rotation": 0,
+      "frame": {
+        "x": 126,
+        "y": 315,
+        "_class": "rect",
+        "constrainProportions": false,
+        "height": 38,
+        "width": 124
+      },
+      "do_objectID": "845FF766-C6C4-426E-9A9E-1D27041A70F5",
+      "layerListExpandedType": 0,
+      "exportOptions": {
+        "shouldTrim": false,
+        "includedLayerIds": [],
+        "layerOptions": 0,
+        "_class": "exportOptions",
+        "exportFormats": []
+      },
+      "glyphBounds": "{{2, 7}, {120, 24}}",
+      "dontSynchroniseWithSymbol": false,
+      "lineSpacingBehaviour": 2,
+      "textBehaviour": 0,
+      "isFlippedVertical": false,
+      "nameIsFixed": false,
+      "name": "DELETE",
+      "isVisible": true,
+      "resizingType": 0,
+      "isLocked": false,
+      "attributedString": {
+        "string": "GENERATED JOH",
+        "_class": "attributedString",
+        "attributes": [
+          {
+            "length": 13,
+            "_class": "stringAttribute",
+            "location": 0,
+            "attributes": {
+              "MSAttributedStringFontAttribute": {
+                "attributes": {
+                  "name": "SFProText-Bold",
+                  "size": 32
+                },
+                "_class": "fontDescriptor"
+              },
+              "MSAttributedStringColorAttribute": {
+                "red": 1,
+                "_class": "color",
+                "alpha": 1,
+                "blue": 1,
+                "green": 1
+              },
+              "textStyleVerticalAlignmentKey": 0,
+              "paragraphStyle": {
+                "_class": "paragraphStyle",
+                "alignment": 2
+              }
+            }
+          }
+        ]
+      },
+      "shouldBreakMaskChain": false,
+      "isFixedToViewport": false,
+      "_class": "text",
+      "booleanOperation": -1,
+      "resizingConstraint": 47,
+      "automaticallyDrawOnUnderlyingPath": false
+    }
+  ],
+  "isLocked": false,
+  "shouldBreakMaskChain": true,
+  "isFlowHome": false,
+  "isFixedToViewport": false,
+  "presetDictionary": {
+    "name": "iPhone 8",
+    "offersLandscapeVariant": 1,
+    "width": 375,
+    "height": 667,
+    "allowResizedMatching": 1
+  },
+  "_class": "artboard",
+  "booleanOperation": -1,
+  "resizingConstraint": 63,
+  "includeBackgroundColorInExport": true
+}
