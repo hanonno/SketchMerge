@@ -146,7 +146,8 @@ static const BOOL kLoggingEnabled = YES;
     
     _fileURL = fileURL;
     // Extract Zip
-    _tempFileURL = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:_fileURL.lastPathComponent]];
+    NSString *UUID = [[NSUUID UUID] UUIDString];
+    _tempFileURL = [NSURL fileURLWithPath:[[NSTemporaryDirectory() stringByAppendingPathComponent:_fileURL.lastPathComponent] stringByAppendingPathComponent:UUID]];
     [SSZipArchive unzipFileAtPath:_fileURL.path toDestination:_tempFileURL.path];
     
     if(kLoggingEnabled) NSLog(@"Source: %@", _fileURL.path);
@@ -251,6 +252,8 @@ static const BOOL kLoggingEnabled = YES;
 }
 
 - (void)insertPage:(SketchPage *)page {
+    NSLog(@"Add page %@", page.objectId);
+    
     [self.pages setValue:page forKey:page.objectId];
 }
 

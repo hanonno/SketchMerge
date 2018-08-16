@@ -85,28 +85,31 @@
     dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
         
         
-        SketchDiff *diff = [self.sketchDiffTool diffFromFile:fileRoot to:fileResult];
+        SketchDiff *diff = [self.sketchDiffTool diffFromFile:fileRoot to:fileA];
         NSArray *pages = diff.allOperations;
         
-        SketchArtboard *artboard = [[SketchArtboard alloc] init];
+//        SketchArtboard *artboard = [[SketchArtboard alloc] init];
+//
+//        for (SketchPage *page in pages) {
+//            [page insertLayer:artboard];
+//            [self.sketchDiffTool generatePreviewsForArtboards:page.diff.allOperations];
+//        }
         
-        for (SketchPage *page in pages) {
-            [page insertLayer:artboard];
-            [self.sketchDiffTool generatePreviewsForArtboards:page.diff.allOperations];
-        }
+        SketchDiff *diffA = [self.sketchDiffTool diffFromFile:fileRoot to:fileA];
+        SketchDiff *diffB = [self.sketchDiffTool diffFromFile:fileRoot to:fileB];
         
-//        SketchPage *page = pages.lastObject;
-//
-//
-//
-        // Merge
-        NSLog(@"before page count %lu", (unsigned long)fileResult.pages.count);
+        [fileRoot applyDiff:diffA];
+        [fileRoot applyDiff:diffB];
+        [fileRoot writePages];
 
-        [fileResult applyDiff:diff];
-
-        NSLog(@"after page count %lu", (unsigned long)fileResult.pages.count);
-
-        [fileResult writePages];
+//        // Merge
+//        NSLog(@"before page count %lu", (unsigned long)fileResult.pages.count);
+//
+//        [fileResult applyDiff:diff];
+//
+//        NSLog(@"after page count %lu", (unsigned long)fileResult.pages.count);
+//
+//        [fileResult writePages];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             self.artboardGridViewController.pages = pages;
