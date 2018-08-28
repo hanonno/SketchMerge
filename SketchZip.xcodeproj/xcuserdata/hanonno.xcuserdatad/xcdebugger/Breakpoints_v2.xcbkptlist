@@ -20,11 +20,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SketchZip/SketchDiffTool.m"
-            timestampString = "556122403.535077"
+            timestampString = "556138340.990257"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "200"
-            endingLineNumber = "200"
+            startingLineNumber = "180"
+            endingLineNumber = "180"
             landmarkName = "-generatePreviewsForArtboards:"
             landmarkType = "7">
          </BreakpointContent>
@@ -36,11 +36,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SketchZip/SketchDiffTool.m"
-            timestampString = "556122403.535351"
+            timestampString = "556138340.990737"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "331"
-            endingLineNumber = "331"
+            startingLineNumber = "311"
+            endingLineNumber = "311"
             landmarkName = "-diffFromFile:to:"
             landmarkType = "7">
          </BreakpointContent>
@@ -52,11 +52,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SketchZip/SketchDiffTool.m"
-            timestampString = "556122403.535427"
+            timestampString = "556138340.9908479"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "143"
-            endingLineNumber = "143"
+            startingLineNumber = "123"
+            endingLineNumber = "123"
             landmarkName = "-generatePreviewsForArtboards:"
             landmarkType = "7">
          </BreakpointContent>
@@ -68,7 +68,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SketchZip/ArtboardGridViewController.m"
-            timestampString = "556122403.53549"
+            timestampString = "556138340.990949"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "207"
@@ -84,7 +84,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SketchZip/SketchPage.m"
-            timestampString = "556122403.535665"
+            timestampString = "557150560.010808"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "76"
@@ -100,11 +100,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SketchZip/SketchDiffTool.m"
-            timestampString = "556122403.536088"
+            timestampString = "556138340.991467"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "216"
-            endingLineNumber = "216"
+            startingLineNumber = "196"
+            endingLineNumber = "196"
             landmarkName = "-operationsFromPageA:toPageB:"
             landmarkType = "7">
          </BreakpointContent>
@@ -112,16 +112,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "SketchZip/SketchPage.m"
-            timestampString = "556122403.53613"
+            filePath = "SketchZip/AppDelegate.m"
+            timestampString = "557151223.220526"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "49"
-            endingLineNumber = "49"
-            landmarkName = "-init"
+            startingLineNumber = "99"
+            endingLineNumber = "99"
+            landmarkName = "-reloadFile:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

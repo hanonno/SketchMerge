@@ -111,26 +111,6 @@ static const BOOL kLoggingEnabled = YES;
     return pagesLookup;
 }
 
-//- (void)generatePreviewsForArtboards:(NSArray *)artboards fromFileWithURL:(NSURL *)fileURL {
-//    NSMutableArray *updatedArtboards = [[NSMutableArray alloc] init];
-//    NSMutableArray *deletedArtboards = [[NSMutableArray alloc] init];
-//    
-//    for (SketchArtboard *artboard in artboards) {
-//        NSString *artboardId = artboard.objectId;
-//        
-//        if(artboardId != nil) {
-//            if(artboard.operationType == SketchOperationTypeDelete) {
-//                [deletedArtboards addObject:artboard];
-//            }
-//            else {
-//                [updatedArtboards addObject:artboardId];
-//            }
-//        }
-//    }
-//    
-////    [self]
-//}
-
 - (void)generatePreviewsForArtboards:(NSArray *)operations {
     if(operations == nil || operations.count == 0) {
         return;
@@ -337,6 +317,29 @@ static const BOOL kLoggingEnabled = YES;
     diff.allOperations = allOperations;
     
     return diff;
+}
+
+@end
+
+
+@implementation SketchMergeTool
+
+- (id)initWithDiffA:(SketchDiff *)diffA diffB:(SketchDiff *)diffB {
+    self = [super init];
+    
+    _diffA = diffA;
+    _diffB = diffB;
+    
+    return self;
+}
+
+- (void)detectConflicts {
+    NSMutableSet *objectIds = [[NSMutableSet alloc] init];
+    
+//    [pageIDs addObjectsFromArray:[pagesA allKeys]];
+//    [pageIDs addObjectsFromArray:[pagesB allKeys]];
+    
+
 }
 
 @end

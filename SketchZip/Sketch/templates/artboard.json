@@ -9,8 +9,8 @@
   },
   "rotation": 0,
   "frame": {
-    "x": 2175,
-    "y": 50,
+    "x": 0,
+    "y": 0,
     "_class": "rect",
     "constrainProportions": false,
     "height": 667,
@@ -51,109 +51,7 @@
   "name": "Artboard-Generated",
   "isVisible": true,
   "resizingType": 0,
-  "layers": [
-    {
-      "isFlippedHorizontal": false,
-      "style": {
-        "textStyle": {
-          "verticalAlignment": 0,
-          "_class": "textStyle",
-          "encodedAttributes": {
-            "MSAttributedStringFontAttribute": {
-              "attributes": {
-                "name": "SFProText-Bold",
-                "size": 32
-              },
-              "_class": "fontDescriptor"
-            },
-            "MSAttributedStringColorAttribute": {
-              "red": 1,
-              "_class": "color",
-              "alpha": 1,
-              "blue": 1,
-              "green": 1
-            },
-            "textStyleVerticalAlignmentKey": 0,
-            "paragraphStyle": {
-              "_class": "paragraphStyle",
-              "alignment": 2
-            }
-          }
-        },
-        "windingRule": 1,
-        "_class": "style",
-        "miterLimit": 10,
-        "startMarkerType": 0,
-        "endMarkerType": 0
-      },
-      "rotation": 0,
-      "frame": {
-        "x": 126,
-        "y": 315,
-        "_class": "rect",
-        "constrainProportions": false,
-        "height": 38,
-        "width": 124
-      },
-      "do_objectID": "845FF766-C6C4-426E-9A9E-1D27041A70F5",
-      "layerListExpandedType": 0,
-      "exportOptions": {
-        "shouldTrim": false,
-        "includedLayerIds": [],
-        "layerOptions": 0,
-        "_class": "exportOptions",
-        "exportFormats": []
-      },
-      "glyphBounds": "{{2, 7}, {120, 24}}",
-      "dontSynchroniseWithSymbol": false,
-      "lineSpacingBehaviour": 2,
-      "textBehaviour": 0,
-      "isFlippedVertical": false,
-      "nameIsFixed": false,
-      "name": "GENERATED",
-      "isVisible": true,
-      "resizingType": 0,
-      "isLocked": false,
-      "attributedString": {
-        "string": "GENERATED JOH",
-        "_class": "attributedString",
-        "attributes": [
-          {
-            "length": 13,
-            "_class": "stringAttribute",
-            "location": 0,
-            "attributes": {
-              "MSAttributedStringFontAttribute": {
-                "attributes": {
-                  "name": "SFProText-Bold",
-                  "size": 32
-                },
-                "_class": "fontDescriptor"
-              },
-              "MSAttributedStringColorAttribute": {
-                "red": 1,
-                "_class": "color",
-                "alpha": 1,
-                "blue": 1,
-                "green": 1
-              },
-              "textStyleVerticalAlignmentKey": 0,
-              "paragraphStyle": {
-                "_class": "paragraphStyle",
-                "alignment": 2
-              }
-            }
-          }
-        ]
-      },
-      "shouldBreakMaskChain": false,
-      "isFixedToViewport": false,
-      "_class": "text",
-      "booleanOperation": -1,
-      "resizingConstraint": 47,
-      "automaticallyDrawOnUnderlyingPath": false
-    }
-  ],
+  "layers": [],
   "isLocked": false,
   "shouldBreakMaskChain": true,
   "isFlowHome": false,

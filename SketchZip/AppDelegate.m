@@ -84,7 +84,6 @@
     
     dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
         
-        
         SketchDiff *diff = [self.sketchDiffTool diffFromFile:fileRoot to:fileA];
         NSArray *pages = diff.allOperations;
         
@@ -100,8 +99,12 @@
         
         [fileRoot applyDiff:diffA];
         [fileRoot applyDiff:diffB];
-        [fileRoot writePages];
 
+//        SketchArtboard *artboard = [[SketchArtboard alloc] init];
+//        [fileRoot.pages.allValues.firstObject insertLayer:artboard];
+
+        [fileRoot writePages];
+        
 //        // Merge
 //        NSLog(@"before page count %lu", (unsigned long)fileResult.pages.count);
 //

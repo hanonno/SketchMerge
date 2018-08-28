@@ -38,6 +38,17 @@
 @end
 
 
+@interface SketchMergeTool : NSObject
+
+@property (strong) SketchDiff *diffA;
+@property (strong) SketchDiff *diffB;
+
+- (id)initWithDiffA:(SketchDiff *)diffA diffB:(SketchDiff *)diffB;
+
+@end
+
+
+
 @interface CoreSyncTransaction (Sketch)
 
 - (NSString *)pageID;

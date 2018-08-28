@@ -49,7 +49,7 @@ static const BOOL kLoggingEnabled = YES;
     
     self = [super initWithJSON:artboardJSON fromPage:nil];
     
-    self.JSON[@"do_objectID"] = @"260B03D6-46CF-47AD-94FF-82C6B4C7718D";
+    self.JSON[@"do_objectID"] = [[NSUUID UUID] UUIDString];
     
     return self;
 }
@@ -235,7 +235,7 @@ static const BOOL kLoggingEnabled = YES;
     [documentData writeToFile:documentDataPath atomically:YES];
     
     // Write zip
-    NSString *homeDirectory =  [@"~/SketchJoh.sketch" stringByExpandingTildeInPath];
+    NSString *homeDirectory =  [@"~/SketchMerged.sketch" stringByExpandingTildeInPath];
     
     if(![SSZipArchive createZipFileAtPath:homeDirectory withContentsOfDirectory:self.tempFileURL.path]) {
         NSLog(@"Something went wrong");
