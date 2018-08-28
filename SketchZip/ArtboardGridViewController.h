@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "SketchPage.h"
+#import "SketchDiffTool.h"
 #import "SketchOperationTypeIndicator.h"
 
 

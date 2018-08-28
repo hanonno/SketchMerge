@@ -9,27 +9,7 @@
 #import <Foundation/Foundation.h>
 
 
-@class SketchArtboardPreviewOperation;
-
-
 @class SketchFile, SketchPage, SketchDiff;
-
-
-typedef enum : NSUInteger {
-    SketchOperationTypeInsert,
-    SketchOperationTypeUpdate,
-    SketchOperationTypeDelete,
-    SketchOperationTypeIgnore
-} SketchOperationType;
-
-
-typedef enum : NSUInteger {
-    SketchResolutionTypeA,
-    SketchResolutionTypeB,
-    SketchResolutionTypeIgnore,
-    SketchResolutionTypeUnknown,
-} SketchResolutionType;
-
 
 
 @interface SketchLayer : NSObject
@@ -47,41 +27,6 @@ typedef enum : NSUInteger {
 
 
 @interface SketchArtboard : SketchLayer
-
-@end
-
-
-@interface SketchChangeSet : NSObject
-
-@property (strong) NSArray  *pageChanges;
-@property (strong) NSArray  *imageChanges;
-
-@end
-
-
-@interface SketchPageChange : NSObject
-
-- (id)initWithPage:(SketchPage *)page operationType:(SketchOperationType)operationType;
-
-@property (strong) SketchPage           *page;
-@property (assign) SketchOperationType  operationType;
-@property (assign) SketchResolutionType resolutionType;
-
-@property (strong) SketchDiff           *diff;
-
-@end
-
-
-@interface SketchLayerChange : NSObject
-
-@property (nonatomic, strong) NSString              *objectId;
-@property (nonatomic, assign) SketchOperationType   type;
-
-@property (nonatomic, strong) SketchLayer           *layerA;
-@property (nonatomic, strong) NSImage               *previewImageA;
-
-@property (nonatomic, strong) SketchLayer           *layerB;
-@property (nonatomic, strong) NSImage               *previewImageB;
 
 @end
 
