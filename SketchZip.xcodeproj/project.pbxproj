@@ -72,6 +72,12 @@
 		7DEA342D2135A79A0062075A /* Sketch-Conflict-B.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7DEA34282135A79A0062075A /* Sketch-Conflict-B.sketch */; };
 		7DEA342E2135A79A0062075A /* Sketch-Conflict-A.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7DEA34292135A79A0062075A /* Sketch-Conflict-A.sketch */; };
 		7DEA342F2135A79A0062075A /* Sketch-Conflict-A.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7DEA34292135A79A0062075A /* Sketch-Conflict-A.sketch */; };
+		7DEA34342135DC980062075A /* Sketch-Add-A.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7DEA34312135DC980062075A /* Sketch-Add-A.sketch */; };
+		7DEA34352135DC980062075A /* Sketch-Add-A.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7DEA34312135DC980062075A /* Sketch-Add-A.sketch */; };
+		7DEA34362135DC980062075A /* Sketch-Add-O.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7DEA34322135DC980062075A /* Sketch-Add-O.sketch */; };
+		7DEA34372135DC980062075A /* Sketch-Add-O.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7DEA34322135DC980062075A /* Sketch-Add-O.sketch */; };
+		7DEA34382135DC980062075A /* Sketch-Add-B.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7DEA34332135DC980062075A /* Sketch-Add-B.sketch */; };
+		7DEA34392135DC980062075A /* Sketch-Add-B.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7DEA34332135DC980062075A /* Sketch-Add-B.sketch */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -189,6 +195,9 @@
 		7DEA34272135A79A0062075A /* Sketch-Conflict-Root.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sketch-Conflict-Root.sketch"; sourceTree = "<group>"; };
 		7DEA34282135A79A0062075A /* Sketch-Conflict-B.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sketch-Conflict-B.sketch"; sourceTree = "<group>"; };
 		7DEA34292135A79A0062075A /* Sketch-Conflict-A.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sketch-Conflict-A.sketch"; sourceTree = "<group>"; };
+		7DEA34312135DC980062075A /* Sketch-Add-A.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sketch-Add-A.sketch"; sourceTree = "<group>"; };
+		7DEA34322135DC980062075A /* Sketch-Add-O.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sketch-Add-O.sketch"; sourceTree = "<group>"; };
+		7DEA34332135DC980062075A /* Sketch-Add-B.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sketch-Add-B.sketch"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -388,6 +397,7 @@
 		7D828F9D2122E0E300ADBD7E /* Sketch */ = {
 			isa = PBXGroup;
 			children = (
+				7DEA343A2135DC9D0062075A /* Add */,
 				7DEA34302135A7A00062075A /* Conflict */,
 				7D828FAA2125B8B600ADBD7E /* templates */,
 				7D828F9F2122E27E00ADBD7E /* Sketch-A.sketch */,
@@ -414,6 +424,16 @@
 				7DEA34272135A79A0062075A /* Sketch-Conflict-Root.sketch */,
 			);
 			path = Conflict;
+			sourceTree = "<group>";
+		};
+		7DEA343A2135DC9D0062075A /* Add */ = {
+			isa = PBXGroup;
+			children = (
+				7DEA34312135DC980062075A /* Sketch-Add-A.sketch */,
+				7DEA34332135DC980062075A /* Sketch-Add-B.sketch */,
+				7DEA34322135DC980062075A /* Sketch-Add-O.sketch */,
+			);
+			path = Add;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -537,9 +557,11 @@
 				7D7CCFC721133AB60061EBB0 /* Version-1.sketch in Resources */,
 				55BE526B20ADAE720059EC77 /* TestFile1.sketch in Resources */,
 				552F295520EE4B0A00A845B2 /* Artboards-B.sketch in Resources */,
+				7DEA34382135DC980062075A /* Sketch-Add-B.sketch in Resources */,
 				55BE520320ADABFD0059EC77 /* Assets.xcassets in Resources */,
 				7D7CCFC921133BAB0061EBB0 /* Version-3.sketch in Resources */,
 				7D7CCFC621133AB60061EBB0 /* Version-2.sketch in Resources */,
+				7DEA34362135DC980062075A /* Sketch-Add-O.sketch in Resources */,
 				7DEA342C2135A79A0062075A /* Sketch-Conflict-B.sketch in Resources */,
 				7D828FA12122E27E00ADBD7E /* Sketch-Root.sketch in Resources */,
 				7D828FA82122FE8700ADBD7E /* Sketch-Result.sketch in Resources */,
@@ -548,6 +570,7 @@
 				7D7CCFD42114697A0061EBB0 /* UW-Shipping.sketch in Resources */,
 				7D7CCFD6211474AF0061EBB0 /* UW-Shipping-B.sketch in Resources */,
 				7D7CCFCB21133BEA0061EBB0 /* Version-4.sketch in Resources */,
+				7DEA34342135DC980062075A /* Sketch-Add-A.sketch in Resources */,
 				7D828FAC2125B90100ADBD7E /* artboard.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -556,12 +579,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7DEA34352135DC980062075A /* Sketch-Add-A.sketch in Resources */,
 				7D828FAD2125B90100ADBD7E /* artboard.json in Resources */,
 				7DEA342D2135A79A0062075A /* Sketch-Conflict-B.sketch in Resources */,
 				7DEA342B2135A79A0062075A /* Sketch-Conflict-Root.sketch in Resources */,
 				7D828FA22122E27E00ADBD7E /* Sketch-Root.sketch in Resources */,
 				7D828FA62122E27E00ADBD7E /* Sketch-B.sketch in Resources */,
+				7DEA34392135DC980062075A /* Sketch-Add-B.sketch in Resources */,
 				7D828FA92122FE8700ADBD7E /* Sketch-Result.sketch in Resources */,
+				7DEA34372135DC980062075A /* Sketch-Add-O.sketch in Resources */,
 				7D828FA42122E27E00ADBD7E /* Sketch-A.sketch in Resources */,
 				7DEA342F2135A79A0062075A /* Sketch-Conflict-A.sketch in Resources */,
 			);

@@ -35,6 +35,8 @@ typedef enum : NSUInteger {
 @property (nonatomic, strong) SketchLayer           *layer;
 @property (nonatomic, strong) NSImage               *previewImage;
 
+- (void)applyToPage:(SketchPage *)page;
+
 @end
 
 
@@ -58,6 +60,8 @@ typedef enum : NSUInteger {
 @property (assign) SketchResolutionType resolutionType;
 
 @property (strong) SketchLayerDiff      *layerDiff;
+
+- (void)applyToFile:(SketchFile *)file;
 
 @end
 
@@ -103,18 +107,27 @@ typedef enum : NSUInteger {
 @property (strong) SketchLayerChange          *layerChangeA;
 @property (strong) SketchLayerChange          *layerChangeB;
 
+- (void)applyToPage:(SketchPage *)page;
+
 @end
 
 
 
 @interface SketchMergeTool : NSObject
 
+@property (strong) SketchFile        *fileO;
+@property (strong) SketchFile        *fileA;
+@property (strong) SketchFile        *fileB;
+
 @property (strong) SketchChangeSet   *changeSetA;
 @property (strong) SketchChangeSet   *changeSetB;
 
+@property (strong) NSMutableArray    *pageChanges;
 @property (strong) NSMutableArray    *operations;
 
-- (id)initWithChangeSetA:(SketchChangeSet *)changeSetA changeSetB:(SketchChangeSet *)changeSetB;
+- (id)initWithOrigin:(SketchFile *)fileO fileA:(SketchFile *)fileA fileB:(SketchFile *)fileB;
+
+- (void)applyChanges;
 
 @end
 

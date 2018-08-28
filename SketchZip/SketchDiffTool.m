@@ -22,6 +22,25 @@ static const BOOL kLoggingEnabled = YES;
     return self.layer.objectId;
 }
 
+- (void)applyToPage:(SketchPage *)page {
+    switch (self.operationType) {
+        case SketchOperationTypeInsert:
+            [page insertLayer:self.layer];
+            break;
+            
+        case SketchOperationTypeUpdate:
+            [page updateLayer:self.layer];
+            break;
+
+        case SketchOperationTypeDelete:
+            [page deleteLayer:self.layer];
+            break;
+        
+        case SketchOperationTypeIgnore:
+            break;
+    }
+}
+
 @end
 
 
@@ -34,6 +53,29 @@ static const BOOL kLoggingEnabled = YES;
     _operationType = operationType;
     
     return self;
+}
+
+- (void)applyToFile:(SketchFile *)file {
+    switch (self.operationType) {
+        case SketchOperationTypeInsert:
+            [file insertPage:self.page];
+            break;
+            
+        case SketchOperationTypeUpdate:
+            for (SketchLayerChange *layerChange in self.layerDiff.orderedChanges) {
+                [layerChange applyToPage:self.page];
+            }
+
+            [file updatePage:self.page];
+            break;
+            
+        case SketchOperationTypeDelete:
+            [file deletePage:self.page];
+            break;
+            
+        case SketchOperationTypeIgnore:
+            break;
+    }
 }
 
 @end
@@ -405,36 +447,68 @@ static const BOOL kLoggingEnabled = YES;
     return @"Something went wrong";
 }
 
+- (void)applyToPage:(SketchPage *)page {
+    switch (self.resolutionType) {
+        case SketchResolutionTypeA:
+            [self.layerChangeA applyToPage:page];
+            break;
+            
+        case SketchResolutionTypeB:
+            [self.layerChangeB applyToPage:page];
+            break;
+
+        case SketchResolutionTypeConflict:
+            NSLog(@"Conflict?!?!");
+            break;
+            
+        default:
+            break;
+    }
+}
+
 @end
 
 
 
 @implementation SketchMergeTool
 
-- (id)initWithChangeSetA:(SketchChangeSet *)changeSetA changeSetB:(SketchChangeSet *)changeSetB {
+- (id)initWithOrigin:(SketchFile *)fileO fileA:(SketchFile *)fileA fileB:(SketchFile *)fileB {
     self = [super init];
+
+    _fileO = fileO;
+    _fileA = fileA;
+    _fileB = fileB;
     
-    _changeSetA = changeSetA;
-    _changeSetB = changeSetB;
+    SketchDiffTool *diffTool = [[SketchDiffTool alloc] init];
     
-//    _conflicts = [self conflictsFromPageChangeA:_changeSetA toPageChangeB:_changeSetB];
+    _changeSetA = [diffTool changesFromFile:_fileO to:_fileA];
+    _changeSetB = [diffTool changesFromFile:_fileO to:_fileB];
 
     NSMutableSet *pageIds = [[NSMutableSet alloc] init];
     [pageIds addObjectsFromArray:_changeSetA.pageIds];
     [pageIds addObjectsFromArray:_changeSetB.pageIds];
-    
-    self.operations = [[NSMutableArray alloc] init];
+
+    _pageChanges = [[NSMutableArray alloc] init];
+    _operations = [[NSMutableArray alloc] init];
     
     for (NSString *pageId in pageIds) {
         SketchPageChange *pageChangeA = [_changeSetA pageChangeWithId:pageId];
         SketchPageChange *pageChangeB = [_changeSetB pageChangeWithId:pageId];
         
-        if(pageChangeA != nil && pageChangeB != nil) {
+        if(pageChangeA != nil && pageChangeB == nil) {
+            [_pageChanges addObject:pageChangeA];
+        }
+        else if (pageChangeA == nil && pageChangeB != nil) {
+            [_pageChanges addObject:pageChangeB];
+        }
+        else if(pageChangeA != nil && pageChangeB != nil) {
             NSArray *operations = [self operationsFromPageChangeA:pageChangeA toPageChangeB:pageChangeB];
             
             if(operations.count > 0) {
-                [self.operations addObjectsFromArray:operations];
+                [_operations addObjectsFromArray:operations];
             }
+
+            [_pageChanges addObject:pageChangeA];
         }
     }
 
@@ -499,6 +573,12 @@ static const BOOL kLoggingEnabled = YES;
     }
 
     return operations;
+}
+
+- (void)applyChanges {
+    for (SketchPageChange *pageChange in self.pageChanges) {
+        [pageChange applyToFile:self.fileO];
+    }
 }
 
 @end
