@@ -18,6 +18,10 @@ static const BOOL kLoggingEnabled = YES;
 
 @implementation SketchLayerChange
 
+- (NSString *)objectId {
+    return self.layer.objectId;
+}
+
 @end
 
 
@@ -181,7 +185,7 @@ static const BOOL kLoggingEnabled = YES;
         NSString *objectId = operation.objectId;
         
         if(filePath == nil) {
-            filePath = operation.layerB.page.sketchFile.fileURL.path;
+            filePath = operation.layer.page.sketchFile.fileURL.path;
         }
         
         if(objectId != nil) {
@@ -231,7 +235,7 @@ static const BOOL kLoggingEnabled = YES;
             for (SketchLayerChange *operation in operations) {
                 NSString *outputFilePath = [[tempDir.path stringByAppendingPathComponent:operation.objectId] stringByAppendingPathExtension:@"png"];
                 image = [[NSImage alloc] initWithContentsOfFile:outputFilePath];
-                operation.previewImageB = image;
+                operation.previewImage = image;
             }
         }
     } else {
@@ -262,8 +266,7 @@ static const BOOL kLoggingEnabled = YES;
             
             SketchLayerChange *layerChange = [[SketchLayerChange alloc] init];
             layerChange.operationType = SketchOperationTypeInsert;
-            layerChange.layerB = layerB;
-            layerChange.objectId = layerChange.layerB.objectId;
+            layerChange.layer = layerB;
             [orderedChanges addObject:layerChange];
             [changesById setObject:layerChange forKey:layerChange.objectId];
         }
@@ -273,8 +276,7 @@ static const BOOL kLoggingEnabled = YES;
             
             SketchLayerChange *layerChange = [[SketchLayerChange alloc] init];
             layerChange.operationType = SketchOperationTypeDelete;
-            layerChange.layerA = layerA;
-            layerChange.objectId = layerChange.layerA.objectId;
+            layerChange.layer = layerA;
             [orderedChanges addObject:layerChange];
             [changesById setObject:layerChange forKey:layerChange.objectId];
         }
@@ -286,9 +288,7 @@ static const BOOL kLoggingEnabled = YES;
                 NSLog(@"Layer updated!");
                 SketchLayerChange *layerChange = [[SketchLayerChange alloc] init];
                 layerChange.operationType = SketchOperationTypeUpdate;
-                layerChange.layerA = layerA;
-                layerChange.layerB = layerB;
-                layerChange.objectId = layerChange.layerB.objectId;
+                layerChange.layer = layerB;
                 [orderedChanges addObject:layerChange];
                 [changesById setObject:layerChange forKey:layerChange.objectId];
             }
@@ -296,9 +296,7 @@ static const BOOL kLoggingEnabled = YES;
                 NSLog(@"Layer is the same!");
                 SketchLayerChange *layerChange = [[SketchLayerChange alloc] init];
                 layerChange.operationType = SketchOperationTypeIgnore;
-                layerChange.layerA = layerA;
-                layerChange.layerB = layerB;
-                layerChange.objectId = layerChange.layerB.objectId;
+                layerChange.layer = layerA;
                 [orderedChanges addObject:layerChange];
                 [changesById setObject:layerChange forKey:layerChange.objectId];
             }
@@ -381,10 +379,10 @@ static const BOOL kLoggingEnabled = YES;
 
 - (NSString *)objectName {
     if(self.resolutionType == SketchResolutionTypeA) {
-        return self.layerChangeA.layerA.name;
+        return self.layerChangeA.layer.name;
     }
     else if(self.resolutionType == SketchResolutionTypeB) {
-        return self.layerChangeB.layerB.name;
+        return self.layerChangeB.layer.name;
     }
     else if(self.resolutionType == SketchResolutionTypeConflict) {
         return @"Conflicted";
@@ -395,13 +393,13 @@ static const BOOL kLoggingEnabled = YES;
 
 - (NSString *)objectClass {
     if(self.resolutionType == SketchResolutionTypeA) {
-        return self.layerChangeA.layerA.className;
+        return self.layerChangeA.layer.className;
     }
     else if(self.resolutionType == SketchResolutionTypeB) {
-        return self.layerChangeB.layerB.className;
+        return self.layerChangeB.layer.className;
     }
     else if(self.resolutionType == SketchResolutionTypeConflict) {
-        return self.layerChangeB.layerB.className;
+        return self.layerChangeB.layer.className;
     }
     
     return @"Something went wrong";

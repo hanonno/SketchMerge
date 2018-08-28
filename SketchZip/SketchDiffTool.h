@@ -30,14 +30,10 @@ typedef enum : NSUInteger {
 
 @interface SketchLayerChange : NSObject
 
-@property (nonatomic, strong) NSString              *objectId;
+@property (readonly) NSString                       *objectId;
 @property (nonatomic, assign) SketchOperationType   operationType;
-
-@property (nonatomic, strong) SketchLayer           *layerA;
-@property (nonatomic, strong) NSImage               *previewImageA;
-
-@property (nonatomic, strong) SketchLayer           *layerB;
-@property (nonatomic, strong) NSImage               *previewImageB;
+@property (nonatomic, strong) SketchLayer           *layer;
+@property (nonatomic, strong) NSImage               *previewImage;
 
 @end
 
