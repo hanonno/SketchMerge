@@ -16,12 +16,12 @@ static const BOOL kLoggingEnabled = YES;
 
 @implementation SketchLayer
 
-- (id)initWithJSON:(NSDictionary *)JSON fromPage:(SketchPage *)page {
+- (id)initWithJSON:(NSMutableDictionary *)JSON fromPage:(SketchPage *)page {
     self = [super init];
 
     _JSON = JSON;
     _page = page;
-    _image = nil;
+    _previewImage = nil;
 
     return self;
 }
@@ -45,7 +45,7 @@ static const BOOL kLoggingEnabled = YES;
 
 - (id)init {
     NSData *artboardData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"artboard" ofType:@"json"]];
-    NSDictionary *artboardJSON = [NSJSONSerialization JSONObjectWithData:artboardData options:NSJSONReadingMutableContainers|NSJSONReadingMutableLeaves error:nil];
+    NSMutableDictionary *artboardJSON = [NSJSONSerialization JSONObjectWithData:artboardData options:NSJSONReadingMutableContainers|NSJSONReadingMutableLeaves error:nil];
     
     self = [super initWithJSON:artboardJSON fromPage:nil];
     
@@ -70,7 +70,7 @@ static const BOOL kLoggingEnabled = YES;
     
     NSMutableDictionary *layers = [[NSMutableDictionary alloc] init];
     
-    for (NSDictionary *layer in _JSON[@"layers"]) {
+    for (NSMutableDictionary *layer in _JSON[@"layers"]) {
         if(layer[@"do_objectID"] != nil) {
             layers[layer[@"do_objectID"]] = [[SketchLayer alloc] initWithJSON:layer fromPage:self];
         }
@@ -264,7 +264,7 @@ static const BOOL kLoggingEnabled = YES;
 }
 
 - (void)deletePage:(SketchPage *)page {
-    
+//    [self.pages remove]
 }
 
 @end

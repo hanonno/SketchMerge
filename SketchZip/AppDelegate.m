@@ -85,23 +85,18 @@
     NSURL *fileURLRoot = self.rootFileURL ? self.rootFileURL : [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Sketch-Add-O" ofType:@"sketch"]];
     NSURL *fileURLA = self.changedFileURL ? self.changedFileURL : [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Sketch-Add-A" ofType:@"sketch"]];
     NSURL *fileURLB = self.changedFileURL ? self.changedFileURL : [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Sketch-Add-B" ofType:@"sketch"]];
-
-    NSURL *fileURLResult = self.changedFileURL ? self.changedFileURL : [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Sketch-B" ofType:@"sketch"]];
     
     SketchFile *fileRoot = [[SketchFile alloc] initWithFileURL:fileURLRoot];
     SketchFile *fileA = [[SketchFile alloc] initWithFileURL:fileURLA];
     SketchFile *fileB = [[SketchFile alloc] initWithFileURL:fileURLB];
-    SketchFile *fileResult = [[SketchFile alloc] initWithFileURL:fileURLResult];
 
     [self.artboardGridViewController startLoading];
-    
-    SketchChangeSet *changes = [self.sketchDiffTool changesFromFile:fileA to:fileB];
-    
-    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
-        SketchChangeSet *changeSetA = [self.sketchDiffTool changesFromFile:fileRoot to:fileA];
-        SketchChangeSet *changeSetB = [self.sketchDiffTool changesFromFile:fileRoot to:fileB];
         
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
         SketchMergeTool *mergeTool = [[SketchMergeTool alloc] initWithOrigin:fileRoot fileA:fileA fileB:fileB];
+        
+        [self.sketchDiffTool generatePreviewsForArtboards:[mergeTool.changeSetA.pageOperations.firstObject operations]];
+        [self.sketchDiffTool generatePreviewsForArtboards:[mergeTool.changeSetB.pageOperations.firstObject operations]];
         
         [mergeTool applyChanges];
         [mergeTool.fileO writePages];

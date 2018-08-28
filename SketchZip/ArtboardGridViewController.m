@@ -168,7 +168,7 @@
 //}
 
 
-- (SketchMergeOperation *)operationAtIndexPath:(NSIndexPath *)indexPath {
+- (SKLayerMergeOperation *)operationAtIndexPath:(NSIndexPath *)indexPath {
     return [self.mergeTool.operations objectAtIndex:indexPath.item];
 }
 
@@ -182,9 +182,9 @@
 
 - (NSCollectionViewItem *)collectionView:(NSCollectionView *)collectionView itemForRepresentedObjectAtIndexPath:(NSIndexPath *)indexPath {
     ArtboardCollectionViewItem *item = [collectionView makeItemWithIdentifier:@"ArtboardCollectionViewItemIdentifier" forIndexPath:indexPath];
-    SketchMergeOperation *operation = [self operationAtIndexPath:indexPath];
+    SKLayerMergeOperation *operation = [self operationAtIndexPath:indexPath];
 
-//    item.artboardImageView.image = operation.previewImageB;
+    item.artboardImageView.image = operation.layer.previewImage;
     item.statusView.type = operation.operationType;
     item.titleLabel.stringValue = [NSString stringWithFormat:@"%@ - %@", operation.objectClass, operation.objectName];
 

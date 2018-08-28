@@ -39,6 +39,4 @@
 - (void)startLoading;
 - (void)finishLoading;
 
-- (void)collapseAll;
-
 @end

@@ -15,13 +15,18 @@
 @interface SketchLayer : NSObject
 
 @property (nonatomic, strong) NSMutableDictionary   *JSON;
-@property (nonatomic, strong) NSImage               *image;
+@property (nonatomic, strong) SketchPage            *page;
+
+// Preview
+@property (nonatomic, strong) NSImage               *previewImage;
+
+// Convenience
 @property (nonatomic, strong, readonly) NSString    *name;
 @property (nonatomic, strong, readonly) NSString    *objectId;
 @property (nonatomic, strong, readonly) NSString    *objectClass;
-@property (nonatomic, strong) SketchPage            *page;
 
-- (id)initWithJSON:(NSDictionary *)JSON fromPage:(SketchPage *)page;
+
+- (id)initWithJSON:(NSMutableDictionary *)JSON fromPage:(SketchPage *)page;
 
 @end
 
@@ -52,11 +57,12 @@
 
 @interface SketchFile : NSObject
 
-@property (strong) NSURL        *fileURL;
-@property (strong) NSDictionary *pages;
+@property (strong) NSURL                *fileURL;
+@property (strong) NSMutableDictionary  *pages;
 
 - (id)initWithFileURL:(NSURL *)fileURL;
 
+- (void)loadPages;
 - (void)writePages;
 
 - (SketchPage *)pageWithId:(NSString *)pageId;

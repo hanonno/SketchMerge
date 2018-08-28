@@ -28,10 +28,10 @@ typedef enum : NSUInteger {
 
 
 
-@interface SketchLayerChange : NSObject
+@interface SKLayerOperation : NSObject
 
 @property (readonly) NSString                       *objectId;
-@property (nonatomic, assign) SketchOperationType   operationType;
+@property (nonatomic, assign) SketchOperationType   type;
 @property (nonatomic, strong) SketchLayer           *layer;
 @property (nonatomic, strong) NSImage               *previewImage;
 
@@ -40,7 +40,26 @@ typedef enum : NSUInteger {
 @end
 
 
-@interface SketchPageChange : NSObject
+@interface SKLayerMergeOperation : NSObject
+
+@property (assign) SketchResolutionType       resolutionType;
+
+@property (strong) SKLayerOperation          *layerOperationA;
+@property (strong) SKLayerOperation          *layerOperationB;
+
+- (void)applyToPage:(SketchPage *)page;
+
+// Shortcuts
+@property (readonly) NSString                 *objectId;
+@property (readonly) SketchLayer              *layer;
+@property (readonly) NSString                 *objectName;
+@property (readonly) NSString                 *objectClass;
+@property (readonly) SketchOperationType      operationType;
+
+@end
+
+
+@interface SKPageOperation : NSObject
 
 - (id)initWithPage:(SketchPage *)page operationType:(SketchOperationType)operationType;
 
@@ -49,9 +68,9 @@ typedef enum : NSUInteger {
 @property (assign) SketchResolutionType resolutionType;
 @property (strong) NSMutableArray       *operations;
 
-- (NSArray *)objectKeys;
+- (NSArray *)layerIds;
 
-- (SketchLayerChange *)operationWithObjectId:(NSString *)objectId;
+- (SKLayerOperation *)layerOperationWithId:(NSString *)objectId;
 
 - (void)applyToFile:(SketchFile *)file;
 
@@ -59,13 +78,13 @@ typedef enum : NSUInteger {
 
 
 
-@interface SketchChangeSet : NSObject
+@interface SketchFileOperation : NSObject
 
-@property (strong) NSMutableArray *pageChanges;
-@property (strong) NSMutableArray *imageChanges;
+@property (strong) NSMutableArray *pageOperations;
+@property (strong) NSMutableArray *imageOperations;
 
 - (NSArray *)pageIds;
-- (SketchPageChange *)pageChangeWithId:(NSString *)pageId;
+- (SKPageOperation *)pageChangeWithId:(NSString *)pageId;
 
 @end
 
@@ -81,27 +100,13 @@ typedef enum : NSUInteger {
 - (void)generatePreviewsForArtboards:(NSArray *)artboards;
 
 //- (SketchDiff *)diffFromFile:(SketchFile *)fileA to:(SketchFile *)fileB;
-- (SketchChangeSet *)changesFromFile:(SketchFile *)fileA to:(SketchFile *)fileB;
+- (SketchFileOperation *)changesFromFile:(SketchFile *)fileA to:(SketchFile *)fileB;
 //- (NSArray *)operationsFromRoot:(NSURL *)fileRoot toA:(NSURL *)fileA toB:(NSURL *)fileB;
 
 @end
 
 
 
-@interface SketchMergeOperation : NSObject
-
-@property (assign) SketchResolutionType       resolutionType;
-
-@property (readonly) SketchOperationType      operationType;
-@property (readonly) NSString                 *objectName;
-@property (readonly) NSString                 *objectClass;
-
-@property (strong) SketchLayerChange          *layerChangeA;
-@property (strong) SketchLayerChange          *layerChangeB;
-
-- (void)applyToPage:(SketchPage *)page;
-
-@end
 
 
 
@@ -111,8 +116,8 @@ typedef enum : NSUInteger {
 @property (strong) SketchFile        *fileA;
 @property (strong) SketchFile        *fileB;
 
-@property (strong) SketchChangeSet   *changeSetA;
-@property (strong) SketchChangeSet   *changeSetB;
+@property (strong) SketchFileOperation   *changeSetA;
+@property (strong) SketchFileOperation   *changeSetB;
 
 @property (strong) NSMutableArray    *pageChanges;
 @property (strong) NSMutableArray    *operations;
