@@ -31,7 +31,7 @@ typedef enum : NSUInteger {
 @interface SKLayerOperation : NSObject
 
 @property (readonly) NSString                       *objectId;
-@property (nonatomic, assign) SketchOperationType   type;
+@property (nonatomic, assign) SketchOperationType   operationType;
 @property (nonatomic, strong) SketchLayer           *layer;
 @property (nonatomic, strong) NSImage               *previewImage;
 
@@ -112,15 +112,15 @@ typedef enum : NSUInteger {
 
 @interface SketchMergeTool : NSObject
 
-@property (strong) SketchFile        *fileO;
-@property (strong) SketchFile        *fileA;
-@property (strong) SketchFile        *fileB;
+@property (strong) SketchFile               *fileO;
+@property (strong) SketchFile               *fileA;
+@property (strong) SketchFile               *fileB;
 
-@property (strong) SketchFileOperation   *changeSetA;
-@property (strong) SketchFileOperation   *changeSetB;
+@property (strong) SketchFileOperation      *changeSetA;
+@property (strong) SketchFileOperation      *changeSetB;
 
-@property (strong) NSMutableArray    *pageChanges;
-@property (strong) NSMutableArray    *operations;
+@property (strong) NSMutableArray           *pageOperations;
+@property (strong) NSMutableArray           *operations;
 
 - (id)initWithOrigin:(SketchFile *)fileO fileA:(SketchFile *)fileA fileB:(SketchFile *)fileB;
 

@@ -23,7 +23,7 @@ static const BOOL kLoggingEnabled = YES;
 }
 
 - (void)applyToPage:(SketchPage *)page {
-    switch (self.type) {
+    switch (self.operationType) {
         case SketchOperationTypeInsert:
             [page insertLayer:self.layer];
             break;
@@ -311,7 +311,7 @@ static const BOOL kLoggingEnabled = YES;
             NSLog(@"Layer added!");
             
             SKLayerOperation *layerChange = [[SKLayerOperation alloc] init];
-            layerChange.type = SketchOperationTypeInsert;
+            layerChange.operationType = SketchOperationTypeInsert;
             layerChange.layer = layerB;
             [operations addObject:layerChange];
         }
@@ -320,7 +320,7 @@ static const BOOL kLoggingEnabled = YES;
             NSLog(@"Layer deleted!");
             
             SKLayerOperation *layerChange = [[SKLayerOperation alloc] init];
-            layerChange.type = SketchOperationTypeDelete;
+            layerChange.operationType = SketchOperationTypeDelete;
             layerChange.layer = layerA;
             [operations addObject:layerChange];
         }
@@ -331,14 +331,14 @@ static const BOOL kLoggingEnabled = YES;
             if(diff && [diff count]) {
                 NSLog(@"Layer updated!");
                 SKLayerOperation *layerChange = [[SKLayerOperation alloc] init];
-                layerChange.type = SketchOperationTypeUpdate;
+                layerChange.operationType = SketchOperationTypeUpdate;
                 layerChange.layer = layerB;
                 [operations addObject:layerChange];
             }
             else {
                 NSLog(@"Layer is the same!");
                 SKLayerOperation *layerChange = [[SKLayerOperation alloc] init];
-                layerChange.type = SketchOperationTypeIgnore;
+                layerChange.operationType = SketchOperationTypeIgnore;
                 layerChange.layer = layerA;
                 [operations addObject:layerChange];
             }
@@ -406,10 +406,10 @@ static const BOOL kLoggingEnabled = YES;
 
 - (SketchOperationType)operationType {
     if(self.resolutionType == SketchResolutionTypeA) {
-        return self.layerOperationA.type;
+        return self.layerOperationA.operationType;
     }
     else if(self.resolutionType == SketchResolutionTypeB) {
-        return self.layerOperationB.type;
+        return self.layerOperationB.operationType;
     }
     
     return SketchOperationTypeIgnore;
@@ -512,7 +512,7 @@ static const BOOL kLoggingEnabled = YES;
     [pageIds addObjectsFromArray:_changeSetA.pageIds];
     [pageIds addObjectsFromArray:_changeSetB.pageIds];
 
-    _pageChanges = [[NSMutableArray alloc] init];
+    _pageOperations = [[NSMutableArray alloc] init];
     _operations = [[NSMutableArray alloc] init];
     
     for (NSString *pageId in pageIds) {
@@ -520,10 +520,10 @@ static const BOOL kLoggingEnabled = YES;
         SKPageOperation *pageChangeB = [_changeSetB pageChangeWithId:pageId];
         
         if(pageChangeA != nil && pageChangeB == nil) {
-            [_pageChanges addObject:pageChangeA];
+            [_pageOperations addObject:pageChangeA];
         }
         else if (pageChangeA == nil && pageChangeB != nil) {
-            [_pageChanges addObject:pageChangeB];
+            [_pageOperations addObject:pageChangeB];
         }
         else if(pageChangeA != nil && pageChangeB != nil) {
             NSMutableArray *operations = [self operationsFromPageChangeA:pageChangeA toPageChangeB:pageChangeB];
@@ -534,7 +534,7 @@ static const BOOL kLoggingEnabled = YES;
 
             pageChangeA.operations = operations;
             
-            [_pageChanges addObject:pageChangeA];
+            [_pageOperations addObject:pageChangeA];
         }
     }
 
@@ -569,7 +569,7 @@ static const BOOL kLoggingEnabled = YES;
         }
         else if (layerChangeA != nil && layerChangeB != nil) {
             // There can only be a conflict if both diffs have an operation
-            if((layerChangeA.type == SketchOperationTypeDelete || layerChangeA.type == SketchOperationTypeIgnore) && layerChangeB.type == SketchOperationTypeUpdate) {
+            if((layerChangeA.operationType == SketchOperationTypeDelete || layerChangeA.operationType == SketchOperationTypeIgnore) && layerChangeB.operationType == SketchOperationTypeUpdate) {
                 NSLog(@"Layer updated in B");
                 SKLayerMergeOperation *operation = [[SKLayerMergeOperation alloc] init];
                 operation.resolutionType = SketchResolutionTypeB;
@@ -577,7 +577,7 @@ static const BOOL kLoggingEnabled = YES;
                 operation.layerOperationB = layerChangeB;
                 [operations addObject:operation];
             }
-            else if(layerChangeA.type == SketchOperationTypeUpdate && (layerChangeB.type == SketchOperationTypeDelete || layerChangeB.type == SketchOperationTypeIgnore)) {
+            else if(layerChangeA.operationType == SketchOperationTypeUpdate && (layerChangeB.operationType == SketchOperationTypeDelete || layerChangeB.operationType == SketchOperationTypeIgnore)) {
                 NSLog(@"Layer updated in A");
                 // We should update with operationA
                 SKLayerMergeOperation *operation = [[SKLayerMergeOperation alloc] init];
@@ -586,7 +586,7 @@ static const BOOL kLoggingEnabled = YES;
                 operation.layerOperationB = layerChangeB;
                 [operations addObject:operation];
             }
-            else if(layerChangeA.type == SketchOperationTypeUpdate && layerChangeB.type == SketchOperationTypeUpdate) {
+            else if(layerChangeA.operationType == SketchOperationTypeUpdate && layerChangeB.operationType == SketchOperationTypeUpdate) {
                 NSLog(@"Layer updated in A & B");
                 // Both updated, so now we have a conflict
                 SKLayerMergeOperation *operation = [[SKLayerMergeOperation alloc] init];
@@ -602,7 +602,7 @@ static const BOOL kLoggingEnabled = YES;
 }
 
 - (void)applyChanges {
-    for (SKPageOperation *pageChange in self.pageChanges) {
+    for (SKPageOperation *pageChange in self.pageOperations) {
         [pageChange applyToFile:self.fileO];
     }
 }

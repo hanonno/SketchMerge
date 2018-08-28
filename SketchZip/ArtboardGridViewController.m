@@ -159,25 +159,20 @@
     [self.progressIndicator stopAnimation:self];
 }
 
-//- (void)collapseAll {
-//    NSInteger index = 0, count = self.pages.count;
-//
-//    for (index = 0; index < count; index++) {
-//        [self.layout collapseSectionAtIndex:index];
-//    }
-//}
-
-
-- (SKLayerMergeOperation *)operationAtIndexPath:(NSIndexPath *)indexPath {
-    return [self.mergeTool.operations objectAtIndex:indexPath.item];
+- (NSInteger)numberOfSectionsInCollectionView:(NSCollectionView *)collectionView {
+    return self.mergeTool.pageOperations.count;
 }
 
-- (NSInteger)numberOfSectionsInCollectionView:(NSCollectionView *)collectionView {
-    return 1;
+- (SKPageOperation *)pageOperationAtIndex:(NSInteger)index {
+    return [self.mergeTool.pageOperations objectAtIndex:index];
+}
+
+- (SKLayerMergeOperation *)operationAtIndexPath:(NSIndexPath *)indexPath {
+    return [[self pageOperationAtIndex:indexPath.section].operations objectAtIndex:indexPath.item];
 }
 
 - (NSInteger)collectionView:(NSCollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.mergeTool.operations.count;
+    return [self pageOperationAtIndex:section].operations.count;
 }
 
 - (NSCollectionViewItem *)collectionView:(NSCollectionView *)collectionView itemForRepresentedObjectAtIndexPath:(NSIndexPath *)indexPath {
@@ -186,7 +181,7 @@
 
     item.artboardImageView.image = operation.layer.previewImage;
     item.statusView.type = operation.operationType;
-    item.titleLabel.stringValue = [NSString stringWithFormat:@"%@ - %@", operation.objectClass, operation.objectName];
+    item.titleLabel.stringValue = [NSString stringWithFormat:@"%@ - %@", operation.layer.objectClass, operation.layer.name];
 
     return item;
 }
@@ -194,9 +189,9 @@
 - (NSView *)collectionView:(NSCollectionView *)collectionView viewForSupplementaryElementOfKind:(NSCollectionViewSupplementaryElementKind)kind atIndexPath:(NSIndexPath *)indexPath {
     PageHeaderView *headerView = [collectionView makeSupplementaryViewOfKind:NSCollectionElementKindSectionHeader withIdentifier:@"PageHeaderViewIdentifier" forIndexPath:indexPath];
     
-//    SketchPageChange *pageChange = [self pageChangeAtIndex:indexPath.section];
+    SKPageOperation *pageOperation = [self pageOperationAtIndex:indexPath.section];
     
-    headerView.titleLabel.stringValue = @"Changes";
+    headerView.titleLabel.stringValue = pageOperation.page.name;
     
     return headerView;
 }
