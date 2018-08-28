@@ -20,17 +20,9 @@
 @property (strong) NSArray          *allOperations;
 @property (strong) NSDictionary     *operationsById;
 
-- (SketchOperation *)operationWithId:(NSString *)objectId;
+- (SketchLayerChange *)operationWithId:(NSString *)objectId;
 
-- (void)removeOperation:(SketchOperation *)operation;
-
-@end
-
-
-@interface SketchMergeConflict : NSObject
-
-@property (strong) SketchOperation *operationA;
-@property (strong) SketchOperation *operationB;
+- (void)removeOperation:(SketchLayerChange *)operation;
 
 @end
 
@@ -46,12 +38,25 @@
 - (void)generatePreviewsForArtboards:(NSArray *)artboards;
 
 - (SketchDiff *)diffFromFile:(SketchFile *)fileA to:(SketchFile *)fileB;
+- (SketchChangeSet *)changesFromFile:(SketchFile *)fileA to:(SketchFile *)fileB;
 //- (NSArray *)operationsFromRoot:(NSURL *)fileRoot toA:(NSURL *)fileA toB:(NSURL *)fileB;
 
 @end
 
 
+@interface SketchMergeConflict : NSObject
+
+@property (assign) SketchResolutionType       type;
+@property (strong) SketchLayerChange          *operationA;
+@property (strong) SketchLayerChange          *operationB;
+
+@end
+
+
 @interface SketchMergeTool : NSObject
+
+@property (strong) SketchFile   *fileA;
+@property (strong) SketchFile   *fileB;
 
 @property (strong) SketchDiff   *diffA;
 @property (strong) SketchDiff   *diffB;

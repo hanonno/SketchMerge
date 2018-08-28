@@ -84,8 +84,8 @@
     
     dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
         
-        SketchDiff *diff = [self.sketchDiffTool diffFromFile:fileRoot to:fileA];
-        NSArray *pages = diff.allOperations;
+//        SketchDiff *diff = [self.sketchDiffTool diffFromFile:fileRoot to:fileA];
+//        NSArray *pages = diff.allOperations;
         
 //        SketchArtboard *artboard = [[SketchArtboard alloc] init];
 //
@@ -94,33 +94,37 @@
 //            [self.sketchDiffTool generatePreviewsForArtboards:page.diff.allOperations];
 //        }
         
-        SketchDiff *diffA = [self.sketchDiffTool diffFromFile:fileRoot to:fileA];
-        SketchDiff *diffB = [self.sketchDiffTool diffFromFile:fileRoot to:fileB];
         
-        NSMutableSet *pageIds = [[NSMutableSet alloc] init];
-        [pageIds addObjectsFromArray:diffA.operationsById.allKeys];
-        [pageIds addObjectsFromArray:diffB.operationsById.allKeys];
-        
-        for (NSString *pageId in pageIds) {
-            SketchPage *pageA = [diffA operationWithId:pageId];
-            SketchPage *pageB = [diffB operationWithId:pageId];
-            
-            if(pageA != nil && pageB != nil) {
-                SketchMergeTool *mergeTool = [[SketchMergeTool alloc] initWithDiffA:pageA.diff diffB:pageB.diff];
-                
-                if(mergeTool.conflicts) {
-                    NSLog(@"Merge: %@", mergeTool);
-                }
-            }
-        }
-        
-        [fileRoot applyDiff:diffA];
-        [fileRoot applyDiff:diffB];
-
-//        SketchArtboard *artboard = [[SketchArtboard alloc] init];
-//        [fileRoot.pages.allValues.firstObject insertLayer:artboard];
-
-        [fileRoot writePages];
+//        SketchChangeSet *changeSet = [self.sketchDiffTool changesFromFile:fileRoot to:fileA];
+//        
+//        
+//        SketchDiff *diffA = [self.sketchDiffTool diffFromFile:fileRoot to:fileA];
+//        SketchDiff *diffB = [self.sketchDiffTool diffFromFile:fileRoot to:fileB];
+//        
+//        NSMutableSet *pageIds = [[NSMutableSet alloc] init];
+//        [pageIds addObjectsFromArray:diffA.operationsById.allKeys];
+//        [pageIds addObjectsFromArray:diffB.operationsById.allKeys];
+//        
+//        for (NSString *pageId in pageIds) {
+//            SketchPage *pageA = [diffA operationWithId:pageId];
+//            SketchPage *pageB = [diffB operationWithId:pageId];
+//            
+//            if(pageA != nil && pageB != nil) {
+//                SketchMergeTool *mergeTool = [[SketchMergeTool alloc] initWithDiffA:pageA.diff diffB:pageB.diff];
+//                
+//                if(mergeTool.conflicts) {
+//                    NSLog(@"Merge: %@", mergeTool);
+//                }
+//            }
+//        }
+//        
+//        [fileRoot applyDiff:diffA];
+//        [fileRoot applyDiff:diffB];
+//
+////        SketchArtboard *artboard = [[SketchArtboard alloc] init];
+////        [fileRoot.pages.allValues.firstObject insertLayer:artboard];
+//
+//        [fileRoot writePages];
         
 //        // Merge
 //        NSLog(@"before page count %lu", (unsigned long)fileResult.pages.count);
@@ -131,8 +135,10 @@
 //
 //        [fileResult writePages];
         
+        SketchChangeSet *changeSet = [self.sketchDiffTool changesFromFile:fileRoot to:fileA];
+        
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.artboardGridViewController.pages = pages;
+            self.artboardGridViewController.changeSet = changeSet;
             [self.artboardGridViewController.collectionView reloadData];
             [self.artboardGridViewController finishLoading];
         });

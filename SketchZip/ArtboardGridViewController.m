@@ -98,7 +98,7 @@
 - (id)init {
     self = [super init];
     
-    self.pages = @[];
+    self.changeSet = nil;
     self.sketchDiffTool = [[SketchDiffTool alloc] init];
     self.artboardPreviewOperationQueue = [[NSOperationQueue alloc] init];
     
@@ -144,7 +144,7 @@
 }
 
 - (void)startLoading {
-    self.pages = @[];
+    self.changeSet = nil;
     [self.collectionView reloadData];
     
     [self.progressIndicator setFrameOrigin:NSMakePoint(
@@ -159,31 +159,35 @@
     [self.progressIndicator stopAnimation:self];
 }
 
-- (void)collapseAll {
-    NSInteger index = 0, count = self.pages.count;
-    
-    for (index = 0; index < count; index++) {
-        [self.layout collapseSectionAtIndex:index];
-    }
+//- (void)collapseAll {
+//    NSInteger index = 0, count = self.pages.count;
+//
+//    for (index = 0; index < count; index++) {
+//        [self.layout collapseSectionAtIndex:index];
+//    }
+//}
+
+- (SketchPageChange *)pageChangeAtIndex:(NSInteger)index {
+    return [self.changeSet.pageChanges objectAtIndex:index];
 }
 
-- (SketchOperation *)operationAtIndexPath:(NSIndexPath *)indexPath {
-    SketchPage *page = [self.pages objectAtIndex:indexPath.section];
-    return [page.diff.allOperations objectAtIndex:indexPath.item];
+- (SketchLayerChange *)operationAtIndexPath:(NSIndexPath *)indexPath {
+    SketchPageChange *pageChange = [self pageChangeAtIndex:indexPath.section];
+    return [pageChange.diff.allOperations objectAtIndex:indexPath.item];
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(NSCollectionView *)collectionView {
-    return self.pages.count;
+    return self.changeSet.pageChanges.count;
 }
 
 - (NSInteger)collectionView:(NSCollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    SketchPage *page = [self.pages objectAtIndex:section];
-    return page.diff.allOperations.count;
+    SketchPageChange *pageChange = [self pageChangeAtIndex:section];
+    return pageChange.diff.allOperations.count;
 }
 
 - (NSCollectionViewItem *)collectionView:(NSCollectionView *)collectionView itemForRepresentedObjectAtIndexPath:(NSIndexPath *)indexPath {
     ArtboardCollectionViewItem *item = [collectionView makeItemWithIdentifier:@"ArtboardCollectionViewItemIdentifier" forIndexPath:indexPath];
-    SketchOperation *operation = [self operationAtIndexPath:indexPath];
+    SketchLayerChange *operation = [self operationAtIndexPath:indexPath];
 
     item.artboardImageView.image = operation.previewImageB;
     item.statusView.type = operation.type;
@@ -201,9 +205,9 @@
 - (NSView *)collectionView:(NSCollectionView *)collectionView viewForSupplementaryElementOfKind:(NSCollectionViewSupplementaryElementKind)kind atIndexPath:(NSIndexPath *)indexPath {
     PageHeaderView *headerView = [collectionView makeSupplementaryViewOfKind:NSCollectionElementKindSectionHeader withIdentifier:@"PageHeaderViewIdentifier" forIndexPath:indexPath];
     
-    SketchPage *page = [self.pages objectAtIndex:indexPath.section];
+    SketchPageChange *pageChange = [self pageChangeAtIndex:indexPath.section];
     
-    headerView.titleLabel.stringValue = page.name;
+    headerView.titleLabel.stringValue = pageChange.page.name;
     
     return headerView;
 }

@@ -23,6 +23,15 @@ typedef enum : NSUInteger {
 } SketchOperationType;
 
 
+typedef enum : NSUInteger {
+    SketchResolutionTypeA,
+    SketchResolutionTypeB,
+    SketchResolutionTypeIgnore,
+    SketchResolutionTypeUnknown,
+} SketchResolutionType;
+
+
+
 @interface SketchLayer : NSObject
 
 @property (nonatomic, strong) NSMutableDictionary   *JSON;
@@ -42,7 +51,28 @@ typedef enum : NSUInteger {
 @end
 
 
-@interface SketchOperation : NSObject
+@interface SketchChangeSet : NSObject
+
+@property (strong) NSArray  *pageChanges;
+@property (strong) NSArray  *imageChanges;
+
+@end
+
+
+@interface SketchPageChange : NSObject
+
+- (id)initWithPage:(SketchPage *)page operationType:(SketchOperationType)operationType;
+
+@property (strong) SketchPage           *page;
+@property (assign) SketchOperationType  operationType;
+@property (assign) SketchResolutionType resolutionType;
+
+@property (strong) SketchDiff           *diff;
+
+@end
+
+
+@interface SketchLayerChange : NSObject
 
 @property (nonatomic, strong) NSString              *objectId;
 @property (nonatomic, assign) SketchOperationType   type;
@@ -64,9 +94,6 @@ typedef enum : NSUInteger {
 @property (nonatomic, strong, readonly) NSString    *name;
 @property (nonatomic, strong) NSMutableDictionary   *layers;
 
-@property (nonatomic, assign) SketchOperationType   operationType; // Should move to diff
-
-@property (nonatomic, strong) SketchDiff            *diff;
 @property (nonatomic, strong) SketchFile            *sketchFile;
 
 - (id)initWithJSON:(NSDictionary *)JSON sketchFile:(SketchFile *)sketchFile;

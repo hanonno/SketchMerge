@@ -57,7 +57,28 @@ static const BOOL kLoggingEnabled = YES;
 @end
 
 
-@implementation SketchOperation
+@implementation SketchChangeSet
+
+@end
+
+
+@implementation SketchPageChange
+
+- (id)initWithPage:(SketchPage *)page operationType:(SketchOperationType)operationType {
+    self = [super init];
+    
+    _page = page;
+    _operationType = operationType;
+    _resolutionType = SketchResolutionTypeUnknown;
+    _diff = nil;
+    
+    return self;
+}
+
+@end
+
+
+@implementation SketchLayerChange
 
 @end
 
