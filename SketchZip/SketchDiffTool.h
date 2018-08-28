@@ -27,6 +27,7 @@ typedef enum : NSUInteger {
 } SketchResolutionType;
 
 
+
 @interface SketchLayerChange : NSObject
 
 @property (nonatomic, strong) NSString              *objectId;
@@ -41,6 +42,17 @@ typedef enum : NSUInteger {
 @end
 
 
+@interface SketchLayerDiff : NSObject
+
+@property (strong) NSMutableArray          *orderedChanges;
+@property (strong) NSMutableDictionary     *changesById;
+
+- (SketchLayerChange *)layerChangeWithId:(NSString *)objectId;
+- (void)removeChangeWithId:(NSString *)objectId;
+
+@end
+
+
 @interface SketchPageChange : NSObject
 
 - (id)initWithPage:(SketchPage *)page operationType:(SketchOperationType)operationType;
@@ -49,73 +61,62 @@ typedef enum : NSUInteger {
 @property (assign) SketchOperationType  operationType;
 @property (assign) SketchResolutionType resolutionType;
 
-@property (strong) SketchDiff           *diff;
+@property (strong) SketchLayerDiff      *layerDiff;
 
 @end
+
 
 
 @interface SketchChangeSet : NSObject
 
-@property (strong) NSArray  *pageChanges;
-@property (strong) NSArray  *imageChanges;
+@property (strong) NSMutableArray *pageChanges;
+@property (strong) NSMutableArray *imageChanges;
+
+- (NSArray *)pageIds;
+- (SketchPageChange *)pageChangeWithId:(NSString *)pageId;
 
 @end
 
-
-@interface SketchDiff : NSObject
-
-@property (strong) NSArray          *insertOperations;
-@property (strong) NSArray          *updateOperations;
-@property (strong) NSArray          *deleteOperations;
-@property (strong) NSArray          *ignoreOperations;
-@property (strong) NSArray          *allOperations;
-@property (strong) NSDictionary     *operationsById;
-
-- (SketchLayerChange *)operationWithId:(NSString *)objectId;
-
-- (void)removeOperation:(SketchLayerChange *)operation;
-
-@end
 
 
 @interface SketchDiffTool : NSObject
 
 @property (strong) NSString             *sketchToolPath;
-@property (strong) NSOperationQueue     *artboardImageQueue;
 
 - (NSDictionary *)artboardsForFileWithURL:(NSURL *)fileURL;
 - (NSDictionary *)pagesFromFileAtURL:(NSURL *)fileURL;
 
 - (void)generatePreviewsForArtboards:(NSArray *)artboards;
 
-- (SketchDiff *)diffFromFile:(SketchFile *)fileA to:(SketchFile *)fileB;
+//- (SketchDiff *)diffFromFile:(SketchFile *)fileA to:(SketchFile *)fileB;
 - (SketchChangeSet *)changesFromFile:(SketchFile *)fileA to:(SketchFile *)fileB;
 //- (NSArray *)operationsFromRoot:(NSURL *)fileRoot toA:(NSURL *)fileA toB:(NSURL *)fileB;
 
 @end
 
 
+
 @interface SketchMergeConflict : NSObject
 
 @property (assign) SketchResolutionType       type;
-@property (strong) SketchLayerChange          *operationA;
-@property (strong) SketchLayerChange          *operationB;
+@property (strong) SketchLayerChange          *layerChangeA;
+@property (strong) SketchLayerChange          *layerChangeB;
 
 @end
+
 
 
 @interface SketchMergeTool : NSObject
 
-@property (strong) SketchFile   *fileA;
-@property (strong) SketchFile   *fileB;
+@property (strong) SketchChangeSet   *changeSetA;
+@property (strong) SketchChangeSet   *changeSetB;
 
-@property (strong) SketchDiff   *diffA;
-@property (strong) SketchDiff   *diffB;
-@property (strong) NSArray      *conflicts;
+@property (strong) NSMutableArray    *conflicts;
 
-- (id)initWithDiffA:(SketchDiff *)diffA diffB:(SketchDiff *)diffB;
+- (id)initWithChangeSetA:(SketchChangeSet *)changeSetA changeSetB:(SketchChangeSet *)changeSetB;
 
 @end
+
 
 
 @interface CoreSyncTransaction (Sketch)

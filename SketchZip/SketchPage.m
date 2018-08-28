@@ -243,10 +243,14 @@ static const BOOL kLoggingEnabled = YES;
     }
 }
 
-- (void)applyDiff:(SketchDiff *)diff {
-    for (SketchPage *page in diff.insertOperations) {
-        [self insertPage:page];
+- (SketchPage *)pageWithId:(NSString *)pageId {
+    for (SketchPage *page in self.pages) {
+        if([page.objectId isEqualToString:pageId]) {
+            return page;
+        }
     }
+    
+    return nil;
 }
 
 - (void)insertPage:(SketchPage *)page {

@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 
-@class SketchFile, SketchPage, SketchDiff;
+@class SketchFile, SketchPage, SketchLayerDiff;
 
 
 @interface SketchLayer : NSObject
@@ -59,7 +59,8 @@
 
 - (void)writePages;
 
-- (void)applyDiff:(SketchDiff *)diff;
+- (SketchPage *)pageWithId:(NSString *)pageId;
+
 - (void)insertPage:(SketchPage *)page;
 - (void)updatePage:(SketchPage *)page;
 - (void)deletePage:(SketchPage *)page;

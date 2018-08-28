@@ -173,7 +173,7 @@
 
 - (SketchLayerChange *)operationAtIndexPath:(NSIndexPath *)indexPath {
     SketchPageChange *pageChange = [self pageChangeAtIndex:indexPath.section];
-    return [pageChange.diff.allOperations objectAtIndex:indexPath.item];
+    return [pageChange.layerDiff.orderedChanges objectAtIndex:indexPath.item];
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(NSCollectionView *)collectionView {
@@ -182,7 +182,7 @@
 
 - (NSInteger)collectionView:(NSCollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     SketchPageChange *pageChange = [self pageChangeAtIndex:section];
-    return pageChange.diff.allOperations.count;
+    return pageChange.layerDiff.orderedChanges.count;
 }
 
 - (NSCollectionViewItem *)collectionView:(NSCollectionView *)collectionView itemForRepresentedObjectAtIndexPath:(NSIndexPath *)indexPath {

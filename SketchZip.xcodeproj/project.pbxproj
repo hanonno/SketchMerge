@@ -66,6 +66,12 @@
 		7D828FA92122FE8700ADBD7E /* Sketch-Result.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7D828FA72122FE8700ADBD7E /* Sketch-Result.sketch */; };
 		7D828FAC2125B90100ADBD7E /* artboard.json in Resources */ = {isa = PBXBuildFile; fileRef = 7D828FAB2125B90100ADBD7E /* artboard.json */; };
 		7D828FAD2125B90100ADBD7E /* artboard.json in Resources */ = {isa = PBXBuildFile; fileRef = 7D828FAB2125B90100ADBD7E /* artboard.json */; };
+		7DEA342A2135A79A0062075A /* Sketch-Conflict-Root.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7DEA34272135A79A0062075A /* Sketch-Conflict-Root.sketch */; };
+		7DEA342B2135A79A0062075A /* Sketch-Conflict-Root.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7DEA34272135A79A0062075A /* Sketch-Conflict-Root.sketch */; };
+		7DEA342C2135A79A0062075A /* Sketch-Conflict-B.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7DEA34282135A79A0062075A /* Sketch-Conflict-B.sketch */; };
+		7DEA342D2135A79A0062075A /* Sketch-Conflict-B.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7DEA34282135A79A0062075A /* Sketch-Conflict-B.sketch */; };
+		7DEA342E2135A79A0062075A /* Sketch-Conflict-A.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7DEA34292135A79A0062075A /* Sketch-Conflict-A.sketch */; };
+		7DEA342F2135A79A0062075A /* Sketch-Conflict-A.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7DEA34292135A79A0062075A /* Sketch-Conflict-A.sketch */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -180,6 +186,9 @@
 		7D828FA02122E27E00ADBD7E /* Sketch-B.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sketch-B.sketch"; sourceTree = "<group>"; };
 		7D828FA72122FE8700ADBD7E /* Sketch-Result.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sketch-Result.sketch"; sourceTree = "<group>"; };
 		7D828FAB2125B90100ADBD7E /* artboard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = artboard.json; sourceTree = "<group>"; };
+		7DEA34272135A79A0062075A /* Sketch-Conflict-Root.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sketch-Conflict-Root.sketch"; sourceTree = "<group>"; };
+		7DEA34282135A79A0062075A /* Sketch-Conflict-B.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sketch-Conflict-B.sketch"; sourceTree = "<group>"; };
+		7DEA34292135A79A0062075A /* Sketch-Conflict-A.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sketch-Conflict-A.sketch"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -379,6 +388,7 @@
 		7D828F9D2122E0E300ADBD7E /* Sketch */ = {
 			isa = PBXGroup;
 			children = (
+				7DEA34302135A7A00062075A /* Conflict */,
 				7D828FAA2125B8B600ADBD7E /* templates */,
 				7D828F9F2122E27E00ADBD7E /* Sketch-A.sketch */,
 				7D828FA02122E27E00ADBD7E /* Sketch-B.sketch */,
@@ -394,6 +404,16 @@
 				7D828FAB2125B90100ADBD7E /* artboard.json */,
 			);
 			path = templates;
+			sourceTree = "<group>";
+		};
+		7DEA34302135A7A00062075A /* Conflict */ = {
+			isa = PBXGroup;
+			children = (
+				7DEA34292135A79A0062075A /* Sketch-Conflict-A.sketch */,
+				7DEA34282135A79A0062075A /* Sketch-Conflict-B.sketch */,
+				7DEA34272135A79A0062075A /* Sketch-Conflict-Root.sketch */,
+			);
+			path = Conflict;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -512,12 +532,15 @@
 				7D7CCFCF21133C630061EBB0 /* Version-6.sketch in Resources */,
 				7D828FA52122E27E00ADBD7E /* Sketch-B.sketch in Resources */,
 				55BE526920ADAD410059EC77 /* Info.plist in Resources */,
+				7DEA342E2135A79A0062075A /* Sketch-Conflict-A.sketch in Resources */,
+				7DEA342A2135A79A0062075A /* Sketch-Conflict-Root.sketch in Resources */,
 				7D7CCFC721133AB60061EBB0 /* Version-1.sketch in Resources */,
 				55BE526B20ADAE720059EC77 /* TestFile1.sketch in Resources */,
 				552F295520EE4B0A00A845B2 /* Artboards-B.sketch in Resources */,
 				55BE520320ADABFD0059EC77 /* Assets.xcassets in Resources */,
 				7D7CCFC921133BAB0061EBB0 /* Version-3.sketch in Resources */,
 				7D7CCFC621133AB60061EBB0 /* Version-2.sketch in Resources */,
+				7DEA342C2135A79A0062075A /* Sketch-Conflict-B.sketch in Resources */,
 				7D828FA12122E27E00ADBD7E /* Sketch-Root.sketch in Resources */,
 				7D828FA82122FE8700ADBD7E /* Sketch-Result.sketch in Resources */,
 				7D7CCFCD21133C160061EBB0 /* Version-5.sketch in Resources */,
@@ -534,10 +557,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				7D828FAD2125B90100ADBD7E /* artboard.json in Resources */,
+				7DEA342D2135A79A0062075A /* Sketch-Conflict-B.sketch in Resources */,
+				7DEA342B2135A79A0062075A /* Sketch-Conflict-Root.sketch in Resources */,
 				7D828FA22122E27E00ADBD7E /* Sketch-Root.sketch in Resources */,
 				7D828FA62122E27E00ADBD7E /* Sketch-B.sketch in Resources */,
 				7D828FA92122FE8700ADBD7E /* Sketch-Result.sketch in Resources */,
 				7D828FA42122E27E00ADBD7E /* Sketch-A.sketch in Resources */,
+				7DEA342F2135A79A0062075A /* Sketch-Conflict-A.sketch in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
