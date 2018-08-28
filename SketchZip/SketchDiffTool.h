@@ -40,17 +40,6 @@ typedef enum : NSUInteger {
 @end
 
 
-@interface SketchLayerDiff : NSObject
-
-@property (strong) NSMutableArray          *orderedChanges;
-@property (strong) NSMutableDictionary     *changesById;
-
-- (SketchLayerChange *)layerChangeWithId:(NSString *)objectId;
-- (void)removeChangeWithId:(NSString *)objectId;
-
-@end
-
-
 @interface SketchPageChange : NSObject
 
 - (id)initWithPage:(SketchPage *)page operationType:(SketchOperationType)operationType;
@@ -58,8 +47,11 @@ typedef enum : NSUInteger {
 @property (strong) SketchPage           *page;
 @property (assign) SketchOperationType  operationType;
 @property (assign) SketchResolutionType resolutionType;
+@property (strong) NSMutableArray       *operations;
 
-@property (strong) SketchLayerDiff      *layerDiff;
+- (NSArray *)objectKeys;
+
+- (SketchLayerChange *)operationWithObjectId:(NSString *)objectId;
 
 - (void)applyToFile:(SketchFile *)file;
 

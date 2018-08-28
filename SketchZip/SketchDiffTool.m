@@ -55,6 +55,26 @@ static const BOOL kLoggingEnabled = YES;
     return self;
 }
 
+- (NSArray *)objectKeys {
+    NSMutableArray *keys = [[NSMutableArray alloc] init];
+    
+    for (SketchLayerChange *operation in self.operations) {
+        [keys addObject:operation.objectId];
+    }
+    
+    return keys;
+}
+
+- (SketchLayerChange *)operationWithObjectId:(NSString *)objectId {
+    for (SketchLayerChange *operation in self.operations) {
+        if([operation.objectId isEqualToString:objectId]) {
+            return operation;
+        }
+    }
+    
+    return nil;
+}
+
 - (void)applyToFile:(SketchFile *)file {
     switch (self.operationType) {
         case SketchOperationTypeInsert:
@@ -62,7 +82,7 @@ static const BOOL kLoggingEnabled = YES;
             break;
             
         case SketchOperationTypeUpdate:
-            for (SketchLayerChange *layerChange in self.layerDiff.orderedChanges) {
+            for (SketchLayerChange *layerChange in self.operations) {
                 [layerChange applyToPage:self.page];
             }
 
@@ -101,21 +121,6 @@ static const BOOL kLoggingEnabled = YES;
     }
     
     return nil;
-}
-
-@end
-
-
-@implementation SketchLayerDiff
-
-- (SketchLayerChange *)layerChangeWithId:(NSString *)objectId {
-    return [self.changesById objectForKey:objectId];
-}
-
-- (void)removeChangeWithId:(NSString *)objectId {
-    SketchLayerChange *layerChange = [self layerChangeWithId:objectId];
-    [self.orderedChanges removeObject:layerChange];
-    [self.changesById removeObjectForKey:objectId];
 }
 
 @end
@@ -286,7 +291,7 @@ static const BOOL kLoggingEnabled = YES;
     }
 }
 
-- (SketchLayerDiff *)layerDiffFromPageA:(SketchPage *)pageA toPageB:(SketchPage *)pageB {
+- (NSMutableArray *)operationsFromPageA:(SketchPage *)pageA toPageB:(SketchPage *)pageB {
     NSDictionary *layersA = pageA.layers;
     NSDictionary *layersB = pageB.layers;
     
@@ -294,8 +299,7 @@ static const BOOL kLoggingEnabled = YES;
     [layerIds addObjectsFromArray:[layersA allKeys]];
     [layerIds addObjectsFromArray:[layersB allKeys]];
     
-    NSMutableArray *orderedChanges = [[NSMutableArray alloc] init];
-    NSMutableDictionary *changesById = [[NSMutableDictionary alloc] init];
+    NSMutableArray *operations = [[NSMutableArray alloc] init];
 
     for (NSString *layerId in layerIds) {
         NSLog(@"layer: %@", layerId);
@@ -309,8 +313,7 @@ static const BOOL kLoggingEnabled = YES;
             SketchLayerChange *layerChange = [[SketchLayerChange alloc] init];
             layerChange.operationType = SketchOperationTypeInsert;
             layerChange.layer = layerB;
-            [orderedChanges addObject:layerChange];
-            [changesById setObject:layerChange forKey:layerChange.objectId];
+            [operations addObject:layerChange];
         }
         
         else if(layerB == nil && layerA != nil) {
@@ -319,8 +322,7 @@ static const BOOL kLoggingEnabled = YES;
             SketchLayerChange *layerChange = [[SketchLayerChange alloc] init];
             layerChange.operationType = SketchOperationTypeDelete;
             layerChange.layer = layerA;
-            [orderedChanges addObject:layerChange];
-            [changesById setObject:layerChange forKey:layerChange.objectId];
+            [operations addObject:layerChange];
         }
         
         else {
@@ -331,25 +333,19 @@ static const BOOL kLoggingEnabled = YES;
                 SketchLayerChange *layerChange = [[SketchLayerChange alloc] init];
                 layerChange.operationType = SketchOperationTypeUpdate;
                 layerChange.layer = layerB;
-                [orderedChanges addObject:layerChange];
-                [changesById setObject:layerChange forKey:layerChange.objectId];
+                [operations addObject:layerChange];
             }
             else {
                 NSLog(@"Layer is the same!");
                 SketchLayerChange *layerChange = [[SketchLayerChange alloc] init];
                 layerChange.operationType = SketchOperationTypeIgnore;
                 layerChange.layer = layerA;
-                [orderedChanges addObject:layerChange];
-                [changesById setObject:layerChange forKey:layerChange.objectId];
+                [operations addObject:layerChange];
             }
         }
     }
     
-    SketchLayerDiff *diff = [[SketchLayerDiff alloc] init];
-    diff.orderedChanges = orderedChanges;
-    diff.changesById = changesById;
-    
-    return diff;
+    return operations;
 }
 
 - (SketchChangeSet *)changesFromFile:(SketchFile *)fileA to:(SketchFile *)fileB {
@@ -371,7 +367,7 @@ static const BOOL kLoggingEnabled = YES;
             NSLog(@"Page added!");
             
             SketchPageChange *pageChange = [[SketchPageChange alloc] initWithPage:pageB operationType:SketchOperationTypeInsert];
-            pageChange.layerDiff = [self layerDiffFromPageA:nil toPageB:pageB];
+            pageChange.operations = [self operationsFromPageA:nil toPageB:pageB];
             [pageChanges addObject:pageChange];
         }
         
@@ -379,17 +375,17 @@ static const BOOL kLoggingEnabled = YES;
             NSLog(@"Page deleted!");
 
             SketchPageChange *pageChange = [[SketchPageChange alloc] initWithPage:pageA operationType:SketchOperationTypeDelete];
-            pageChange.layerDiff = [self layerDiffFromPageA:pageA toPageB:nil];
+            pageChange.operations = [self operationsFromPageA:pageA toPageB:nil];
             [pageChanges addObject:pageChange];
         }
         
         else {
             NSLog(@"Page updated!");            
-            SketchLayerDiff *diff = [self layerDiffFromPageA:pageA toPageB:pageB];
+            NSMutableArray *operations = [self operationsFromPageA:pageA toPageB:pageB];
             
-            if(diff.orderedChanges.count > 0) {
+            if(operations.count > 0) {
                 SketchPageChange *pageChange = [[SketchPageChange alloc] initWithPage:pageA operationType:SketchOperationTypeUpdate];
-                pageChange.layerDiff = diff;
+                pageChange.operations = operations;
                 [pageChanges addObject:pageChange];
             }
         }
@@ -508,6 +504,8 @@ static const BOOL kLoggingEnabled = YES;
                 [_operations addObjectsFromArray:operations];
             }
 
+            pageChangeA.operations = operations;
+            
             [_pageChanges addObject:pageChangeA];
         }
     }
@@ -518,14 +516,14 @@ static const BOOL kLoggingEnabled = YES;
 - (NSArray *)operationsFromPageChangeA:(SketchPageChange *)pageChangeA toPageChangeB:(SketchPageChange *)pageChangeB {
     NSMutableSet *objectIds = [[NSMutableSet alloc] init];
     
-    [objectIds addObjectsFromArray:pageChangeA.layerDiff.changesById.allKeys];
-    [objectIds addObjectsFromArray:pageChangeB.layerDiff.changesById.allKeys];
+    [objectIds addObjectsFromArray:pageChangeA.objectKeys];
+    [objectIds addObjectsFromArray:pageChangeB.objectKeys];
 
     NSMutableArray *operations = [[NSMutableArray alloc] init];
 
     for (NSString *objectId in objectIds) {
-        SketchLayerChange *layerChangeA = [pageChangeA.layerDiff layerChangeWithId:objectId];
-        SketchLayerChange *layerChangeB = [pageChangeB.layerDiff layerChangeWithId:objectId];
+        SketchLayerChange *layerChangeA = [pageChangeA operationWithObjectId:objectId];
+        SketchLayerChange *layerChangeB = [pageChangeB operationWithObjectId:objectId];
 
         if(layerChangeA != nil && layerChangeB == nil) {
             NSLog(@"Layer added in A");
