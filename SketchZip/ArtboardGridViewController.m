@@ -98,7 +98,7 @@
 - (id)init {
     self = [super init];
     
-    self.changeSet = nil;
+    self.mergeTool = nil;
     self.sketchDiffTool = [[SketchDiffTool alloc] init];
     self.artboardPreviewOperationQueue = [[NSOperationQueue alloc] init];
     
@@ -144,7 +144,7 @@
 }
 
 - (void)startLoading {
-    self.changeSet = nil;
+    self.mergeTool = nil;
     [self.collectionView reloadData];
     
     [self.progressIndicator setFrameOrigin:NSMakePoint(
@@ -167,37 +167,26 @@
 //    }
 //}
 
-- (SketchPageChange *)pageChangeAtIndex:(NSInteger)index {
-    return [self.changeSet.pageChanges objectAtIndex:index];
-}
 
-- (SketchLayerChange *)operationAtIndexPath:(NSIndexPath *)indexPath {
-    SketchPageChange *pageChange = [self pageChangeAtIndex:indexPath.section];
-    return [pageChange.layerDiff.orderedChanges objectAtIndex:indexPath.item];
+- (SketchMergeOperation *)operationAtIndexPath:(NSIndexPath *)indexPath {
+    return [self.mergeTool.operations objectAtIndex:indexPath.item];
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(NSCollectionView *)collectionView {
-    return self.changeSet.pageChanges.count;
+    return 1;
 }
 
 - (NSInteger)collectionView:(NSCollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    SketchPageChange *pageChange = [self pageChangeAtIndex:section];
-    return pageChange.layerDiff.orderedChanges.count;
+    return self.mergeTool.operations.count;
 }
 
 - (NSCollectionViewItem *)collectionView:(NSCollectionView *)collectionView itemForRepresentedObjectAtIndexPath:(NSIndexPath *)indexPath {
     ArtboardCollectionViewItem *item = [collectionView makeItemWithIdentifier:@"ArtboardCollectionViewItemIdentifier" forIndexPath:indexPath];
-    SketchLayerChange *operation = [self operationAtIndexPath:indexPath];
+    SketchMergeOperation *operation = [self operationAtIndexPath:indexPath];
 
-    item.artboardImageView.image = operation.previewImageB;
-    item.statusView.type = operation.type;
-    
-    if(operation.type == SketchOperationTypeDelete) {
-        item.titleLabel.stringValue = [NSString stringWithFormat:@"%@ - %@", operation.layerA.objectClass, operation.layerA.name];
-    }
-    else {
-        item.titleLabel.stringValue = [NSString stringWithFormat:@"%@ - %@",operation.layerB.objectClass, operation.layerB.name];
-    }
+//    item.artboardImageView.image = operation.previewImageB;
+    item.statusView.type = operation.operationType;
+    item.titleLabel.stringValue = [NSString stringWithFormat:@"%@ - %@", operation.objectClass, operation.objectName];
 
     return item;
 }
@@ -205,9 +194,9 @@
 - (NSView *)collectionView:(NSCollectionView *)collectionView viewForSupplementaryElementOfKind:(NSCollectionViewSupplementaryElementKind)kind atIndexPath:(NSIndexPath *)indexPath {
     PageHeaderView *headerView = [collectionView makeSupplementaryViewOfKind:NSCollectionElementKindSectionHeader withIdentifier:@"PageHeaderViewIdentifier" forIndexPath:indexPath];
     
-    SketchPageChange *pageChange = [self pageChangeAtIndex:indexPath.section];
+//    SketchPageChange *pageChange = [self pageChangeAtIndex:indexPath.section];
     
-    headerView.titleLabel.stringValue = pageChange.page.name;
+    headerView.titleLabel.stringValue = @"Changes";
     
     return headerView;
 }

@@ -261,7 +261,7 @@ static const BOOL kLoggingEnabled = YES;
             NSLog(@"Layer added!");
             
             SketchLayerChange *layerChange = [[SketchLayerChange alloc] init];
-            layerChange.type = SketchOperationTypeInsert;
+            layerChange.operationType = SketchOperationTypeInsert;
             layerChange.layerB = layerB;
             layerChange.objectId = layerChange.layerB.objectId;
             [orderedChanges addObject:layerChange];
@@ -272,12 +272,11 @@ static const BOOL kLoggingEnabled = YES;
             NSLog(@"Layer deleted!");
             
             SketchLayerChange *layerChange = [[SketchLayerChange alloc] init];
-            layerChange.type = SketchOperationTypeDelete;
+            layerChange.operationType = SketchOperationTypeDelete;
             layerChange.layerA = layerA;
             layerChange.objectId = layerChange.layerA.objectId;
             [orderedChanges addObject:layerChange];
             [changesById setObject:layerChange forKey:layerChange.objectId];
-
         }
         
         else {
@@ -286,7 +285,7 @@ static const BOOL kLoggingEnabled = YES;
             if(diff && [diff count]) {
                 NSLog(@"Layer updated!");
                 SketchLayerChange *layerChange = [[SketchLayerChange alloc] init];
-                layerChange.type = SketchOperationTypeUpdate;
+                layerChange.operationType = SketchOperationTypeUpdate;
                 layerChange.layerA = layerA;
                 layerChange.layerB = layerB;
                 layerChange.objectId = layerChange.layerB.objectId;
@@ -296,7 +295,7 @@ static const BOOL kLoggingEnabled = YES;
             else {
                 NSLog(@"Layer is the same!");
                 SketchLayerChange *layerChange = [[SketchLayerChange alloc] init];
-                layerChange.type = SketchOperationTypeIgnore;
+                layerChange.operationType = SketchOperationTypeIgnore;
                 layerChange.layerA = layerA;
                 layerChange.layerB = layerB;
                 layerChange.objectId = layerChange.layerB.objectId;
@@ -367,10 +366,48 @@ static const BOOL kLoggingEnabled = YES;
 @end
 
 
-@implementation SketchMergeConflict
+@implementation SketchMergeOperation
+
+- (SketchOperationType)operationType {
+    if(self.resolutionType == SketchResolutionTypeA) {
+        return self.layerChangeA.operationType;
+    }
+    else if(self.resolutionType == SketchResolutionTypeB) {
+        return self.layerChangeB.operationType;
+    }
+    
+    return SketchOperationTypeIgnore;
+}
+
+- (NSString *)objectName {
+    if(self.resolutionType == SketchResolutionTypeA) {
+        return self.layerChangeA.layerA.name;
+    }
+    else if(self.resolutionType == SketchResolutionTypeB) {
+        return self.layerChangeB.layerB.name;
+    }
+    else if(self.resolutionType == SketchResolutionTypeConflict) {
+        return @"Conflicted";
+    }
+
+    return @"Something went wrong";
+}
+
+- (NSString *)objectClass {
+    if(self.resolutionType == SketchResolutionTypeA) {
+        return self.layerChangeA.layerA.className;
+    }
+    else if(self.resolutionType == SketchResolutionTypeB) {
+        return self.layerChangeB.layerB.className;
+    }
+    else if(self.resolutionType == SketchResolutionTypeConflict) {
+        return self.layerChangeB.layerB.className;
+    }
+    
+    return @"Something went wrong";
+}
 
 @end
-
 
 
 
@@ -388,17 +425,17 @@ static const BOOL kLoggingEnabled = YES;
     [pageIds addObjectsFromArray:_changeSetA.pageIds];
     [pageIds addObjectsFromArray:_changeSetB.pageIds];
     
-    self.conflicts = [[NSMutableArray alloc] init];
+    self.operations = [[NSMutableArray alloc] init];
     
     for (NSString *pageId in pageIds) {
         SketchPageChange *pageChangeA = [_changeSetA pageChangeWithId:pageId];
         SketchPageChange *pageChangeB = [_changeSetB pageChangeWithId:pageId];
         
         if(pageChangeA != nil && pageChangeB != nil) {
-            NSArray *conflicts = [self conflictsFromPageChangeA:pageChangeA toPageChangeB:pageChangeB];
+            NSArray *operations = [self operationsFromPageChangeA:pageChangeA toPageChangeB:pageChangeB];
             
-            if(conflicts.count > 0) {
-                [self.conflicts addObjectsFromArray:conflicts];
+            if(operations.count > 0) {
+                [self.operations addObjectsFromArray:operations];
             }
         }
     }
@@ -406,45 +443,64 @@ static const BOOL kLoggingEnabled = YES;
     return self;
 }
 
-
-
-- (NSArray *)conflictsFromPageChangeA:(SketchPageChange *)pageChangeA toPageChangeB:(SketchPageChange *)pageChangeB {
+- (NSArray *)operationsFromPageChangeA:(SketchPageChange *)pageChangeA toPageChangeB:(SketchPageChange *)pageChangeB {
     NSMutableSet *objectIds = [[NSMutableSet alloc] init];
     
     [objectIds addObjectsFromArray:pageChangeA.layerDiff.changesById.allKeys];
     [objectIds addObjectsFromArray:pageChangeB.layerDiff.changesById.allKeys];
 
-    NSMutableArray *conflicts = [[NSMutableArray alloc] init];
+    NSMutableArray *operations = [[NSMutableArray alloc] init];
 
     for (NSString *objectId in objectIds) {
         SketchLayerChange *layerChangeA = [pageChangeA.layerDiff layerChangeWithId:objectId];
         SketchLayerChange *layerChangeB = [pageChangeB.layerDiff layerChangeWithId:objectId];
 
-        if(layerChangeA != nil && layerChangeB != nil) {
+        if(layerChangeA != nil && layerChangeB == nil) {
+            NSLog(@"Layer added in A");
+            SketchMergeOperation *operation = [[SketchMergeOperation alloc] init];
+            operation.resolutionType = SketchResolutionTypeA;
+            operation.layerChangeA = layerChangeA;
+            [operations addObject:operation];
+        }
+        else if(layerChangeA == nil && layerChangeB != nil) {
+            NSLog(@"Layer added in B");
+            SketchMergeOperation *operation = [[SketchMergeOperation alloc] init];
+            operation.resolutionType = SketchResolutionTypeB;
+            operation.layerChangeB = layerChangeB;
+            [operations addObject:operation];
+        }
+        else if (layerChangeA != nil && layerChangeB != nil) {
             // There can only be a conflict if both diffs have an operation
-            if(layerChangeA.type == SketchOperationTypeDelete && layerChangeB.type == SketchOperationTypeUpdate) {
+            if((layerChangeA.operationType == SketchOperationTypeDelete || layerChangeA.operationType == SketchOperationTypeIgnore) && layerChangeB.operationType == SketchOperationTypeUpdate) {
                 NSLog(@"Layer updated in B");
-                // We should update with operationB
-                //[self.diffA removeChangeWithId:layerChangeA.objectId];
+                SketchMergeOperation *operation = [[SketchMergeOperation alloc] init];
+                operation.resolutionType = SketchResolutionTypeB;
+                operation.layerChangeA = layerChangeA;
+                operation.layerChangeB = layerChangeB;
+                [operations addObject:operation];
             }
-            else if(layerChangeA.type == SketchOperationTypeUpdate && layerChangeB.type == SketchOperationTypeDelete) {
+            else if(layerChangeA.operationType == SketchOperationTypeUpdate && (layerChangeB.operationType == SketchOperationTypeDelete || layerChangeB.operationType == SketchOperationTypeIgnore)) {
                 NSLog(@"Layer updated in A");
                 // We should update with operationA
-//                [self.diffB removeChangeWithId:layerChangeB.objectId];
+                SketchMergeOperation *operation = [[SketchMergeOperation alloc] init];
+                operation.resolutionType = SketchResolutionTypeA;
+                operation.layerChangeA = layerChangeA;
+                operation.layerChangeB = layerChangeB;
+                [operations addObject:operation];
             }
-            else if(layerChangeA.type == SketchOperationTypeUpdate && layerChangeB.type == SketchOperationTypeUpdate) {
+            else if(layerChangeA.operationType == SketchOperationTypeUpdate && layerChangeB.operationType == SketchOperationTypeUpdate) {
                 NSLog(@"Layer updated in A & B");
                 // Both updated, so now we have a conflict
-                SketchMergeConflict *conflict = [[SketchMergeConflict alloc] init];
-                conflict.layerChangeA = layerChangeA;
-                conflict.layerChangeB = layerChangeB;
-
-                [conflicts addObject:conflict];
+                SketchMergeOperation *operation = [[SketchMergeOperation alloc] init];
+                operation.resolutionType = SketchResolutionTypeConflict;
+                operation.layerChangeA = layerChangeA;
+                operation.layerChangeB = layerChangeB;
+                [operations addObject:operation];
             }
         }
     }
 
-    return conflicts;
+    return operations;
 }
 
 @end

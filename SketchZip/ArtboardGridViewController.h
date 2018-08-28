@@ -33,7 +33,7 @@
 @property (strong) NSScrollView                 *scrollView;
 @property (strong) NSCollectionView             *collectionView;
 @property (strong) NSCollectionViewFlowLayout   *layout;
-@property (strong) SketchChangeSet              *changeSet;
+@property (strong) SketchMergeTool              *mergeTool;
 
 
 - (void)startLoading;

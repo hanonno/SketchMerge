@@ -22,8 +22,8 @@ typedef enum : NSUInteger {
 typedef enum : NSUInteger {
     SketchResolutionTypeA,
     SketchResolutionTypeB,
-    SketchResolutionTypeIgnore,
-    SketchResolutionTypeUnknown,
+    SketchResolutionTypeConflict,
+    SketchResolutionTypeIgnore
 } SketchResolutionType;
 
 
@@ -31,7 +31,7 @@ typedef enum : NSUInteger {
 @interface SketchLayerChange : NSObject
 
 @property (nonatomic, strong) NSString              *objectId;
-@property (nonatomic, assign) SketchOperationType   type;
+@property (nonatomic, assign) SketchOperationType   operationType;
 
 @property (nonatomic, strong) SketchLayer           *layerA;
 @property (nonatomic, strong) NSImage               *previewImageA;
@@ -96,9 +96,14 @@ typedef enum : NSUInteger {
 
 
 
-@interface SketchMergeConflict : NSObject
+@interface SketchMergeOperation : NSObject
 
-@property (assign) SketchResolutionType       type;
+@property (assign) SketchResolutionType       resolutionType;
+
+@property (readonly) SketchOperationType      operationType;
+@property (readonly) NSString                 *objectName;
+@property (readonly) NSString                 *objectClass;
+
 @property (strong) SketchLayerChange          *layerChangeA;
 @property (strong) SketchLayerChange          *layerChangeB;
 
@@ -111,7 +116,7 @@ typedef enum : NSUInteger {
 @property (strong) SketchChangeSet   *changeSetA;
 @property (strong) SketchChangeSet   *changeSetB;
 
-@property (strong) NSMutableArray    *conflicts;
+@property (strong) NSMutableArray    *operations;
 
 - (id)initWithChangeSetA:(SketchChangeSet *)changeSetA changeSetB:(SketchChangeSet *)changeSetB;
 
