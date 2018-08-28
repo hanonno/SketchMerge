@@ -16,6 +16,15 @@
 static const BOOL kLoggingEnabled = YES;
 
 @implementation SketchDiff
+
+- (SketchOperation *)operationWithId:(NSString *)objectId {
+    return [self.operationsById objectForKey:objectId];
+}
+
+- (void)removeOperation:(SketchOperation *)operation {
+    
+}
+
 @end
 
 
@@ -199,6 +208,7 @@ static const BOOL kLoggingEnabled = YES;
     NSMutableArray *deleteOperations = [[NSMutableArray alloc] init];
     NSMutableArray *ignoreOperations = [[NSMutableArray alloc] init];
     NSMutableArray *allOperations = [[NSMutableArray alloc] init];
+    NSMutableDictionary *operationsById = [[NSMutableDictionary alloc] init];
     
     for (NSString *layerId in layerIds) {
         NSLog(@"artboard: %@", layerId);
@@ -215,6 +225,7 @@ static const BOOL kLoggingEnabled = YES;
             operation.objectId = operation.layerB.objectId;
             [insertOperations addObject:operation];
             [allOperations addObject:operation];
+            [operationsById setObject:operation forKey:operation.objectId];
         }
         
         else if(layerB == nil && layerA != nil) {
@@ -226,6 +237,7 @@ static const BOOL kLoggingEnabled = YES;
             operation.objectId = operation.layerA.objectId;
             [deleteOperations addObject:operation];
             [allOperations addObject:operation];
+            [operationsById setObject:operation forKey:operation.objectId];
         }
         
         else {
@@ -240,6 +252,7 @@ static const BOOL kLoggingEnabled = YES;
                 operation.objectId = operation.layerB.objectId;
                 [updateOperations addObject:operation];
                 [allOperations addObject:operation];
+                [operationsById setObject:operation forKey:operation.objectId];
             }
             else {
                 NSLog(@"Layer is the same!");
@@ -250,6 +263,7 @@ static const BOOL kLoggingEnabled = YES;
                 operation.objectId = operation.layerB.objectId;
                 [ignoreOperations addObject:operation];
                 [allOperations addObject:operation];
+                [operationsById setObject:operation forKey:operation.objectId];
             }
         }
     }
@@ -260,6 +274,7 @@ static const BOOL kLoggingEnabled = YES;
     diff.deleteOperations = deleteOperations;
     diff.ignoreOperations = ignoreOperations;
     diff.allOperations = allOperations;
+    diff.operationsById = operationsById;
     
     return diff;
 }
@@ -273,6 +288,7 @@ static const BOOL kLoggingEnabled = YES;
     NSMutableArray *deleteOperations = [[NSMutableArray alloc] init];
     NSMutableArray *ignoreOperations = [[NSMutableArray alloc] init];
     NSMutableArray *allOperations = [[NSMutableArray alloc] init];
+    NSMutableDictionary *operationsById = [[NSMutableDictionary alloc] init];
 
     NSMutableSet *pageIDs = [[NSMutableSet alloc] init];
     
@@ -289,14 +305,16 @@ static const BOOL kLoggingEnabled = YES;
             pageB.diff = [self operationsFromPageA:nil toPageB:pageB];
             [insertOperations addObject:pageB];
             [allOperations addObject:pageB];
+            [operationsById setObject:pageB forKey:pageB.objectId];
         }
-        
+
         else if(pageB == nil && pageA != nil) {
             NSLog(@"Page deleted!");
             pageA.operationType = SketchOperationTypeDelete;
             pageA.diff = [self operationsFromPageA:pageA toPageB:nil];
             [deleteOperations addObject:pageA];
             [allOperations addObject:pageA];
+            [operationsById setObject:pageA forKey:pageA.objectId];
         }
         
         else {
@@ -306,6 +324,7 @@ static const BOOL kLoggingEnabled = YES;
             pageB.diff = [self operationsFromPageA:pageA toPageB:pageB];
             [updateOperations addObject:pageB];
             [allOperations addObject:pageB];
+            [operationsById setObject:pageB forKey:pageB.objectId];
         }
     }
     
@@ -315,9 +334,15 @@ static const BOOL kLoggingEnabled = YES;
     diff.deleteOperations = deleteOperations;
     diff.ignoreOperations = ignoreOperations;
     diff.allOperations = allOperations;
+    diff.operationsById = operationsById;
     
     return diff;
 }
+
+@end
+
+
+@implementation SketchMergeConflict
 
 @end
 
@@ -330,16 +355,45 @@ static const BOOL kLoggingEnabled = YES;
     _diffA = diffA;
     _diffB = diffB;
     
+    [self detectConflicts];
+    
     return self;
 }
 
 - (void)detectConflicts {
     NSMutableSet *objectIds = [[NSMutableSet alloc] init];
     
-//    [pageIDs addObjectsFromArray:[pagesA allKeys]];
-//    [pageIDs addObjectsFromArray:[pagesB allKeys]];
+    [objectIds addObjectsFromArray:self.diffA.operationsById.allKeys];
+    [objectIds addObjectsFromArray:self.diffB.operationsById.allKeys];
     
-
+    NSMutableArray *conflicts = [[NSMutableArray alloc] init];
+    
+    for (NSString *objectId in objectIds) {
+        SketchOperation *operationA = [self.diffA operationWithId:objectId];
+        SketchOperation *operationB = [self.diffB operationWithId:objectId];
+        
+        if(operationA != nil && operationB != nil) {
+            // There can only be a conflict if both diffs have an operation
+            if(operationA.type == SketchOperationTypeDelete && operationB.type == SketchOperationTypeUpdate) {
+                // We should update with operationB
+                [self.diffA removeOperation:operationA];
+            }
+            else if(operationA.type == SketchOperationTypeUpdate && operationB.type == SketchOperationTypeDelete) {
+                // We should update with operationA
+                [self.diffB removeOperation:operationB];
+            }
+            else if(operationA.type == SketchOperationTypeUpdate && operationB.type == SketchOperationTypeUpdate) {
+                // Both updated, so now we have a conflict
+                SketchMergeConflict *conflict = [[SketchMergeConflict alloc] init];
+                conflict.operationA = operationA;
+                conflict.operationB = operationB;
+                
+                [conflicts addObject:conflict];
+            }
+        }
+    }
+    
+    self.conflicts = conflicts;
 }
 
 @end

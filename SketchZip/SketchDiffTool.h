@@ -13,11 +13,24 @@
 
 @interface SketchDiff : NSObject
 
-@property (strong) NSArray *insertOperations;
-@property (strong) NSArray *updateOperations;
-@property (strong) NSArray *deleteOperations;
-@property (strong) NSArray *ignoreOperations;
-@property (strong) NSArray *allOperations;
+@property (strong) NSArray          *insertOperations;
+@property (strong) NSArray          *updateOperations;
+@property (strong) NSArray          *deleteOperations;
+@property (strong) NSArray          *ignoreOperations;
+@property (strong) NSArray          *allOperations;
+@property (strong) NSDictionary     *operationsById;
+
+- (SketchOperation *)operationWithId:(NSString *)objectId;
+
+- (void)removeOperation:(SketchOperation *)operation;
+
+@end
+
+
+@interface SketchMergeConflict : NSObject
+
+@property (strong) SketchOperation *operationA;
+@property (strong) SketchOperation *operationB;
 
 @end
 
@@ -40,10 +53,13 @@
 
 @interface SketchMergeTool : NSObject
 
-@property (strong) SketchDiff *diffA;
-@property (strong) SketchDiff *diffB;
+@property (strong) SketchDiff   *diffA;
+@property (strong) SketchDiff   *diffB;
+@property (strong) NSArray      *conflicts;
 
 - (id)initWithDiffA:(SketchDiff *)diffA diffB:(SketchDiff *)diffB;
+
+
 
 @end
 

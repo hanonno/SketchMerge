@@ -97,6 +97,23 @@
         SketchDiff *diffA = [self.sketchDiffTool diffFromFile:fileRoot to:fileA];
         SketchDiff *diffB = [self.sketchDiffTool diffFromFile:fileRoot to:fileB];
         
+        NSMutableSet *pageIds = [[NSMutableSet alloc] init];
+        [pageIds addObjectsFromArray:diffA.operationsById.allKeys];
+        [pageIds addObjectsFromArray:diffB.operationsById.allKeys];
+        
+        for (NSString *pageId in pageIds) {
+            SketchPage *pageA = [diffA operationWithId:pageId];
+            SketchPage *pageB = [diffB operationWithId:pageId];
+            
+            if(pageA != nil && pageB != nil) {
+                SketchMergeTool *mergeTool = [[SketchMergeTool alloc] initWithDiffA:pageA.diff diffB:pageB.diff];
+                
+                if(mergeTool.conflicts) {
+                    NSLog(@"Merge: %@", mergeTool);
+                }
+            }
+        }
+        
         [fileRoot applyDiff:diffA];
         [fileRoot applyDiff:diffB];
 
