@@ -66,7 +66,7 @@ typedef enum : NSUInteger {
 @property (strong) SketchPage           *page;
 @property (assign) SketchOperationType  operationType;
 @property (assign) SketchResolutionType resolutionType;
-@property (strong) NSMutableArray       *operations;
+@property (strong) NSMutableArray       *layerOperations;
 
 - (NSArray *)layerIds;
 

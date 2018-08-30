@@ -24,6 +24,7 @@
 @property (nonatomic, strong, readonly) NSString    *name;
 @property (nonatomic, strong, readonly) NSString    *objectId;
 @property (nonatomic, strong, readonly) NSString    *objectClass;
+@property (nonatomic, strong, readonly) NSString    *objectClassName;
 
 
 - (id)initWithJSON:(NSMutableDictionary *)JSON fromPage:(SketchPage *)page;

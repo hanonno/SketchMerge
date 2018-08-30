@@ -58,7 +58,7 @@ static const BOOL kLoggingEnabled = YES;
 - (NSArray *)layerIds {
     NSMutableArray *keys = [[NSMutableArray alloc] init];
     
-    for (SKLayerOperation *operation in self.operations) {
+    for (SKLayerOperation *operation in self.layerOperations) {
         [keys addObject:operation.layerId];
     }
     
@@ -66,7 +66,7 @@ static const BOOL kLoggingEnabled = YES;
 }
 
 - (SKLayerOperation *)layerOperationWithId:(NSString *)objectId {
-    for (SKLayerOperation *operation in self.operations) {
+    for (SKLayerOperation *operation in self.layerOperations) {
         if([operation.layerId isEqualToString:objectId]) {
             return operation;
         }
@@ -82,7 +82,7 @@ static const BOOL kLoggingEnabled = YES;
             break;
             
         case SketchOperationTypeUpdate:
-            for (SKLayerOperation *layerChange in self.operations) {
+            for (SKLayerOperation *layerChange in self.layerOperations) {
                 [layerChange applyToPage:self.page];
             }
 
@@ -221,29 +221,34 @@ static const BOOL kLoggingEnabled = YES;
         return;
     }
     
-    NSImage *image;
-    NSURL *tempDir = [NSURL fileURLWithPath:NSTemporaryDirectory()];
-    tempDir = [tempDir URLByAppendingPathComponent:[NSUUID UUID].UUIDString];
     NSString *filePath = nil;
-    
-    NSMutableArray *objectIds = [[NSMutableArray alloc] init];
+    NSMutableArray *operationsPerFilePath = nil;
+    NSMutableDictionary *filePaths = [[NSMutableDictionary alloc] init];
     
     for (SKLayerOperation *operation in operations) {
-        NSString *objectId = operation.objectId;
+        filePath = operation.layer.page.sketchFile.fileURL.path;
         
-        if(filePath == nil) {
-            filePath = operation.layer.page.sketchFile.fileURL.path;
+        operationsPerFilePath = [filePaths objectForKey:filePath];
+        
+        NSLog(@"Class: %@", NSStringFromClass([operation class]));
+        
+        if(operationsPerFilePath == nil) {
+            operationsPerFilePath = [[NSMutableArray alloc] init];
+            [filePaths setObject:operationsPerFilePath forKey:filePath];
         }
         
-        if(objectId != nil) {
-            [objectIds addObject:objectId];
-        }
+        [operationsPerFilePath addObject:operation];
     }
     
-    // This should be improved, goes wrong mainly when generating previews from deleted artboards (we now always use the path from layerB)
-    if(filePath == nil) {
-        return;
+    for (NSString *filePath in filePaths.allKeys) {
+        NSArray *operationsPerFilePath = [filePaths objectForKey:filePath];
+        [self generatePreviewsForOperations:operationsPerFilePath inFileWithPath:filePath];
     }
+}
+    
+- (void)generatePreviewsForOperations:(NSArray *)operations inFileWithPath:(NSString *)filePath {
+    NSURL *tempDir = [NSURL fileURLWithPath:NSTemporaryDirectory()];
+    tempDir = [tempDir URLByAppendingPathComponent:[NSUUID UUID].UUIDString];
     
     [[NSFileManager defaultManager] createDirectoryAtPath:tempDir.path withIntermediateDirectories:YES attributes:nil error:NULL];
     
@@ -255,7 +260,7 @@ static const BOOL kLoggingEnabled = YES;
         filePath,
         [NSString stringWithFormat:@"--output=%@", tempDir.path],
         @"--use-id-for-name",
-        [NSString stringWithFormat:@"--items=%@", [objectIds componentsJoinedByString:@","]]
+//        [NSString stringWithFormat:@"--items=%@", [objectIds componentsJoinedByString:@","]]
     ]];
     
     NSPipe *outputPipe = [[NSPipe alloc] init];
@@ -268,6 +273,7 @@ static const BOOL kLoggingEnabled = YES;
     
     [task launch];
     
+    NSImage *image = nil;
     NSData *errorData = [errorFile readDataToEndOfFile];
     
     //    DDLogVerbose(@"SketchFilePlugin: sketchtool for %@ in %f ms", fileURL.relativeString, [now timeIntervalSinceNow]);
@@ -280,7 +286,7 @@ static const BOOL kLoggingEnabled = YES;
         
         if ([result hasPrefix:@"Exported "]) {
             for (SKLayerOperation *operation in operations) {
-                NSString *outputFilePath = [[tempDir.path stringByAppendingPathComponent:operation.objectId] stringByAppendingPathExtension:@"png"];
+                NSString *outputFilePath = [[tempDir.path stringByAppendingPathComponent:operation.layer.objectId] stringByAppendingPathExtension:@"png"];
                 image = [[NSImage alloc] initWithContentsOfFile:outputFilePath];
                 operation.layer.previewImage = image;
             }
@@ -367,7 +373,7 @@ static const BOOL kLoggingEnabled = YES;
             NSLog(@"Page added!");
             
             SKPageOperation *pageChange = [[SKPageOperation alloc] initWithPage:pageB operationType:SketchOperationTypeInsert];
-            pageChange.operations = [self operationsFromPageA:nil toPageB:pageB];
+            pageChange.layerOperations = [self operationsFromPageA:nil toPageB:pageB];
             [pageChanges addObject:pageChange];
         }
         
@@ -375,7 +381,7 @@ static const BOOL kLoggingEnabled = YES;
             NSLog(@"Page deleted!");
 
             SKPageOperation *pageChange = [[SKPageOperation alloc] initWithPage:pageA operationType:SketchOperationTypeDelete];
-            pageChange.operations = [self operationsFromPageA:pageA toPageB:nil];
+            pageChange.layerOperations = [self operationsFromPageA:pageA toPageB:nil];
             [pageChanges addObject:pageChange];
         }
         
@@ -385,7 +391,7 @@ static const BOOL kLoggingEnabled = YES;
             
             if(operations.count > 0) {
                 SKPageOperation *pageChange = [[SKPageOperation alloc] initWithPage:pageA operationType:SketchOperationTypeUpdate];
-                pageChange.operations = operations;
+                pageChange.layerOperations = operations;
                 [pageChanges addObject:pageChange];
             }
         }
@@ -532,7 +538,7 @@ static const BOOL kLoggingEnabled = YES;
                 [_operations addObjectsFromArray:operations];
             }
 
-            pageChangeA.operations = operations;
+            pageChangeA.layerOperations = operations;
             
             [_pageOperations addObject:pageChangeA];
         }

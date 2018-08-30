@@ -42,7 +42,7 @@
     [self.statusView autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:8];
     
     [self.titleLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:self.statusView withOffset:4];
-    [self.titleLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self.statusView];
+    [self.titleLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self.statusView withOffset:2];
     [self.titleLabel autoSetDimension:ALDimensionHeight toSize:22];
     
     self.selected = NO;
@@ -168,11 +168,11 @@
 }
 
 - (SKLayerMergeOperation *)operationAtIndexPath:(NSIndexPath *)indexPath {
-    return [[self pageOperationAtIndex:indexPath.section].operations objectAtIndex:indexPath.item];
+    return [[self pageOperationAtIndex:indexPath.section].layerOperations objectAtIndex:indexPath.item];
 }
 
 - (NSInteger)collectionView:(NSCollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return [self pageOperationAtIndex:section].operations.count;
+    return [self pageOperationAtIndex:section].layerOperations.count;
 }
 
 - (NSCollectionViewItem *)collectionView:(NSCollectionView *)collectionView itemForRepresentedObjectAtIndexPath:(NSIndexPath *)indexPath {
@@ -181,7 +181,7 @@
 
     item.artboardImageView.image = operation.layer.previewImage;
     item.statusView.type = operation.operationType;
-    item.titleLabel.stringValue = [NSString stringWithFormat:@"%@ - %@", operation.layer.objectClass, operation.layer.name];
+    item.titleLabel.stringValue = [NSString stringWithFormat:@"%@ - %@", operation.layer.objectClassName, operation.layer.name];
 
     return item;
 }

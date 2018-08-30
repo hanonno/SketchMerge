@@ -70,21 +70,21 @@
 //    NSURL *rootFileURL = self.rootFileURL ? self.rootFileURL : [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"UW-Shipping" ofType:@"sketch"]];
 //    NSURL *changedFileURL = self.changedFileURL ? self.changedFileURL : [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"UW-Shipping-B" ofType:@"sketch"]];
 
-//    NSURL *fileURLRoot = self.rootFileURL ? self.rootFileURL : [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Sketch-Root" ofType:@"sketch"]];
-//    NSURL *fileURLA = self.changedFileURL ? self.changedFileURL : [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Sketch-A" ofType:@"sketch"]];
-//    NSURL *fileURLB = self.changedFileURL ? self.changedFileURL : [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Sketch-B" ofType:@"sketch"]];
+    NSURL *fileURLRoot = self.rootFileURL ? self.rootFileURL : [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Sketch-Root" ofType:@"sketch"]];
+    NSURL *fileURLA = self.changedFileURL ? self.changedFileURL : [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Sketch-A" ofType:@"sketch"]];
+    NSURL *fileURLB = self.changedFileURL ? self.changedFileURL : [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Sketch-B" ofType:@"sketch"]];
     
 //    NSURL *fileURLRoot = self.rootFileURL ? self.rootFileURL : [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Sketch-Conflict-Root" ofType:@"sketch"]];
 //    NSURL *fileURLA = self.changedFileURL ? self.changedFileURL : [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Sketch-Conflict-A" ofType:@"sketch"]];
 //    NSURL *fileURLB = self.changedFileURL ? self.changedFileURL : [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Sketch-Conflict-B" ofType:@"sketch"]];
 
-//    NSURL *fileURLRoot = self.rootFileURL ? self.rootFileURL : [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"UW-Shipping" ofType:@"sketch"]];
+//    NSURL *fileURLRoot = self.rootFileURL ? self.rootFileURL : [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Sketch-Root" ofType:@"sketch"]];
 //    NSURL *fileURLA = self.changedFileURL ? self.changedFileURL : [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"UW-Shipping" ofType:@"sketch"]];
 //    NSURL *fileURLB = self.changedFileURL ? self.changedFileURL : [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"UW-Shipping-B" ofType:@"sketch"]];
     
-    NSURL *fileURLRoot = self.rootFileURL ? self.rootFileURL : [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Sketch-Add-O" ofType:@"sketch"]];
-    NSURL *fileURLA = self.changedFileURL ? self.changedFileURL : [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Sketch-Add-A" ofType:@"sketch"]];
-    NSURL *fileURLB = self.changedFileURL ? self.changedFileURL : [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Sketch-Add-B" ofType:@"sketch"]];
+//    NSURL *fileURLRoot = self.rootFileURL ? self.rootFileURL : [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Sketch-Add-O" ofType:@"sketch"]];
+//    NSURL *fileURLA = self.changedFileURL ? self.changedFileURL : [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Sketch-Add-A" ofType:@"sketch"]];
+//    NSURL *fileURLB = self.changedFileURL ? self.changedFileURL : [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Sketch-Add-B" ofType:@"sketch"]];
     
     SketchFile *fileRoot = [[SketchFile alloc] initWithFileURL:fileURLRoot];
     SketchFile *fileA = [[SketchFile alloc] initWithFileURL:fileURLA];
@@ -95,8 +95,8 @@
     dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
         SketchMergeTool *mergeTool = [[SketchMergeTool alloc] initWithOrigin:fileRoot fileA:fileA fileB:fileB];
         
-        [self.sketchDiffTool generatePreviewsForArtboards:[mergeTool.changeSetA.pageOperations.firstObject operations]];
-        [self.sketchDiffTool generatePreviewsForArtboards:[mergeTool.changeSetB.pageOperations.firstObject operations]];
+        [self.sketchDiffTool generatePreviewsForArtboards:[mergeTool.changeSetA.pageOperations.firstObject layerOperations]];
+        [self.sketchDiffTool generatePreviewsForArtboards:[mergeTool.changeSetB.pageOperations.firstObject layerOperations]];
         
         [mergeTool applyChanges];
         [mergeTool.fileO writePages];

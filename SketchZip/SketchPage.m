@@ -38,6 +38,16 @@ static const BOOL kLoggingEnabled = YES;
     return _JSON[@"_class"];
 }
 
+- (NSString *)objectClassName {
+    NSString *objectClass = self.objectClass;
+    
+    if([objectClass isEqualToString:@"artboard"]) {
+        return @"Artboard";
+    }
+    
+    return @"Unknown";
+}
+
 @end
 
 
@@ -55,9 +65,6 @@ static const BOOL kLoggingEnabled = YES;
 }
 
 @end
-
-
-
 
 
 @implementation SketchPage
@@ -254,8 +261,6 @@ static const BOOL kLoggingEnabled = YES;
 }
 
 - (void)insertPage:(SketchPage *)page {
-    NSLog(@"Add page %@", page.objectId);
-    
     [self.pages setValue:page forKey:page.objectId];
 }
 
@@ -264,7 +269,7 @@ static const BOOL kLoggingEnabled = YES;
 }
 
 - (void)deletePage:(SketchPage *)page {
-//    [self.pages remove]
+    [self.pages removeObjectForKey:page.objectId];
 }
 
 @end
