@@ -23,8 +23,18 @@ static const BOOL kLoggingEnabled = YES;
 }
 
 - (void)applyToPage:(SketchPage *)page {
+    SketchRect *rect = [[SketchRect alloc] init];
+    SketchText *text = [[SketchText alloc] init];
+    
+    rect.width = 4;
+    
+    [page insertLayer:text];
+    [page insertLayer:rect];
+    
     switch (self.operationType) {
         case SketchOperationTypeInsert:
+            
+            
             [page insertLayer:self.layer];
             break;
             

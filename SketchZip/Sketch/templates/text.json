@@ -1,0 +1,101 @@
+{
+    "_class": "text",
+    "do_objectID": "C3C97325-21A9-46E7-AE2C-2E6D85378E44",
+    "booleanOperation": -1,
+    "exportOptions": {
+        "_class": "exportOptions",
+        "exportFormats": [],
+        "includedLayerIds": [],
+        "layerOptions": 0,
+        "shouldTrim": false
+    },
+    "frame": {
+        "_class": "rect",
+        "constrainProportions": false,
+        "height": 17,
+        "width": 110,
+        "x": 1708,
+        "y": 378
+    },
+    "isFixedToViewport": false,
+    "isFlippedHorizontal": false,
+    "isFlippedVertical": false,
+    "isLocked": false,
+    "isVisible": true,
+    "layerListExpandedType": 0,
+    "name": "Type something",
+    "nameIsFixed": false,
+    "resizingConstraint": 47,
+    "resizingType": 0,
+    "rotation": 0,
+    "shouldBreakMaskChain": false,
+    "style": {
+        "_class": "style",
+        "endMarkerType": 0,
+        "miterLimit": 10,
+        "startMarkerType": 0,
+        "textStyle": {
+            "_class": "textStyle",
+            "encodedAttributes": {
+                "MSAttributedStringFontAttribute": {
+                    "_class": "fontDescriptor",
+                    "attributes": {
+                        "name": "Montserrat-SemiBold",
+                        "size": 13
+                    }
+                },
+                "MSAttributedStringColorAttribute": {
+                    "_class": "color",
+                    "alpha": 1,
+                    "blue": 0.2901960784313726,
+                    "green": 0.2745098039215687,
+                    "red": 0.2431372549019608
+                },
+                "textStyleVerticalAlignmentKey": 0,
+                "paragraphStyle": {
+                    "_class": "paragraphStyle",
+                    "alignment": 2
+                }
+            },
+            "verticalAlignment": 0
+        },
+        "windingRule": 1
+    },
+    "attributedString": {
+        "_class": "attributedString",
+        "string": "Type HELLOOS",
+        "attributes": [
+                       {
+                       "_class": "stringAttribute",
+                       "location": 0,
+                       "length": 14,
+                       "attributes": {
+                       "MSAttributedStringFontAttribute": {
+                       "_class": "fontDescriptor",
+                       "attributes": {
+                       "name": "Montserrat-SemiBold",
+                       "size": 13
+                       }
+                       },
+                       "MSAttributedStringColorAttribute": {
+                       "_class": "color",
+                       "alpha": 1,
+                       "blue": 0.2901960784313726,
+                       "green": 0.2745098039215687,
+                       "red": 0.2431372549019608
+                       },
+                       "textStyleVerticalAlignmentKey": 0,
+                       "paragraphStyle": {
+                       "_class": "paragraphStyle",
+                       "alignment": 2
+                       }
+                       }
+                       }
+                       ]
+    },
+    "automaticallyDrawOnUnderlyingPath": false,
+    "dontSynchroniseWithSymbol": false,
+    "glyphBounds": "{{0, 0}, {0, 0}}",
+    "lineSpacingBehaviour": 2,
+    "textBehaviour": 0
+}

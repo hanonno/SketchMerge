@@ -66,6 +66,38 @@
 		7D828FA92122FE8700ADBD7E /* Sketch-Result.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7D828FA72122FE8700ADBD7E /* Sketch-Result.sketch */; };
 		7D828FAC2125B90100ADBD7E /* artboard.json in Resources */ = {isa = PBXBuildFile; fileRef = 7D828FAB2125B90100ADBD7E /* artboard.json */; };
 		7D828FAD2125B90100ADBD7E /* artboard.json in Resources */ = {isa = PBXBuildFile; fileRef = 7D828FAB2125B90100ADBD7E /* artboard.json */; };
+		7D8CBE492153DD42007C884B /* iPhone Xs Max@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D8CBE312153DD42007C884B /* iPhone Xs Max@2x.png */; };
+		7D8CBE4A2153DD42007C884B /* Apple Watch 42mm@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D8CBE322153DD42007C884B /* Apple Watch 42mm@2x.png */; };
+		7D8CBE4B2153DD42007C884B /* iPhone Xs@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D8CBE332153DD42007C884B /* iPhone Xs@2x.png */; };
+		7D8CBE4C2153DD42007C884B /* iPad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D8CBE342153DD42007C884B /* iPad@2x.png */; };
+		7D8CBE4D2153DD42007C884B /* Apple TV.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D8CBE352153DD42007C884B /* Apple TV.png */; };
+		7D8CBE4E2153DD42007C884B /* Apple TV@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D8CBE362153DD42007C884B /* Apple TV@2x.png */; };
+		7D8CBE4F2153DD42007C884B /* iPhone 8 Plus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D8CBE372153DD42007C884B /* iPhone 8 Plus@2x.png */; };
+		7D8CBE502153DD42007C884B /* iPhone SE@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D8CBE382153DD42007C884B /* iPhone SE@2x.png */; };
+		7D8CBE512153DD42007C884B /* iPhone Xs Max.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D8CBE392153DD42007C884B /* iPhone Xs Max.png */; };
+		7D8CBE522153DD42007C884B /* iPad Pro.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D8CBE3A2153DD42007C884B /* iPad Pro.png */; };
+		7D8CBE532153DD42007C884B /* Apple Watch 44mm@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D8CBE3B2153DD42007C884B /* Apple Watch 44mm@2x.png */; };
+		7D8CBE542153DD42007C884B /* Apple Watch 38mm@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D8CBE3C2153DD42007C884B /* Apple Watch 38mm@2x.png */; };
+		7D8CBE552153DD42007C884B /* iPhone 8 Plus.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D8CBE3D2153DD42007C884B /* iPhone 8 Plus.png */; };
+		7D8CBE562153DD42007C884B /* iPhone SE.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D8CBE3E2153DD42007C884B /* iPhone SE.png */; };
+		7D8CBE572153DD42007C884B /* Apple Watch 44mm.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D8CBE3F2153DD42007C884B /* Apple Watch 44mm.png */; };
+		7D8CBE582153DD42007C884B /* iPhone 8.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D8CBE402153DD42007C884B /* iPhone 8.png */; };
+		7D8CBE592153DD42007C884B /* Apple Watch 42mm.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D8CBE412153DD42007C884B /* Apple Watch 42mm.png */; };
+		7D8CBE5A2153DD42007C884B /* Apple Watch 38mm.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D8CBE422153DD42007C884B /* Apple Watch 38mm.png */; };
+		7D8CBE5B2153DD42007C884B /* Apple Watch 40mm.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D8CBE432153DD42007C884B /* Apple Watch 40mm.png */; };
+		7D8CBE5C2153DD42007C884B /* Apple Watch 40mm@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D8CBE442153DD42007C884B /* Apple Watch 40mm@2x.png */; };
+		7D8CBE5D2153DD42007C884B /* iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D8CBE452153DD42007C884B /* iPad.png */; };
+		7D8CBE5E2153DD42007C884B /* iPhone 8@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D8CBE462153DD42007C884B /* iPhone 8@2x.png */; };
+		7D8CBE5F2153DD42007C884B /* iPad Pro@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D8CBE472153DD42007C884B /* iPad Pro@2x.png */; };
+		7D8CBE602153DD42007C884B /* iPhone Xs.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D8CBE482153DD42007C884B /* iPhone Xs.png */; };
+		7D8CBE672153EF82007C884B /* SketchFileController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D8CBE662153EF82007C884B /* SketchFileController.m */; };
+		7D8CBE682153EF82007C884B /* SketchFileController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D8CBE662153EF82007C884B /* SketchFileController.m */; };
+		7DA184F82138271C00EA1FF8 /* rectangle.json in Resources */ = {isa = PBXBuildFile; fileRef = 7DA184F72138271C00EA1FF8 /* rectangle.json */; };
+		7DA184F92138271C00EA1FF8 /* rectangle.json in Resources */ = {isa = PBXBuildFile; fileRef = 7DA184F72138271C00EA1FF8 /* rectangle.json */; };
+		7DA184FB2138276500EA1FF8 /* oval.json in Resources */ = {isa = PBXBuildFile; fileRef = 7DA184FA2138276500EA1FF8 /* oval.json */; };
+		7DA184FC2138276500EA1FF8 /* oval.json in Resources */ = {isa = PBXBuildFile; fileRef = 7DA184FA2138276500EA1FF8 /* oval.json */; };
+		7DA184FE213827FA00EA1FF8 /* text.json in Resources */ = {isa = PBXBuildFile; fileRef = 7DA184FD213827FA00EA1FF8 /* text.json */; };
+		7DA184FF213827FA00EA1FF8 /* text.json in Resources */ = {isa = PBXBuildFile; fileRef = 7DA184FD213827FA00EA1FF8 /* text.json */; };
 		7DEA342A2135A79A0062075A /* Sketch-Conflict-Root.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7DEA34272135A79A0062075A /* Sketch-Conflict-Root.sketch */; };
 		7DEA342B2135A79A0062075A /* Sketch-Conflict-Root.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7DEA34272135A79A0062075A /* Sketch-Conflict-Root.sketch */; };
 		7DEA342C2135A79A0062075A /* Sketch-Conflict-B.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7DEA34282135A79A0062075A /* Sketch-Conflict-B.sketch */; };
@@ -192,6 +224,35 @@
 		7D828FA02122E27E00ADBD7E /* Sketch-B.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sketch-B.sketch"; sourceTree = "<group>"; };
 		7D828FA72122FE8700ADBD7E /* Sketch-Result.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sketch-Result.sketch"; sourceTree = "<group>"; };
 		7D828FAB2125B90100ADBD7E /* artboard.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = artboard.json; sourceTree = "<group>"; };
+		7D8CBE312153DD42007C884B /* iPhone Xs Max@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone Xs Max@2x.png"; sourceTree = "<group>"; };
+		7D8CBE322153DD42007C884B /* Apple Watch 42mm@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Apple Watch 42mm@2x.png"; sourceTree = "<group>"; };
+		7D8CBE332153DD42007C884B /* iPhone Xs@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone Xs@2x.png"; sourceTree = "<group>"; };
+		7D8CBE342153DD42007C884B /* iPad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPad@2x.png"; sourceTree = "<group>"; };
+		7D8CBE352153DD42007C884B /* Apple TV.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Apple TV.png"; sourceTree = "<group>"; };
+		7D8CBE362153DD42007C884B /* Apple TV@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Apple TV@2x.png"; sourceTree = "<group>"; };
+		7D8CBE372153DD42007C884B /* iPhone 8 Plus@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone 8 Plus@2x.png"; sourceTree = "<group>"; };
+		7D8CBE382153DD42007C884B /* iPhone SE@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone SE@2x.png"; sourceTree = "<group>"; };
+		7D8CBE392153DD42007C884B /* iPhone Xs Max.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone Xs Max.png"; sourceTree = "<group>"; };
+		7D8CBE3A2153DD42007C884B /* iPad Pro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPad Pro.png"; sourceTree = "<group>"; };
+		7D8CBE3B2153DD42007C884B /* Apple Watch 44mm@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Apple Watch 44mm@2x.png"; sourceTree = "<group>"; };
+		7D8CBE3C2153DD42007C884B /* Apple Watch 38mm@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Apple Watch 38mm@2x.png"; sourceTree = "<group>"; };
+		7D8CBE3D2153DD42007C884B /* iPhone 8 Plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone 8 Plus.png"; sourceTree = "<group>"; };
+		7D8CBE3E2153DD42007C884B /* iPhone SE.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone SE.png"; sourceTree = "<group>"; };
+		7D8CBE3F2153DD42007C884B /* Apple Watch 44mm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Apple Watch 44mm.png"; sourceTree = "<group>"; };
+		7D8CBE402153DD42007C884B /* iPhone 8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone 8.png"; sourceTree = "<group>"; };
+		7D8CBE412153DD42007C884B /* Apple Watch 42mm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Apple Watch 42mm.png"; sourceTree = "<group>"; };
+		7D8CBE422153DD42007C884B /* Apple Watch 38mm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Apple Watch 38mm.png"; sourceTree = "<group>"; };
+		7D8CBE432153DD42007C884B /* Apple Watch 40mm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Apple Watch 40mm.png"; sourceTree = "<group>"; };
+		7D8CBE442153DD42007C884B /* Apple Watch 40mm@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Apple Watch 40mm@2x.png"; sourceTree = "<group>"; };
+		7D8CBE452153DD42007C884B /* iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPad.png; sourceTree = "<group>"; };
+		7D8CBE462153DD42007C884B /* iPhone 8@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone 8@2x.png"; sourceTree = "<group>"; };
+		7D8CBE472153DD42007C884B /* iPad Pro@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPad Pro@2x.png"; sourceTree = "<group>"; };
+		7D8CBE482153DD42007C884B /* iPhone Xs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone Xs.png"; sourceTree = "<group>"; };
+		7D8CBE652153EF82007C884B /* SketchFileController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchFileController.h; sourceTree = "<group>"; };
+		7D8CBE662153EF82007C884B /* SketchFileController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SketchFileController.m; sourceTree = "<group>"; };
+		7DA184F72138271C00EA1FF8 /* rectangle.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = rectangle.json; sourceTree = "<group>"; };
+		7DA184FA2138276500EA1FF8 /* oval.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = oval.json; sourceTree = "<group>"; };
+		7DA184FD213827FA00EA1FF8 /* text.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = text.json; sourceTree = "<group>"; };
 		7DEA34272135A79A0062075A /* Sketch-Conflict-Root.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sketch-Conflict-Root.sketch"; sourceTree = "<group>"; };
 		7DEA34282135A79A0062075A /* Sketch-Conflict-B.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sketch-Conflict-B.sketch"; sourceTree = "<group>"; };
 		7DEA34292135A79A0062075A /* Sketch-Conflict-A.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sketch-Conflict-A.sketch"; sourceTree = "<group>"; };
@@ -284,13 +345,15 @@
 				7D7CCFD121133DD50061EBB0 /* SketchPage.m */,
 				5548B89120EF7A9300D3A081 /* ArtboardGridViewController.h */,
 				5548B89220EF7A9300D3A081 /* ArtboardGridViewController.m */,
+				7D8CBE652153EF82007C884B /* SketchFileController.h */,
+				7D8CBE662153EF82007C884B /* SketchFileController.m */,
 				7D828F942122DBCB00ADBD7E /* SketchOperationTypeIndicator.h */,
 				7D828F952122DBCB00ADBD7E /* SketchOperationTypeIndicator.m */,
 				5548B88F20EF72C000D3A081 /* NSImage+PNGAdditions.h */,
 				5548B88E20EF72C000D3A081 /* NSImage+PNGAdditions.m */,
+				7D8CBE302153DD42007C884B /* Icons */,
 				7D828F9D2122E0E300ADBD7E /* Sketch */,
 				55BE526A20ADAE720059EC77 /* TestFile1.sketch */,
-				552F296620EE77C500A845B2 /* Artboards-Root.sketch */,
 				552F295220EE3D0A00A845B2 /* Artboards-A.sketch */,
 				552F295420EE4B0A00A845B2 /* Artboards-B.sketch */,
 				7D7CCFC521133AB60061EBB0 /* Version-1.sketch */,
@@ -404,6 +467,7 @@
 				7D828FA02122E27E00ADBD7E /* Sketch-B.sketch */,
 				7D828F9E2122E27E00ADBD7E /* Sketch-Root.sketch */,
 				7D828FA72122FE8700ADBD7E /* Sketch-Result.sketch */,
+				552F296620EE77C500A845B2 /* Artboards-Root.sketch */,
 			);
 			path = Sketch;
 			sourceTree = "<group>";
@@ -412,8 +476,42 @@
 			isa = PBXGroup;
 			children = (
 				7D828FAB2125B90100ADBD7E /* artboard.json */,
+				7DA184F72138271C00EA1FF8 /* rectangle.json */,
+				7DA184FA2138276500EA1FF8 /* oval.json */,
+				7DA184FD213827FA00EA1FF8 /* text.json */,
 			);
 			path = templates;
+			sourceTree = "<group>";
+		};
+		7D8CBE302153DD42007C884B /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+				7D8CBE312153DD42007C884B /* iPhone Xs Max@2x.png */,
+				7D8CBE322153DD42007C884B /* Apple Watch 42mm@2x.png */,
+				7D8CBE332153DD42007C884B /* iPhone Xs@2x.png */,
+				7D8CBE342153DD42007C884B /* iPad@2x.png */,
+				7D8CBE352153DD42007C884B /* Apple TV.png */,
+				7D8CBE362153DD42007C884B /* Apple TV@2x.png */,
+				7D8CBE372153DD42007C884B /* iPhone 8 Plus@2x.png */,
+				7D8CBE382153DD42007C884B /* iPhone SE@2x.png */,
+				7D8CBE392153DD42007C884B /* iPhone Xs Max.png */,
+				7D8CBE3A2153DD42007C884B /* iPad Pro.png */,
+				7D8CBE3B2153DD42007C884B /* Apple Watch 44mm@2x.png */,
+				7D8CBE3C2153DD42007C884B /* Apple Watch 38mm@2x.png */,
+				7D8CBE3D2153DD42007C884B /* iPhone 8 Plus.png */,
+				7D8CBE3E2153DD42007C884B /* iPhone SE.png */,
+				7D8CBE3F2153DD42007C884B /* Apple Watch 44mm.png */,
+				7D8CBE402153DD42007C884B /* iPhone 8.png */,
+				7D8CBE412153DD42007C884B /* Apple Watch 42mm.png */,
+				7D8CBE422153DD42007C884B /* Apple Watch 38mm.png */,
+				7D8CBE432153DD42007C884B /* Apple Watch 40mm.png */,
+				7D8CBE442153DD42007C884B /* Apple Watch 40mm@2x.png */,
+				7D8CBE452153DD42007C884B /* iPad.png */,
+				7D8CBE462153DD42007C884B /* iPhone 8@2x.png */,
+				7D8CBE472153DD42007C884B /* iPad Pro@2x.png */,
+				7D8CBE482153DD42007C884B /* iPhone Xs.png */,
+			);
+			path = Icons;
 			sourceTree = "<group>";
 		};
 		7DEA34302135A7A00062075A /* Conflict */ = {
@@ -547,31 +645,58 @@
 			files = (
 				552F295320EE3D0A00A845B2 /* Artboards-A.sketch in Resources */,
 				552F296720EE77C500A845B2 /* Artboards-Root.sketch in Resources */,
+				7DA184FE213827FA00EA1FF8 /* text.json in Resources */,
+				7D8CBE5E2153DD42007C884B /* iPhone 8@2x.png in Resources */,
+				7D8CBE562153DD42007C884B /* iPhone SE.png in Resources */,
 				5548B89C20F3708000D3A081 /* Cartfile in Resources */,
+				7D8CBE5A2153DD42007C884B /* Apple Watch 38mm.png in Resources */,
+				7D8CBE4C2153DD42007C884B /* iPad@2x.png in Resources */,
+				7D8CBE4F2153DD42007C884B /* iPhone 8 Plus@2x.png in Resources */,
+				7D8CBE492153DD42007C884B /* iPhone Xs Max@2x.png in Resources */,
 				7D828FA32122E27E00ADBD7E /* Sketch-A.sketch in Resources */,
+				7D8CBE532153DD42007C884B /* Apple Watch 44mm@2x.png in Resources */,
 				7D7CCFCF21133C630061EBB0 /* Version-6.sketch in Resources */,
 				7D828FA52122E27E00ADBD7E /* Sketch-B.sketch in Resources */,
 				55BE526920ADAD410059EC77 /* Info.plist in Resources */,
 				7DEA342E2135A79A0062075A /* Sketch-Conflict-A.sketch in Resources */,
 				7DEA342A2135A79A0062075A /* Sketch-Conflict-Root.sketch in Resources */,
+				7D8CBE4E2153DD42007C884B /* Apple TV@2x.png in Resources */,
+				7D8CBE5C2153DD42007C884B /* Apple Watch 40mm@2x.png in Resources */,
 				7D7CCFC721133AB60061EBB0 /* Version-1.sketch in Resources */,
+				7D8CBE542153DD42007C884B /* Apple Watch 38mm@2x.png in Resources */,
 				55BE526B20ADAE720059EC77 /* TestFile1.sketch in Resources */,
+				7D8CBE502153DD42007C884B /* iPhone SE@2x.png in Resources */,
 				552F295520EE4B0A00A845B2 /* Artboards-B.sketch in Resources */,
 				7DEA34382135DC980062075A /* Sketch-Add-B.sketch in Resources */,
+				7D8CBE5B2153DD42007C884B /* Apple Watch 40mm.png in Resources */,
 				55BE520320ADABFD0059EC77 /* Assets.xcassets in Resources */,
+				7D8CBE5D2153DD42007C884B /* iPad.png in Resources */,
 				7D7CCFC921133BAB0061EBB0 /* Version-3.sketch in Resources */,
 				7D7CCFC621133AB60061EBB0 /* Version-2.sketch in Resources */,
+				7D8CBE522153DD42007C884B /* iPad Pro.png in Resources */,
 				7DEA34362135DC980062075A /* Sketch-Add-O.sketch in Resources */,
 				7DEA342C2135A79A0062075A /* Sketch-Conflict-B.sketch in Resources */,
 				7D828FA12122E27E00ADBD7E /* Sketch-Root.sketch in Resources */,
+				7D8CBE552153DD42007C884B /* iPhone 8 Plus.png in Resources */,
 				7D828FA82122FE8700ADBD7E /* Sketch-Result.sketch in Resources */,
+				7D8CBE572153DD42007C884B /* Apple Watch 44mm.png in Resources */,
+				7D8CBE4B2153DD42007C884B /* iPhone Xs@2x.png in Resources */,
 				7D7CCFCD21133C160061EBB0 /* Version-5.sketch in Resources */,
+				7D8CBE4D2153DD42007C884B /* Apple TV.png in Resources */,
 				55BE520620ADABFD0059EC77 /* MainMenu.xib in Resources */,
 				7D7CCFD42114697A0061EBB0 /* UW-Shipping.sketch in Resources */,
+				7DA184F82138271C00EA1FF8 /* rectangle.json in Resources */,
 				7D7CCFD6211474AF0061EBB0 /* UW-Shipping-B.sketch in Resources */,
+				7D8CBE602153DD42007C884B /* iPhone Xs.png in Resources */,
+				7D8CBE592153DD42007C884B /* Apple Watch 42mm.png in Resources */,
 				7D7CCFCB21133BEA0061EBB0 /* Version-4.sketch in Resources */,
 				7DEA34342135DC980062075A /* Sketch-Add-A.sketch in Resources */,
+				7D8CBE4A2153DD42007C884B /* Apple Watch 42mm@2x.png in Resources */,
 				7D828FAC2125B90100ADBD7E /* artboard.json in Resources */,
+				7D8CBE5F2153DD42007C884B /* iPad Pro@2x.png in Resources */,
+				7D8CBE512153DD42007C884B /* iPhone Xs Max.png in Resources */,
+				7D8CBE582153DD42007C884B /* iPhone 8.png in Resources */,
+				7DA184FB2138276500EA1FF8 /* oval.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -581,7 +706,9 @@
 			files = (
 				7DEA34352135DC980062075A /* Sketch-Add-A.sketch in Resources */,
 				7D828FAD2125B90100ADBD7E /* artboard.json in Resources */,
+				7DA184FF213827FA00EA1FF8 /* text.json in Resources */,
 				7DEA342D2135A79A0062075A /* Sketch-Conflict-B.sketch in Resources */,
+				7DA184F92138271C00EA1FF8 /* rectangle.json in Resources */,
 				7DEA342B2135A79A0062075A /* Sketch-Conflict-Root.sketch in Resources */,
 				7D828FA22122E27E00ADBD7E /* Sketch-Root.sketch in Resources */,
 				7D828FA62122E27E00ADBD7E /* Sketch-B.sketch in Resources */,
@@ -590,6 +717,7 @@
 				7DEA34372135DC980062075A /* Sketch-Add-O.sketch in Resources */,
 				7D828FA42122E27E00ADBD7E /* Sketch-A.sketch in Resources */,
 				7DEA342F2135A79A0062075A /* Sketch-Conflict-A.sketch in Resources */,
+				7DA184FC2138276500EA1FF8 /* oval.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -627,6 +755,7 @@
 				552F296220EE59AF00A845B2 /* NSArray+CoreSync.m in Sources */,
 				55BE525B20ADAD410059EC77 /* ioapi.c in Sources */,
 				552F295120EE191500A845B2 /* SketchDiffTool.m in Sources */,
+				7D8CBE672153EF82007C884B /* SketchFileController.m in Sources */,
 				55BE525820ADAD410059EC77 /* crypt.c in Sources */,
 				55BE525C20ADAD410059EC77 /* ioapi_buf.c in Sources */,
 				55BE526620ADAD410059EC77 /* pwd2key.c in Sources */,
@@ -662,6 +791,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				55BE521420ADABFD0059EC77 /* SketchZipTests.m in Sources */,
+				7D8CBE682153EF82007C884B /* SketchFileController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -17,6 +17,7 @@
 @property (strong) NSTextField                      *titleLabel;
 @property (strong) NSImageView                      *artboardImageView;
 @property (strong) SketchOperationTypeIndicator     *statusView;
+@property (strong) NSImageView                      *presetIconView;
 
 @end
 
@@ -30,13 +31,17 @@
 
 @interface ArtboardGridViewController : NSViewController <NSCollectionViewDataSource, NSCollectionViewDelegate>
 
+@property (strong) NSTokenField                 *tokenField;
+
 @property (strong) NSScrollView                 *scrollView;
 @property (strong) NSCollectionView             *collectionView;
 @property (strong) NSCollectionViewFlowLayout   *layout;
-@property (strong) SketchMergeTool              *mergeTool;
 
+@property (strong) SketchMergeTool              *mergeTool;
 
 - (void)startLoading;
 - (void)finishLoading;
+
+- (void)reloadData;
 
 @end

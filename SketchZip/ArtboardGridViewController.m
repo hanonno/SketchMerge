@@ -9,6 +9,7 @@
 #import "ArtboardGridViewController.h"
 #import "CoreSyncTransaction.h"
 #import "SketchDiffTool.h"
+#import "SketchFileController.h"
 #import <PureLayout/PureLayout.h>
 
 
@@ -20,13 +21,18 @@
     
     self.artboardImageView = [[NSImageView alloc] initWithFrame:NSMakeRect(0, 0, 320, 320)];
     self.artboardImageView.wantsLayer = YES;
-    self.artboardImageView.layer.backgroundColor = [[NSColor colorWithCalibratedWhite:0.9 alpha:1.0] CGColor];
+    self.artboardImageView.layer.backgroundColor = [[NSColor colorWithCalibratedWhite:0.96 alpha:1.0] CGColor];
+//    self.artboardImageView.layer.backgroundColor = [[NSColor redColor] CGColor];
     self.artboardImageView.layer.cornerRadius = 4;
     self.artboardImageView.layer.borderWidth = 2;
+    
     [self.view addSubview:self.artboardImageView];
     
-    self.statusView = [[SketchOperationTypeIndicator alloc] init];
-    [self.view addSubview:self.statusView];
+//    self.statusView = [[SketchOperationTypeIndicator alloc] init];
+//    [self.view addSubview:self.statusView];
+    
+    self.presetIconView = [[NSImageView alloc] init];
+    [self.view addSubview:self.presetIconView];
     
     self.titleLabel = [NSTextField labelWithString:@"Test"];
     self.titleLabel.alignment = NSTextAlignmentCenter;
@@ -35,27 +41,44 @@
     
     // Auto Layout
     [self.artboardImageView autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, 0, 0, 0) excludingEdge:ALEdgeBottom];
-    [self.artboardImageView autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:self.titleLabel withOffset:-4];
+    [self.artboardImageView autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:self.titleLabel withOffset:-8];
+
+    [self.presetIconView autoSetDimensionsToSize:CGSizeMake(20, 20)];
+    [self.presetIconView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:4];
+    [self.presetIconView autoPinEdgeToSuperviewEdge:ALEdgeBottom];
     
-    [self.statusView autoSetDimensionsToSize:CGSizeMake(12, 12)];
-    [self.statusView autoPinEdgeToSuperviewEdge:ALEdgeLeft];
-    [self.statusView autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:8];
+//    [self.statusView autoSetDimensionsToSize:CGSizeMake(12, 12)];
+//    [self.statusView autoPinEdgeToSuperviewEdge:ALEdgeLeft];
+//    [self.statusView autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:8];
     
-    [self.titleLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:self.statusView withOffset:4];
-    [self.titleLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self.statusView withOffset:2];
+    [self.titleLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:self.presetIconView withOffset:2];
+    [self.titleLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self.presetIconView withOffset:2];
     [self.titleLabel autoSetDimension:ALDimensionHeight toSize:22];
     
     self.selected = NO;
 }
 
+//- (void)setHighlightState:(NSCollectionViewItemHighlightState)highlightState {
+//    
+//    [super setHighlightState:highlightState];
+//    
+//    if(highlightState == NSCollectionViewItemHighlightForSelection) {
+//        self.artboardImageView.layer.borderColor = [[NSColor blueColor] CGColor];
+//    }
+//    else {
+//        self.artboardImageView.layer.borderColor = [[NSColor greenColor] CGColor];
+//    }
+//}
+
+
 - (void)setSelected:(BOOL)selected {
     [super setSelected:selected];
     
     if(selected) {
-        self.artboardImageView.layer.borderColor = [[NSColor redColor] CGColor];
+        self.artboardImageView.layer.borderColor =[[NSColor colorWithCalibratedRed:0.149 green:0.434 blue:0.964 alpha:1.000] CGColor];
     }
     else {
-        self.artboardImageView.layer.borderColor = [[NSColor greenColor] CGColor];
+        self.artboardImageView.layer.borderColor = [[NSColor whiteColor] CGColor];
     }
 }
 
@@ -68,14 +91,24 @@
     self = [super initWithFrame:frame];
     
     self.wantsLayer = YES;
-    self.layer.backgroundColor = [[NSColor colorWithCalibratedWhite:0.951 alpha:1.000] CGColor];
+    self.layer.backgroundColor = [[NSColor whiteColor] CGColor];
+    
+    NSView *divider = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, 120, 1)];
+    divider.wantsLayer = YES;
+    divider.layer.backgroundColor = [[NSColor colorWithCalibratedWhite:0.917 alpha:1.000] CGColor];
+    [self addSubview:divider];
     
     self.titleLabel = [NSTextField labelWithString:@"Page Name"];
+    self.titleLabel.font = [NSFont systemFontOfSize:12];
+    self.titleLabel.textColor = [NSColor colorWithCalibratedWhite:0.760 alpha:1.000];
     [self addSubview:self.titleLabel];
     
-    [self.titleLabel autoAlignAxisToSuperviewAxis:ALAxisHorizontal];
+    [self.titleLabel autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:8];
     [self.titleLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:16];
     [self.titleLabel autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:16];
+    
+    [divider autoSetDimension:ALDimensionHeight toSize:1];
+    [divider autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsZero excludingEdge:ALEdgeTop];
     
     return self;
 }
@@ -86,9 +119,8 @@
 @interface ArtboardGridViewController ()
 
 @property (strong) SketchDiffTool       *sketchDiffTool;
-
-@property (strong) NSOperationQueue     *artboardPreviewOperationQueue;
 @property (strong) NSProgressIndicator  *progressIndicator;
+@property (strong) SketchFileController *sketchFileController;
 
 @end
 
@@ -100,13 +132,18 @@
     
     self.mergeTool = nil;
     self.sketchDiffTool = [[SketchDiffTool alloc] init];
-    self.artboardPreviewOperationQueue = [[NSOperationQueue alloc] init];
+    
     
     return self;
 }
 
 - (void)loadView {
     self.view = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, 640, 640)];
+    
+    self.tokenField = [[NSTokenField alloc] initWithFrame:NSMakeRect(0, 0, 240, 52)];
+    self.tokenField.tokenStyle = NSTokenStyleSquared;
+
+    [self.view addSubview:self.tokenField];
     
     self.scrollView = [[NSScrollView alloc] initWithFrame:NSMakeRect(0, 0, 640, 640)];
     self.scrollView.backgroundColor = [NSColor redColor];
@@ -140,7 +177,10 @@
     [self.collectionView reloadData];
     
     // Auto Layout
-    [self.scrollView autoPinEdgesToSuperviewEdges];
+    [self.tokenField autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:16];
+    [self.tokenField autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:16];
+    
+    [self.scrollView autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(52, 0, 0, 0)];
 }
 
 - (void)startLoading {
@@ -159,29 +199,30 @@
     [self.progressIndicator stopAnimation:self];
 }
 
+- (void)reloadData {
+    NSArray *pageItems = [SketchFileController pagesFromOperations:self.mergeTool.pageOperations];
+    
+    self.sketchFileController = [[SketchFileController alloc] init];
+    self.sketchFileController.pages = pageItems;
+    
+    [self.collectionView reloadData];
+}
+
 - (NSInteger)numberOfSectionsInCollectionView:(NSCollectionView *)collectionView {
-    return self.mergeTool.pageOperations.count;
-}
-
-- (SKPageOperation *)pageOperationAtIndex:(NSInteger)index {
-    return [self.mergeTool.pageOperations objectAtIndex:index];
-}
-
-- (SKLayerMergeOperation *)operationAtIndexPath:(NSIndexPath *)indexPath {
-    return [[self pageOperationAtIndex:indexPath.section].layerOperations objectAtIndex:indexPath.item];
+    return self.sketchFileController.numberOfPages;
 }
 
 - (NSInteger)collectionView:(NSCollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return [self pageOperationAtIndex:section].layerOperations.count;
+    return [self.sketchFileController numberOfLayersInPageAtIndex:section];
 }
 
 - (NSCollectionViewItem *)collectionView:(NSCollectionView *)collectionView itemForRepresentedObjectAtIndexPath:(NSIndexPath *)indexPath {
     ArtboardCollectionViewItem *item = [collectionView makeItemWithIdentifier:@"ArtboardCollectionViewItemIdentifier" forIndexPath:indexPath];
-    SKLayerMergeOperation *operation = [self operationAtIndexPath:indexPath];
-
-    item.artboardImageView.image = operation.layer.previewImage;
-    item.statusView.type = operation.operationType;
-    item.titleLabel.stringValue = [NSString stringWithFormat:@"%@ - %@", operation.layer.objectClassName, operation.layer.name];
+    SketchLayer *layer = [self.sketchFileController layerAtIndexPath:indexPath];
+    
+    item.artboardImageView.image = layer.previewImage;
+    item.presetIconView.image = layer.presetIcon;
+    item.titleLabel.stringValue = [NSString stringWithFormat:@"%@", layer.name];
 
     return item;
 }
@@ -189,12 +230,21 @@
 - (NSView *)collectionView:(NSCollectionView *)collectionView viewForSupplementaryElementOfKind:(NSCollectionViewSupplementaryElementKind)kind atIndexPath:(NSIndexPath *)indexPath {
     PageHeaderView *headerView = [collectionView makeSupplementaryViewOfKind:NSCollectionElementKindSectionHeader withIdentifier:@"PageHeaderViewIdentifier" forIndexPath:indexPath];
     
-    SKPageOperation *pageOperation = [self pageOperationAtIndex:indexPath.section];
+    SketchPage *page = [self.sketchFileController pageAtIndex:indexPath.section];
     
-    headerView.titleLabel.stringValue = pageOperation.page.name;
+    headerView.titleLabel.stringValue = page.name;
     
     return headerView;
 }
+
+- (NSSize)collectionView:(NSCollectionView *)collectionView layout:(NSCollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
+    if([self.sketchFileController numberOfLayersInPageAtIndex:section] == 0) {
+        return NSZeroSize;
+    }
+    
+    return NSMakeSize(320, 44);
+}
+
 
 - (void)collectionView:(NSCollectionView *)collectionView didSelectItemsAtIndexPaths:(NSSet<NSIndexPath *> *)indexPaths {
 

@@ -26,13 +26,30 @@
 @property (nonatomic, strong, readonly) NSString    *objectClass;
 @property (nonatomic, strong, readonly) NSString    *objectClassName;
 
+// Presets
+@property (nonatomic, strong, readonly) NSString    *presetName;
+@property (nonatomic, strong, readonly) NSImage     *presetIcon;
+
 
 - (id)initWithJSON:(NSMutableDictionary *)JSON fromPage:(SketchPage *)page;
 
 @end
 
-
 @interface SketchArtboard : SketchLayer
+
+@end
+
+@interface SketchRect : SketchLayer
+
+@property (assign) NSInteger x;
+@property (assign) NSInteger y;
+
+@property (assign) NSInteger width;
+@property (assign) NSInteger height;
+
+@end
+
+@interface SketchText : SketchLayer
 
 @end
 
