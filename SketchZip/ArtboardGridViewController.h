@@ -32,6 +32,8 @@
 @interface ArtboardGridViewController : NSViewController <NSCollectionViewDataSource, NSCollectionViewDelegate>
 
 @property (strong) NSTokenField                 *tokenField;
+@property (strong) NSPopUpButton                *presetNameFilterButton;
+@property (strong) NSSlider                     *previewSizeSlider;
 
 @property (strong) NSScrollView                 *scrollView;
 @property (strong) NSCollectionView             *collectionView;

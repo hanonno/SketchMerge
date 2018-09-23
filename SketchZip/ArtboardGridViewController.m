@@ -121,7 +121,9 @@
 @property (strong) NSProgressIndicator  *progressIndicator;
 @property (strong) SketchFileController *sketchFileController;
 
+// Controls
 @property (strong) KeywordFilter        *keywordFilter;
+@property (strong) SizeFilter           *sizeFilter;
 
 @end
 
@@ -134,6 +136,7 @@
     self.mergeTool = nil;
     self.sketchDiffTool = [[SketchDiffTool alloc] init];
     self.keywordFilter = [[KeywordFilter alloc] init];
+    self.sizeFilter = [[SizeFilter alloc] init];
     
     return self;
 }
@@ -144,10 +147,31 @@
     self.tokenField = [[NSTokenField alloc] initWithFrame:NSMakeRect(0, 0, 240, 52)];
     self.tokenField.tokenStyle = NSTokenStyleSquared;
     self.tokenField.delegate = self;
-
     [self.view addSubview:self.tokenField];
     
-    self.scrollView = [[NSScrollView alloc] initWithFrame:NSMakeRect(0, 0, 640, 640)];
+    self.presetNameFilterButton = [[NSPopUpButton alloc] initWithFrame:NSMakeRect(0, 0, 120, 44) pullsDown:NO];
+    [self.presetNameFilterButton addItemWithTitle:@"Any device"];
+    [self.presetNameFilterButton addItemWithTitle:@"iPhone"];
+    [self.presetNameFilterButton addItemWithTitle:@"iPhone SE"];
+    [self.presetNameFilterButton addItemWithTitle:@"iPhone 8"];
+    [self.presetNameFilterButton addItemWithTitle:@"iPhone Xs"];
+    [self.presetNameFilterButton addItemWithTitle:@"iPhone Xs Max"];
+//    [self.presetNameFilterButton menu] addItem: [NSMenuItem separatorItem]];
+    [self.presetNameFilterButton addItemWithTitle:@"Apple Watch"];
+    [self.presetNameFilterButton addItemWithTitle:@"Apple Watch 38mm"];
+    [self.presetNameFilterButton addItemWithTitle:@"Apple Watch 40mm"];
+    [self.presetNameFilterButton addItemWithTitle:@"Apple Watch 42mm"];
+    [self.presetNameFilterButton addItemWithTitle:@"Apple Watch 44mm"];
+    [self.presetNameFilterButton setTarget:self];
+    [self.presetNameFilterButton setAction:@selector(presetNameFilterDidChange:)];
+    [self.view addSubview:self.presetNameFilterButton];
+    
+    self.previewSizeSlider = [NSSlider sliderWithValue:240 minValue:240 maxValue:480 target:self action:@selector(previewSizeDidChange:)];
+    self.previewSizeSlider.numberOfTickMarks = 8;
+    self.previewSizeSlider.allowsTickMarkValuesOnly = YES;
+    [self.view addSubview:self.previewSizeSlider];
+    
+    self.scrollView = [[NSScrollView alloc] initWithFrame:NSMakeRect(300, 0, 640, 640)];
     self.scrollView.backgroundColor = [NSColor redColor];
     [self.view addSubview:self.scrollView];
     
@@ -180,7 +204,16 @@
     
     // Auto Layout
     [self.tokenField autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:16];
+    [self.tokenField autoSetDimension:ALDimensionWidth toSize:320];
     [self.tokenField autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:16];
+    
+    [self.presetNameFilterButton autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self.tokenField];
+    [self.presetNameFilterButton autoSetDimension:ALDimensionWidth toSize:160];
+    [self.presetNameFilterButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:self.self.tokenField withOffset:16];
+    
+    [self.previewSizeSlider autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self.tokenField];
+    [self.previewSizeSlider autoSetDimension:ALDimensionWidth toSize:120];
+    [self.previewSizeSlider autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:16];
     
     [self.scrollView autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(52, 0, 0, 0)];
 }
@@ -205,7 +238,7 @@
     NSArray *pageItems = [SketchFileController pagesFromOperations:self.mergeTool.pageOperations];
     
     self.sketchFileController = [[SketchFileController alloc] init];
-    self.sketchFileController.filters = @[self.keywordFilter];
+    self.sketchFileController.filters = @[self.keywordFilter, self.sizeFilter];
     self.sketchFileController.pageItems = pageItems;
     
     [self.collectionView reloadData];
@@ -261,6 +294,19 @@
     
     self.keywordFilter.keywords = self.tokenField.stringValue;
     [self reloadData];
+}
+
+- (IBAction)presetNameFilterDidChange:(id)sender {
+    NSLog(@"Filter: %@", self.presetNameFilterButton.titleOfSelectedItem);
+    
+    self.sizeFilter.presetName = self.presetNameFilterButton.titleOfSelectedItem;
+    [self reloadData];
+}
+
+- (IBAction)previewSizeDidChange:(id)sender {
+    NSLog(@"Size: %f", self.previewSizeSlider.floatValue);
+    
+    self.layout.itemSize = NSMakeSize(self.previewSizeSlider.floatValue, self.previewSizeSlider.floatValue);
 }
 
 @end

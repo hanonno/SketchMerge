@@ -52,7 +52,7 @@ static const BOOL kLoggingEnabled = YES;
     return _JSON[@"presetDictionary"][@"name"];
 }
 
-- (NSString *)presetIcon {
+- (NSImage *)presetIcon {
     return [NSImage imageNamed:self.presetName];
 }
 @end
@@ -82,9 +82,8 @@ static const BOOL kLoggingEnabled = YES;
     self = [super initWithJSON:rectangleJSON fromPage:nil];
     
     
-    NSMutableDictionary *frame = [self.JSON objectForKey:@"frame"];
-    
-    NSInteger width = [(NSNumber *)[frame objectForKey:@"width"] integerValue];
+//    NSMutableDictionary *frame = [self.JSON objectForKey:@"frame"];
+//    NSInteger width = [(NSNumber *)[frame objectForKey:@"width"] integerValue];
     
     self.JSON[@"do_objectID"] = [[NSUUID UUID] UUIDString];
     
@@ -348,6 +347,66 @@ static const BOOL kLoggingEnabled = YES;
 
 - (void)deletePage:(SketchPage *)page {
     [self.pages removeObjectForKey:page.objectId];
+}
+
+- (void)generatePreviews {
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *sketchToolPath = @"/Applications/Sketch.app/Contents/Resources/sketchtool/bin/sketchtool";
+    
+    if (![fileManager fileExistsAtPath:sketchToolPath]) {
+        sketchToolPath = [[NSBundle mainBundle] pathForResource:@"sketchtool/bin/sketchtool" ofType:nil];
+    }
+    
+    NSURL *tempDir = [NSURL fileURLWithPath:NSTemporaryDirectory()];
+    tempDir = [tempDir URLByAppendingPathComponent:[NSUUID UUID].UUIDString];
+    
+    [[NSFileManager defaultManager] createDirectoryAtPath:tempDir.path withIntermediateDirectories:YES attributes:nil error:NULL];
+    
+    NSTask *task = [[NSTask alloc] init];
+    [task setLaunchPath:sketchToolPath];
+    [task setArguments:@[
+                         @"export",
+                         @"artboards",
+                         self.fileURL.path,
+                         [NSString stringWithFormat:@"--output=%@", tempDir.path],
+                         @"--use-id-for-name",
+                         //        [NSString stringWithFormat:@"--items=%@", [objectIds componentsJoinedByString:@","]]
+                         ]];
+    
+    NSPipe *outputPipe = [[NSPipe alloc] init];
+    task.standardOutput = outputPipe;
+    NSFileHandle *outputFile = outputPipe.fileHandleForReading;
+    
+    NSPipe *errorPipe = [[NSPipe alloc] init];
+    task.standardError = errorPipe;
+    NSFileHandle *errorFile = errorPipe.fileHandleForReading;
+    
+    [task launch];
+    
+    NSImage *image = nil;
+    NSData *errorData = [errorFile readDataToEndOfFile];
+    
+    //    DDLogVerbose(@"SketchFilePlugin: sketchtool for %@ in %f ms", fileURL.relativeString, [now timeIntervalSinceNow]);
+    
+    NSLog(@"OUTPUT DIR: %@", tempDir);
+    
+    NSString *result;
+    if (errorData.length == 0) {
+        result = [[NSString alloc] initWithData:[outputFile readDataToEndOfFile] encoding:NSUTF8StringEncoding];
+        
+        if ([result hasPrefix:@"Exported "]) {
+            for(SketchPage *page in self.pages.allValues) {
+                for (SketchLayer *layer in page.layers) {
+                    NSString *outputFilePath = [[tempDir.path stringByAppendingPathComponent:layer.objectId] stringByAppendingPathExtension:@"png"];
+                    image = [[NSImage alloc] initWithContentsOfFile:outputFilePath];
+                    layer.previewImage = image;
+                }
+            }
+        }
+    } else {
+        result = [[NSString alloc] initWithData:errorData encoding:NSASCIIStringEncoding];
+        //        DDLogError(@"SketchFilePlugin error: %@", result);
+    }
 }
 
 @end

@@ -50,9 +50,9 @@
 @end
 
 
-@interface PresetFilter : Filter
+@interface SizeFilter : Filter
 
-@property (strong) NSString *name;
+@property (strong) NSString *presetName;
 
 @end
 

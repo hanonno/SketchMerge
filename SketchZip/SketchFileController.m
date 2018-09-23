@@ -20,6 +20,14 @@
 
 @implementation Filter
 
+- (id)init {
+    self = [super init];
+    
+    _enabled = YES;
+    
+    return self;
+}
+
 - (BOOL)matchLayer:(SketchLayer *)layer {
     return YES;
 }
@@ -38,6 +46,10 @@
 }
 
 - (BOOL)matchLayer:(SketchLayer *)layer {
+    if(!self.enabled) {
+        return YES;
+    }
+    
     NSString *keywords = self.keywords.copy;
     
     if(keywords == nil || keywords.length == 0) {
@@ -60,10 +72,23 @@
 
 @end
 
-@implementation PresetFilter
+
+@implementation SizeFilter
 
 - (BOOL)matchLayer:(SketchLayer *)layer {
-    if([layer.presetName isEqualToString:self.name]) {
+    if(!self.enabled) {
+        return YES;
+    }
+    
+    if([self.presetName isEqualToString:@"Any device"]) {
+        return YES;
+    }
+    
+    if(self.presetName == nil || self.presetName.length == 0) {
+        return YES;
+    }
+    
+    if([layer.presetName hasPrefix:self.presetName]) {
         return YES;
     }
     
@@ -78,12 +103,6 @@
 @synthesize pageItems = _pageItems;
 
 + (NSArray *)pagesFromOperations:(NSArray *)pageOperations {
-    KeywordFilter *keywordFilter = [[KeywordFilter alloc] init];
-    keywordFilter.keywords = @"HAHA";
-    
-    PresetFilter *presetFilter = [[PresetFilter alloc] init];
-    presetFilter.name = @"iPhone 8";
-
     NSMutableArray *pageItems = [[NSMutableArray alloc] init];
     
     for (SKPageOperation *pageOperation in pageOperations) {
@@ -94,14 +113,6 @@
         NSMutableArray *layerItems = [[NSMutableArray alloc] init];
         
         for (SKLayerOperation *layerOperation in pageOperation.layerOperations) {
-            if(![presetFilter matchLayer:layerOperation.layer]) {
-                continue;
-            }
-//
-//            if(![keywordFilter matchLayer:layerOperation.layer]) {
-//                continue;
-//            }
-
             LayerItem *layerItem = [[LayerItem alloc] init];
             layerItem.layer = layerOperation.layer;
             layerItem.name = layerItem.layer.name;
