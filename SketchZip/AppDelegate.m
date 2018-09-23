@@ -72,6 +72,12 @@
 
 
 - (IBAction)reloadFile:(id)sender {
+    [self.artboardGridViewController startLoading];
+    [self.artboardGridViewController reloadData];
+    [self.artboardGridViewController finishLoading];
+
+    return;
+    
 //    NSURL *rootFileURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Artboards-Root" ofType:@"sketch"]];
 //    NSURL *rootFileURL = self.rootFileURL ? self.rootFileURL : [NSURL fileURLWithPath:@"/Users/hanno/Desktop/Root.sketch"];
 //    NSURL *changedFileURL = self.changedFileURL ? self.changedFileURL : [NSURL fileURLWithPath:@"/Users/hanno/Desktop/Root-A.sketch"];

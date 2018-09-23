@@ -93,10 +93,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(queryDidUpdateResults:) name:NSMetadataQueryDidUpdateNotification object:_query];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(queryDidGatherInitialResults:) name:NSMetadataQueryDidFinishGatheringNotification object:_query];
     
-//    NSPredicate *fileTypePredicate = [NSPredicate predicateWithFormat:@"kMDItemContentTypeTree == 'public.image'"];
-//    NSPredicate *sketchFilePredicate = [NSPredicate predicateWithFormat:@"kMDItemContentTypeTree == 'com.bohemiancoding.sketch.drawing.single'"];
-    NSPredicate *fileNamePredicate = [NSPredicate predicateWithFormat:@"kMDItemDisplayName == 'HAN-Locker'"];
-    [_query setPredicate:fileNamePredicate];
+//    NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"kMDItemContentTypeTree == 'public.image'"];
+//    NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"kMDItemContentTypeTree == 'com.bohemiancoding.sketch.drawing.single'"];
+    NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"kMDItemDisplayName BEGINSWITH[c] 'HAN'"];
+//    NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"kMDItemDisplayName == 'UW-Tutorial'"];
+    [_query setPredicate:searchPredicate];
     
     NSArray *searchScopes = @[NSMetadataQueryUserHomeScope];
     [_query setSearchScopes:searchScopes];

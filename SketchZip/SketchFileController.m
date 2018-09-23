@@ -57,13 +57,19 @@
     }
     
     NSString *name = layer.name.copy;
+    NSString *concatenatedStrings = layer.concatenatedStrings.copy;
     
     if(!self.isCaseSensitive) {
         name = name.lowercaseString;
         keywords = keywords.lowercaseString;
+        concatenatedStrings = concatenatedStrings.lowercaseString;
     }
     
     if([name containsString:keywords]) {
+        return YES;
+    }
+    
+    if([concatenatedStrings containsString:keywords]) {
         return YES;
     }
     
@@ -191,9 +197,13 @@
         if(layerItems.count == 0) {
             continue;
         }
-         
-        pageItem.layerItems = layerItems;
-        [filteredPageItems addObject:pageItem];
+        
+        PageItem *newPageItem = [[PageItem alloc] init];
+        newPageItem.name = pageItem.name;
+        newPageItem.page = pageItem.page;
+        newPageItem.layerItems = layerItems;
+        
+        [filteredPageItems addObject:newPageItem];
     }
     
     self.filteredPageItems = filteredPageItems;

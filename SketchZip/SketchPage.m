@@ -14,6 +14,13 @@
 static const BOOL kLoggingEnabled = NO;
 
 
+@interface SketchLayer ()
+
+@property (strong) NSMutableArray   *strings;
+
+@end
+
+
 @implementation SketchLayer
 
 - (id)initWithJSON:(NSMutableDictionary *)JSON fromPage:(SketchPage *)page {
@@ -22,8 +29,37 @@ static const BOOL kLoggingEnabled = NO;
     _JSON = JSON;
     _page = page;
     _previewImage = nil;
-
+    _strings = [[NSMutableArray alloc] init];
+    
+    [self collectStringFromLayer:_JSON];
+    
+    self.concatenatedStrings = [self.strings componentsJoinedByString:@" "];
+    
+    if(self.concatenatedStrings.length > 0) {
+        NSLog(@"Concat: %@", self.concatenatedStrings);
+    }
+    
     return self;
+}
+
+- (void)collectStringFromLayer:(NSDictionary *)rootLayer {
+    if([rootLayer[@"_class"] isEqualToString:@"text"]) {
+        NSString *string = rootLayer[@"attributedString"][@"string"];
+        
+        if(string) {
+            [self.strings addObject:string];
+            
+//            NSLog(@"Adding string: %@", string);
+        }
+    }
+    
+    NSArray *sublayers = rootLayer[@"layers"];
+    
+    if(sublayers) {
+        for (NSDictionary *sublayer in sublayers) {
+            [self collectStringFromLayer:sublayer];
+        }
+    }
 }
 
 - (NSString *)name {

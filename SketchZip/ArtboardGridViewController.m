@@ -301,7 +301,13 @@
 - (void)controlTextDidChange:(NSNotification *)notification {
     NSLog(@"Keyword: %@", self.tokenField.stringValue);
     
-    self.keywordFilter.keywords = self.tokenField.stringValue;
+    if(self.tokenField.stringValue.length == 0) {
+        self.keywordFilter.keywords = nil;
+    }
+    else {
+        self.keywordFilter.keywords = self.tokenField.stringValue;
+    }
+    
     [self reloadData];
 }
 

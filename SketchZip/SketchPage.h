@@ -30,6 +30,9 @@
 @property (nonatomic, strong, readonly) NSString    *presetName;
 @property (nonatomic, strong, readonly) NSImage     *presetIcon;
 
+// Text
+@property (strong) NSString         *concatenatedStrings;
+
 
 - (id)initWithJSON:(NSMutableDictionary *)JSON fromPage:(SketchPage *)page;
 
