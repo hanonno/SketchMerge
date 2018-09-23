@@ -59,17 +59,18 @@
     self.selected = NO;
 }
 
-//- (void)setHighlightState:(NSCollectionViewItemHighlightState)highlightState {
-//    
-//    [super setHighlightState:highlightState];
-//    
-//    if(highlightState == NSCollectionViewItemHighlightForSelection) {
-//        self.artboardImageView.layer.borderColor = [[NSColor blueColor] CGColor];
-//    }
-//    else {
-//        self.artboardImageView.layer.borderColor = [[NSColor greenColor] CGColor];
-//    }
-//}
+- (void)setHighlightState:(NSCollectionViewItemHighlightState)highlightState {
+    
+    [super setHighlightState:highlightState];
+    
+    if(highlightState == NSCollectionViewItemHighlightForSelection) {
+        [self setSelected:YES];
+    }
+    
+    if(highlightState == NSCollectionViewItemHighlightForDeselection) {
+        [self setSelected:NO];
+    }
+}
 
 - (void)setSelected:(BOOL)selected {
     [super setSelected:selected];
@@ -97,15 +98,25 @@
     divider.wantsLayer = YES;
     divider.layer.backgroundColor = [[NSColor colorWithCalibratedWhite:0.917 alpha:1.000] CGColor];
     [self addSubview:divider];
-    
-    self.titleLabel = [NSTextField labelWithString:@"Page Name"];
+
+    self.titleLabel = [NSTextField labelWithString:@"File Name"];
     self.titleLabel.font = [NSFont systemFontOfSize:12];
-    self.titleLabel.textColor = [NSColor colorWithCalibratedWhite:0.760 alpha:1.000];
+    self.titleLabel.textColor = [NSColor colorWithCalibratedWhite:0.12 alpha:1.000];
+    [self.titleLabel setContentHuggingPriority:NSLayoutPriorityDefaultHigh forOrientation:NSLayoutConstraintOrientationHorizontal];
     [self addSubview:self.titleLabel];
+    
+    self.subtitleLabel = [NSTextField labelWithString:@"Page Name"];
+    self.subtitleLabel.font = [NSFont systemFontOfSize:12];
+    self.subtitleLabel.textColor = [NSColor colorWithCalibratedWhite:0.50 alpha:1.000];
+    [self addSubview:self.subtitleLabel];
     
     [self.titleLabel autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:8];
     [self.titleLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:16];
-    [self.titleLabel autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:16];
+//    [self.titleLabel autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:16];
+    
+    [self.subtitleLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self.titleLabel];
+    [self.subtitleLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:self.titleLabel withOffset:4];
+    [self.subtitleLabel autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:16];
     
     [divider autoSetDimension:ALDimensionHeight toSize:1];
     [divider autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsZero excludingEdge:ALEdgeTop];
@@ -276,10 +287,10 @@
 
 - (NSView *)collectionView:(NSCollectionView *)collectionView viewForSupplementaryElementOfKind:(NSCollectionViewSupplementaryElementKind)kind atIndexPath:(NSIndexPath *)indexPath {
     PageHeaderView *headerView = [collectionView makeSupplementaryViewOfKind:NSCollectionElementKindSectionHeader withIdentifier:@"PageHeaderViewIdentifier" forIndexPath:indexPath];
-    
     SketchPage *page = [self.sketchFileController pageAtIndex:indexPath.section];
     
-    headerView.titleLabel.stringValue = [NSString stringWithFormat:@"%@ — %@", page.sketchFile.fileName, page.name];
+    headerView.titleLabel.stringValue = page.sketchFile.fileName;
+    headerView.subtitleLabel.stringValue = [NSString stringWithFormat:@"— %@", page.name];
     
     return headerView;
 }

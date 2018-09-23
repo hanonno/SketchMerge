@@ -89,7 +89,13 @@ static const BOOL kLoggingEnabled = NO;
 }
 
 - (NSImage *)presetIcon {
-    return [NSImage imageNamed:self.presetName];
+    NSImage *image = [NSImage imageNamed:self.presetName];
+    
+    if(!image) {
+        NSLog(@"Missing preview image: %@", self.presetName);
+    }
+    
+    return [NSImage imageNamed:@"Artboard"];
 }
 @end
 

@@ -175,6 +175,9 @@
 - (void)reloadData {
     NSMutableArray *filteredPageItems = [[NSMutableArray alloc] init];
     
+    NSInteger pageCount = 0;
+    NSInteger layerCount = 0;
+    
     for (PageItem *pageItem in self.pageItems) {
         NSMutableArray *layerItems = [[NSMutableArray alloc] init];
         
@@ -192,6 +195,7 @@
             }
             
             [layerItems addObject:layerItem];
+            layerCount = layerCount + 1;
         }
         
         if(layerItems.count == 0) {
@@ -204,6 +208,7 @@
         newPageItem.layerItems = layerItems;
         
         [filteredPageItems addObject:newPageItem];
+        pageCount = pageCount + 1;
     }
     
     self.filteredPageItems = filteredPageItems;

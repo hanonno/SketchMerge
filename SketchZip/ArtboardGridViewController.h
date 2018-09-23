@@ -25,6 +25,7 @@
 @interface PageHeaderView : NSView
 
 @property (strong) NSTextField  *titleLabel;
+@property (strong) NSTextField  *subtitleLabel;
 
 @end
 
