@@ -78,6 +78,8 @@
 @property (strong) NSURL                *fileURL;
 @property (strong) NSMutableDictionary  *pages;
 
+@property (readonly) NSString          *fileName;
+
 - (id)initWithFileURL:(NSURL *)fileURL;
 
 - (void)loadPages;

@@ -11,7 +11,7 @@
 #import "SSZipArchive/SSZipArchive.h"
 
 
-static const BOOL kLoggingEnabled = YES;
+static const BOOL kLoggingEnabled = NO;
 
 
 @implementation SketchLayer
@@ -238,6 +238,10 @@ static const BOOL kLoggingEnabled = YES;
     [self loadPages];
     
     return self;
+}
+
+- (NSString *)fileName {
+    return [self.fileURL lastPathComponent];
 }
 
 - (void)loadPages {

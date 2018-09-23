@@ -48,8 +48,8 @@
     
     
     
-    self.sketchFileManager = [[SketchFileManager alloc] init];
-    [self.sketchFileManager startIndexing];
+//    self.sketchFileManager = [[SketchFileManager alloc] init];
+//    [self.sketchFileManager startIndexing];
 }
 
 - (IBAction)pickRootFile:(id)sender {

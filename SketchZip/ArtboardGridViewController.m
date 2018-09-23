@@ -10,6 +10,7 @@
 #import "CoreSyncTransaction.h"
 #import "SketchDiffTool.h"
 #import "SketchFileController.h"
+#import "SketchFileManager.h"
 #import <PureLayout/PureLayout.h>
 
 
@@ -115,11 +116,12 @@
 @end
 
 
-@interface ArtboardGridViewController () <NSTokenFieldDelegate>
+@interface ArtboardGridViewController () <NSTokenFieldDelegate, SketchFileManagerDelegate>
 
 @property (strong) SketchDiffTool       *sketchDiffTool;
 @property (strong) NSProgressIndicator  *progressIndicator;
 @property (strong) SketchFileController *sketchFileController;
+@property (strong) SketchFileManager    *sketchFileManager;
 
 // Controls
 @property (strong) KeywordFilter        *keywordFilter;
@@ -137,6 +139,10 @@
     self.sketchDiffTool = [[SketchDiffTool alloc] init];
     self.keywordFilter = [[KeywordFilter alloc] init];
     self.sizeFilter = [[SizeFilter alloc] init];
+    self.sketchFileController = [[SketchFileController alloc] init];
+    self.sketchFileController.filters = @[self.keywordFilter, self.sizeFilter];
+    self.sketchFileManager = [[SketchFileManager alloc] init];
+    self.sketchFileManager.delegate = self;
     
     return self;
 }
@@ -221,6 +227,7 @@
 - (void)startLoading {
     self.mergeTool = nil;
     [self.collectionView reloadData];
+    [self.sketchFileManager startIndexing];
     
     [self.progressIndicator setFrameOrigin:NSMakePoint(
        (NSWidth([self.progressIndicator.superview bounds]) - NSWidth([self.progressIndicator frame])) / 2,
@@ -235,12 +242,14 @@
 }
 
 - (void)reloadData {
-    NSArray *pageItems = [SketchFileController pagesFromOperations:self.mergeTool.pageOperations];
+    [self.sketchFileController reloadData];
+    [self.collectionView reloadData];
     
-    self.sketchFileController = [[SketchFileController alloc] init];
-    self.sketchFileController.filters = @[self.keywordFilter, self.sizeFilter];
-    self.sketchFileController.pageItems = pageItems;
-    
+    NSLog(@"%lu pages > %i filtered", (unsigned long)self.sketchFileController.pageItems.count, self.sketchFileController.filteredPageItems.count);
+}
+
+- (void)sketchFileManager:(SketchFileManager *)fileManager didIndexFile:(SketchFile *)file {
+    [self.sketchFileController addPagesFromFile:file];
     [self.collectionView reloadData];
 }
 
@@ -270,7 +279,7 @@
     
     SketchPage *page = [self.sketchFileController pageAtIndex:indexPath.section];
     
-    headerView.titleLabel.stringValue = page.name;
+    headerView.titleLabel.stringValue = [NSString stringWithFormat:@"%@ — %@", page.sketchFile.fileName, page.name];
     
     return headerView;
 }
@@ -290,14 +299,14 @@
 #pragma mark Filtering
 
 - (void)controlTextDidChange:(NSNotification *)notification {
-    NSLog(@"Filter: %@", self.tokenField.stringValue);
+    NSLog(@"Keyword: %@", self.tokenField.stringValue);
     
     self.keywordFilter.keywords = self.tokenField.stringValue;
     [self reloadData];
 }
 
 - (IBAction)presetNameFilterDidChange:(id)sender {
-    NSLog(@"Filter: %@", self.presetNameFilterButton.titleOfSelectedItem);
+    NSLog(@"Preset: %@", self.presetNameFilterButton.titleOfSelectedItem);
     
     self.sizeFilter.presetName = self.presetNameFilterButton.titleOfSelectedItem;
     [self reloadData];

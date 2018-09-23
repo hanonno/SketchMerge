@@ -66,6 +66,8 @@
 @property (strong) NSArray  *pageItems;
 @property (strong) NSArray  *filteredPageItems;
 
+- (void)addPagesFromFile:(SketchFile *)sketchFile;
+
 // Filtering
 - (void)reloadData;
 

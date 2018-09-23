@@ -138,6 +138,34 @@
     return _pageItems;
 }
 
+- (void)addPagesFromFile:(SketchFile *)sketchFile {
+    NSMutableArray *pageItems = [[NSMutableArray alloc] init];
+    
+    for (SketchPage *page in sketchFile.pages.allValues) {
+        PageItem *pageItem = [[PageItem alloc] init];
+        pageItem.page = page;
+        pageItem.name = page.name;
+        
+        NSMutableArray *layerItems = [[NSMutableArray alloc] init];
+        
+        for (SketchLayer *layer in page.layers.allValues) {
+            LayerItem *layerItem = [[LayerItem alloc] init];
+            layerItem.layer = layer;
+            layerItem.name = layer.name;
+            layerItem.icon = layer.presetIcon;
+            layerItem.previewImage = layer.previewImage;
+            
+            [layerItems addObject:layerItem];
+        }
+        
+        pageItem.layerItems = layerItems;
+        [pageItems addObject:pageItem];
+    }
+    
+    [pageItems addObjectsFromArray:self.pageItems];
+    self.pageItems = pageItems;    
+}
+
 - (void)reloadData {
     NSMutableArray *filteredPageItems = [[NSMutableArray alloc] init];
     
@@ -160,6 +188,10 @@
             [layerItems addObject:layerItem];
         }
         
+        if(layerItems.count == 0) {
+            continue;
+        }
+         
         pageItem.layerItems = layerItems;
         [filteredPageItems addObject:pageItem];
     }
@@ -168,7 +200,7 @@
 }
 
 - (NSInteger)numberOfPages {
-    return self.pageItems.count;
+    return self.filteredPageItems.count;
 }
 
 - (NSInteger)numberOfLayersInPageAtIndex:(NSInteger)pageIndex {

@@ -11,6 +11,8 @@
 
 @implementation SketchFileIndexOperation
 
+@synthesize delegate = _delegate;
+
 + (SketchFileIndexOperation *)operationWithPath:(NSString *)path {
     SketchFileIndexOperation *operation = [[SketchFileIndexOperation alloc] init];
     
@@ -19,40 +21,79 @@
     return operation;
 }
 
+- (id)init {
+    self = [super init];
+        _isExecuting = NO;
+        _isFinished = NO;
+    return self;
+}
+
+- (BOOL)isConcurrent {
+    return YES;
+}
+
 - (void)main {
-    CFTimeInterval startTime = CACurrentMediaTime();
+    self.startTime = CACurrentMediaTime();
+
+    [self willChangeValueForKey:@"isExecuting"];
+    _isExecuting = YES;
+    [self didChangeValueForKey:@"isExecuting"];
+
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        self.sketchFile = [[SketchFile alloc] initWithFileURL:[NSURL fileURLWithPath:self.path]];
     
-    self.sketchFile = [[SketchFile alloc] initWithFileURL:[NSURL fileURLWithPath:self.path]];
+        self.endTime = CACurrentMediaTime();
+        
+//        dispatch_async(dispatch_get_main_queue(), ^{
+            [self willChangeValueForKey:@"isExecuting"];
+            [self willChangeValueForKey:@"isFinished"];
+            
+            self->_isExecuting = NO;
+            self->_isFinished = YES;
+            
+            [self didChangeValueForKey:@"isExecuting"];
+            [self didChangeValueForKey:@"isFinished"];
+//        });
     
-    CFTimeInterval endTime = CACurrentMediaTime();
-    NSLog(@"Index time: %g s", endTime - startTime);
+        if(self.delegate && [self.delegate respondsToSelector:@selector(sketchFileIndexOperationDidFinish:)]) {
+//            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.delegate sketchFileIndexOperationDidFinish:self];
+//            });
+        }
+//    });
 }
 
 @end
 
 
-@interface SketchFileManager ()
+@interface SketchFileManager () <SketchFileIndexOperationDelegate>
 
 @property (nonatomic, strong) NSMetadataQuery   *query;
 @property (nonatomic, strong) NSOperationQueue  *indexQueue;
+
+@property (assign) CFTimeInterval   startTime;
+@property (assign) CFTimeInterval   endTime;
 
 @end
 
 
 @implementation SketchFileManager
 
+@synthesize delegate = _delegate;
+
 - (id)init {
     self = [super init];
     
     _query = [[NSMetadataQuery alloc] init];
     _indexQueue = [[NSOperationQueue alloc] init];
+    _indexQueue.maxConcurrentOperationCount = 16;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(queryDidUpdateResults:) name:NSMetadataQueryDidUpdateNotification object:_query];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(queryDidGatherInitialResults:) name:NSMetadataQueryDidFinishGatheringNotification object:_query];
     
-    NSPredicate *fileTypePredicate = [NSPredicate predicateWithFormat:@"kMDItemContentTypeTree == 'public.image'"];
+//    NSPredicate *fileTypePredicate = [NSPredicate predicateWithFormat:@"kMDItemContentTypeTree == 'public.image'"];
     NSPredicate *sketchFilePredicate = [NSPredicate predicateWithFormat:@"kMDItemContentTypeTree == 'com.bohemiancoding.sketch.drawing.single'"];
-    NSPredicate *fileNamePredicate = [NSPredicate predicateWithFormat:@"kMDItemDisplayName == 'HAN-Locker'"];
+//    NSPredicate *fileNamePredicate = [NSPredicate predicateWithFormat:@"kMDItemDisplayName == 'HAN-Locker'"];
     [_query setPredicate:sketchFilePredicate];
     
     NSArray *searchScopes = @[NSMetadataQueryUserHomeScope];
@@ -90,21 +131,19 @@
 - (void)queryDidGatherInitialResults:(NSNotification *)notification {
     NSLog(@"Query has results!");
     
-    CFTimeInterval startTime = CACurrentMediaTime();
+    self.startTime = CACurrentMediaTime();
 
     NSUInteger i=0;
     for (i=0; i < [self.query resultCount]; i++) {
         NSMetadataItem *result = [self.query resultAtIndex:i];
-        NSString *displayName = [result valueForAttribute:(NSString *)kMDItemDisplayName];
-        
-//        NSLog(@"Path: %@", [result valueForAttribute:@"kMDItemPath"]);
-        
         NSString *filePath = [result valueForAttribute:@"kMDItemPath"];
         
         SketchFileIndexOperation *indexOperation = [SketchFileIndexOperation operationWithPath:filePath];
+        indexOperation.delegate = self;
         
         [self.indexQueue addOperation:indexOperation];
         
+        NSLog(@"Display Name: %@", [result valueForAttribute:@"kMDItemDisplayName"]);
 //        NSLog(@"result at %lu - %@",i,displayName);
 //        NSLog(@"Authors: %@", [result valueForAttribute:@"kMDItemAuthors"]);
 //        NSLog(@"Created: %@", [result valueForAttribute:@"kMDItemContentCreationDate"]);
@@ -125,10 +164,19 @@
 //        NSLog(@"==============================================================================================================================");
 //        NSLog(@"UTI: %@", [result valueForAttribute:@"kMDItemContentTypeTree"]);
     }
-    
-    CFTimeInterval endTime = CACurrentMediaTime();
-    NSLog(@"Total Runtime: %g s", endTime - startTime);
+}
 
+- (void)sketchFileIndexOperationDidFinish:(SketchFileIndexOperation *)fileIndexOperation {
+    NSLog(@"Finished: %lu", (unsigned long)self.indexQueue.operationCount);
+    
+    if(self.indexQueue.operationCount == 1) {
+        self.endTime = CACurrentMediaTime();
+        NSLog(@"Total Runtime: %g s", self.endTime - self.startTime);
+    }
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.delegate sketchFileManager:self didIndexFile:fileIndexOperation.sketchFile];
+    });
 }
 
 @end
