@@ -42,6 +42,8 @@
 //    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         self.sketchFile = [[SketchFile alloc] initWithFileURL:[NSURL fileURLWithPath:self.path]];
     
+        [self.sketchFile generatePreviews];
+    
         self.endTime = CACurrentMediaTime();
         
 //        dispatch_async(dispatch_get_main_queue(), ^{
@@ -92,9 +94,9 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(queryDidGatherInitialResults:) name:NSMetadataQueryDidFinishGatheringNotification object:_query];
     
 //    NSPredicate *fileTypePredicate = [NSPredicate predicateWithFormat:@"kMDItemContentTypeTree == 'public.image'"];
-    NSPredicate *sketchFilePredicate = [NSPredicate predicateWithFormat:@"kMDItemContentTypeTree == 'com.bohemiancoding.sketch.drawing.single'"];
-//    NSPredicate *fileNamePredicate = [NSPredicate predicateWithFormat:@"kMDItemDisplayName == 'HAN-Locker'"];
-    [_query setPredicate:sketchFilePredicate];
+//    NSPredicate *sketchFilePredicate = [NSPredicate predicateWithFormat:@"kMDItemContentTypeTree == 'com.bohemiancoding.sketch.drawing.single'"];
+    NSPredicate *fileNamePredicate = [NSPredicate predicateWithFormat:@"kMDItemDisplayName == 'HAN-Locker'"];
+    [_query setPredicate:fileNamePredicate];
     
     NSArray *searchScopes = @[NSMetadataQueryUserHomeScope];
     [_query setSearchScopes:searchScopes];

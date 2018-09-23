@@ -153,14 +153,21 @@ static const BOOL kLoggingEnabled = NO;
     _sketchFile = sketchFile;
     
     NSMutableDictionary *layers = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *symbolsById = [[NSMutableDictionary alloc] init];
     
     for (NSMutableDictionary *layer in _JSON[@"layers"]) {
         if(layer[@"do_objectID"] != nil) {
-            layers[layer[@"do_objectID"]] = [[SketchLayer alloc] initWithJSON:layer fromPage:self];
+            if([layer[@"_class"] isEqualToString:@"symbolMaster"]) {
+                symbolsById[layer[@"do_objectID"]] = [[SketchLayer alloc] initWithJSON:layer fromPage:self];
+            }
+            else {
+                layers[layer[@"do_objectID"]] = [[SketchLayer alloc] initWithJSON:layer fromPage:self];
+            }
         }
     }
     
     _layers = layers;
+    _symbolsById = symbolsById;
     
     return self;
 }
@@ -412,7 +419,7 @@ static const BOOL kLoggingEnabled = NO;
         
         if ([result hasPrefix:@"Exported "]) {
             for(SketchPage *page in self.pages.allValues) {
-                for (SketchLayer *layer in page.layers) {
+                for (SketchLayer *layer in page.layers.allValues) {
                     NSString *outputFilePath = [[tempDir.path stringByAppendingPathComponent:layer.objectId] stringByAppendingPathExtension:@"png"];
                     image = [[NSImage alloc] initWithContentsOfFile:outputFilePath];
                     layer.previewImage = image;

@@ -61,6 +61,7 @@
 @property (nonatomic, strong, readonly) NSString    *objectId;
 @property (nonatomic, strong, readonly) NSString    *name;
 @property (nonatomic, strong) NSMutableDictionary   *layers;
+@property (nonatomic, strong) NSMutableDictionary   *symbolsById;
 
 @property (nonatomic, strong) SketchFile            *sketchFile;
 
@@ -78,7 +79,7 @@
 @property (strong) NSURL                *fileURL;
 @property (strong) NSMutableDictionary  *pages;
 
-@property (readonly) NSString          *fileName;
+@property (readonly) NSString           *fileName;
 
 - (id)initWithFileURL:(NSURL *)fileURL;
 
@@ -90,5 +91,7 @@
 - (void)insertPage:(SketchPage *)page;
 - (void)updatePage:(SketchPage *)page;
 - (void)deletePage:(SketchPage *)page;
+
+- (void)generatePreviews;
 
 @end
