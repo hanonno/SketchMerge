@@ -34,17 +34,26 @@
 
 
 @interface Filter : NSObject
+
+@property (assign) BOOL     enabled;
+
 - (BOOL)matchLayer:(SketchLayer *)layer;
+
 @end
 
 
 @interface KeywordFilter : Filter
+
 @property (strong) NSString *keywords;
+@property (assign) BOOL     isCaseSensitive;
+
 @end
 
 
 @interface PresetFilter : Filter
+
 @property (strong) NSString *name;
+
 @end
 
 
@@ -52,8 +61,10 @@
 
 + (NSArray *)pagesFromOperations:(NSArray *)pageOperations;
 
-@property (strong) NSArray  *pages;
 @property (strong) NSArray  *filters;
+
+@property (strong) NSArray  *pageItems;
+@property (strong) NSArray  *filteredPageItems;
 
 // Filtering
 - (void)reloadData;

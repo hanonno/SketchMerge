@@ -70,7 +70,6 @@
 //    }
 //}
 
-
 - (void)setSelected:(BOOL)selected {
     [super setSelected:selected];
     
@@ -116,11 +115,13 @@
 @end
 
 
-@interface ArtboardGridViewController ()
+@interface ArtboardGridViewController () <NSTokenFieldDelegate>
 
 @property (strong) SketchDiffTool       *sketchDiffTool;
 @property (strong) NSProgressIndicator  *progressIndicator;
 @property (strong) SketchFileController *sketchFileController;
+
+@property (strong) KeywordFilter        *keywordFilter;
 
 @end
 
@@ -132,7 +133,7 @@
     
     self.mergeTool = nil;
     self.sketchDiffTool = [[SketchDiffTool alloc] init];
-    
+    self.keywordFilter = [[KeywordFilter alloc] init];
     
     return self;
 }
@@ -142,6 +143,7 @@
     
     self.tokenField = [[NSTokenField alloc] initWithFrame:NSMakeRect(0, 0, 240, 52)];
     self.tokenField.tokenStyle = NSTokenStyleSquared;
+    self.tokenField.delegate = self;
 
     [self.view addSubview:self.tokenField];
     
@@ -203,10 +205,13 @@
     NSArray *pageItems = [SketchFileController pagesFromOperations:self.mergeTool.pageOperations];
     
     self.sketchFileController = [[SketchFileController alloc] init];
-    self.sketchFileController.pages = pageItems;
+    self.sketchFileController.filters = @[self.keywordFilter];
+    self.sketchFileController.pageItems = pageItems;
     
     [self.collectionView reloadData];
 }
+
+#pragma mark Collection View
 
 - (NSInteger)numberOfSectionsInCollectionView:(NSCollectionView *)collectionView {
     return self.sketchFileController.numberOfPages;
@@ -247,7 +252,15 @@
 
 
 - (void)collectionView:(NSCollectionView *)collectionView didSelectItemsAtIndexPaths:(NSSet<NSIndexPath *> *)indexPaths {
+}
 
+#pragma mark Filtering
+
+- (void)controlTextDidChange:(NSNotification *)notification {
+    NSLog(@"Filter: %@", self.tokenField.stringValue);
+    
+    self.keywordFilter.keywords = self.tokenField.stringValue;
+    [self reloadData];
 }
 
 @end
