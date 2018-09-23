@@ -256,6 +256,12 @@ static const BOOL kLoggingEnabled = YES;
         
         // Decode JSON
         NSData *pageData = [NSData dataWithContentsOfFile:currentPagePath];
+        
+        if(!pageData) {
+            NSLog(@"Error: couldn't load data for: %@", currentPagePath);
+            return;
+        }
+        
         NSDictionary *pageJSON = [NSJSONSerialization JSONObjectWithData:pageData options:NSJSONReadingMutableContainers error:nil];
         
         NSString *objectID = pageJSON[@"do_objectID"];
@@ -268,10 +274,16 @@ static const BOOL kLoggingEnabled = YES;
     // Load document & meta JSON
     NSString *documentDataPath = [[self.tempFileURL.path stringByAppendingPathComponent:@"document"] stringByAppendingPathExtension:@"json"];
     NSData *documentData = [NSData dataWithContentsOfFile:documentDataPath];
+    
+    if(!documentData) { NSLog(@"Error: couldn't load document data for: %@", documentDataPath); return; }
+    
     self.documentJSON = [NSJSONSerialization JSONObjectWithData:documentData options:0 error:nil];
     
     NSString *metaDataPath = [[self.tempFileURL.path stringByAppendingPathComponent:@"meta"] stringByAppendingPathExtension:@"json"];
     NSData *metaData = [NSData dataWithContentsOfFile:metaDataPath];
+    
+    if(!metaData) { NSLog(@"Error: couldn't load meta data for: %@", metaDataPath); return; }
+    
     self.metaJSON = [NSJSONSerialization JSONObjectWithData:metaData options:0 error:nil];    
 }
 

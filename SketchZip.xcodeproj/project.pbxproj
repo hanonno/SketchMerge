@@ -98,6 +98,8 @@
 		7DA184FC2138276500EA1FF8 /* oval.json in Resources */ = {isa = PBXBuildFile; fileRef = 7DA184FA2138276500EA1FF8 /* oval.json */; };
 		7DA184FE213827FA00EA1FF8 /* text.json in Resources */ = {isa = PBXBuildFile; fileRef = 7DA184FD213827FA00EA1FF8 /* text.json */; };
 		7DA184FF213827FA00EA1FF8 /* text.json in Resources */ = {isa = PBXBuildFile; fileRef = 7DA184FD213827FA00EA1FF8 /* text.json */; };
+		7DE5F07E2157C85900BD2825 /* SketchFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE5F07D2157C85900BD2825 /* SketchFileManager.m */; };
+		7DE5F07F2157C85900BD2825 /* SketchFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE5F07D2157C85900BD2825 /* SketchFileManager.m */; };
 		7DEA342A2135A79A0062075A /* Sketch-Conflict-Root.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7DEA34272135A79A0062075A /* Sketch-Conflict-Root.sketch */; };
 		7DEA342B2135A79A0062075A /* Sketch-Conflict-Root.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7DEA34272135A79A0062075A /* Sketch-Conflict-Root.sketch */; };
 		7DEA342C2135A79A0062075A /* Sketch-Conflict-B.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7DEA34282135A79A0062075A /* Sketch-Conflict-B.sketch */; };
@@ -253,6 +255,8 @@
 		7DA184F72138271C00EA1FF8 /* rectangle.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = rectangle.json; sourceTree = "<group>"; };
 		7DA184FA2138276500EA1FF8 /* oval.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = oval.json; sourceTree = "<group>"; };
 		7DA184FD213827FA00EA1FF8 /* text.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = text.json; sourceTree = "<group>"; };
+		7DE5F07C2157C85900BD2825 /* SketchFileManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchFileManager.h; sourceTree = "<group>"; };
+		7DE5F07D2157C85900BD2825 /* SketchFileManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SketchFileManager.m; sourceTree = "<group>"; };
 		7DEA34272135A79A0062075A /* Sketch-Conflict-Root.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sketch-Conflict-Root.sketch"; sourceTree = "<group>"; };
 		7DEA34282135A79A0062075A /* Sketch-Conflict-B.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sketch-Conflict-B.sketch"; sourceTree = "<group>"; };
 		7DEA34292135A79A0062075A /* Sketch-Conflict-A.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sketch-Conflict-A.sketch"; sourceTree = "<group>"; };
@@ -347,6 +351,8 @@
 				5548B89220EF7A9300D3A081 /* ArtboardGridViewController.m */,
 				7D8CBE652153EF82007C884B /* SketchFileController.h */,
 				7D8CBE662153EF82007C884B /* SketchFileController.m */,
+				7DE5F07C2157C85900BD2825 /* SketchFileManager.h */,
+				7DE5F07D2157C85900BD2825 /* SketchFileManager.m */,
 				7D828F942122DBCB00ADBD7E /* SketchOperationTypeIndicator.h */,
 				7D828F952122DBCB00ADBD7E /* SketchOperationTypeIndicator.m */,
 				5548B88F20EF72C000D3A081 /* NSImage+PNGAdditions.h */,
@@ -763,6 +769,7 @@
 				55BE520920ADABFD0059EC77 /* main.m in Sources */,
 				55BE526320ADAD410059EC77 /* sha1.c in Sources */,
 				5548B89020EF72C000D3A081 /* NSImage+PNGAdditions.m in Sources */,
+				7DE5F07E2157C85900BD2825 /* SketchFileManager.m in Sources */,
 				55BE525D20ADAD410059EC77 /* ioapi_mem.c in Sources */,
 				552F296420EE59AF00A845B2 /* NSDictionary+CoreSync.m in Sources */,
 				7D7CCFD221133DD50061EBB0 /* SketchPage.m in Sources */,
@@ -792,6 +799,7 @@
 			files = (
 				55BE521420ADABFD0059EC77 /* SketchZipTests.m in Sources */,
 				7D8CBE682153EF82007C884B /* SketchFileController.m in Sources */,
+				7DE5F07F2157C85900BD2825 /* SketchFileManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

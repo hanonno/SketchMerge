@@ -13,6 +13,7 @@
 #import "CoreSync.h"
 #import "CoreSyncTransaction.h"
 #import "ArtboardGridViewController.h"
+#import "SketchFileManager.h"
 
 #import <PureLayout/PureLayout.h>
 
@@ -26,6 +27,8 @@
 
 @property (strong) NSURL                        *rootFileURL;
 @property (strong) NSURL                        *changedFileURL;
+
+@property (strong) SketchFileManager            *sketchFileManager;
 
 @end
 
@@ -42,6 +45,11 @@
     NSButton *button = [NSButton buttonWithTitle:@"Reload" target:self action:@selector(reloadFile:)];
     
     [self.window.contentView addSubview:button];
+    
+    
+    
+    self.sketchFileManager = [[SketchFileManager alloc] init];
+    [self.sketchFileManager startIndexing];
 }
 
 - (IBAction)pickRootFile:(id)sender {
