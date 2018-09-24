@@ -189,8 +189,8 @@
     [self.presetNameFilterButton setAction:@selector(presetNameFilterDidChange:)];
     [self.view addSubview:self.presetNameFilterButton];
     
-    self.previewSizeSlider = [NSSlider sliderWithValue:240 minValue:240 maxValue:480 target:self action:@selector(previewSizeDidChange:)];
-    self.previewSizeSlider.numberOfTickMarks = 8;
+    self.previewSizeSlider = [NSSlider sliderWithValue:360 minValue:240 maxValue:480 target:self action:@selector(previewSizeDidChange:)];
+    self.previewSizeSlider.numberOfTickMarks = 11;
     self.previewSizeSlider.allowsTickMarkValuesOnly = YES;
     [self.view addSubview:self.previewSizeSlider];
     
@@ -236,7 +236,7 @@
     [self.presetNameFilterButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:self.self.tokenField withOffset:16];
     
     [self.previewSizeSlider autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self.tokenField];
-    [self.previewSizeSlider autoSetDimension:ALDimensionWidth toSize:120];
+    [self.previewSizeSlider autoSetDimension:ALDimensionWidth toSize:240];
     [self.previewSizeSlider autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:16];
     
     [self.scrollView autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(52, 0, 0, 0)];
