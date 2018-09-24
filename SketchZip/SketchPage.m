@@ -9,6 +9,7 @@
 #import "SketchPage.h"
 #import "SketchDiffTool.h"
 #import "SSZipArchive/SSZipArchive.h"
+#import "NSImage+PNGAdditions.h"
 
 
 static const BOOL kLoggingEnabled = NO;
@@ -464,6 +465,7 @@ static const BOOL kLoggingEnabled = NO;
                 for (SketchLayer *layer in page.layers.allValues) {
                     NSString *outputFilePath = [[tempDir.path stringByAppendingPathComponent:layer.objectId] stringByAppendingPathExtension:@"png"];
                     image = [[NSImage alloc] initWithContentsOfFile:outputFilePath];
+                    image = [image scaleToSize:NSMakeSize(480, 480)];
                     layer.previewImage = image;
                 }
             }
