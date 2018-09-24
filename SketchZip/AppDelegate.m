@@ -12,6 +12,8 @@
 #import "SketchFilePlugin.h"
 #import "CoreSync.h"
 #import "CoreSyncTransaction.h"
+
+#import "SidebarController.h"
 #import "ArtboardGridViewController.h"
 #import "SketchFileManager.h"
 
@@ -21,6 +23,8 @@
 @interface AppDelegate ()
 
 @property (weak) IBOutlet NSWindow              *window;
+
+@property (strong) SidebarController            *sidebarController;
 @property (strong) ArtboardGridViewController   *artboardGridViewController;
 
 @property (strong) SketchDiffTool               *sketchDiffTool;
@@ -36,20 +40,31 @@
 @implementation AppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)notification {
+    self.window.titlebarAppearsTransparent = YES;
+    self.window.titleVisibility = NSWindowTitleHidden;
+    self.window.styleMask |= NSWindowStyleMaskFullSizeContentView;
+
     self.sketchDiffTool = [[SketchDiffTool alloc] init];
+    
+    self.sidebarController = [[SidebarController alloc] init];
+    [self.window.contentView addSubview:self.sidebarController.view];
     
     self.artboardGridViewController = [[ArtboardGridViewController alloc] init];
     [self.window.contentView addSubview:self.artboardGridViewController.view];
-    [self.artboardGridViewController.view autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, 0, 0, 0)];
     
-    NSButton *button = [NSButton buttonWithTitle:@"Reload" target:self action:@selector(reloadFile:)];
+//    NSButton *button = [NSButton buttonWithTitle:@"Reload" target:self action:@selector(reloadFile:)]
+//    [self.window.contentView addSubview:button];
     
-    [self.window.contentView addSubview:button];
+    [self.sidebarController.view autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, 0, 0, 0) excludingEdge:ALEdgeRight];
+    [self.sidebarController.view autoSetDimension:ALDimensionWidth toSize:240];
     
-    
+    [self.artboardGridViewController.view autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, 0, 0, 0) excludingEdge:ALEdgeLeft];
+    [self.artboardGridViewController.view autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:240];
     
 //    self.sketchFileManager = [[SketchFileManager alloc] init];
 //    [self.sketchFileManager startIndexing];
+    
+//    [self reloadFile:self];
 }
 
 - (IBAction)pickRootFile:(id)sender {

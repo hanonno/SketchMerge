@@ -139,7 +139,7 @@
 
     NSUInteger i=0;
 //    for (i=0; i < self.query.resultCount; i++) {
-    for (i=0; i < 1; i++) {
+    for (i=0; i < 5; i++) {
         NSMetadataItem *result = [self.query resultAtIndex:i];
         NSString *filePath = [result valueForAttribute:@"kMDItemPath"];
         
