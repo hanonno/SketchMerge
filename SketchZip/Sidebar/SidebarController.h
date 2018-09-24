@@ -7,9 +7,10 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "TDCollectionViewListLayout.h"
 
 
-@interface TDView : NSView
+@interface NSView (TDView)
 
 @property (strong) NSColor  *backgroundColor;
 @property (assign) CGFloat  cornerRadius;
@@ -17,19 +18,19 @@
 @end
 
 
-@interface SidebarRow : TDView
+@interface SidebarItem : NSCollectionViewItem
 
 @property (strong) NSImageView  *iconView;
 @property (strong) NSTextField  *titleLabel;
-@property (strong) TDView       *highlightView;
-
-@property (assign) BOOL         highlighted;
+@property (strong) NSView       *highlightView;
 
 @end
 
 
 @interface SidebarController : NSViewController
 
-@property (strong) NSStackView  *stackView;
+@property (strong) NSScrollView                 *scrollView;
+@property (strong) NSCollectionView             *collectionView;
+@property (strong) TDCollectionViewListLayout   *listLayout;
 
 @end

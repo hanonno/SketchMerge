@@ -17,7 +17,7 @@
  IN THE SOFTWARE.
  */
 
-#import "JNWCollectionViewListLayout.h"
+#import "TDCollectionViewListLayout.h"
 
 typedef struct {
 	CGFloat height;
@@ -59,12 +59,12 @@ typedef NS_ENUM(NSInteger, JNWListEdge) {
 
 @end
 
-@interface JNWCollectionViewListLayout()
+@interface TDCollectionViewListLayout()
 @property (nonatomic, strong) NSMutableArray    *sections;
 @property (assign)  NSSize                      contentSize;
 @end
 
-@implementation JNWCollectionViewListLayout
+@implementation TDCollectionViewListLayout
 
 - (instancetype)init {
 	self = [super init];
@@ -88,7 +88,7 @@ typedef NS_ENUM(NSInteger, JNWListEdge) {
 - (void)prepareLayout {
 	[self.sections removeAllObjects];
 	
-	if (self.delegate != nil && ![self.delegate conformsToProtocol:@protocol(JNWCollectionViewListLayoutDelegate)]) {
+	if (self.delegate != nil && ![self.delegate conformsToProtocol:@protocol(TDCollectionViewListLayoutDelegate)]) {
 		NSLog(@"*** list delegate does not conform to JNWCollectionViewListLayoutDelegate!");
 	}
 	

@@ -20,7 +20,7 @@
 #import <Cocoa/Cocoa.h>
 
 /// The delegate is responsible for returning size information for the list layout.
-@protocol JNWCollectionViewListLayoutDelegate <NSObject>
+@protocol TDCollectionViewListLayoutDelegate <NSObject>
 
 @optional
 
@@ -40,11 +40,11 @@
 
 /// A layout subclass that displays items in a vertical list with rows of
 /// items, similar to a table view.
-@interface JNWCollectionViewListLayout : NSCollectionViewLayout
+@interface TDCollectionViewListLayout : NSCollectionViewLayout
 
 /// The delegate for the list layout. The delegate, if needed, should be set before
 /// the collection view is reloaded.
-@property (nonatomic, unsafe_unretained) id<JNWCollectionViewListLayoutDelegate> delegate;
+@property (nonatomic, unsafe_unretained) id<TDCollectionViewListLayoutDelegate> delegate;
 
 /// The height of all rows in the list. If the row heights for all items are
 /// the same, setting this property directly instead of using the delegate method will

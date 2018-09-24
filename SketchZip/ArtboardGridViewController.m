@@ -131,7 +131,7 @@
 @end
 
 
-@interface ArtboardGridViewController () <NSTokenFieldDelegate, SketchFileManagerDelegate, JNWCollectionViewListLayoutDelegate>
+@interface ArtboardGridViewController () <NSTokenFieldDelegate, SketchFileManagerDelegate, TDCollectionViewListLayoutDelegate>
 
 @property (strong) SketchDiffTool       *sketchDiffTool;
 @property (strong) NSProgressIndicator  *progressIndicator;
@@ -165,14 +165,18 @@
 - (void)loadView {
     self.view = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, 640, 640)];
     
+    BOOL hidden = YES;
+    
     self.tokenField = [[NSTokenField alloc] initWithFrame:NSMakeRect(0, 0, 240, 52)];
     self.tokenField.tokenStyle = NSTokenStyleSquared;
 //    self.tokenField.tokenStyle = NSTokenStylePlainSquared;
     self.tokenField.bezelStyle = NSTextFieldRoundedBezel;
     self.tokenField.delegate = self;
+    self.tokenField.hidden = hidden;
     [self.view addSubview:self.tokenField];
     
     self.presetNameFilterButton = [[NSPopUpButton alloc] initWithFrame:NSMakeRect(0, 0, 120, 44) pullsDown:NO];
+    self.presetNameFilterButton.hidden = hidden;
     [self.presetNameFilterButton addItemWithTitle:@"Any device"];
     [self.presetNameFilterButton addItemWithTitle:@"iPhone"];
     [self.presetNameFilterButton addItemWithTitle:@"iPhone SE"];
@@ -192,6 +196,7 @@
     self.previewSizeSlider = [NSSlider sliderWithValue:360 minValue:240 maxValue:480 target:self action:@selector(previewSizeDidChange:)];
     self.previewSizeSlider.numberOfTickMarks = 11;
     self.previewSizeSlider.allowsTickMarkValuesOnly = YES;
+    self.previewSizeSlider.hidden = hidden;
     [self.view addSubview:self.previewSizeSlider];
     
     self.scrollView = [[NSScrollView alloc] initWithFrame:NSMakeRect(300, 0, 640, 640)];
@@ -206,7 +211,7 @@
     self.layout.sectionInset = NSEdgeInsetsMake(16, 16, 16, 16);
     self.layout.sectionHeadersPinToVisibleBounds = YES;
     
-    self.listLayout = [[JNWCollectionViewListLayout alloc] init];
+    self.listLayout = [[TDCollectionViewListLayout alloc] init];
     self.listLayout.rowHeight = 128;
     self.listLayout.delegate = self;
     
@@ -250,7 +255,7 @@
     [self.previewSizeSlider autoSetDimension:ALDimensionWidth toSize:240];
     [self.previewSizeSlider autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:16];
     
-    [self.scrollView autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(52, 0, 0, 0)];
+    [self.scrollView autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(hidden ? 0 : 52, 0, 0, 0)];
 }
 
 - (void)startLoading {
