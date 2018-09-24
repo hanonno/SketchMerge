@@ -9,8 +9,12 @@
 #import "ArtboardGridViewController.h"
 #import "CoreSyncTransaction.h"
 #import "SketchDiffTool.h"
+
 #import "SketchFileController.h"
 #import "SketchFileManager.h"
+
+#import "CollectionViewLeftAlignedLayout.h"
+
 #import <PureLayout/PureLayout.h>
 
 
@@ -194,7 +198,7 @@
     self.scrollView.backgroundColor = [NSColor redColor];
     [self.view addSubview:self.scrollView];
     
-    self.layout = [[NSCollectionViewFlowLayout alloc] init];
+    self.layout = [[CollectionViewLeftAlignedLayout alloc] init];
     self.layout.itemSize = NSMakeSize(240, 240);
     self.layout.minimumLineSpacing = 16;
     self.layout.minimumInteritemSpacing = 16;
