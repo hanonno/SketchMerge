@@ -163,6 +163,8 @@
     
     self.tokenField = [[NSTokenField alloc] initWithFrame:NSMakeRect(0, 0, 240, 52)];
     self.tokenField.tokenStyle = NSTokenStyleSquared;
+//    self.tokenField.tokenStyle = NSTokenStylePlainSquared;
+    self.tokenField.bezelStyle = NSTextFieldRoundedBezel;
     self.tokenField.delegate = self;
     [self.view addSubview:self.tokenField];
     
@@ -222,6 +224,7 @@
     // Auto Layout
     [self.tokenField autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:16];
     [self.tokenField autoSetDimension:ALDimensionWidth toSize:320];
+    [self.tokenField autoSetDimension:ALDimensionHeight toSize:26];
     [self.tokenField autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:16];
     
     [self.presetNameFilterButton autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self.tokenField];
@@ -320,6 +323,23 @@
     }
     
     [self reloadData];
+}
+
+- (nullable NSArray *)tokenField:(NSTokenField *)tokenField completionsForSubstring:(NSString *)substring indexOfToken:(NSInteger)tokenIndex indexOfSelectedItem:(nullable NSInteger *)selectedIndex {
+    return @[substring, @"iPhone", @"iPad", @"Apple Watch"];
+}
+
+- (BOOL)tokenField:(NSTokenField *)tokenField hasMenuForRepresentedObject:(id)representedObject {
+    return YES;
+}
+
+- (NSMenu *)tokenField:(NSTokenField *)tokenField menuForRepresentedObject:(id)representedObject {
+    NSMenu *menu = [[NSMenu alloc] initWithTitle:@"Autocomplete"];
+    
+    [menu addItem:[[NSMenuItem alloc] initWithTitle:@"Add" action:nil keyEquivalent:@"a"]];
+    [menu addItem:[[NSMenuItem alloc] initWithTitle:@"Remove" action:nil keyEquivalent:@"a"]];
+    
+    return menu;
 }
 
 - (IBAction)presetNameFilterDidChange:(id)sender {

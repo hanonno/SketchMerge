@@ -91,7 +91,7 @@ static const BOOL kLoggingEnabled = NO;
 - (NSImage *)presetIcon {
     NSImage *image = [NSImage imageNamed:self.presetName];
     
-    if(!image) {
+    if(!image && self.presetName != nil) {
         NSLog(@"Missing preview image: %@", self.presetName);
     }
     
