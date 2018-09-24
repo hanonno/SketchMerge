@@ -95,14 +95,15 @@
     
 //    NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"kMDItemContentTypeTree == 'public.image'"];
 //    NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"kMDItemContentTypeTree == 'com.bohemiancoding.sketch.drawing.single'"];
-    NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"kMDItemDisplayName BEGINSWITH[c] 'HAN'"];
+    NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"kMDItemContentTypeTree == 'com.bohemiancoding.sketch.drawing.single'"];
 //    NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"kMDItemDisplayName == 'UW-Tutorial'"];
     [_query setPredicate:searchPredicate];
     
     NSArray *searchScopes = @[NSMetadataQueryUserHomeScope];
     [_query setSearchScopes:searchScopes];
 
-    NSSortDescriptor *nameSortDescriptor = [[NSSortDescriptor alloc] initWithKey:(NSString *)kMDItemDisplayName ascending:YES];
+//    NSSortDescriptor *nameSortDescriptor = [[NSSortDescriptor alloc] initWithKey:(NSString *)kMDItemDisplayName ascending:YES];
+    NSSortDescriptor *nameSortDescriptor = [[NSSortDescriptor alloc] initWithKey:(NSString *)kMDItemLastUsedDate ascending:NO];
     [_query setSortDescriptors:@[nameSortDescriptor]];
 
 //    // Set the search scope. In this case it will search the User's home directory
