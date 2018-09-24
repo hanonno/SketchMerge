@@ -20,6 +20,7 @@
 
 #import "CollectionViewLeftAlignedLayout.h"
 
+
 @interface NSCollectionViewLayoutAttributes (LeftAligned)
 
 - (void)leftAlignFrameWithSectionInset:(NSEdgeInsets)sectionInset;

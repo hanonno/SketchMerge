@@ -24,17 +24,11 @@
  *  Based on http://stackoverflow.com/questions/13017257/how-do-you-determine-spacing-between-cells-in-uicollectionview-flowlayout
  */
 
+
+// Adapted from https://github.com/mokagio/UICollectionViewLeftAlignedLayout
+
 #import <AppKit/AppKit.h>
 
 @interface CollectionViewLeftAlignedLayout : NSCollectionViewFlowLayout
-
-@end
-
-/**
- *  Just a convenience protocol to keep things consistent.
- *  Someone could find it confusing for a delegate object to conform to UICollectionViewDelegateFlowLayout
- *  while using UICollectionViewLeftAlignedLayout.
- */
-@protocol UICollectionViewDelegateLeftAlignedLayout <NSCollectionViewDelegateFlowLayout>
 
 @end
