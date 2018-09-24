@@ -165,7 +165,7 @@
 - (void)loadView {
     self.view = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, 640, 640)];
     
-    BOOL hidden = YES;
+    BOOL hidden = NO;
     
     self.tokenField = [[NSTokenField alloc] initWithFrame:NSMakeRect(0, 0, 240, 52)];
     self.tokenField.tokenStyle = NSTokenStyleSquared;

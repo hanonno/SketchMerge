@@ -128,13 +128,13 @@ typedef NS_ENUM(NSInteger, JNWListEdge) {
 		
 		sectionInfo.height -= verticalSpacing; // We don't want spacing after the last cell.
 		sectionInfo.height += footerHeight;
-		sectionInfo.frame = CGRectMake(0, sectionInfo.offset, collectionView.frame.size.width, sectionInfo.height);
+		sectionInfo.frame = CGRectMake(0, sectionInfo.offset, collectionView.enclosingScrollView.documentVisibleRect.size.width, sectionInfo.height);
 		
 		totalHeight += sectionInfo.height;
         [self.sections addObject:sectionInfo];
 	}
     
-    self.contentSize = NSMakeSize(self.collectionView.frame.size.width, totalHeight);
+    self.contentSize = NSMakeSize(self.collectionView.enclosingScrollView.documentVisibleRect.size.width, totalHeight);
 }
 
 - (NSSize)collectionViewContentSize {
@@ -170,7 +170,7 @@ typedef NS_ENUM(NSInteger, JNWListEdge) {
 
 - (NSCollectionViewLayoutAttributes *)layoutAttributesForSupplementaryItemInSection:(NSInteger)sectionIdx kind:(NSString *)kind {
 	JNWCollectionViewListLayoutSection *section = self.sections[sectionIdx];
-	CGFloat width = self.collectionView.frame.size.width;
+	CGFloat width = self.collectionView.enclosingScrollView.documentVisibleRect.size.width;
 	CGRect frame = CGRectZero;
 	
 	if ([kind isEqualToString:NSCollectionElementKindSectionHeader]) {
@@ -207,7 +207,7 @@ typedef NS_ENUM(NSInteger, JNWListEdge) {
 - (CGRect)rectForItemAtIndex:(NSInteger)index section:(NSInteger)section {
 	JNWCollectionViewListLayoutSection *sectionInfo = self.sections[section];
 	CGFloat offset = sectionInfo.offset + sectionInfo.rowInfo[index].yOffset;
-	CGFloat width = self.collectionView.frame.size.width;
+	CGFloat width = self.collectionView.enclosingScrollView.documentVisibleRect.size.width;
 	CGFloat height = sectionInfo.rowInfo[index].height;
 	return CGRectMake(0, offset, width, height);
 }

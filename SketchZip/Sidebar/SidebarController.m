@@ -70,7 +70,7 @@
     self.titleLabel = titleLabel;
     
     // Auto layout
-    [self.highlightView autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(4, 16, 4, 16)];
+    [self.highlightView autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(2, 16, 2, 16)];
 //    [self.highlightView autoSetDimension:ALDimensionHeight toSize:32];
     
 //    [NSLayoutConstraint autoSetPriority:NSLayoutPriorityDefaultHigh forConstraints:^{
@@ -120,17 +120,16 @@
 - (void)loadView {
     self.view = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, 240, 640)];
     self.view.wantsLayer = YES;
-    self.view.layer.backgroundColor = [[NSColor redColor] CGColor];
+    self.view.layer.backgroundColor = [[NSColor colorWithDeviceRed:0.976 green:0.980 blue:0.980 alpha:1.000] CGColor];
 
     self.scrollView = [[NSScrollView alloc] initWithFrame:NSMakeRect(300, 0, 640, 640)];
     self.scrollView.translatesAutoresizingMaskIntoConstraints = NO;
-    self.scrollView.drawsBackground = NO;
     self.scrollView.automaticallyAdjustsContentInsets = NO;
     self.scrollView.contentInsets = NSEdgeInsetsMake(48, 0, 0, 0);
     [self.view addSubview:self.scrollView];
     
     self.listLayout = [[TDCollectionViewListLayout alloc] init];
-    self.listLayout.rowHeight = 40;
+    self.listLayout.rowHeight = 36;
     self.listLayout.delegate = self;
 
     self.collectionView = [[NSCollectionView alloc] initWithFrame:self.scrollView.bounds];
@@ -138,6 +137,7 @@
     self.collectionView.delegate = self;
     self.collectionView.collectionViewLayout = self.listLayout;
     self.collectionView.selectable = YES;
+    self.collectionView.allowsEmptySelection = NO;
     [self.collectionView registerClass:[SidebarItem class] forItemWithIdentifier:@"SidebarItem"];
     self.collectionView.backgroundColors = @[[NSColor colorWithDeviceRed:0.976 green:0.980 blue:0.980 alpha:1.000]];
     self.scrollView.documentView = self.collectionView;
