@@ -54,6 +54,7 @@
 		7D209F012159082800A461A5 /* Recents.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D209EFD2159082800A461A5 /* Recents.png */; };
 		7D209F0421590B3300A461A5 /* Everything.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D209F0221590B3200A461A5 /* Everything.png */; };
 		7D209F0521590B3300A461A5 /* Everything@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D209F0321590B3200A461A5 /* Everything@2x.png */; };
+		7D209F0E2159195D00A461A5 /* JNWCollectionViewListLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D209F0C2159195C00A461A5 /* JNWCollectionViewListLayout.m */; };
 		7D7CCFC621133AB60061EBB0 /* Version-2.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7D7CCFC421133AB60061EBB0 /* Version-2.sketch */; };
 		7D7CCFC721133AB60061EBB0 /* Version-1.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7D7CCFC521133AB60061EBB0 /* Version-1.sketch */; };
 		7D7CCFC921133BAB0061EBB0 /* Version-3.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7D7CCFC821133BAB0061EBB0 /* Version-3.sketch */; };
@@ -231,6 +232,8 @@
 		7D209EFD2159082800A461A5 /* Recents.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Recents.png; sourceTree = "<group>"; };
 		7D209F0221590B3200A461A5 /* Everything.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Everything.png; sourceTree = "<group>"; };
 		7D209F0321590B3200A461A5 /* Everything@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Everything@2x.png"; sourceTree = "<group>"; };
+		7D209F0C2159195C00A461A5 /* JNWCollectionViewListLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JNWCollectionViewListLayout.m; sourceTree = "<group>"; };
+		7D209F0D2159195C00A461A5 /* JNWCollectionViewListLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JNWCollectionViewListLayout.h; sourceTree = "<group>"; };
 		7D7CCFC421133AB60061EBB0 /* Version-2.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Version-2.sketch"; sourceTree = "<group>"; };
 		7D7CCFC521133AB60061EBB0 /* Version-1.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Version-1.sketch"; sourceTree = "<group>"; };
 		7D7CCFC821133BAB0061EBB0 /* Version-3.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Version-3.sketch"; sourceTree = "<group>"; };
@@ -492,6 +495,8 @@
 			children = (
 				7D209EF62158FD6F00A461A5 /* SidebarController.h */,
 				7D209EF72158FD6F00A461A5 /* SidebarController.m */,
+				7D209F0D2159195C00A461A5 /* JNWCollectionViewListLayout.h */,
+				7D209F0C2159195C00A461A5 /* JNWCollectionViewListLayout.m */,
 			);
 			path = Sidebar;
 			sourceTree = "<group>";
@@ -836,6 +841,7 @@
 				552F296420EE59AF00A845B2 /* NSDictionary+CoreSync.m in Sources */,
 				7D7CCFD221133DD50061EBB0 /* SketchPage.m in Sources */,
 				552F296120EE59AF00A845B2 /* CoreSyncTransaction.m in Sources */,
+				7D209F0E2159195D00A461A5 /* JNWCollectionViewListLayout.m in Sources */,
 				7D209EF82158FD6F00A461A5 /* SidebarController.m in Sources */,
 				55BE526020ADAD410059EC77 /* hmac.c in Sources */,
 				55BE526220ADAD410059EC77 /* fileenc.c in Sources */,

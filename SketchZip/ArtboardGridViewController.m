@@ -131,7 +131,7 @@
 @end
 
 
-@interface ArtboardGridViewController () <NSTokenFieldDelegate, SketchFileManagerDelegate>
+@interface ArtboardGridViewController () <NSTokenFieldDelegate, SketchFileManagerDelegate, JNWCollectionViewListLayoutDelegate>
 
 @property (strong) SketchDiffTool       *sketchDiffTool;
 @property (strong) NSProgressIndicator  *progressIndicator;
@@ -205,6 +205,17 @@
     self.layout.headerReferenceSize = NSMakeSize(320, 44);
     self.layout.sectionInset = NSEdgeInsetsMake(16, 16, 16, 16);
     self.layout.sectionHeadersPinToVisibleBounds = YES;
+    
+    self.listLayout = [[JNWCollectionViewListLayout alloc] init];
+    self.listLayout.rowHeight = 128;
+    self.listLayout.delegate = self;
+    
+//    self.layout.itemSize = NSMakeSize(240, 240);
+//    self.layout.minimumLineSpacing = 16;
+//    self.layout.minimumInteritemSpacing = 16;
+//    self.layout.headerReferenceSize = NSMakeSize(320, 44);
+//    self.layout.sectionInset = NSEdgeInsetsMake(16, 16, 16, 16);
+//    self.layout.sectionHeadersPinToVisibleBounds = YES;
     
     self.collectionView = [[NSCollectionView alloc] initWithFrame:self.view.bounds];
     self.collectionView.dataSource = self;
@@ -310,6 +321,9 @@
     return NSMakeSize(320, 44);
 }
 
+- (CGFloat)collectionView:(NSCollectionView *)collectionView heightForHeaderInSection:(NSInteger)index {
+    return 80;
+}
 
 - (void)collectionView:(NSCollectionView *)collectionView didSelectItemsAtIndexPaths:(NSSet<NSIndexPath *> *)indexPaths {
 }

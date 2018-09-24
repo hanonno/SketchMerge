@@ -11,6 +11,8 @@
 #import "SketchDiffTool.h"
 #import "SketchOperationTypeIndicator.h"
 
+#import "JNWCollectionViewListLayout.h"
+
 
 @interface ArtboardCollectionViewItem : NSCollectionViewItem
 
@@ -39,6 +41,7 @@
 @property (strong) NSScrollView                 *scrollView;
 @property (strong) NSCollectionView             *collectionView;
 @property (strong) NSCollectionViewFlowLayout   *layout;
+@property (strong) JNWCollectionViewListLayout  *listLayout;
 
 @property (strong) SketchMergeTool              *mergeTool;
 
