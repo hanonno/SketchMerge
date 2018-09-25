@@ -114,9 +114,6 @@
     self.subtitleLabel.textColor = [NSColor colorWithCalibratedWhite:0.50 alpha:1.000];
     [self addSubview:self.subtitleLabel];
     
-    self.toggleButton = [NSButton buttonWithTitle:@"Toggle" target:self action:@selector(toggleSection:)];
-    [self addSubview:self.toggleButton];
-    
     // Autolayout
     [self.titleLabel autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:8];
     [self.titleLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:16];
@@ -126,16 +123,11 @@
     [self.subtitleLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:self.titleLabel withOffset:4];
     [self.subtitleLabel autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:16];
     
-    [self.toggleButton autoAlignAxisToSuperviewAxis:ALAxisHorizontal];
-    [self.toggleButton autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:16];
-    
     [divider autoSetDimension:ALDimensionHeight toSize:1];
     [divider autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsZero excludingEdge:ALEdgeTop];
     
     return self;
 }
-
-- (void)toggleSection:(id)sender {}
 
 @end
 
@@ -295,10 +287,6 @@
 
 #pragma mark Collection View
 
-- (void)toggleSection:(NSButton *)sender {
-    [self.layout collapseSectionAtIndex:sender.tag];
-}
-
 - (NSInteger)numberOfSectionsInCollectionView:(NSCollectionView *)collectionView {
     return self.sketchFileController.numberOfPages;
 }
@@ -324,8 +312,6 @@
     
     headerView.titleLabel.stringValue = page.sketchFile.fileName;
     headerView.subtitleLabel.stringValue = [NSString stringWithFormat:@"— %@", page.name];
-    headerView.toggleButton.tag = indexPath.section;
-    [headerView.toggleButton setTarget:self];
     
     return headerView;
 }

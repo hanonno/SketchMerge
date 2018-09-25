@@ -27,7 +27,6 @@
 
 @property (strong) NSTextField  *titleLabel;
 @property (strong) NSTextField  *subtitleLabel;
-@property (strong) NSButton     *toggleButton;
 
 @end
 
