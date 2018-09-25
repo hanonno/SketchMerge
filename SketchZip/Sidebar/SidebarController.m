@@ -83,7 +83,7 @@
     [self.iconView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:8];
     
     [self.titleLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self.highlightView withOffset:0];
-    [self.titleLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:self.iconView withOffset:4];
+    [self.titleLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:self.iconView withOffset:5];
 }
 
 - (void)setSelected:(BOOL)selected {

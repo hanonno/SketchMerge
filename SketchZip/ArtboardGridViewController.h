@@ -28,6 +28,7 @@
 
 @property (strong) NSTextField  *titleLabel;
 @property (strong) NSTextField  *subtitleLabel;
+@property (strong) NSButton     *toggleButton;
 
 @end
 
@@ -41,7 +42,6 @@
 @property (strong) NSScrollView                 *scrollView;
 @property (strong) NSCollectionView             *collectionView;
 @property (strong) NSCollectionViewFlowLayout   *layout;
-@property (strong) TDCollectionViewListLayout  *listLayout;
 
 @property (strong) SketchMergeTool              *mergeTool;
 

@@ -40,9 +40,9 @@
 @implementation AppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)notification {
-    self.window.titlebarAppearsTransparent = YES;
-    self.window.titleVisibility = NSWindowTitleHidden;
-    self.window.styleMask |= NSWindowStyleMaskFullSizeContentView;
+//    self.window.titlebarAppearsTransparent = YES;
+//    self.window.titleVisibility = NSWindowTitleHidden;
+//    self.window.styleMask |= NSWindowStyleMaskFullSizeContentView;
 
     self.sketchDiffTool = [[SketchDiffTool alloc] init];
     

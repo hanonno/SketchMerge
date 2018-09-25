@@ -114,6 +114,10 @@
     self.subtitleLabel.textColor = [NSColor colorWithCalibratedWhite:0.50 alpha:1.000];
     [self addSubview:self.subtitleLabel];
     
+    self.toggleButton = [NSButton buttonWithTitle:@"Toggle" target:self action:@selector(toggleSection:)];
+    [self addSubview:self.toggleButton];
+    
+    // Autolayout
     [self.titleLabel autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:8];
     [self.titleLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:16];
 //    [self.titleLabel autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:16];
@@ -122,16 +126,21 @@
     [self.subtitleLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:self.titleLabel withOffset:4];
     [self.subtitleLabel autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:16];
     
+    [self.toggleButton autoAlignAxisToSuperviewAxis:ALAxisHorizontal];
+    [self.toggleButton autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:16];
+    
     [divider autoSetDimension:ALDimensionHeight toSize:1];
     [divider autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsZero excludingEdge:ALEdgeTop];
     
     return self;
 }
 
+- (void)toggleSection:(id)sender {}
+
 @end
 
 
-@interface ArtboardGridViewController () <NSTokenFieldDelegate, SketchFileManagerDelegate, TDCollectionViewListLayoutDelegate>
+@interface ArtboardGridViewController () <NSTokenFieldDelegate, SketchFileManagerDelegate>
 
 @property (strong) SketchDiffTool       *sketchDiffTool;
 @property (strong) NSProgressIndicator  *progressIndicator;
@@ -165,7 +174,7 @@
 - (void)loadView {
     self.view = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, 640, 640)];
     
-    BOOL hidden = NO;
+    BOOL hidden = YES;
     
     self.tokenField = [[NSTokenField alloc] initWithFrame:NSMakeRect(0, 0, 240, 52)];
     self.tokenField.tokenStyle = NSTokenStyleSquared;
@@ -200,20 +209,17 @@
     [self.view addSubview:self.previewSizeSlider];
     
     self.scrollView = [[NSScrollView alloc] initWithFrame:NSMakeRect(300, 0, 640, 640)];
-    self.scrollView.backgroundColor = [NSColor redColor];
+//    self.scrollView.backgroundColor = [NSColor redColor];
     [self.view addSubview:self.scrollView];
     
     self.layout = [[CollectionViewLeftAlignedLayout alloc] init];
+//    self.layout = [[NSCollectionViewFlowLayout alloc] init];
     self.layout.itemSize = NSMakeSize(240, 240);
     self.layout.minimumLineSpacing = 16;
     self.layout.minimumInteritemSpacing = 16;
     self.layout.headerReferenceSize = NSMakeSize(320, 44);
     self.layout.sectionInset = NSEdgeInsetsMake(16, 16, 16, 16);
     self.layout.sectionHeadersPinToVisibleBounds = YES;
-    
-    self.listLayout = [[TDCollectionViewListLayout alloc] init];
-    self.listLayout.rowHeight = 128;
-    self.listLayout.delegate = self;
     
 //    self.layout.itemSize = NSMakeSize(240, 240);
 //    self.layout.minimumLineSpacing = 16;
@@ -289,6 +295,10 @@
 
 #pragma mark Collection View
 
+- (void)toggleSection:(NSButton *)sender {
+    [self.layout collapseSectionAtIndex:sender.tag];
+}
+
 - (NSInteger)numberOfSectionsInCollectionView:(NSCollectionView *)collectionView {
     return self.sketchFileController.numberOfPages;
 }
@@ -314,6 +324,8 @@
     
     headerView.titleLabel.stringValue = page.sketchFile.fileName;
     headerView.subtitleLabel.stringValue = [NSString stringWithFormat:@"— %@", page.name];
+    headerView.toggleButton.tag = indexPath.section;
+    [headerView.toggleButton setTarget:self];
     
     return headerView;
 }
@@ -373,7 +385,7 @@
 }
 
 - (IBAction)previewSizeDidChange:(id)sender {
-    NSLog(@"Size: %f", self.previewSizeSlider.floatValue);
+//    NSLog(@"Size: %f", self.previewSizeSlider.floatValue);
     
     self.layout.itemSize = NSMakeSize(self.previewSizeSlider.floatValue, self.previewSizeSlider.floatValue);
 }
