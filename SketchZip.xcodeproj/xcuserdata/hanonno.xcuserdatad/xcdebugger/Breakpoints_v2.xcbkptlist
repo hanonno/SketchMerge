@@ -19,22 +19,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "SketchZip/AppDelegate.m"
-            timestampString = "559597636.870448"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "127"
-            endingLineNumber = "127"
-            landmarkName = "-reloadFile:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "SketchZip/SketchDiffTool.m"
             timestampString = "559396283.744681"
             startingColumnNumber = "9223372036854775807"
@@ -68,11 +52,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SketchZip/ArtboardGridViewController.m"
-            timestampString = "559597636.870536"
+            timestampString = "559606086.0519"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "271"
-            endingLineNumber = "271"
+            startingLineNumber = "263"
+            endingLineNumber = "263"
             landmarkName = "-startLoading"
             landmarkType = "7">
          </BreakpointContent>
@@ -80,46 +64,46 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SketchZip/SketchFileController.m"
-            timestampString = "559423397.8020051"
+            timestampString = "559606086.051965"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "149"
-            endingLineNumber = "149"
+            startingLineNumber = "147"
+            endingLineNumber = "147"
             landmarkName = "-addPagesFromFile:"
             landmarkType = "7">
             <Locations>
                <Location
-                  shouldBeEnabled = "No"
+                  shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "-[SketchFileController addPagesFromFile:]"
                   moduleName = "SketchZip"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/hanonno/Code/SketchZip/SketchZip/SketchFileController.m"
-                  timestampString = "559412343.7036231"
+                  timestampString = "559601922.239679"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "144"
-                  endingLineNumber = "144"
+                  startingLineNumber = "150"
+                  endingLineNumber = "150"
                   offsetFromSymbolStart = "132">
                </Location>
                <Location
-                  shouldBeEnabled = "No"
+                  shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "-[SketchFileController addPagesFromFile:]"
                   moduleName = "SketchZip"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/hanonno/Code/SketchZip/SketchZip/SketchFileController.m"
-                  timestampString = "559412343.7052161"
+                  timestampString = "559601922.241183"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "144"
-                  endingLineNumber = "144"
+                  startingLineNumber = "150"
+                  endingLineNumber = "150"
                   offsetFromSymbolStart = "140">
                </Location>
             </Locations>
@@ -132,12 +116,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SketchZip/ArtboardGridViewController.m"
-            timestampString = "559597636.870589"
+            timestampString = "559606086.052009"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "292"
-            endingLineNumber = "292"
-            landmarkName = "-sketchFileManager:didIndexFile:"
+            startingLineNumber = "284"
+            endingLineNumber = "284"
+            landmarkName = "-sketchFileIndexer:didIndexFile:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -148,11 +132,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SketchZip/ArtboardGridViewController.m"
-            timestampString = "559597636.870641"
+            timestampString = "559606086.052052"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "288"
-            endingLineNumber = "288"
+            startingLineNumber = "280"
+            endingLineNumber = "280"
             landmarkName = "-reloadData"
             landmarkType = "7">
          </BreakpointContent>
@@ -164,12 +148,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SketchZip/ArtboardGridViewController.m"
-            timestampString = "559597636.870676"
+            timestampString = "559606086.052093"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "354"
-            endingLineNumber = "354"
+            startingLineNumber = "340"
+            endingLineNumber = "340"
             landmarkName = "-controlTextDidChange:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SketchZip/Collections/SketchArtboardCollectionViewController.m"
+            timestampString = "559606086.052139"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "278"
+            endingLineNumber = "278"
+            landmarkName = "-sketchFileIndexer:didIndexFile:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

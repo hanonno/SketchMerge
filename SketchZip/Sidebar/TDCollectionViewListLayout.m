@@ -103,7 +103,7 @@ typedef NS_ENUM(NSInteger, JNWListEdge) {
 	
 	for (NSUInteger section = 0; section < numberOfSections; section++) {
 		NSInteger numberOfRows = [collectionView numberOfItemsInSection:section];
-		NSInteger headerHeight = delegateHeightForHeader ? [self.delegate collectionView:collectionView heightForHeaderInSection:section] : 0;
+		NSInteger headerHeight = delegateHeightForHeader ? [self.delegate collectionView:collectionView heightForHeaderInSection:section] : 32;
 		NSInteger footerHeight = delegateHeightForFooter ? [self.delegate collectionView:collectionView heightForFooterInSection:section] : 0;
 		
 		JNWCollectionViewListLayoutSection *sectionInfo = [[JNWCollectionViewListLayoutSection alloc] initWithNumberOfRows:numberOfRows];

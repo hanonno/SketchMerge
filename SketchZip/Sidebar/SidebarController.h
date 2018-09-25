@@ -9,6 +9,8 @@
 #import <Cocoa/Cocoa.h>
 #import "TDCollectionViewListLayout.h"
 
+#import "SketchPage.h"
+
 
 @interface NSView (TDView)
 
@@ -32,5 +34,8 @@
 @property (strong) NSScrollView                 *scrollView;
 @property (strong) NSCollectionView             *collectionView;
 @property (strong) TDCollectionViewListLayout   *listLayout;
+
+- (void)addSketchFile:(SketchFile *)sketchFile;
+- (SketchFile *)sketchFileAtIndex:(NSInteger)index;
 
 @end

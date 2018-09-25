@@ -48,8 +48,6 @@
 
 @implementation SidebarItem
 
-//@synthesize highlighted=_highlighted;
-
 - (void)loadView {
     self.view = [[NSView alloc] init];
     self.view.translatesAutoresizingMaskIntoConstraints = NO;
@@ -70,14 +68,8 @@
     self.titleLabel = titleLabel;
     
     // Auto layout
-    [self.highlightView autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(2, 16, 2, 16)];
-//    [self.highlightView autoSetDimension:ALDimensionHeight toSize:32];
-    
-//    [NSLayoutConstraint autoSetPriority:NSLayoutPriorityDefaultHigh forConstraints:^{
-//        [self autoSetContentHuggingPriorityForAxis:ALAxisHorizontal];
-//        [self autoSetContentCompressionResistancePriorityForAxis:ALAxisHorizontal];
-//    }];
-    
+    [self.highlightView autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, 16, 0, 16)];
+
     [self.iconView autoSetDimensionsToSize:CGSizeMake(20, 20)];
     [self.iconView autoAlignAxisToSuperviewAxis:ALAxisHorizontal];
     [self.iconView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:8];
@@ -102,7 +94,8 @@
 
 @interface SidebarController () <TDCollectionViewListLayoutDelegate, NSCollectionViewDataSource, NSCollectionViewDelegate>
 
-@property (strong) NSArray *items;
+@property (strong) NSArray          *items;
+@property (strong) NSMutableArray   *sketchFiles;
 
 @end
 
@@ -113,6 +106,7 @@
     self = [super initWithNibName:nil bundle:nil];
 
     self.items = @[@"Everything", @"Recents", @"Favorites"];
+    self.sketchFiles = [[NSMutableArray alloc] init];
     
     return self;
 }
@@ -129,7 +123,7 @@
     [self.view addSubview:self.scrollView];
     
     self.listLayout = [[TDCollectionViewListLayout alloc] init];
-    self.listLayout.rowHeight = 36;
+    self.listLayout.rowHeight = 28;
     self.listLayout.delegate = self;
 
     self.collectionView = [[NSCollectionView alloc] initWithFrame:self.scrollView.bounds];
@@ -155,14 +149,22 @@
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(NSCollectionView *)collectionView {
-    return 1;
+    return 2;
 }
 
 - (NSInteger)collectionView:(NSCollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    if(section == 1) {
+        return self.sketchFiles.count;
+    }
+    
     return self.items.count;
 }
 
 - (NSCollectionViewItem *)collectionView:(NSCollectionView *)collectionView itemForRepresentedObjectAtIndexPath:(NSIndexPath *)indexPath {
+    if(indexPath.section == 1) {
+        return [self collectionView:collectionView fileItemForRepresentedObjectAtIndexPath:indexPath];
+    }
+    
     SidebarItem *item = [collectionView makeItemWithIdentifier:@"SidebarItem" forIndexPath:indexPath];
     
     if(indexPath.item == 0) {
@@ -177,6 +179,25 @@
         item.titleLabel.stringValue = @"Favorites";
         item.iconView.image = [NSImage imageNamed:@"Favorites"];
     }
+    return item;
+}
+
+- (void)addSketchFile:(SketchFile *)sketchFile {
+    [self.sketchFiles addObject:sketchFile];
+    [self.collectionView reloadData];
+}
+
+- (SketchFile *)sketchFileAtIndex:(NSInteger)index {
+    return [self.sketchFiles objectAtIndex:index];
+}
+
+- (NSCollectionViewItem *)collectionView:(NSCollectionView *)collectionView fileItemForRepresentedObjectAtIndexPath:(NSIndexPath *)indexPath {
+    SidebarItem *item = [collectionView makeItemWithIdentifier:@"SidebarItem" forIndexPath:indexPath];
+    SketchFile *file = [self sketchFileAtIndex:indexPath.item];
+    
+    item.titleLabel.stringValue = [file.fileName stringByDeletingPathExtension] ;
+    item.iconView.image = [NSImage imageNamed:@"File"];
+
     return item;
 }
 

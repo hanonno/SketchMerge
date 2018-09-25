@@ -1,24 +1,21 @@
 //
-//  ArtboardGridViewController.m
+//  SketchArtboardCollectionViewController.m
 //  SketchZip
 //
-//  Created by Hanno on 06/07/2018.
+//  Created by Hanno ten Hoor on 25/09/2018.
 //  Copyright © 2018 Motion Pixel. All rights reserved.
 //
 
-#import "ArtboardGridViewController.h"
-#import "CoreSyncTransaction.h"
-#import "SketchDiffTool.h"
+#import "SketchArtboardCollectionViewController.h"
 
 #import "SketchFileController.h"
 #import "SketchFileIndexer.h"
-
 #import "CollectionViewLeftAlignedLayout.h"
 
 #import <PureLayout/PureLayout.h>
 
 
-@implementation ArtboardCollectionViewItem
+@implementation SketchArtboardCollectionViewItem
 
 - (void)loadView {
     self.view = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, 320, 320)];
@@ -27,37 +24,40 @@
     self.artboardImageView = [[NSImageView alloc] initWithFrame:NSMakeRect(0, 0, 320, 320)];
     self.artboardImageView.wantsLayer = YES;
     self.artboardImageView.layer.backgroundColor = [[NSColor colorWithCalibratedWhite:0.96 alpha:1.0] CGColor];
-//    self.artboardImageView.layer.backgroundColor = [[NSColor redColor] CGColor];
+    //    self.artboardImageView.layer.backgroundColor = [[NSColor redColor] CGColor];
     self.artboardImageView.layer.cornerRadius = 4;
     self.artboardImageView.layer.borderWidth = 2;
     
     [self.view addSubview:self.artboardImageView];
     
-//    self.statusView = [[SketchOperationTypeIndicator alloc] init];
-//    [self.view addSubview:self.statusView];
+    //    self.statusView = [[SketchOperationTypeIndicator alloc] init];
+    //    [self.view addSubview:self.statusView];
     
     self.presetIconView = [[NSImageView alloc] init];
     [self.view addSubview:self.presetIconView];
     
     self.titleLabel = [NSTextField labelWithString:@"Test"];
-    self.titleLabel.alignment = NSTextAlignmentCenter;
+//    self.titleLabel.alignment = NSTextAlignmentL;
     self.titleLabel.font = [NSFont systemFontOfSize:12];
+    self.titleLabel.textColor = [NSColor colorWithCalibratedWhite:0.50 alpha:1.000];
+    self.titleLabel.lineBreakMode = NSLineBreakByTruncatingMiddle;
     [self.view addSubview:self.titleLabel];
     
     // Auto Layout
     [self.artboardImageView autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, 0, 0, 0) excludingEdge:ALEdgeBottom];
     [self.artboardImageView autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:self.titleLabel withOffset:-8];
-
+    
     [self.presetIconView autoSetDimensionsToSize:CGSizeMake(20, 20)];
     [self.presetIconView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:4];
     [self.presetIconView autoPinEdgeToSuperviewEdge:ALEdgeBottom];
     
-//    [self.statusView autoSetDimensionsToSize:CGSizeMake(12, 12)];
-//    [self.statusView autoPinEdgeToSuperviewEdge:ALEdgeLeft];
-//    [self.statusView autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:8];
+    //    [self.statusView autoSetDimensionsToSize:CGSizeMake(12, 12)];
+    //    [self.statusView autoPinEdgeToSuperviewEdge:ALEdgeLeft];
+    //    [self.statusView autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:8];
     
-    [self.titleLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:self.presetIconView withOffset:2];
     [self.titleLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self.presetIconView withOffset:2];
+    [self.titleLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:self.presetIconView withOffset:6];
+    [self.titleLabel autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:4];
     [self.titleLabel autoSetDimension:ALDimensionHeight toSize:22];
     
     self.selected = NO;
@@ -90,7 +90,7 @@
 @end
 
 
-@implementation PageHeaderView
+@implementation SketchPageHeaderView
 
 - (id)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
@@ -102,22 +102,23 @@
     divider.wantsLayer = YES;
     divider.layer.backgroundColor = [[NSColor colorWithCalibratedWhite:0.917 alpha:1.000] CGColor];
     [self addSubview:divider];
-
+    
     self.titleLabel = [NSTextField labelWithString:@"File Name"];
-    self.titleLabel.font = [NSFont systemFontOfSize:12];
+    self.titleLabel.font = [NSFont systemFontOfSize:14];
     self.titleLabel.textColor = [NSColor colorWithCalibratedWhite:0.12 alpha:1.000];
     [self.titleLabel setContentHuggingPriority:NSLayoutPriorityDefaultHigh forOrientation:NSLayoutConstraintOrientationHorizontal];
     [self addSubview:self.titleLabel];
     
     self.subtitleLabel = [NSTextField labelWithString:@"Page Name"];
-    self.subtitleLabel.font = [NSFont systemFontOfSize:12];
+    self.subtitleLabel.font = [NSFont systemFontOfSize:14];
     self.subtitleLabel.textColor = [NSColor colorWithCalibratedWhite:0.50 alpha:1.000];
     [self addSubview:self.subtitleLabel];
     
     // Autolayout
-    [self.titleLabel autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:8];
+    [self.titleLabel autoAlignAxisToSuperviewAxis:ALAxisHorizontal];
+//    [self.titleLabel autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:8];
     [self.titleLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:16];
-//    [self.titleLabel autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:16];
+    //    [self.titleLabel autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:16];
     
     [self.subtitleLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self.titleLabel];
     [self.subtitleLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:self.titleLabel withOffset:4];
@@ -132,12 +133,10 @@
 @end
 
 
-@interface ArtboardGridViewController () <NSTokenFieldDelegate, SketchFileIndexerDelegate>
+@interface SketchArtboardCollectionViewController () <NSTokenFieldDelegate, SketchFileIndexerDelegate>
 
-@property (strong) SketchDiffTool       *sketchDiffTool;
 @property (strong) NSProgressIndicator  *progressIndicator;
 @property (strong) SketchFileController *sketchFileController;
-@property (strong) SketchFileIndexer    *sketchFileManager;
 
 // Controls
 @property (strong) KeywordFilter        *keywordFilter;
@@ -146,19 +145,15 @@
 @end
 
 
-@implementation ArtboardGridViewController
+@implementation SketchArtboardCollectionViewController
 
 - (id)init {
     self = [super init];
     
-    self.mergeTool = nil;
-    self.sketchDiffTool = [[SketchDiffTool alloc] init];
     self.keywordFilter = [[KeywordFilter alloc] init];
     self.sizeFilter = [[SizeFilter alloc] init];
     self.sketchFileController = [[SketchFileController alloc] init];
     self.sketchFileController.filters = @[self.keywordFilter, self.sizeFilter];
-    self.sketchFileManager = [[SketchFileIndexer alloc] init];
-    self.sketchFileManager.delegate = self;
     
     return self;
 }
@@ -170,7 +165,7 @@
     
     self.tokenField = [[NSTokenField alloc] initWithFrame:NSMakeRect(0, 0, 240, 52)];
     self.tokenField.tokenStyle = NSTokenStyleSquared;
-//    self.tokenField.tokenStyle = NSTokenStylePlainSquared;
+    //    self.tokenField.tokenStyle = NSTokenStylePlainSquared;
     self.tokenField.bezelStyle = NSTextFieldRoundedBezel;
     self.tokenField.delegate = self;
     self.tokenField.hidden = hidden;
@@ -184,7 +179,7 @@
     [self.presetNameFilterButton addItemWithTitle:@"iPhone 8"];
     [self.presetNameFilterButton addItemWithTitle:@"iPhone Xs"];
     [self.presetNameFilterButton addItemWithTitle:@"iPhone Xs Max"];
-//    [self.presetNameFilterButton menu] addItem: [NSMenuItem separatorItem]];
+    //    [self.presetNameFilterButton menu] addItem: [NSMenuItem separatorItem]];
     [self.presetNameFilterButton addItemWithTitle:@"Apple Watch"];
     [self.presetNameFilterButton addItemWithTitle:@"Apple Watch 38mm"];
     [self.presetNameFilterButton addItemWithTitle:@"Apple Watch 40mm"];
@@ -201,11 +196,11 @@
     [self.view addSubview:self.previewSizeSlider];
     
     self.scrollView = [[NSScrollView alloc] initWithFrame:NSMakeRect(300, 0, 640, 640)];
-//    self.scrollView.backgroundColor = [NSColor redColor];
+    //    self.scrollView.backgroundColor = [NSColor redColor];
     [self.view addSubview:self.scrollView];
     
     self.layout = [[CollectionViewLeftAlignedLayout alloc] init];
-//    self.layout = [[NSCollectionViewFlowLayout alloc] init];
+    //    self.layout = [[NSCollectionViewFlowLayout alloc] init];
     self.layout.itemSize = NSMakeSize(240, 240);
     self.layout.minimumLineSpacing = 16;
     self.layout.minimumInteritemSpacing = 16;
@@ -213,12 +208,12 @@
     self.layout.sectionInset = NSEdgeInsetsMake(16, 16, 16, 16);
     self.layout.sectionHeadersPinToVisibleBounds = YES;
     
-//    self.layout.itemSize = NSMakeSize(240, 240);
-//    self.layout.minimumLineSpacing = 16;
-//    self.layout.minimumInteritemSpacing = 16;
-//    self.layout.headerReferenceSize = NSMakeSize(320, 44);
-//    self.layout.sectionInset = NSEdgeInsetsMake(16, 16, 16, 16);
-//    self.layout.sectionHeadersPinToVisibleBounds = YES;
+    //    self.layout.itemSize = NSMakeSize(240, 240);
+    //    self.layout.minimumLineSpacing = 16;
+    //    self.layout.minimumInteritemSpacing = 16;
+    //    self.layout.headerReferenceSize = NSMakeSize(320, 44);
+    //    self.layout.sectionInset = NSEdgeInsetsMake(16, 16, 16, 16);
+    //    self.layout.sectionHeadersPinToVisibleBounds = YES;
     
     self.collectionView = [[NSCollectionView alloc] initWithFrame:self.view.bounds];
     self.collectionView.dataSource = self;
@@ -226,8 +221,8 @@
     self.collectionView.collectionViewLayout = self.layout;
     self.collectionView.selectable = YES;
     self.collectionView.allowsMultipleSelection = YES;
-    [self.collectionView registerClass:[ArtboardCollectionViewItem class] forItemWithIdentifier:@"ArtboardCollectionViewItemIdentifier"];
-    [self.collectionView registerClass:[PageHeaderView class] forSupplementaryViewOfKind:NSCollectionElementKindSectionHeader withIdentifier:@"PageHeaderViewIdentifier"];
+    [self.collectionView registerClass:[SketchArtboardCollectionViewItem class] forItemWithIdentifier:@"SketchArtboardCollectionViewItemIdentifier"];
+    [self.collectionView registerClass:[SketchPageHeaderView class] forSupplementaryViewOfKind:NSCollectionElementKindSectionHeader withIdentifier:@"SketchPageHeaderViewIdentifier"];
     self.scrollView.documentView = self.collectionView;
     
     self.progressIndicator = [[NSProgressIndicator alloc] init];
@@ -257,14 +252,12 @@
 }
 
 - (void)startLoading {
-    self.mergeTool = nil;
     [self.collectionView reloadData];
-    [self.sketchFileManager startIndexing];
     
     [self.progressIndicator setFrameOrigin:NSMakePoint(
-       (NSWidth([self.progressIndicator.superview bounds]) - NSWidth([self.progressIndicator frame])) / 2,
-       (NSHeight([self.progressIndicator.superview bounds]) - NSHeight([self.progressIndicator frame])) / 2
-   )];
+        (NSWidth([self.progressIndicator.superview bounds]) - NSWidth([self.progressIndicator frame])) / 2,
+        (NSHeight([self.progressIndicator.superview bounds]) - NSHeight([self.progressIndicator frame])) / 2
+    )];
     
     [self.progressIndicator startAnimation:self];
 }
@@ -277,7 +270,7 @@
     [self.sketchFileController reloadData];
     [self.collectionView reloadData];
     
-    NSLog(@"%lu pages > %i filtered", (unsigned long)self.sketchFileController.pageItems.count, self.sketchFileController.filteredPageItems.count);
+    NSLog(@"%lu pages > %lu filtered", (unsigned long)self.sketchFileController.pageItems.count, (unsigned long)self.sketchFileController.filteredPageItems.count);
 }
 
 - (void)sketchFileIndexer:(SketchFileIndexer *)fileManager didIndexFile:(SketchFile *)file {
@@ -296,18 +289,18 @@
 }
 
 - (NSCollectionViewItem *)collectionView:(NSCollectionView *)collectionView itemForRepresentedObjectAtIndexPath:(NSIndexPath *)indexPath {
-    ArtboardCollectionViewItem *item = [collectionView makeItemWithIdentifier:@"ArtboardCollectionViewItemIdentifier" forIndexPath:indexPath];
+    SketchArtboardCollectionViewItem *item = [collectionView makeItemWithIdentifier:@"SketchArtboardCollectionViewItemIdentifier" forIndexPath:indexPath];
     SketchLayer *layer = [self.sketchFileController layerAtIndexPath:indexPath];
     
     item.artboardImageView.image = layer.previewImage;
     item.presetIconView.image = layer.presetIcon;
     item.titleLabel.stringValue = [NSString stringWithFormat:@"%@", layer.name];
-
+    
     return item;
 }
 
 - (NSView *)collectionView:(NSCollectionView *)collectionView viewForSupplementaryElementOfKind:(NSCollectionViewSupplementaryElementKind)kind atIndexPath:(NSIndexPath *)indexPath {
-    PageHeaderView *headerView = [collectionView makeSupplementaryViewOfKind:NSCollectionElementKindSectionHeader withIdentifier:@"PageHeaderViewIdentifier" forIndexPath:indexPath];
+    SketchPageHeaderView *headerView = [collectionView makeSupplementaryViewOfKind:NSCollectionElementKindSectionHeader withIdentifier:@"SketchPageHeaderViewIdentifier" forIndexPath:indexPath];
     SketchPage *page = [self.sketchFileController pageAtIndex:indexPath.section];
     
     headerView.titleLabel.stringValue = page.sketchFile.fileName;
@@ -371,7 +364,7 @@
 }
 
 - (IBAction)previewSizeDidChange:(id)sender {
-//    NSLog(@"Size: %f", self.previewSizeSlider.floatValue);
+    //    NSLog(@"Size: %f", self.previewSizeSlider.floatValue);
     
     self.layout.itemSize = NSMakeSize(self.previewSizeSlider.floatValue, self.previewSizeSlider.floatValue);
 }

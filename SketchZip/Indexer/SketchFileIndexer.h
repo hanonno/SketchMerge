@@ -10,7 +10,7 @@
 #import "SketchPage.h"
 
 
-@class SketchFileIndexOperation, SketchFileManager;
+@class SketchFileIndexOperation, SketchFileIndexer;
 
 
 @protocol SketchFileIndexOperationDelegate <NSObject>
@@ -37,18 +37,19 @@
 @end
 
 
-@protocol SketchFileManagerDelegate <NSObject>
+@protocol SketchFileIndexerDelegate <NSObject>
 
-- (void)sketchFileManager:(SketchFileManager *)fileManager didIndexFile:(SketchFile *)file;
+- (void)sketchFileIndexer:(SketchFileIndexer *)fileIndexer didIndexFile:(SketchFile *)file;
 
 @end
 
-//#define SketchFileManagerDidIndexFileNotification  @"SketchFileManagerDidIndexFileNotification"
 
+@interface SketchFileIndexer : NSObject
 
-@interface SketchFileManager : NSObject
+@property (strong) NSString                         *directory;
+@property (assign) id <SketchFileIndexerDelegate>   delegate;
 
-@property (assign) id <SketchFileManagerDelegate> delegate;
+- (id)initWithDirectory:(NSString *)directory;
 
 - (void)startIndexing;
 - (void)pauseIndexing;

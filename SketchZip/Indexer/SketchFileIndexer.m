@@ -6,7 +6,7 @@
 //  Copyright © 2018 Motion Pixel. All rights reserved.
 //
 
-#import "SketchFileManager.h"
+#import "SketchFileIndexer.h"
 
 
 @implementation SketchFileIndexOperation
@@ -39,38 +39,35 @@
     _isExecuting = YES;
     [self didChangeValueForKey:@"isExecuting"];
 
-//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        self.sketchFile = [[SketchFile alloc] initWithFileURL:[NSURL fileURLWithPath:self.path]];
-    
-        [self.sketchFile generatePreviews];
-    
-        self.endTime = CACurrentMediaTime();
-        
-//        dispatch_async(dispatch_get_main_queue(), ^{
-            [self willChangeValueForKey:@"isExecuting"];
-            [self willChangeValueForKey:@"isFinished"];
-            
-            self->_isExecuting = NO;
-            self->_isFinished = YES;
-            
-            [self didChangeValueForKey:@"isExecuting"];
-            [self didChangeValueForKey:@"isFinished"];
-//        });
-    
-        if(self.delegate && [self.delegate respondsToSelector:@selector(sketchFileIndexOperationDidFinish:)]) {
-//            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.delegate sketchFileIndexOperationDidFinish:self];
-//            });
-        }
-//    });
+    self.sketchFile = [[SketchFile alloc] initWithFileURL:[NSURL fileURLWithPath:self.path]];
+    [self.sketchFile generatePreviews];
+
+    self.endTime = CACurrentMediaTime();
+
+    [self willChangeValueForKey:@"isExecuting"];
+    [self willChangeValueForKey:@"isFinished"];
+
+    self->_isExecuting = NO;
+    self->_isFinished = YES;
+
+    [self didChangeValueForKey:@"isExecuting"];
+    [self didChangeValueForKey:@"isFinished"];
+
+    if(self.delegate && [self.delegate respondsToSelector:@selector(sketchFileIndexOperationDidFinish:)]) {
+        [self.delegate sketchFileIndexOperationDidFinish:self];
+    }
 }
 
 @end
 
 
-@interface SketchFileManager () <SketchFileIndexOperationDelegate>
+@interface SketchFileIndexer () <SketchFileIndexOperationDelegate>
 
 @property (nonatomic, strong) NSMetadataQuery   *query;
+@property (nonatomic, strong) NSPredicate       *searchPredicate;
+@property (nonatomic, strong) NSArray           *searchScopes;
+@property (nonatomic, strong) NSArray           *sortDescriptors;
+
 @property (nonatomic, strong) NSOperationQueue  *indexQueue;
 
 @property (assign) CFTimeInterval   startTime;
@@ -79,7 +76,7 @@
 @end
 
 
-@implementation SketchFileManager
+@implementation SketchFileIndexer
 
 @synthesize delegate = _delegate;
 
@@ -95,22 +92,31 @@
 
 //    NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"kMDItemContentTypeTree == 'public.image'"];
 //    NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"kMDItemContentTypeTree == 'com.bohemiancoding.sketch.drawing.single'"];
-    NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"kMDItemContentTypeTree == 'com.bohemiancoding.sketch.drawing.single'"];
-//    NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"kMDItemDisplayName == 'UW-Tutorial'"];
-    [_query setPredicate:searchPredicate];
+    _searchPredicate = [NSPredicate predicateWithFormat:@"kMDItemContentTypeTree == 'com.bohemiancoding.sketch.drawing.single'"];
     
 //    NSArray *searchScopes = @[NSMetadataQueryUserHomeScope];
-    NSArray *searchScopes = @[[@"~/Design/Hanno" stringByExpandingTildeInPath]];
-    [_query setSearchScopes:searchScopes];
-
+    _searchScopes = @[[@"~/Design/Hanno" stringByExpandingTildeInPath]];
+    
 //    NSSortDescriptor *nameSortDescriptor = [[NSSortDescriptor alloc] initWithKey:(NSString *)kMDItemDisplayName ascending:YES];
     NSSortDescriptor *nameSortDescriptor = [[NSSortDescriptor alloc] initWithKey:(NSString *)kMDItemLastUsedDate ascending:NO];
-    [_query setSortDescriptors:@[nameSortDescriptor]];
+    self.sortDescriptors = @[nameSortDescriptor];
     
     return self;
 }
 
+- (id)initWithDirectory:(NSString *)directory {
+    self = [self init];
+    
+    _directory = directory;
+    _searchScopes = @[directory];
+
+    return self;
+}
+
 - (void)startIndexing {
+    [self.query setPredicate:self.searchPredicate];
+    [self.query setSearchScopes:self.searchScopes];
+    [self.query setSortDescriptors:self.sortDescriptors];
     [self.query startQuery];
 }
 
@@ -128,8 +134,8 @@
     self.startTime = CACurrentMediaTime();
 
     NSUInteger i=0;
-//    for (i=0; i < self.query.resultCount; i++) {
-    for (i=0; i < 5; i++) {
+    for (i=0; i < self.query.resultCount; i++) {
+//    for (i=0; i < 5; i++) {
         NSMetadataItem *result = [self.query resultAtIndex:i];
         NSString *filePath = [result valueForAttribute:@"kMDItemPath"];
         
@@ -170,7 +176,7 @@
     }
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.delegate sketchFileManager:self didIndexFile:fileIndexOperation.sketchFile];
+        [self.delegate sketchFileIndexer:self didIndexFile:fileIndexOperation.sketchFile];
     });
 }
 

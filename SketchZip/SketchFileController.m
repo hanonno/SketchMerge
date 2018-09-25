@@ -9,12 +9,10 @@
 #import "SketchFileController.h"
 
 @implementation PageItem
-
 @end
 
 
 @implementation LayerItem
-
 @end
 
 
