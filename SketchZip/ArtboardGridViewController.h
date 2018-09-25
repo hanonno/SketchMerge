@@ -10,7 +10,6 @@
 #import "SketchPage.h"
 #import "SketchDiffTool.h"
 #import "SketchOperationTypeIndicator.h"
-
 #import "TDCollectionViewListLayout.h"
 
 

@@ -92,30 +92,20 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(queryDidUpdateResults:) name:NSMetadataQueryDidUpdateNotification object:_query];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(queryDidGatherInitialResults:) name:NSMetadataQueryDidFinishGatheringNotification object:_query];
-    
+
 //    NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"kMDItemContentTypeTree == 'public.image'"];
 //    NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"kMDItemContentTypeTree == 'com.bohemiancoding.sketch.drawing.single'"];
     NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"kMDItemContentTypeTree == 'com.bohemiancoding.sketch.drawing.single'"];
 //    NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"kMDItemDisplayName == 'UW-Tutorial'"];
     [_query setPredicate:searchPredicate];
     
-    NSArray *searchScopes = @[NSMetadataQueryUserHomeScope];
+//    NSArray *searchScopes = @[NSMetadataQueryUserHomeScope];
+    NSArray *searchScopes = @[[@"~/Design/Hanno" stringByExpandingTildeInPath]];
     [_query setSearchScopes:searchScopes];
 
 //    NSSortDescriptor *nameSortDescriptor = [[NSSortDescriptor alloc] initWithKey:(NSString *)kMDItemDisplayName ascending:YES];
     NSSortDescriptor *nameSortDescriptor = [[NSSortDescriptor alloc] initWithKey:(NSString *)kMDItemLastUsedDate ascending:NO];
     [_query setSortDescriptors:@[nameSortDescriptor]];
-
-//    // Set the search scope. In this case it will search the User's home directory
-//    // and the iCloud documents area
-//    NSArray *searchScopes;
-//    searchScopes=[NSArray arrayWithObjects:NSMetadataQueryUserHomeScope,
-//                  NSMetadataQueryUbiquitousDocumentsScope,nil];
-//    [metadataSearch setSearchScopes:searchScopes];
-//
-//    // Begin the asynchronous query
-//    [metadataSearch startQuery];
-
     
     return self;
 }

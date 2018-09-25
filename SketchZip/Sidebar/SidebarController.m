@@ -166,7 +166,7 @@
     SidebarItem *item = [collectionView makeItemWithIdentifier:@"SidebarItem" forIndexPath:indexPath];
     
     if(indexPath.item == 0) {
-        item.titleLabel.stringValue = @"Everything";
+        item.titleLabel.stringValue = @"All artboards";
         item.iconView.image = [NSImage imageNamed:@"Everything"];
     }
     if(indexPath.item == 1) {
