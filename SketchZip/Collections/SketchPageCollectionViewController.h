@@ -7,8 +7,9 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <PureLayout/PureLayout.h>
 
-#import "SketchFileIndexer.h"
+#import "SketchPageCollection.h"
 
 
 @interface SketchArtboardCollectionViewItem : NSCollectionViewItem
@@ -28,7 +29,7 @@
 @end
 
 
-@interface SketchArtboardCollectionViewController : NSViewController <NSCollectionViewDataSource, NSCollectionViewDelegate, SketchFileIndexerDelegate>
+@interface SketchPageCollectionViewController : NSViewController <NSCollectionViewDataSource, NSCollectionViewDelegate>
 
 @property (strong) NSTokenField                 *tokenField;
 @property (strong) NSPopUpButton                *presetNameFilterButton;
@@ -37,6 +38,8 @@
 @property (strong) NSScrollView                 *scrollView;
 @property (strong) NSCollectionView             *collectionView;
 @property (strong) NSCollectionViewFlowLayout   *layout;
+
+- (id)initWithPageCollection:(SketchPageCollection *)pageCollection;
 
 - (void)startLoading;
 - (void)finishLoading;

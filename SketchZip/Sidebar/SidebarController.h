@@ -12,6 +12,9 @@
 #import "SketchPage.h"
 
 
+@class SidebarController;
+
+
 @interface NSView (TDView)
 
 @property (strong) NSColor  *backgroundColor;
@@ -29,11 +32,20 @@
 @end
 
 
+@protocol SidebarControllerDelegate <NSObject>
+
+- (void)sidebarController:(SidebarController *)sidebarController didSelectItem:(SidebarItem *)sidebarItem atIndexPath:(NSIndexPath *)indexPath;
+
+@end
+
+
 @interface SidebarController : NSViewController
 
-@property (strong) NSScrollView                 *scrollView;
-@property (strong) NSCollectionView             *collectionView;
-@property (strong) TDCollectionViewListLayout   *listLayout;
+@property (strong) NSScrollView                         *scrollView;
+@property (strong) NSCollectionView                     *collectionView;
+@property (strong) TDCollectionViewListLayout           *listLayout;
+
+@property (assign) id <SidebarControllerDelegate>       delegate;
 
 - (void)addSketchFile:(SketchFile *)sketchFile;
 - (SketchFile *)sketchFileAtIndex:(NSInteger)index;

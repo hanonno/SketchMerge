@@ -193,7 +193,7 @@ static const BOOL kLoggingEnabled = NO;
     self = [super init];
     
     _JSON = JSON;
-    _sketchFile = sketchFile;
+    _file = sketchFile;
     
     NSMutableDictionary *layers = [[NSMutableDictionary alloc] init];
     NSMutableDictionary *symbolsById = [[NSMutableDictionary alloc] init];

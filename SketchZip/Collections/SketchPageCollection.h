@@ -57,15 +57,25 @@
 @end
 
 
+@interface PathFilter : Filter
+
+@property (strong) NSString *path;
+
+@end
+
+
 @interface SketchPageCollection : NSObject
 
 + (NSArray *)pagesFromOperations:(NSArray *)pageOperations;
 
-@property (strong) NSArray  *filters;
+@property (strong) NSMutableArray   *filters;
 
 - (void)addPages:(NSArray *)pages;
 
 // Filtering
+- (void)addFilter:(Filter *)filter;
+- (void)removeFilter:(Filter *)filter;
+
 - (void)reloadData;
 
 // Datasource

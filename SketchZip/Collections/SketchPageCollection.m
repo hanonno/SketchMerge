@@ -102,6 +102,27 @@
 @end
 
 
+@implementation PathFilter
+
+- (BOOL)matchLayer:(SketchLayer *)layer {
+    if(!self.enabled) {
+        return YES;
+    }
+
+    if(!self.path) {
+        return YES;
+    }
+    
+    if([layer.page.file.fileURL.path hasPrefix:self.path]) {
+        return YES;
+    }
+
+    return NO;
+}
+
+@end
+
+
 @interface SketchPageCollection ()
 
 @property (strong) NSArray  *pageItems;
@@ -144,6 +165,14 @@
     return pageItems;
 }
 
+- (id)init {
+    self = [super init];
+    
+    _filters = [[NSMutableArray alloc] init];
+    
+    return self;
+}
+
 - (void)setPageItems:(NSArray *)pages {
     _pageItems = pages;
     [self reloadData];
@@ -182,6 +211,17 @@
     [pageItems addObjectsFromArray:self.pageItems];
     self.pageItems = pageItems;    
 }
+
+- (void)addFilter:(Filter *)filter {
+    [self.filters addObject:filter];
+    [self reloadData];
+}
+
+- (void)removeFilter:(Filter *)filter {
+    [self.filters removeObject:filter];
+    [self reloadData];
+}
+
 
 - (void)reloadData {
     NSMutableArray *filteredPageItems = [[NSMutableArray alloc] init];

@@ -201,4 +201,12 @@
     return item;
 }
 
+- (void)collectionView:(NSCollectionView *)collectionView didSelectItemsAtIndexPaths:(NSSet<NSIndexPath *> *)indexPaths {
+    for (NSIndexPath *indexPath in indexPaths) {
+        if([self.delegate respondsToSelector:@selector(sidebarController:didSelectItem:atIndexPath:)]) {
+            [self.delegate sidebarController:self didSelectItem:nil atIndexPath:indexPath];
+        }
+    }
+}
+
 @end

@@ -66,7 +66,7 @@
 @property (nonatomic, strong) NSMutableDictionary   *layers;
 @property (nonatomic, strong) NSMutableDictionary   *symbolsById;
 
-@property (nonatomic, strong) SketchFile            *sketchFile;
+@property (nonatomic, strong) SketchFile            *file;
 
 - (id)initWithJSON:(NSDictionary *)JSON sketchFile:(SketchFile *)sketchFile;
 

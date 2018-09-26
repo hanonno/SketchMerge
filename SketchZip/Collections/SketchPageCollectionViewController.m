@@ -6,13 +6,10 @@
 //  Copyright © 2018 Motion Pixel. All rights reserved.
 //
 
-#import "SketchArtboardCollectionViewController.h"
+#import "SketchPageCollectionViewController.h"
 
 #import "SketchPageCollection.h"
-#import "SketchFileIndexer.h"
 #import "CollectionViewLeftAlignedLayout.h"
-
-#import <PureLayout/PureLayout.h>
 
 
 @implementation SketchArtboardCollectionViewItem
@@ -133,7 +130,7 @@
 @end
 
 
-@interface SketchArtboardCollectionViewController () <NSTokenFieldDelegate, SketchFileIndexerDelegate>
+@interface SketchPageCollectionViewController () <NSTokenFieldDelegate>
 
 @property (strong) NSProgressIndicator  *progressIndicator;
 @property (strong) SketchPageCollection *sketchPageCollection;
@@ -145,15 +142,19 @@
 @end
 
 
-@implementation SketchArtboardCollectionViewController
+@implementation SketchPageCollectionViewController
 
-- (id)init {
+- (id)initWithPageCollection:(SketchPageCollection *)pageCollection {
     self = [super init];
     
     self.keywordFilter = [[KeywordFilter alloc] init];
     self.sizeFilter = [[SizeFilter alloc] init];
-    self.sketchPageCollection = [[SketchPageCollection alloc] init];
-    self.sketchPageCollection.filters = @[self.keywordFilter, self.sizeFilter];
+
+    self.sketchPageCollection = pageCollection;
+//    self.sketchPageCollection.filters =
+    
+    [self.sketchPageCollection addFilter:self.keywordFilter];
+    [self.sketchPageCollection addFilter:self.sizeFilter];
     
     return self;
 }
@@ -271,11 +272,6 @@
     [self.collectionView reloadData];
 }
 
-- (void)sketchFileIndexer:(SketchFileIndexer *)fileIndexer didIndexFile:(SketchFile *)file {
-    [self.sketchPageCollection addPages:file.pages.allValues];
-    [self.collectionView reloadData];
-}
-
 #pragma mark Collection View
 
 - (NSInteger)numberOfSectionsInCollectionView:(NSCollectionView *)collectionView {
@@ -301,7 +297,7 @@
     SketchPageHeaderView *headerView = [collectionView makeSupplementaryViewOfKind:NSCollectionElementKindSectionHeader withIdentifier:@"SketchPageHeaderViewIdentifier" forIndexPath:indexPath];
     SketchPage *page = [self.sketchPageCollection pageAtIndex:indexPath.section];
     
-    headerView.titleLabel.stringValue = page.sketchFile.fileName;
+    headerView.titleLabel.stringValue = page.file.fileName;
     headerView.subtitleLabel.stringValue = [NSString stringWithFormat:@"— %@", page.name];
     
     return headerView;

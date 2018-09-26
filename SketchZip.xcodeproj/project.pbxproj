@@ -54,7 +54,7 @@
 		7D209F0421590B3300A461A5 /* Everything.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D209F0221590B3200A461A5 /* Everything.png */; };
 		7D209F0521590B3300A461A5 /* Everything@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D209F0321590B3200A461A5 /* Everything@2x.png */; };
 		7D209F0E2159195D00A461A5 /* TDCollectionViewListLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D209F0C2159195C00A461A5 /* TDCollectionViewListLayout.m */; };
-		7D611B38215ACDE100C86AF1 /* SketchArtboardCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D611B37215ACDE100C86AF1 /* SketchArtboardCollectionViewController.m */; };
+		7D611B38215ACDE100C86AF1 /* SketchPageCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D611B37215ACDE100C86AF1 /* SketchPageCollectionViewController.m */; };
 		7D611B3B215ACFD300C86AF1 /* SketchFileCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D611B3A215ACFD300C86AF1 /* SketchFileCollectionViewController.m */; };
 		7D611B42215AE36400C86AF1 /* Folder.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D611B40215AE36300C86AF1 /* Folder.png */; };
 		7D611B43215AE36400C86AF1 /* Folder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D611B41215AE36400C86AF1 /* Folder@2x.png */; };
@@ -105,13 +105,13 @@
 		7D8CBE5F2153DD42007C884B /* iPad Pro@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D8CBE472153DD42007C884B /* iPad Pro@2x.png */; };
 		7D8CBE602153DD42007C884B /* iPhone Xs.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D8CBE482153DD42007C884B /* iPhone Xs.png */; };
 		7D8CBE672153EF82007C884B /* SketchPageCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D8CBE662153EF82007C884B /* SketchPageCollection.m */; };
-		7D8CBE682153EF82007C884B /* SketchPageCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D8CBE662153EF82007C884B /* SketchPageCollection.m */; };
 		7DA184F82138271C00EA1FF8 /* rectangle.json in Resources */ = {isa = PBXBuildFile; fileRef = 7DA184F72138271C00EA1FF8 /* rectangle.json */; };
 		7DA184F92138271C00EA1FF8 /* rectangle.json in Resources */ = {isa = PBXBuildFile; fileRef = 7DA184F72138271C00EA1FF8 /* rectangle.json */; };
 		7DA184FB2138276500EA1FF8 /* oval.json in Resources */ = {isa = PBXBuildFile; fileRef = 7DA184FA2138276500EA1FF8 /* oval.json */; };
 		7DA184FC2138276500EA1FF8 /* oval.json in Resources */ = {isa = PBXBuildFile; fileRef = 7DA184FA2138276500EA1FF8 /* oval.json */; };
 		7DA184FE213827FA00EA1FF8 /* text.json in Resources */ = {isa = PBXBuildFile; fileRef = 7DA184FD213827FA00EA1FF8 /* text.json */; };
 		7DA184FF213827FA00EA1FF8 /* text.json in Resources */ = {isa = PBXBuildFile; fileRef = 7DA184FD213827FA00EA1FF8 /* text.json */; };
+		7DCE03EC215C0770000ABC8A /* TDTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DCE03EB215C0770000ABC8A /* TDTheme.m */; };
 		7DE5F07E2157C85900BD2825 /* SketchFileIndexer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE5F07D2157C85900BD2825 /* SketchFileIndexer.m */; };
 		7DE5F07F2157C85900BD2825 /* SketchFileIndexer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE5F07D2157C85900BD2825 /* SketchFileIndexer.m */; };
 		7DE5F0822157F76F00BD2825 /* Artboard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DE5F0802157F76F00BD2825 /* Artboard@2x.png */; };
@@ -237,8 +237,8 @@
 		7D209F0321590B3200A461A5 /* Everything@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Everything@2x.png"; sourceTree = "<group>"; };
 		7D209F0C2159195C00A461A5 /* TDCollectionViewListLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDCollectionViewListLayout.m; sourceTree = "<group>"; };
 		7D209F0D2159195C00A461A5 /* TDCollectionViewListLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDCollectionViewListLayout.h; sourceTree = "<group>"; };
-		7D611B36215ACDE100C86AF1 /* SketchArtboardCollectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchArtboardCollectionViewController.h; sourceTree = "<group>"; };
-		7D611B37215ACDE100C86AF1 /* SketchArtboardCollectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SketchArtboardCollectionViewController.m; sourceTree = "<group>"; };
+		7D611B36215ACDE100C86AF1 /* SketchPageCollectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchPageCollectionViewController.h; sourceTree = "<group>"; };
+		7D611B37215ACDE100C86AF1 /* SketchPageCollectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SketchPageCollectionViewController.m; sourceTree = "<group>"; };
 		7D611B39215ACFD300C86AF1 /* SketchFileCollectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchFileCollectionViewController.h; sourceTree = "<group>"; };
 		7D611B3A215ACFD300C86AF1 /* SketchFileCollectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SketchFileCollectionViewController.m; sourceTree = "<group>"; };
 		7D611B40215AE36300C86AF1 /* Folder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Folder.png; sourceTree = "<group>"; };
@@ -291,6 +291,8 @@
 		7DA184F72138271C00EA1FF8 /* rectangle.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = rectangle.json; sourceTree = "<group>"; };
 		7DA184FA2138276500EA1FF8 /* oval.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = oval.json; sourceTree = "<group>"; };
 		7DA184FD213827FA00EA1FF8 /* text.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = text.json; sourceTree = "<group>"; };
+		7DCE03EA215C0770000ABC8A /* TDTheme.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TDTheme.h; sourceTree = "<group>"; };
+		7DCE03EB215C0770000ABC8A /* TDTheme.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TDTheme.m; sourceTree = "<group>"; };
 		7DE5F07C2157C85900BD2825 /* SketchFileIndexer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchFileIndexer.h; sourceTree = "<group>"; };
 		7DE5F07D2157C85900BD2825 /* SketchFileIndexer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SketchFileIndexer.m; sourceTree = "<group>"; };
 		7DE5F0802157F76F00BD2825 /* Artboard@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Artboard@2x.png"; sourceTree = "<group>"; };
@@ -389,8 +391,7 @@
 				7D828F952122DBCB00ADBD7E /* SketchOperationTypeIndicator.m */,
 				5548B88F20EF72C000D3A081 /* NSImage+PNGAdditions.h */,
 				5548B88E20EF72C000D3A081 /* NSImage+PNGAdditions.m */,
-				7D8CBE652153EF82007C884B /* SketchPageCollection.h */,
-				7D8CBE662153EF82007C884B /* SketchPageCollection.m */,
+				7DCE03ED215C0778000ABC8A /* Toy Division */,
 				7D611B3C215ADBBA00C86AF1 /* Indexer */,
 				7D611B35215ACD9300C86AF1 /* Collections */,
 				7D209EF92158FD7700A461A5 /* Sidebar */,
@@ -515,8 +516,10 @@
 			children = (
 				7D611B39215ACFD300C86AF1 /* SketchFileCollectionViewController.h */,
 				7D611B3A215ACFD300C86AF1 /* SketchFileCollectionViewController.m */,
-				7D611B36215ACDE100C86AF1 /* SketchArtboardCollectionViewController.h */,
-				7D611B37215ACDE100C86AF1 /* SketchArtboardCollectionViewController.m */,
+				7D8CBE652153EF82007C884B /* SketchPageCollection.h */,
+				7D8CBE662153EF82007C884B /* SketchPageCollection.m */,
+				7D611B36215ACDE100C86AF1 /* SketchPageCollectionViewController.h */,
+				7D611B37215ACDE100C86AF1 /* SketchPageCollectionViewController.m */,
 			);
 			path = Collections;
 			sourceTree = "<group>";
@@ -608,6 +611,15 @@
 				7D8CBE482153DD42007C884B /* iPhone Xs.png */,
 			);
 			path = Icons;
+			sourceTree = "<group>";
+		};
+		7DCE03ED215C0778000ABC8A /* Toy Division */ = {
+			isa = PBXGroup;
+			children = (
+				7DCE03EA215C0770000ABC8A /* TDTheme.h */,
+				7DCE03EB215C0770000ABC8A /* TDTheme.m */,
+			);
+			path = "Toy Division";
 			sourceTree = "<group>";
 		};
 		7DEA34302135A7A00062075A /* Conflict */ = {
@@ -867,6 +879,7 @@
 				552F295120EE191500A845B2 /* SketchDiffTool.m in Sources */,
 				7D8CBE672153EF82007C884B /* SketchPageCollection.m in Sources */,
 				55BE525820ADAD410059EC77 /* crypt.c in Sources */,
+				7DCE03EC215C0770000ABC8A /* TDTheme.m in Sources */,
 				55BE525C20ADAD410059EC77 /* ioapi_buf.c in Sources */,
 				55BE526620ADAD410059EC77 /* pwd2key.c in Sources */,
 				55BE526820ADAD410059EC77 /* SSZipArchive.m in Sources */,
@@ -878,7 +891,7 @@
 				55BE525D20ADAD410059EC77 /* ioapi_mem.c in Sources */,
 				552F296420EE59AF00A845B2 /* NSDictionary+CoreSync.m in Sources */,
 				7D7CCFD221133DD50061EBB0 /* SketchPage.m in Sources */,
-				7D611B38215ACDE100C86AF1 /* SketchArtboardCollectionViewController.m in Sources */,
+				7D611B38215ACDE100C86AF1 /* SketchPageCollectionViewController.m in Sources */,
 				552F296120EE59AF00A845B2 /* CoreSyncTransaction.m in Sources */,
 				7D209F0E2159195D00A461A5 /* TDCollectionViewListLayout.m in Sources */,
 				7D209EF82158FD6F00A461A5 /* SidebarController.m in Sources */,
@@ -906,7 +919,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				55BE521420ADABFD0059EC77 /* SketchZipTests.m in Sources */,
-				7D8CBE682153EF82007C884B /* SketchPageCollection.m in Sources */,
 				7DE5F07F2157C85900BD2825 /* SketchFileIndexer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

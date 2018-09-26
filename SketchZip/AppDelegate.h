@@ -8,9 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface AppDelegate : NSObject <NSApplicationDelegate>
 
-- (IBAction)pickRootFile:(id)sender;
-- (IBAction)pickChangedFile:(id)sender;
+@interface AppDelegate : NSObject <NSApplicationDelegate>
 
 @end

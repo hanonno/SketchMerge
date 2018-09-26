@@ -11,19 +11,22 @@
 
 
 #import "SketchFileIndexer.h"
+#import "SketchPageCollection.h"
+
 #import "SidebarController.h"
-#import "SketchArtboardCollectionViewController.h"
+#import "SketchPageCollectionViewController.h"
 
 
-@interface SketchFileCollectionViewController : NSViewController <SketchFileIndexerDelegate>
+@interface SketchFileCollectionViewController : NSViewController <SketchFileIndexerDelegate, SidebarControllerDelegate>
 
 @property (strong) NSWindow                                 *window;
 @property (strong) NSWindowController                       *windowController;
 
 @property (strong) SidebarController                        *sidebarController;
-@property (strong) SketchArtboardCollectionViewController   *artboardCollectionViewController;
+@property (strong) SketchPageCollectionViewController       *pageCollectionViewController;
 
-@property (strong) SketchFileIndexer    *indexer;
+@property (strong) SketchFileIndexer                        *indexer;
+@property (strong) SketchPageCollection                     *pageCollection;
 
 - (void)showWindow:(id)sender;
 

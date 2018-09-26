@@ -236,7 +236,7 @@ static const BOOL kLoggingEnabled = YES;
     NSMutableDictionary *filePaths = [[NSMutableDictionary alloc] init];
     
     for (SKLayerOperation *operation in operations) {
-        filePath = operation.layer.page.sketchFile.fileURL.path;
+        filePath = operation.layer.page.file.fileURL.path;
         
         operationsPerFilePath = [filePaths objectForKey:filePath];
         

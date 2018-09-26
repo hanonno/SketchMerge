@@ -20,7 +20,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SketchZip/SketchDiffTool.m"
-            timestampString = "559396283.744681"
+            timestampString = "559682411.072111"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "622"
@@ -36,7 +36,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SketchZip/SketchDiffTool.m"
-            timestampString = "559396283.7449991"
+            timestampString = "559682411.072162"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "292"
@@ -75,38 +75,6 @@
             endingLineNumber = "147"
             landmarkName = "-addPagesFromFile:"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[SketchFileController addPagesFromFile:]"
-                  moduleName = "SketchZip"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/hanonno/Code/SketchZip/SketchZip/SketchFileController.m"
-                  timestampString = "559635790.231089"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "148"
-                  endingLineNumber = "148"
-                  offsetFromSymbolStart = "132">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[SketchFileController addPagesFromFile:]"
-                  moduleName = "SketchZip"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/hanonno/Code/SketchZip/SketchZip/SketchFileController.m"
-                  timestampString = "559635790.23273"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "148"
-                  endingLineNumber = "148"
-                  offsetFromSymbolStart = "140">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -138,6 +106,22 @@
             startingLineNumber = "338"
             endingLineNumber = "338"
             landmarkName = "-controlTextDidChange:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SketchZip/Collections/SketchFileCollectionViewController.m"
+            timestampString = "559682411.0722671"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "75"
+            endingLineNumber = "75"
+            landmarkName = "-sidebarController:didSelectItem:atIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
