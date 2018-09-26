@@ -8,7 +8,7 @@
 
 #import "SketchArtboardCollectionViewController.h"
 
-#import "SketchFileController.h"
+#import "SketchPageCollection.h"
 #import "SketchFileIndexer.h"
 #import "CollectionViewLeftAlignedLayout.h"
 
@@ -136,7 +136,7 @@
 @interface SketchArtboardCollectionViewController () <NSTokenFieldDelegate, SketchFileIndexerDelegate>
 
 @property (strong) NSProgressIndicator  *progressIndicator;
-@property (strong) SketchFileController *sketchFileController;
+@property (strong) SketchPageCollection *sketchPageCollection;
 
 // Controls
 @property (strong) KeywordFilter        *keywordFilter;
@@ -152,8 +152,8 @@
     
     self.keywordFilter = [[KeywordFilter alloc] init];
     self.sizeFilter = [[SizeFilter alloc] init];
-    self.sketchFileController = [[SketchFileController alloc] init];
-    self.sketchFileController.filters = @[self.keywordFilter, self.sizeFilter];
+    self.sketchPageCollection = [[SketchPageCollection alloc] init];
+    self.sketchPageCollection.filters = @[self.keywordFilter, self.sizeFilter];
     
     return self;
 }
@@ -161,7 +161,7 @@
 - (void)loadView {
     self.view = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, 640, 640)];
     
-    BOOL hidden = YES;
+    BOOL hidden = NO;
     
     self.tokenField = [[NSTokenField alloc] initWithFrame:NSMakeRect(0, 0, 240, 52)];
     self.tokenField.tokenStyle = NSTokenStyleSquared;
@@ -267,30 +267,28 @@
 }
 
 - (void)reloadData {
-    [self.sketchFileController reloadData];
+    [self.sketchPageCollection reloadData];
     [self.collectionView reloadData];
-    
-    NSLog(@"%lu pages > %lu filtered", (unsigned long)self.sketchFileController.pageItems.count, (unsigned long)self.sketchFileController.filteredPageItems.count);
 }
 
-- (void)sketchFileIndexer:(SketchFileIndexer *)fileManager didIndexFile:(SketchFile *)file {
-    [self.sketchFileController addPagesFromFile:file];
+- (void)sketchFileIndexer:(SketchFileIndexer *)fileIndexer didIndexFile:(SketchFile *)file {
+    [self.sketchPageCollection addPages:file.pages.allValues];
     [self.collectionView reloadData];
 }
 
 #pragma mark Collection View
 
 - (NSInteger)numberOfSectionsInCollectionView:(NSCollectionView *)collectionView {
-    return self.sketchFileController.numberOfPages;
+    return self.sketchPageCollection.numberOfPages;
 }
 
 - (NSInteger)collectionView:(NSCollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return [self.sketchFileController numberOfLayersInPageAtIndex:section];
+    return [self.sketchPageCollection numberOfLayersInPageAtIndex:section];
 }
 
 - (NSCollectionViewItem *)collectionView:(NSCollectionView *)collectionView itemForRepresentedObjectAtIndexPath:(NSIndexPath *)indexPath {
     SketchArtboardCollectionViewItem *item = [collectionView makeItemWithIdentifier:@"SketchArtboardCollectionViewItemIdentifier" forIndexPath:indexPath];
-    SketchLayer *layer = [self.sketchFileController layerAtIndexPath:indexPath];
+    SketchLayer *layer = [self.sketchPageCollection layerAtIndexPath:indexPath];
     
     item.artboardImageView.image = layer.previewImage;
     item.presetIconView.image = layer.presetIcon;
@@ -301,7 +299,7 @@
 
 - (NSView *)collectionView:(NSCollectionView *)collectionView viewForSupplementaryElementOfKind:(NSCollectionViewSupplementaryElementKind)kind atIndexPath:(NSIndexPath *)indexPath {
     SketchPageHeaderView *headerView = [collectionView makeSupplementaryViewOfKind:NSCollectionElementKindSectionHeader withIdentifier:@"SketchPageHeaderViewIdentifier" forIndexPath:indexPath];
-    SketchPage *page = [self.sketchFileController pageAtIndex:indexPath.section];
+    SketchPage *page = [self.sketchPageCollection pageAtIndex:indexPath.section];
     
     headerView.titleLabel.stringValue = page.sketchFile.fileName;
     headerView.subtitleLabel.stringValue = [NSString stringWithFormat:@"— %@", page.name];
@@ -310,7 +308,7 @@
 }
 
 - (NSSize)collectionView:(NSCollectionView *)collectionView layout:(NSCollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
-    if([self.sketchFileController numberOfLayersInPageAtIndex:section] == 0) {
+    if([self.sketchPageCollection numberOfLayersInPageAtIndex:section] == 0) {
         return NSZeroSize;
     }
     

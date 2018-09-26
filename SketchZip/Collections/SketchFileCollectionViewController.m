@@ -6,10 +6,10 @@
 //  Copyright © 2018 Motion Pixel. All rights reserved.
 //
 
-#import "SketchFileCollectionController.h"
+#import "SketchFileCollectionViewController.h"
 
 
-@implementation SketchFileCollectionController
+@implementation SketchFileCollectionViewController
 
 - (id)initWithDirectory:(NSString *)directory {
     self = [super init];

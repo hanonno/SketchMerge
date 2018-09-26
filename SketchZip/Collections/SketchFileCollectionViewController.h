@@ -15,7 +15,7 @@
 #import "SketchArtboardCollectionViewController.h"
 
 
-@interface SketchFileCollectionController : NSViewController <SketchFileIndexerDelegate>
+@interface SketchFileCollectionViewController : NSViewController <SketchFileIndexerDelegate>
 
 @property (strong) NSWindow                                 *window;
 @property (strong) NSWindowController                       *windowController;

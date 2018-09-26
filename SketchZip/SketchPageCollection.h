@@ -57,16 +57,13 @@
 @end
 
 
-@interface SketchFileController : NSObject
+@interface SketchPageCollection : NSObject
 
 + (NSArray *)pagesFromOperations:(NSArray *)pageOperations;
 
 @property (strong) NSArray  *filters;
 
-@property (strong) NSArray  *pageItems;
-@property (strong) NSArray  *filteredPageItems;
-
-- (void)addPagesFromFile:(SketchFile *)sketchFile;
+- (void)addPages:(NSArray *)pages;
 
 // Filtering
 - (void)reloadData;
@@ -75,10 +72,7 @@
 - (NSInteger)numberOfPages;
 - (NSInteger)numberOfLayersInPageAtIndex:(NSInteger)pageIndex;
 
-- (PageItem *)pageItemAtIndex:(NSInteger)index;
 - (SketchPage *)pageAtIndex:(NSInteger)index;
-
-- (LayerItem *)layerItemAtIndexPath:(NSIndexPath *)indexPath;
 - (SketchLayer *)layerAtIndexPath:(NSIndexPath *)indexPath;
 
 @end

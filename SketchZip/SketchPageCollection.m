@@ -6,7 +6,7 @@
 //  Copyright © 2018 Motion Pixel. All rights reserved.
 //
 
-#import "SketchFileController.h"
+#import "SketchPageCollection.h"
 
 @implementation PageItem
 @end
@@ -102,7 +102,18 @@
 @end
 
 
-@implementation SketchFileController
+@interface SketchPageCollection ()
+
+@property (strong) NSArray  *pageItems;
+@property (strong) NSArray  *filteredPageItems;
+
+- (PageItem *)pageItemAtIndex:(NSInteger)index;
+- (LayerItem *)layerItemAtIndexPath:(NSIndexPath *)indexPath;
+
+@end
+
+
+@implementation SketchPageCollection
 
 @synthesize pageItems = _pageItems;
 
@@ -142,10 +153,12 @@
     return _pageItems;
 }
 
-- (void)addPagesFromFile:(SketchFile *)sketchFile {
+//- (void)addPagesFromFile:(SketchFile *)sketchFile {
+
+- (void)addPages:(NSArray *)pages {
     NSMutableArray *pageItems = [[NSMutableArray alloc] init];
-    
-    for (SketchPage *page in sketchFile.pages.allValues) {
+
+    for (SketchPage *page in pages) {
         PageItem *pageItem = [[PageItem alloc] init];
         pageItem.page = page;
         pageItem.name = page.name;
