@@ -130,7 +130,7 @@
 @end
 
 
-@interface SketchPageCollectionViewController () <NSTokenFieldDelegate>
+@interface SketchPageCollectionViewController ()
 
 @property (strong) NSProgressIndicator  *progressIndicator;
 @property (strong) SketchPageCollection *sketchPageCollection;
@@ -162,7 +162,7 @@
 - (void)loadView {
     self.view = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, 640, 640)];
     
-    BOOL hidden = NO;
+    BOOL hidden = YES;
     
     self.tokenField = [[NSTokenField alloc] initWithFrame:NSMakeRect(0, 0, 240, 52)];
     self.tokenField.tokenStyle = NSTokenStyleSquared;
@@ -321,13 +321,15 @@
 #pragma mark Filtering
 
 - (void)controlTextDidChange:(NSNotification *)notification {
-    NSLog(@"Keyword: %@", self.tokenField.stringValue);
+    NSTokenField *tokenField = (NSTokenField *)[notification object];
+    NSString *filterString = tokenField.stringValue;
+    NSLog(@"Keyword: %@", filterString);
     
-    if(self.tokenField.stringValue.length == 0) {
+    if(filterString.length == 0) {
         self.keywordFilter.keywords = nil;
     }
     else {
-        self.keywordFilter.keywords = self.tokenField.stringValue;
+        self.keywordFilter.keywords = filterString;
     }
     
     [self reloadData];

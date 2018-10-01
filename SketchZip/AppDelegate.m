@@ -25,8 +25,11 @@
     SketchFileCollectionViewController *hannoCollectionController = [[SketchFileCollectionViewController alloc] initWithDirectory:@"~/Design/Hanno"];
     [hannoCollectionController showWindow:self];
 
-    SketchFileCollectionViewController *homeCollectionController = [[SketchFileCollectionViewController alloc] initWithDirectory:@"~/Design/United-Wardrobe"];
+    SketchFileCollectionViewController *homeCollectionController = [[SketchFileCollectionViewController alloc] initWithDirectory:@"~/Design/United Wardrobe"];
     [homeCollectionController showWindow:self];
+
+    SketchFileCollectionViewController *iPracticeCollectionController = [[SketchFileCollectionViewController alloc] initWithDirectory:@"~/Design/iPractice"];
+    [iPracticeCollectionController showWindow:self];
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {

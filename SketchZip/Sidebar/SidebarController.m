@@ -107,16 +107,24 @@
 
     self.items = @[@"Everything", @"Recents", @"Favorites"];
     self.sketchFiles = [[NSMutableArray alloc] init];
+
+    self.filterTokenField = [[NSTokenField alloc] initWithFrame:NSMakeRect(0, 0, 240, 52)];
     
     return self;
 }
 
 - (void)loadView {
     self.view = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, 240, 640)];
-    self.view.wantsLayer = YES;
-    self.view.layer.backgroundColor = [[NSColor colorWithDeviceRed:0.976 green:0.980 blue:0.980 alpha:1.000] CGColor];
+//    self.view.wantsLayer = YES;
+//    self.view.layer.backgroundColor = [[NSColor colorWithDeviceRed:0.976 green:0.980 blue:0.980 alpha:1.000] CGColor];
 
-    self.scrollView = [[NSScrollView alloc] initWithFrame:NSMakeRect(300, 0, 640, 640)];
+    self.filterTokenField.tokenStyle = NSTokenStyleSquared;
+    //    self.tokenField.tokenStyle = NSTokenStylePlainSquared;
+    self.filterTokenField.bezelStyle = NSTextFieldRoundedBezel;
+    self.filterTokenField.delegate = self;
+    [self.view addSubview:self.filterTokenField];
+
+    self.scrollView = [[NSScrollView alloc] initWithFrame:NSMakeRect(0, 0, 640, 640)];
     self.scrollView.translatesAutoresizingMaskIntoConstraints = NO;
     self.scrollView.automaticallyAdjustsContentInsets = NO;
     self.scrollView.contentInsets = NSEdgeInsetsMake(48, 0, 0, 0);
@@ -142,7 +150,9 @@
     [self.view addSubview:divider];
 
     // Autolayout
-    [self.scrollView autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, 0, 0, 0)];
+    [self.filterTokenField autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(40, 16, 0, 16) excludingEdge:ALEdgeBottom];
+    
+    [self.scrollView autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(64, 0, 0, 0)];
     
     [divider autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsZero excludingEdge:ALEdgeLeft];
     [divider autoSetDimension:ALDimensionWidth toSize:1];

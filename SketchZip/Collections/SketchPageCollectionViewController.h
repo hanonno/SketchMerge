@@ -29,7 +29,7 @@
 @end
 
 
-@interface SketchPageCollectionViewController : NSViewController <NSCollectionViewDataSource, NSCollectionViewDelegate>
+@interface SketchPageCollectionViewController : NSViewController <NSCollectionViewDataSource, NSCollectionViewDelegate, NSTokenFieldDelegate>
 
 @property (strong) NSTokenField                 *tokenField;
 @property (strong) NSPopUpButton                *presetNameFilterButton;

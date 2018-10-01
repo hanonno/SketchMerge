@@ -39,7 +39,9 @@
 @end
 
 
-@interface SidebarController : NSViewController
+@interface SidebarController : NSViewController <NSTokenFieldDelegate>
+
+@property (strong) NSTokenField                         *filterTokenField;
 
 @property (strong) NSScrollView                         *scrollView;
 @property (strong) NSCollectionView                     *collectionView;

@@ -63,6 +63,8 @@
     
     [self.pageCollectionViewController.view autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, 0, 0, 0) excludingEdge:ALEdgeLeft];
     [self.pageCollectionViewController.view autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:240];
+    
+    self.sidebarController.filterTokenField.delegate = self.pageCollectionViewController;
 }
 
 - (void)sketchFileIndexer:(SketchFileIndexer *)fileIndexer didIndexFile:(SketchFile *)file {
