@@ -111,6 +111,7 @@
 		7DA184FC2138276500EA1FF8 /* oval.json in Resources */ = {isa = PBXBuildFile; fileRef = 7DA184FA2138276500EA1FF8 /* oval.json */; };
 		7DA184FE213827FA00EA1FF8 /* text.json in Resources */ = {isa = PBXBuildFile; fileRef = 7DA184FD213827FA00EA1FF8 /* text.json */; };
 		7DA184FF213827FA00EA1FF8 /* text.json in Resources */ = {isa = PBXBuildFile; fileRef = 7DA184FD213827FA00EA1FF8 /* text.json */; };
+		7DC61A6D2162C28D00F3986E /* Symbol.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7DC61A6C2162C28D00F3986E /* Symbol.sketch */; };
 		7DCE03EC215C0770000ABC8A /* TDTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DCE03EB215C0770000ABC8A /* TDTheme.m */; };
 		7DE5F07E2157C85900BD2825 /* SketchFileIndexer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE5F07D2157C85900BD2825 /* SketchFileIndexer.m */; };
 		7DE5F07F2157C85900BD2825 /* SketchFileIndexer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE5F07D2157C85900BD2825 /* SketchFileIndexer.m */; };
@@ -291,6 +292,7 @@
 		7DA184F72138271C00EA1FF8 /* rectangle.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = rectangle.json; sourceTree = "<group>"; };
 		7DA184FA2138276500EA1FF8 /* oval.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = oval.json; sourceTree = "<group>"; };
 		7DA184FD213827FA00EA1FF8 /* text.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = text.json; sourceTree = "<group>"; };
+		7DC61A6C2162C28D00F3986E /* Symbol.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = Symbol.sketch; sourceTree = "<group>"; };
 		7DCE03EA215C0770000ABC8A /* TDTheme.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TDTheme.h; sourceTree = "<group>"; };
 		7DCE03EB215C0770000ABC8A /* TDTheme.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TDTheme.m; sourceTree = "<group>"; };
 		7DE5F07C2157C85900BD2825 /* SketchFileIndexer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchFileIndexer.h; sourceTree = "<group>"; };
@@ -536,6 +538,7 @@
 		7D828F9D2122E0E300ADBD7E /* Sketch */ = {
 			isa = PBXGroup;
 			children = (
+				7DC61A6C2162C28D00F3986E /* Symbol.sketch */,
 				55BE526A20ADAE720059EC77 /* TestFile1.sketch */,
 				552F295220EE3D0A00A845B2 /* Artboards-A.sketch */,
 				552F295420EE4B0A00A845B2 /* Artboards-B.sketch */,
@@ -776,6 +779,7 @@
 				7D8CBE4E2153DD42007C884B /* Apple TV@2x.png in Resources */,
 				7D8CBE5C2153DD42007C884B /* Apple Watch 40mm@2x.png in Resources */,
 				7D7CCFC721133AB60061EBB0 /* Version-1.sketch in Resources */,
+				7DC61A6D2162C28D00F3986E /* Symbol.sketch in Resources */,
 				7D8CBE542153DD42007C884B /* Apple Watch 38mm@2x.png in Resources */,
 				7DE5F0842157F76F00BD2825 /* Artboard.png in Resources */,
 				7D209F0421590B3300A461A5 /* Everything.png in Resources */,

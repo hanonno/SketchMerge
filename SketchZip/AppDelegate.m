@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 
+#import "SketchPage.h"
 #import "SketchFileCollectionViewController.h"
 
 
@@ -22,14 +23,17 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)notification {
 //    SketchFileCollectionController *designCollectionController = [[SketchFileCollectionController alloc] initWithDirectory:@"~/Design"];
 //    [designCollectionController showWindow:self];
-    SketchFileCollectionViewController *hannoCollectionController = [[SketchFileCollectionViewController alloc] initWithDirectory:@"~/Design/Hanno"];
+    
+//    SketchFile *file = [[SketchFile alloc] initWithFileURL:[[NSBundle mainBundle] URLForResource:@"Symbol" withExtension:@"sketch"]];
+    
+    SketchFileCollectionViewController *hannoCollectionController = [[SketchFileCollectionViewController alloc] initWithDirectory:@"~/Design/Folio"];
     [hannoCollectionController showWindow:self];
 
-    SketchFileCollectionViewController *homeCollectionController = [[SketchFileCollectionViewController alloc] initWithDirectory:@"~/Design/United Wardrobe"];
-    [homeCollectionController showWindow:self];
-
-    SketchFileCollectionViewController *iPracticeCollectionController = [[SketchFileCollectionViewController alloc] initWithDirectory:@"~/Design/iPractice"];
-    [iPracticeCollectionController showWindow:self];
+//    SketchFileCollectionViewController *homeCollectionController = [[SketchFileCollectionViewController alloc] initWithDirectory:@"~/Design/United Wardrobe"];
+//    [homeCollectionController showWindow:self];
+//
+//    SketchFileCollectionViewController *iPracticeCollectionController = [[SketchFileCollectionViewController alloc] initWithDirectory:@"~/Design/iPractice"];
+//    [iPracticeCollectionController showWindow:self];
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {

@@ -49,11 +49,18 @@ static const BOOL kLoggingEnabled = NO;
         
         if(string) {
             [self.strings addObject:string];
-            
-//            NSLog(@"Adding string: %@", string);
         }
     }
-    
+    else if([rootLayer[@"_class"] isEqualToString:@"symbolInstance"]) {
+        for (NSDictionary *override in rootLayer[@"overrideValues"]) {
+            NSString *string = override[@"value"];
+            
+            if(string) {
+                [self.strings addObject:string];
+            }
+        }
+    }
+
     NSArray *sublayers = rootLayer[@"layers"];
     
     if(sublayers) {
