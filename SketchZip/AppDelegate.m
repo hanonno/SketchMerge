@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 
-#import "SketchPage.h"
+#import "SketchFile.h"
 #import "SketchFileCollectionViewController.h"
 
 
@@ -38,6 +38,19 @@
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
     // Insert code here to tear down your application
+}
+
+- (IBAction)openDocument:(id)sender {
+    NSOpenPanel* panel = [NSOpenPanel openPanel];
+    panel.canChooseFiles = NO;
+    panel.canChooseDirectories = YES;
+
+    [panel beginWithCompletionHandler:^(NSModalResponse result) {
+        for (NSURL *directoryURL in panel.URLs) {
+            SketchFileCollectionViewController  *fileCollectionViewController = [[SketchFileCollectionViewController alloc] initWithDirectory:directoryURL.path];
+            [fileCollectionViewController showWindow:self];
+        }
+    }];
 }
 
 @end

@@ -66,7 +66,7 @@
 		7D7CCFCB21133BEA0061EBB0 /* Version-4.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7D7CCFCA21133BE90061EBB0 /* Version-4.sketch */; };
 		7D7CCFCD21133C160061EBB0 /* Version-5.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7D7CCFCC21133C160061EBB0 /* Version-5.sketch */; };
 		7D7CCFCF21133C630061EBB0 /* Version-6.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7D7CCFCE21133C4D0061EBB0 /* Version-6.sketch */; };
-		7D7CCFD221133DD50061EBB0 /* SketchPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D7CCFD121133DD50061EBB0 /* SketchPage.m */; };
+		7D7CCFD221133DD50061EBB0 /* SketchFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D7CCFD121133DD50061EBB0 /* SketchFile.m */; };
 		7D7CCFD42114697A0061EBB0 /* UW-Shipping.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7D7CCFD3211469790061EBB0 /* UW-Shipping.sketch */; };
 		7D7CCFD6211474AF0061EBB0 /* UW-Shipping-B.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7D7CCFD5211474AF0061EBB0 /* UW-Shipping-B.sketch */; };
 		7D828F962122DBCB00ADBD7E /* SketchOperationTypeIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D828F952122DBCB00ADBD7E /* SketchOperationTypeIndicator.m */; };
@@ -252,8 +252,8 @@
 		7D7CCFCA21133BE90061EBB0 /* Version-4.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Version-4.sketch"; sourceTree = "<group>"; };
 		7D7CCFCC21133C160061EBB0 /* Version-5.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Version-5.sketch"; sourceTree = "<group>"; };
 		7D7CCFCE21133C4D0061EBB0 /* Version-6.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Version-6.sketch"; sourceTree = "<group>"; };
-		7D7CCFD021133DD50061EBB0 /* SketchPage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchPage.h; sourceTree = "<group>"; };
-		7D7CCFD121133DD50061EBB0 /* SketchPage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SketchPage.m; sourceTree = "<group>"; };
+		7D7CCFD021133DD50061EBB0 /* SketchFile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchFile.h; sourceTree = "<group>"; };
+		7D7CCFD121133DD50061EBB0 /* SketchFile.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SketchFile.m; sourceTree = "<group>"; };
 		7D7CCFD3211469790061EBB0 /* UW-Shipping.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = "UW-Shipping.sketch"; sourceTree = "<group>"; };
 		7D7CCFD5211474AF0061EBB0 /* UW-Shipping-B.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = "UW-Shipping-B.sketch"; sourceTree = "<group>"; };
 		7D828F942122DBCB00ADBD7E /* SketchOperationTypeIndicator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchOperationTypeIndicator.h; sourceTree = "<group>"; };
@@ -387,8 +387,8 @@
 				5548B88B20EF720E00D3A081 /* SketchFilePlugin.m */,
 				552F294F20EE191500A845B2 /* SketchDiffTool.h */,
 				552F295020EE191500A845B2 /* SketchDiffTool.m */,
-				7D7CCFD021133DD50061EBB0 /* SketchPage.h */,
-				7D7CCFD121133DD50061EBB0 /* SketchPage.m */,
+				7D7CCFD021133DD50061EBB0 /* SketchFile.h */,
+				7D7CCFD121133DD50061EBB0 /* SketchFile.m */,
 				7D828F942122DBCB00ADBD7E /* SketchOperationTypeIndicator.h */,
 				7D828F952122DBCB00ADBD7E /* SketchOperationTypeIndicator.m */,
 				5548B88F20EF72C000D3A081 /* NSImage+PNGAdditions.h */,
@@ -894,7 +894,7 @@
 				7DE5F07E2157C85900BD2825 /* SketchFileIndexer.m in Sources */,
 				55BE525D20ADAD410059EC77 /* ioapi_mem.c in Sources */,
 				552F296420EE59AF00A845B2 /* NSDictionary+CoreSync.m in Sources */,
-				7D7CCFD221133DD50061EBB0 /* SketchPage.m in Sources */,
+				7D7CCFD221133DD50061EBB0 /* SketchFile.m in Sources */,
 				7D611B38215ACDE100C86AF1 /* SketchPageCollectionViewController.m in Sources */,
 				552F296120EE59AF00A845B2 /* CoreSyncTransaction.m in Sources */,
 				7D209F0E2159195D00A461A5 /* TDCollectionViewListLayout.m in Sources */,

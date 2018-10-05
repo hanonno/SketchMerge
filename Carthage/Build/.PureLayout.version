@@ -1,9 +1,24 @@
 {
-  "commitish" : "v3.0.2",
   "Mac" : [
     {
       "name" : "PureLayout",
-      "hash" : "113282cb254b6617d7a9615f604a088f464a26c3e38e927e1a1679f8b41dbd40"
+      "hash" : "6df7c0816d37e964890a1ca37f6d4c25233e77799b1834625177dfcf9777b51b"
+    }
+  ],
+  "watchOS" : [
+
+  ],
+  "tvOS" : [
+    {
+      "name" : "PureLayout",
+      "hash" : "faa900cd03ff810bc58082d856c18c72ec609877348a628b395c31281ec3404f"
+    }
+  ],
+  "commitish" : "v3.1.2",
+  "iOS" : [
+    {
+      "name" : "PureLayout",
+      "hash" : "2415a8c2a6e27ec7aa1307cd987105fbf7b7e2de9f9b449c3d7cc2a52d76925e"
     }
   ]
 }

@@ -12,27 +12,33 @@
 @class TDTheme;
 
 
-@protocol TDTheme <NSObject>
+@interface TDTheme : NSObject
 
-- (void)applyTheme:(TDTheme *)theme;
++ (TDTheme *)currentTheme;
 
 - (NSColor *)titleTextColor;
 - (NSColor *)subtitleTextColor;
 - (NSColor *)bodyTextColor;
 
-- (NSColor *)contentBackgroundColor;
+- (NSColor *)backgroundColor;
 - (NSColor *)headerBackgroundColor;
-
-- (NSColor *)sidebarBackgroundColor;
+- (NSColor *)dividerColor;
 
 - (NSColor *)highlightColor;
 
 @end
 
 
+@interface NSColor (TDTheme)
 
-@interface TDTheme : NSObject
++ (NSColor *)titleTextColor;
++ (NSColor *)subtitleTextColor;
++ (NSColor *)bodyTextColor;
 
-- (void)registerForNotifications:(id <TDTheme>)object;
++ (NSColor *)backgroundColor;
++ (NSColor *)headerBackgroundColor;
++ (NSColor *)dividerColor;
+
++ (NSColor *)highlightColor;
 
 @end

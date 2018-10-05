@@ -7,7 +7,7 @@
 //
 
 #import <AppKit/AppKit.h>
-#import "SketchPage.h"
+#import "SketchFile.h"
 #import "SketchDiffTool.h"
 
 

@@ -31,6 +31,7 @@
 }
 
 - (void)setBackgroundColor:(NSColor *)backgroundColor {
+    self.wantsLayer = YES;
     self.layer.backgroundColor = backgroundColor.CGColor;
 }
 
@@ -63,7 +64,7 @@
     
     NSTextField *titleLabel = [NSTextField labelWithString:@"Title"];
     titleLabel.font = [NSFont systemFontOfSize:13 weight:NSFontWeightMedium];
-    titleLabel.textColor = [NSColor colorWithDeviceRed:0.216 green:0.235 blue:0.251 alpha:1.000];
+    titleLabel.textColor = [NSColor titleTextColor];
     [self.highlightView addSubview:titleLabel];
     self.titleLabel = titleLabel;
     
@@ -82,7 +83,7 @@
     [super setSelected:selected];
     
     if(selected) {
-        self.highlightView.backgroundColor = [NSColor colorWithDeviceRed:0.894 green:0.902 blue:0.914 alpha:1.000];
+        self.highlightView.backgroundColor = [NSColor headerBackgroundColor];
     }
     else {
         self.highlightView.backgroundColor = [NSColor clearColor];
@@ -115,20 +116,13 @@
 
 - (void)loadView {
     self.view = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, 240, 640)];
-//    self.view.wantsLayer = YES;
-//    self.view.layer.backgroundColor = [[NSColor colorWithDeviceRed:0.976 green:0.980 blue:0.980 alpha:1.000] CGColor];
-
+    self.view.backgroundColor = [NSColor backgroundColor];
+    
     self.filterTokenField.tokenStyle = NSTokenStyleSquared;
     //    self.tokenField.tokenStyle = NSTokenStylePlainSquared;
     self.filterTokenField.bezelStyle = NSTextFieldRoundedBezel;
     self.filterTokenField.delegate = self;
     [self.view addSubview:self.filterTokenField];
-
-    self.scrollView = [[NSScrollView alloc] initWithFrame:NSMakeRect(0, 0, 640, 640)];
-    self.scrollView.translatesAutoresizingMaskIntoConstraints = NO;
-    self.scrollView.automaticallyAdjustsContentInsets = NO;
-    self.scrollView.contentInsets = NSEdgeInsetsMake(48, 0, 0, 0);
-    [self.view addSubview:self.scrollView];
     
     self.listLayout = [[TDCollectionViewListLayout alloc] init];
     self.listLayout.rowHeight = 28;
@@ -141,12 +135,24 @@
     self.collectionView.selectable = YES;
     self.collectionView.allowsEmptySelection = NO;
     [self.collectionView registerClass:[SidebarItem class] forItemWithIdentifier:@"SidebarItem"];
-    self.collectionView.backgroundColors = @[[NSColor colorWithDeviceRed:0.976 green:0.980 blue:0.980 alpha:1.000]];
+    self.collectionView.backgroundColors = @[[NSColor backgroundColor]];
+    
+    self.scrollView = [[NSScrollView alloc] initWithFrame:NSMakeRect(0, 0, 640, 640)];
+    self.scrollView.translatesAutoresizingMaskIntoConstraints = NO;
+    self.scrollView.automaticallyAdjustsContentInsets = NO;
+    self.scrollView.hasHorizontalScroller = NO;
+    self.scrollView.hasVerticalScroller = NO;
+    self.scrollView.horizontalScroller = nil;
+    self.scrollView.verticalScroller = nil;
+    self.scrollView.scrollerStyle = NSScrollerStyleOverlay;
+    self.scrollView.contentInsets = NSEdgeInsetsMake(48, 0, 0, 0);
+    self.scrollView.backgroundColor = [NSColor backgroundColor];
     self.scrollView.documentView = self.collectionView;
-
+    [self.view addSubview:self.scrollView];
+    
     NSView *divider = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, 1, 120)];
     divider.wantsLayer = YES;
-    divider.layer.backgroundColor = [[NSColor colorWithCalibratedWhite:0.917 alpha:1.000] CGColor];
+    divider.layer.backgroundColor = [[NSColor dividerColor] CGColor];
     [self.view addSubview:divider];
 
     // Autolayout
@@ -156,6 +162,17 @@
     
     [divider autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsZero excludingEdge:ALEdgeLeft];
     [divider autoSetDimension:ALDimensionWidth toSize:1];
+}
+
+- (void)viewWillAppear {
+    [super viewWillAppear];
+    
+//    [self.view setNeedsLayout:YES];
+//    [self.scrollView setNeedsLayout:YES];
+    
+    [self.collectionView reloadData];
+    
+    [self.scrollView tile];
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(NSCollectionView *)collectionView {

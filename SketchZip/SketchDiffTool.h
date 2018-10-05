@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "CoreSyncTransaction.h"
-#import "SketchPage.h"
+#import "SketchFile.h"
 
 
 typedef enum : NSUInteger {

@@ -62,6 +62,7 @@ typedef NS_ENUM(NSInteger, JNWListEdge) {
 @interface TDCollectionViewListLayout()
 @property (nonatomic, strong) NSMutableArray    *sections;
 @property (assign)  NSSize                      contentSize;
+@property (readonly) CGFloat                    availableContentWidth;
 @end
 
 @implementation TDCollectionViewListLayout
@@ -79,6 +80,10 @@ typedef NS_ENUM(NSInteger, JNWListEdge) {
 		_sections = [NSMutableArray array];
 	}
 	return _sections;
+}
+
+- (CGFloat)availableContentWidth {
+    return self.collectionView.enclosingScrollView.frame.size.width;
 }
 
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {
@@ -99,8 +104,9 @@ typedef NS_ENUM(NSInteger, JNWListEdge) {
 	
 	NSUInteger numberOfSections = [self.collectionView numberOfSections];
 	CGFloat totalHeight = 0;
-	CGFloat verticalSpacing = self.verticalSpacing;
-	
+    CGFloat verticalSpacing = self.verticalSpacing;
+    CGFloat availableContentWidth = self.availableContentWidth;
+    
 	for (NSUInteger section = 0; section < numberOfSections; section++) {
 		NSInteger numberOfRows = [collectionView numberOfItemsInSection:section];
 		NSInteger headerHeight = delegateHeightForHeader ? [self.delegate collectionView:collectionView heightForHeaderInSection:section] : 32;
@@ -128,13 +134,13 @@ typedef NS_ENUM(NSInteger, JNWListEdge) {
 		
 		sectionInfo.height -= verticalSpacing; // We don't want spacing after the last cell.
 		sectionInfo.height += footerHeight;
-		sectionInfo.frame = CGRectMake(0, sectionInfo.offset, collectionView.enclosingScrollView.documentVisibleRect.size.width, sectionInfo.height);
+		sectionInfo.frame = CGRectMake(0, sectionInfo.offset, availableContentWidth, sectionInfo.height);
 		
 		totalHeight += sectionInfo.height;
         [self.sections addObject:sectionInfo];
 	}
     
-    self.contentSize = NSMakeSize(self.collectionView.enclosingScrollView.documentVisibleRect.size.width, totalHeight);
+    self.contentSize = NSMakeSize(availableContentWidth, totalHeight);
 }
 
 - (NSSize)collectionViewContentSize {
@@ -170,7 +176,7 @@ typedef NS_ENUM(NSInteger, JNWListEdge) {
 
 - (NSCollectionViewLayoutAttributes *)layoutAttributesForSupplementaryItemInSection:(NSInteger)sectionIdx kind:(NSString *)kind {
 	JNWCollectionViewListLayoutSection *section = self.sections[sectionIdx];
-	CGFloat width = self.collectionView.enclosingScrollView.documentVisibleRect.size.width;
+	CGFloat width = self.availableContentWidth;
 	CGRect frame = CGRectZero;
 	
 	if ([kind isEqualToString:NSCollectionElementKindSectionHeader]) {
@@ -179,7 +185,7 @@ typedef NS_ENUM(NSInteger, JNWListEdge) {
 		if (self.stickyHeaders) {
 			// Thanks to http://blog.radi.ws/post/32905838158/sticky-headers-for-uicollectionview-using for the inspiration.
             // TODO (figure out logic for sticky headers)
-            CGPoint contentOffset = self.collectionView.enclosingScrollView.documentVisibleRect.origin;
+            CGPoint contentOffset = self.collectionView.enclosingScrollView.frame.origin;
             CGPoint nextHeaderOrigin = CGPointMake(FLT_MAX, FLT_MAX);
 
             if (sectionIdx + 1 < self.sections.count) {
@@ -207,7 +213,7 @@ typedef NS_ENUM(NSInteger, JNWListEdge) {
 - (CGRect)rectForItemAtIndex:(NSInteger)index section:(NSInteger)section {
 	JNWCollectionViewListLayoutSection *sectionInfo = self.sections[section];
 	CGFloat offset = sectionInfo.offset + sectionInfo.rowInfo[index].yOffset;
-	CGFloat width = self.collectionView.enclosingScrollView.documentVisibleRect.size.width;
+	CGFloat width = self.availableContentWidth;
 	CGFloat height = sectionInfo.rowInfo[index].height;
 	return CGRectMake(0, offset, width, height);
 }

@@ -7,7 +7,7 @@
 //
 
 #import <Appkit/AppKit.h>
-#import "SketchPage.h"
+#import "SketchFile.h"
 
 
 @class SketchFileIndexOperation, SketchFileIndexer;

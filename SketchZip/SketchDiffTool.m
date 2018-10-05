@@ -10,7 +10,7 @@
 #import "SSZipArchive.h"
 #import "CoreSync.h"
 #import "NSImage+PNGAdditions.h"
-#import "SketchPage.h"
+#import "SketchFile.h"
 
 
 static const BOOL kLoggingEnabled = YES;

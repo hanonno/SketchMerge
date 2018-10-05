@@ -7,9 +7,11 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "TDCollectionViewListLayout.h"
 
-#import "SketchPage.h"
+
+#import "TDTheme.h"
+#import "SketchFile.h"
+#import "TDCollectionViewListLayout.h"
 
 
 @class SidebarController;

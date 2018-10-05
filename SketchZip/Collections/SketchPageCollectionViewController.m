@@ -8,9 +8,6 @@
 
 #import "SketchPageCollectionViewController.h"
 
-#import "SketchPageCollection.h"
-#import "CollectionViewLeftAlignedLayout.h"
-
 
 @implementation SketchArtboardCollectionViewItem
 
@@ -20,7 +17,7 @@
     
     self.artboardImageView = [[NSImageView alloc] initWithFrame:NSMakeRect(0, 0, 320, 320)];
     self.artboardImageView.wantsLayer = YES;
-    self.artboardImageView.layer.backgroundColor = [[NSColor colorWithCalibratedWhite:0.96 alpha:1.0] CGColor];
+    self.artboardImageView.layer.backgroundColor = [[NSColor colorWithCalibratedWhite:1.0 alpha:0.1] CGColor];
     //    self.artboardImageView.layer.backgroundColor = [[NSColor redColor] CGColor];
     self.artboardImageView.layer.cornerRadius = 4;
     self.artboardImageView.layer.borderWidth = 2;
@@ -77,10 +74,10 @@
     [super setSelected:selected];
     
     if(selected) {
-        self.artboardImageView.layer.borderColor =[[NSColor colorWithCalibratedRed:0.149 green:0.434 blue:0.964 alpha:1.000] CGColor];
+        self.artboardImageView.layer.borderColor =[[NSColor highlightColor] CGColor];
     }
     else {
-        self.artboardImageView.layer.borderColor = [[NSColor whiteColor] CGColor];
+        self.artboardImageView.layer.borderColor = [[NSColor clearColor] CGColor];
     }
 }
 
@@ -93,22 +90,22 @@
     self = [super initWithFrame:frame];
     
     self.wantsLayer = YES;
-    self.layer.backgroundColor = [[NSColor whiteColor] CGColor];
+    self.layer.backgroundColor = [[NSColor headerBackgroundColor] CGColor];
     
     NSView *divider = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, 120, 1)];
     divider.wantsLayer = YES;
-    divider.layer.backgroundColor = [[NSColor colorWithCalibratedWhite:0.917 alpha:1.000] CGColor];
+    divider.layer.backgroundColor = [[NSColor dividerColor] CGColor];
     [self addSubview:divider];
     
     self.titleLabel = [NSTextField labelWithString:@"File Name"];
     self.titleLabel.font = [NSFont systemFontOfSize:14];
-    self.titleLabel.textColor = [NSColor colorWithCalibratedWhite:0.12 alpha:1.000];
+    self.titleLabel.textColor = [NSColor titleTextColor];
     [self.titleLabel setContentHuggingPriority:NSLayoutPriorityDefaultHigh forOrientation:NSLayoutConstraintOrientationHorizontal];
     [self addSubview:self.titleLabel];
     
     self.subtitleLabel = [NSTextField labelWithString:@"Page Name"];
     self.subtitleLabel.font = [NSFont systemFontOfSize:14];
-    self.subtitleLabel.textColor = [NSColor colorWithCalibratedWhite:0.50 alpha:1.000];
+    self.subtitleLabel.textColor = [NSColor subtitleTextColor];
     [self addSubview:self.subtitleLabel];
     
     // Autolayout
@@ -196,7 +193,7 @@
     self.previewSizeSlider.hidden = hidden;
     [self.view addSubview:self.previewSizeSlider];
     
-    self.scrollView = [[NSScrollView alloc] initWithFrame:NSMakeRect(300, 0, 640, 640)];
+    self.scrollView = [[NSScrollView alloc] initWithFrame:self.view.bounds];
     //    self.scrollView.backgroundColor = [NSColor redColor];
     [self.view addSubview:self.scrollView];
     
@@ -225,15 +222,13 @@
     [self.collectionView registerClass:[SketchArtboardCollectionViewItem class] forItemWithIdentifier:@"SketchArtboardCollectionViewItemIdentifier"];
     [self.collectionView registerClass:[SketchPageHeaderView class] forSupplementaryViewOfKind:NSCollectionElementKindSectionHeader withIdentifier:@"SketchPageHeaderViewIdentifier"];
     self.scrollView.documentView = self.collectionView;
-    
+
     self.progressIndicator = [[NSProgressIndicator alloc] init];
     self.progressIndicator.style = NSProgressIndicatorSpinningStyle;
     self.progressIndicator.displayedWhenStopped = NO;
     self.progressIndicator.usesThreadedAnimation = YES;
     [self.progressIndicator sizeToFit];
     [self.view addSubview:self.progressIndicator];
-    
-    [self.collectionView reloadData];
     
     // Auto Layout
     [self.tokenField autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:16];

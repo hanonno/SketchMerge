@@ -9,7 +9,10 @@
 #import <Cocoa/Cocoa.h>
 #import <PureLayout/PureLayout.h>
 
+
+#import "TDTheme.h"
 #import "SketchPageCollection.h"
+#import "CollectionViewLeftAlignedLayout.h"
 
 
 @interface SketchArtboardCollectionViewItem : NSCollectionViewItem
