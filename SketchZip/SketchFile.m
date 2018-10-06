@@ -465,21 +465,17 @@ static const BOOL kLoggingEnabled = NO;
     
     NSString *result;
     if (errorData.length == 0) {
-        result = [[NSString alloc] initWithData:[outputFile readDataToEndOfFile] encoding:NSUTF8StringEncoding];
-        
-        if ([result hasPrefix:@"Exported "]) {
-            for(SketchPage *page in self.pages.allValues) {
-                for (SketchLayer *layer in page.layers.allValues) {
-                    NSString *outputFilePath = [[tempDir.path stringByAppendingPathComponent:layer.objectId] stringByAppendingPathExtension:@"png"];
-                    image = [[NSImage alloc] initWithContentsOfFile:outputFilePath];
-                    image = [image scaleToSize:NSMakeSize(480, 480)];
-                    layer.previewImage = image;
-                }
+        for(SketchPage *page in self.pages.allValues) {
+            for (SketchLayer *layer in page.layers.allValues) {
+                NSString *outputFilePath = [[tempDir.path stringByAppendingPathComponent:layer.objectId] stringByAppendingPathExtension:@"png"];
+                image = [[NSImage alloc] initWithContentsOfFile:outputFilePath];
+                image = [image scaleToSize:NSMakeSize(480, 480)];
+                layer.previewImage = image;
             }
         }
     } else {
         result = [[NSString alloc] initWithData:errorData encoding:NSASCIIStringEncoding];
-        //        DDLogError(@"SketchFilePlugin error: %@", result);
+        NSLog(@"Error: %@", result);
     }
 }
 

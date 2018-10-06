@@ -40,7 +40,7 @@
     [self didChangeValueForKey:@"isExecuting"];
 
     self.sketchFile = [[SketchFile alloc] initWithFileURL:[NSURL fileURLWithPath:self.path]];
-//    [self.sketchFile generatePreviews];
+    [self.sketchFile generatePreviews];
 
     self.endTime = CACurrentMediaTime();
 
