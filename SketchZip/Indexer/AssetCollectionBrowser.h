@@ -21,7 +21,7 @@
 @property (strong) NSImageView                      *artboardImageView;
 @property (strong) NSImageView                      *presetIconView;
 
-- (void)setImageSize:(NSSize)imageSize;
+//- (void)setImageSize:(NSSize)imageSize;
 
 @end
 

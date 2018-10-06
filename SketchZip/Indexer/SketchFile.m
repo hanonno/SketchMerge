@@ -404,6 +404,9 @@ static const BOOL kLoggingEnabled = NO;
         self.fileURL.path,
         [NSString stringWithFormat:@"--output=%@", previewImageDirectoryURL.path],
         @"--use-id-for-name",
+        @"--include-symbols=YES",
+        @"--overwriting=YES",
+        @"--background=#ffffff"
         //        [NSString stringWithFormat:@"--items=%@", [objectIds componentsJoinedByString:@","]]
     ]];
     

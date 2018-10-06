@@ -72,6 +72,12 @@
     [self.assetBrowser.view autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:240];
     
     self.sidebarController.filterTokenField.delegate = self;
+    [self.sidebarController.previewSizeSlider setTarget:self];
+    [self.sidebarController.previewSizeSlider setAction:@selector(changePreviewSize:)];
+}
+
+- (void)changePreviewSize:(NSSlider *)sender {
+    self.assetBrowser.layout.itemSize = NSMakeSize(sender.floatValue, sender.floatValue);
 }
 
 - (void)sketchFileIndexer:(SketchFileIndexer *)fileIndexer didIndexFile:(SketchFile *)file {

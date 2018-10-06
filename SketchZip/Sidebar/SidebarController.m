@@ -110,6 +110,7 @@
     self.sketchFiles = [[NSMutableArray alloc] init];
 
     self.filterTokenField = [[NSTokenField alloc] initWithFrame:NSMakeRect(0, 0, 240, 52)];
+    self.previewSizeSlider = [[NSSlider alloc] init];
     
     return self;
 }
@@ -123,6 +124,11 @@
     self.filterTokenField.bezelStyle = NSTextFieldRoundedBezel;
     self.filterTokenField.delegate = self;
     [self.view addSubview:self.filterTokenField];
+    
+    self.previewSizeSlider.minValue = 240;
+    self.previewSizeSlider.maxValue = 2048;
+    self.previewSizeSlider.altIncrementValue = 120;
+    [self.view addSubview:self.previewSizeSlider];
     
     self.listLayout = [[TDCollectionViewListLayout alloc] init];
     self.listLayout.rowHeight = 28;
@@ -158,7 +164,9 @@
     // Autolayout
     [self.filterTokenField autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(40, 16, 0, 16) excludingEdge:ALEdgeBottom];
     
-    [self.scrollView autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(64, 0, 0, 0)];
+    [self.scrollView autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(64, 0, 64, 0)];
+    
+    [self.previewSizeSlider autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, 16, 16, 16) excludingEdge:ALEdgeTop];
     
     [divider autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsZero excludingEdge:ALEdgeLeft];
     [divider autoSetDimension:ALDimensionWidth toSize:1];
