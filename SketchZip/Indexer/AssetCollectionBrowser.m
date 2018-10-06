@@ -12,23 +12,41 @@
 #import "CollectionViewLeftAlignedLayout.h"
 
 
+@interface ItemBrowserItem ()
+
+@property NSView                *containerView;
+@property NSLayoutConstraint    *previewWidth;
+@property NSLayoutConstraint    *previewHeight;
+
+@end
+
+
 @implementation ItemBrowserItem
 
 - (void)loadView {
     self.view = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, 320, 320)];
     self.view.wantsLayer = YES;
     
+    self.containerView = [[NSView alloc] init];
+    [self.view addSubview:self.containerView];
+    
+    self.previewBackground = [[NSView alloc] initWithFrame:NSZeroRect];
+    self.previewBackground.wantsLayer = YES;
+    self.previewBackground.layer.backgroundColor = [[NSColor colorWithCalibratedWhite:1.0 alpha:1.0] CGColor];
+//    self.previewBackground.layer.borderWidth = 2;
+//    self.previewBackground.layer.cornerRadius = 4;
+    [self.containerView addSubview:self.previewBackground];
+    
     self.artboardImageView = [[NSImageView alloc] initWithFrame:NSMakeRect(0, 0, 320, 320)];
     self.artboardImageView.wantsLayer = YES;
-    self.artboardImageView.layer.backgroundColor = [[NSColor colorWithCalibratedWhite:1.0 alpha:0.1] CGColor];
     self.artboardImageView.layer.cornerRadius = 4;
     self.artboardImageView.layer.borderWidth = 2;
-    
-    [self.view addSubview:self.artboardImageView];
+    self.artboardImageView.layer.backgroundColor = [[NSColor colorWithCalibratedWhite:1.0 alpha:0.1] CGColor];
+    [self.containerView addSubview:self.artboardImageView];
     
     self.presetIconView = [[NSImageView alloc] init];
     [self.view addSubview:self.presetIconView];
-    
+
     self.titleLabel = [NSTextField labelWithString:@"Test"];
     self.titleLabel.font = [NSFont systemFontOfSize:12];
     self.titleLabel.textColor = [NSColor colorWithCalibratedWhite:0.50 alpha:1.000];
@@ -36,8 +54,14 @@
     [self.view addSubview:self.titleLabel];
     
     // Auto Layout
-    [self.artboardImageView autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, 0, 0, 0) excludingEdge:ALEdgeBottom];
-    [self.artboardImageView autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:self.titleLabel withOffset:-8];
+    [self.previewBackground autoCenterInSuperview];
+    self.previewWidth = [self.previewBackground autoSetDimension:ALDimensionWidth toSize:480];
+    self.previewHeight = [self.previewBackground autoSetDimension:ALDimensionHeight toSize:480];
+    
+    [self.artboardImageView autoPinEdgesToSuperviewEdges];
+    
+    [self.containerView autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, 0, 0, 0) excludingEdge:ALEdgeBottom];
+    [self.containerView autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:self.titleLabel withOffset:-8];
     
     [self.presetIconView autoSetDimensionsToSize:CGSizeMake(20, 20)];
     [self.presetIconView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:4];
@@ -72,6 +96,33 @@
     else {
         self.artboardImageView.layer.borderColor = [[NSColor clearColor] CGColor];
     }
+}
+
+- (void)setImageSize:(NSSize)targetSize {
+    NSSize currentSize = self.artboardImageView.frame.size;
+
+    CGFloat widthRatio = currentSize.width / targetSize.width;
+    CGFloat heightRatio = currentSize.height / targetSize.height;
+
+    CGFloat widthConstant = 1;
+    CGFloat heightConstant = 1;
+
+    if(widthRatio < heightRatio) {
+        widthConstant = floorf(targetSize.width * widthRatio);
+        heightConstant = floorf(targetSize.height * widthRatio);
+    }
+    else {
+        widthConstant = floorf(targetSize.width * heightRatio);
+        heightConstant = floorf(targetSize.height * heightRatio);
+    }
+    
+    
+    self.previewWidth.constant = widthConstant;
+    self.previewHeight.constant = heightConstant;
+    
+   NSLog(@"w: %f h: %f", widthConstant, heightConstant);
+    
+    [self.view setNeedsLayout:YES];
 }
 
 @end
@@ -179,6 +230,7 @@
     [item.artboardImageView sd_setImageWithURL:[NSURL fileURLWithPath:asset.previewImagePath] placeholderImage:[NSImage imageNamed:@"PreviewImagePlaceholder.png"] options:SDWebImageCacheMemoryOnly];
     
     item.titleLabel.stringValue = (asset.name) ? asset.name : @"WHat";
+    [item setImageSize:NSMakeSize(asset.width, asset.height)];
     
     return item;
 }

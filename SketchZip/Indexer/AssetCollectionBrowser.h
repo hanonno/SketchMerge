@@ -17,8 +17,11 @@
 @interface ItemBrowserItem : NSCollectionViewItem
 
 @property (strong) NSTextField                      *titleLabel;
+@property (strong) NSView                           *previewBackground;
 @property (strong) NSImageView                      *artboardImageView;
 @property (strong) NSImageView                      *presetIconView;
+
+- (void)setImageSize:(NSSize)imageSize;
 
 @end
 
