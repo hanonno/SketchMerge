@@ -17,8 +17,15 @@
 @property (nonatomic, strong) NSMutableDictionary   *JSON;
 @property (nonatomic, strong) SketchPage            *page;
 
+// Geometry
+@property (assign, readonly) float                  x;
+@property (assign, readonly) float                  y;
+@property (assign, readonly) float                  width;
+@property (assign, readonly) float                  height;
+
 // Preview
 @property (nonatomic, strong) NSImage               *previewImage;
+@property (nonatomic, strong) NSString              *previewImagePath;
 
 // Convenience
 @property (nonatomic, strong, readonly) NSString    *name;
@@ -29,30 +36,15 @@
 // Presets
 @property (nonatomic, strong, readonly) NSString    *presetName;
 @property (nonatomic, strong, readonly) NSImage     *presetIcon;
+@property (assign, readonly) float                  presetWidth;
+@property (assign, readonly) float                  presetHeight;
+
 
 // Text
 @property (strong) NSString         *concatenatedStrings;
 
 
 - (id)initWithJSON:(NSMutableDictionary *)JSON fromPage:(SketchPage *)page;
-
-@end
-
-@interface SketchArtboard : SketchLayer
-
-@end
-
-@interface SketchRect : SketchLayer
-
-@property (assign) NSInteger x;
-@property (assign) NSInteger y;
-
-@property (assign) NSInteger width;
-@property (assign) NSInteger height;
-
-@end
-
-@interface SketchText : SketchLayer
 
 @end
 

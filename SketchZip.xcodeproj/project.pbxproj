@@ -54,6 +54,11 @@
 		7D209F0421590B3300A461A5 /* Everything.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D209F0221590B3200A461A5 /* Everything.png */; };
 		7D209F0521590B3300A461A5 /* Everything@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D209F0321590B3200A461A5 /* Everything@2x.png */; };
 		7D209F0E2159195D00A461A5 /* TDCollectionViewListLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D209F0C2159195C00A461A5 /* TDCollectionViewListLayout.m */; };
+		7D29BE742168CB5900D3121B /* SketchFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D7CCFD121133DD50061EBB0 /* SketchFile.m */; };
+		7D29BE772168CE0B00D3121B /* SketchItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D29BE762168CE0B00D3121B /* SketchItem.m */; };
+		7D29BE7A2168CE5600D3121B /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D29BE782168CE4B00D3121B /* Realm.framework */; };
+		7D29BE7B2168CE5600D3121B /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7D29BE782168CE4B00D3121B /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7D29BE7D2168CE5600D3121B /* PureLayout.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5586E97320F373E0000BCB2F /* PureLayout.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7D611B38215ACDE100C86AF1 /* SketchPageCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D611B37215ACDE100C86AF1 /* SketchPageCollectionViewController.m */; };
 		7D611B3B215ACFD300C86AF1 /* SketchFileCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D611B3A215ACFD300C86AF1 /* SketchFileCollectionViewController.m */; };
 		7D611B42215AE36400C86AF1 /* Folder.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D611B40215AE36300C86AF1 /* Folder.png */; };
@@ -150,6 +155,21 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		7D29BE7E2168CE5600D3121B /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				7D29BE7D2168CE5600D3121B /* PureLayout.framework in Embed Frameworks */,
+				7D29BE7B2168CE5600D3121B /* Realm.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		552F294F20EE191500A845B2 /* SketchDiffTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchDiffTool.h; sourceTree = "<group>"; };
 		552F295020EE191500A845B2 /* SketchDiffTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SketchDiffTool.m; sourceTree = "<group>"; };
@@ -238,6 +258,11 @@
 		7D209F0321590B3200A461A5 /* Everything@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Everything@2x.png"; sourceTree = "<group>"; };
 		7D209F0C2159195C00A461A5 /* TDCollectionViewListLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDCollectionViewListLayout.m; sourceTree = "<group>"; };
 		7D209F0D2159195C00A461A5 /* TDCollectionViewListLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDCollectionViewListLayout.h; sourceTree = "<group>"; };
+		7D29BE752168CE0B00D3121B /* SketchItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchItem.h; sourceTree = "<group>"; };
+		7D29BE762168CE0B00D3121B /* SketchItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SketchItem.m; sourceTree = "<group>"; };
+		7D29BE782168CE4B00D3121B /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/Mac/Realm.framework; sourceTree = SOURCE_ROOT; };
+		7D29BE7F2168D83100D3121B /* SketchLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchLayer.h; sourceTree = "<group>"; };
+		7D29BE802168D83100D3121B /* SketchLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SketchLayer.m; sourceTree = "<group>"; };
 		7D611B36215ACDE100C86AF1 /* SketchPageCollectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchPageCollectionViewController.h; sourceTree = "<group>"; };
 		7D611B37215ACDE100C86AF1 /* SketchPageCollectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SketchPageCollectionViewController.m; sourceTree = "<group>"; };
 		7D611B39215ACFD300C86AF1 /* SketchFileCollectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchFileCollectionViewController.h; sourceTree = "<group>"; };
@@ -312,6 +337,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D29BE7A2168CE5600D3121B /* Realm.framework in Frameworks */,
 				5586E97620F37430000BCB2F /* PureLayout.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -387,8 +413,6 @@
 				5548B88B20EF720E00D3A081 /* SketchFilePlugin.m */,
 				552F294F20EE191500A845B2 /* SketchDiffTool.h */,
 				552F295020EE191500A845B2 /* SketchDiffTool.m */,
-				7D7CCFD021133DD50061EBB0 /* SketchFile.h */,
-				7D7CCFD121133DD50061EBB0 /* SketchFile.m */,
 				7D828F942122DBCB00ADBD7E /* SketchOperationTypeIndicator.h */,
 				7D828F952122DBCB00ADBD7E /* SketchOperationTypeIndicator.m */,
 				5548B88F20EF72C000D3A081 /* NSImage+PNGAdditions.h */,
@@ -408,6 +432,7 @@
 				5548B89B20F3708000D3A081 /* Cartfile */,
 				55BE520820ADABFD0059EC77 /* main.m */,
 				55BE520A20ADABFD0059EC77 /* SketchZip.entitlements */,
+				7D29BE782168CE4B00D3121B /* Realm.framework */,
 				5586E97320F373E0000BCB2F /* PureLayout.framework */,
 			);
 			path = SketchZip;
@@ -529,6 +554,12 @@
 		7D611B3C215ADBBA00C86AF1 /* Indexer */ = {
 			isa = PBXGroup;
 			children = (
+				7D29BE7F2168D83100D3121B /* SketchLayer.h */,
+				7D29BE802168D83100D3121B /* SketchLayer.m */,
+				7D7CCFD021133DD50061EBB0 /* SketchFile.h */,
+				7D7CCFD121133DD50061EBB0 /* SketchFile.m */,
+				7D29BE752168CE0B00D3121B /* SketchItem.h */,
+				7D29BE762168CE0B00D3121B /* SketchItem.m */,
 				7DE5F07C2157C85900BD2825 /* SketchFileIndexer.h */,
 				7DE5F07D2157C85900BD2825 /* SketchFileIndexer.m */,
 			);
@@ -656,6 +687,7 @@
 				55BE51F920ADABFB0059EC77 /* Frameworks */,
 				55BE51FA20ADABFB0059EC77 /* Resources */,
 				5586E97720F37468000BCB2F /* ShellScript */,
+				7D29BE7E2168CE5600D3121B /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -908,6 +940,7 @@
 				55BE525E20ADAD410059EC77 /* minishared.c in Sources */,
 				7D828F962122DBCB00ADBD7E /* SketchOperationTypeIndicator.m in Sources */,
 				552F296320EE59AF00A845B2 /* CoreSync.m in Sources */,
+				7D29BE772168CE0B00D3121B /* SketchItem.m in Sources */,
 				552F296520EE59AF00A845B2 /* NSMutableDictionary+CoreSync.m in Sources */,
 				55BE526720ADAD410059EC77 /* aestab.c in Sources */,
 				7D209EF42158EE3900A461A5 /* CollectionViewLeftAlignedLayout.m in Sources */,
@@ -923,6 +956,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				55BE521420ADABFD0059EC77 /* SketchZipTests.m in Sources */,
+				7D29BE742168CB5900D3121B /* SketchFile.m in Sources */,
 				7DE5F07F2157C85900BD2825 /* SketchFileIndexer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

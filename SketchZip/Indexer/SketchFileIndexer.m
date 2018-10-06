@@ -9,6 +9,9 @@
 #import "SketchFileIndexer.h"
 
 
+#import "SketchItem.h"
+
+
 @implementation SketchFileIndexOperation
 
 @synthesize delegate = _delegate;
@@ -41,6 +44,42 @@
 
     self.sketchFile = [[SketchFile alloc] initWithFileURL:[NSURL fileURLWithPath:self.path]];
     [self.sketchFile generatePreviews];
+    
+    RLMRealmConfiguration *config = [RLMRealmConfiguration defaultConfiguration];
+    config.fileURL = [NSURL fileURLWithPath:[@"~/Temp/SketchIndex.realm" stringByExpandingTildeInPath]];
+    
+    RLMRealm *storage = [RLMRealm realmWithConfiguration:config error:nil];
+    
+    for(SketchPage *page in self.sketchFile.pages.allValues) {
+        for(SketchLayer *layer in page.layers.allValues) {
+            SketchItem *item = [[SketchItem alloc] init];
+
+            item.objectId = layer.objectId;
+            item.objectClass = layer.objectClass;
+            item.name = layer.name;
+            
+            item.filePath = self.sketchFile.fileURL.path;
+            
+            item.pageId = page.objectId;
+            item.pageName = page.name;
+            
+            item.x = layer.x;
+            item.y = layer.y;
+            item.width = layer.width;
+            item.height = layer.height;
+            
+            item.presetName = layer.presetName;
+            item.presetWidth = layer.presetWidth;
+            item.presetHeight = layer.presetHeight;
+            
+            item.textContent = layer.concatenatedStrings;
+            item.previewImagePath = layer.previewImagePath;
+
+            [storage beginWriteTransaction];
+            [storage addOrUpdateObject:item];
+            [storage commitWriteTransaction];
+        }
+    }
 
     self.endTime = CACurrentMediaTime();
 
@@ -138,12 +177,12 @@
 //    for (i=0; i < 5; i++) {
         NSMetadataItem *result = [self.query resultAtIndex:i];
         NSString *filePath = [result valueForAttribute:@"kMDItemPath"];
-        
+
         SketchFileIndexOperation *indexOperation = [SketchFileIndexOperation operationWithPath:filePath];
         indexOperation.delegate = self;
-        
+
         [self.indexQueue addOperation:indexOperation];
-        
+
         NSLog(@"Display Name: %@", [result valueForAttribute:@"kMDItemDisplayName"]);
 //        NSLog(@"result at %lu - %@",i,displayName);
 //        NSLog(@"Authors: %@", [result valueForAttribute:@"kMDItemAuthors"]);

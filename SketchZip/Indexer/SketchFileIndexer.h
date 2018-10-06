@@ -7,6 +7,7 @@
 //
 
 #import <Appkit/AppKit.h>
+#import <Realm/Realm.h>
 #import "SketchFile.h"
 
 
