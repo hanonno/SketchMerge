@@ -103,7 +103,7 @@
     
     _query = [[NSMetadataQuery alloc] init];
     _indexQueue = [[NSOperationQueue alloc] init];
-    _indexQueue.maxConcurrentOperationCount = 16;
+    _indexQueue.maxConcurrentOperationCount = 32;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(queryDidUpdateResults:) name:NSMetadataQueryDidUpdateNotification object:_query];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(queryDidGatherInitialResults:) name:NSMetadataQueryDidFinishGatheringNotification object:_query];

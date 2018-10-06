@@ -14,20 +14,7 @@
 @class Filter, SketchLayer, SketchPage;
 
 
-@protocol Asset <NSObject>
-
-@property (strong) NSString     *objectId;
-@property (strong) NSString     *objectClass;
-
-@property (strong) NSString     *name;
-
-@property (readonly) NSImage    *previewImage;
-@property (strong) NSString     *previewImagePath;
-
-@end
-
-
-@interface Asset : RLMObject <Asset>
+@interface Asset : RLMObject
 
 @property (strong) NSString     *objectId;
 @property (strong) NSString     *objectClass;
@@ -84,6 +71,6 @@
 // Data Source
 - (NSInteger)numberOfGroups;
 - (AssetGroup *)groupAtIndex:(NSInteger)index;
-- (id <Asset>)assetAtIndexPath:(NSIndexPath *)indexPath;
+- (Asset *)assetAtIndexPath:(NSIndexPath *)indexPath;
 
 @end

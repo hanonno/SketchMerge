@@ -128,6 +128,26 @@
     return NO;
 }
 
+- (BOOL)matchAsset:(Asset *)asset {
+    if(!self.enabled) {
+        return YES;
+    }
+    
+    if([self.presetName isEqualToString:@"Any device"]) {
+        return YES;
+    }
+    
+    if(self.presetName == nil || self.presetName.length == 0) {
+        return YES;
+    }
+    
+    if([asset.presetName hasPrefix:self.presetName]) {
+        return YES;
+    }
+    
+    return NO;
+}
+
 @end
 
 

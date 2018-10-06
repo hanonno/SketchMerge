@@ -13,7 +13,7 @@
 @class SketchFile, SketchPage, SketchLayerDiff;
 
 
-@interface SketchLayer : NSObject <Asset>
+@interface SketchLayer : NSObject
 
 @property (nonatomic, strong) NSMutableDictionary   *JSON;
 @property (nonatomic, strong) SketchPage            *page;

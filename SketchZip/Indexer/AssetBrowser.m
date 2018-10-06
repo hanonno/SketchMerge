@@ -124,6 +124,7 @@
     self = [super init];
     
     _assetCollection = assetCollection;
+    _imageCache = [[NSMutableDictionary alloc] init];
     
     return self;
 }
@@ -174,10 +175,17 @@
 
 - (NSCollectionViewItem *)collectionView:(NSCollectionView *)collectionView itemForRepresentedObjectAtIndexPath:(NSIndexPath *)indexPath {
     ItemBrowserItem *item = [collectionView makeItemWithIdentifier:@"SketchArtboardCollectionViewItemIdentifier" forIndexPath:indexPath];
-    Asset *sketchItem = [self.assetCollection assetAtIndexPath:indexPath];
+    Asset *asset = [self.assetCollection assetAtIndexPath:indexPath];
     
-    item.artboardImageView.image = sketchItem.previewImage;
-    item.titleLabel.stringValue = (sketchItem.name) ? sketchItem.name : @"WHat";
+    NSImage *image = [self.imageCache objectForKey:asset.previewImagePath];
+    
+    if(!image) {
+        image = asset.previewImage;
+        [self.imageCache setObject:image forKey:asset.previewImagePath];
+    }
+    
+    item.artboardImageView.image = image;
+    item.titleLabel.stringValue = (asset.name) ? asset.name : @"WHat";
     
     return item;
 }
@@ -187,7 +195,7 @@
     AssetGroup *group = [self.assetCollection groupAtIndex:indexPath.section];
     
     headerView.titleLabel.stringValue = group.title;
-    headerView.subtitleLabel.stringValue = group.subtitle;
+    headerView.subtitleLabel.stringValue = [NSString stringWithFormat:@" — %@", group.subtitle];
     
     return headerView;
 }

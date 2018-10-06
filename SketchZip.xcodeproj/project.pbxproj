@@ -61,6 +61,8 @@
 		7D29BE7D2168CE5600D3121B /* PureLayout.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5586E97320F373E0000BCB2F /* PureLayout.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7D29BE842168F58B00D3121B /* AssetBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D29BE832168F58B00D3121B /* AssetBrowser.m */; };
 		7D29BE872169316F00D3121B /* Filter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D29BE862169316F00D3121B /* Filter.m */; };
+		7D29BE8A2169352F00D3121B /* PINCache.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D29BE882169352800D3121B /* PINCache.framework */; };
+		7D29BE8B2169352F00D3121B /* PINCache.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7D29BE882169352800D3121B /* PINCache.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7D611B3B215ACFD300C86AF1 /* SketchFileCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D611B3A215ACFD300C86AF1 /* SketchFileCollectionViewController.m */; };
 		7D611B42215AE36400C86AF1 /* Folder.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D611B40215AE36300C86AF1 /* Folder.png */; };
 		7D611B43215AE36400C86AF1 /* Folder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D611B41215AE36400C86AF1 /* Folder@2x.png */; };
@@ -164,6 +166,7 @@
 			files = (
 				7D29BE7D2168CE5600D3121B /* PureLayout.framework in Embed Frameworks */,
 				7D29BE7B2168CE5600D3121B /* Realm.framework in Embed Frameworks */,
+				7D29BE8B2169352F00D3121B /* PINCache.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -267,6 +270,7 @@
 		7D29BE832168F58B00D3121B /* AssetBrowser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AssetBrowser.m; sourceTree = "<group>"; };
 		7D29BE852169316F00D3121B /* Filter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Filter.h; sourceTree = "<group>"; };
 		7D29BE862169316F00D3121B /* Filter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Filter.m; sourceTree = "<group>"; };
+		7D29BE882169352800D3121B /* PINCache.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PINCache.framework; path = Carthage/Build/Mac/PINCache.framework; sourceTree = SOURCE_ROOT; };
 		7D611B39215ACFD300C86AF1 /* SketchFileCollectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchFileCollectionViewController.h; sourceTree = "<group>"; };
 		7D611B3A215ACFD300C86AF1 /* SketchFileCollectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SketchFileCollectionViewController.m; sourceTree = "<group>"; };
 		7D611B40215AE36300C86AF1 /* Folder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Folder.png; sourceTree = "<group>"; };
@@ -338,6 +342,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7D29BE7A2168CE5600D3121B /* Realm.framework in Frameworks */,
+				7D29BE8A2169352F00D3121B /* PINCache.framework in Frameworks */,
 				5586E97620F37430000BCB2F /* PureLayout.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -432,6 +437,7 @@
 				5548B89B20F3708000D3A081 /* Cartfile */,
 				55BE520820ADABFD0059EC77 /* main.m */,
 				55BE520A20ADABFD0059EC77 /* SketchZip.entitlements */,
+				7D29BE882169352800D3121B /* PINCache.framework */,
 				7D29BE782168CE4B00D3121B /* Realm.framework */,
 				5586E97320F373E0000BCB2F /* PureLayout.framework */,
 			);

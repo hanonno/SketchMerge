@@ -129,6 +129,8 @@
         
         if(!group) {
             group = [[AssetGroup alloc] init];
+            group.title = [asset.filePath.lastPathComponent stringByDeletingPathExtension];
+            group.subtitle = asset.pageName;
             [groupsById setObject:group forKey:groupKey];
         }
         
@@ -158,7 +160,7 @@
     return [self.groups objectAtIndex:groupIndex];
 }
 
-- (id <Asset>)assetAtIndexPath:(NSIndexPath *)indexPath {
+- (Asset *)assetAtIndexPath:(NSIndexPath *)indexPath {
     return [[self groupAtIndex:indexPath.section].assets objectAtIndex:indexPath.item];
 }
 

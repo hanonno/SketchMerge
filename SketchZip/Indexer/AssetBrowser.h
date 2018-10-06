@@ -37,6 +37,7 @@
 @property (strong) NSCollectionViewFlowLayout   *layout;
 
 @property (strong) AssetCollection              *assetCollection;
+@property (strong) NSMutableDictionary          *imageCache;
 
 - (instancetype)initWithAssetCollection:(AssetCollection *)assetCollection;
 
