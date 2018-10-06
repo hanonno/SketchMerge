@@ -83,7 +83,7 @@
     self = [super initWithFrame:frame];
     
     self.wantsLayer = YES;
-    self.layer.backgroundColor = [[NSColor darkGrayColor] CGColor];
+    self.layer.backgroundColor = [[NSColor backgroundColor] CGColor];
     
     NSView *divider = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, 120, 1)];
     divider.wantsLayer = YES;
@@ -118,24 +118,12 @@
 @end
 
 
-
-@interface AssetBrowser ()
-
-//@property (strong) RLMResults               *items;
-//@property (strong) RLMNotificationToken     *notificationToken;
-
-@property (strong) AssetCollection  *assetCollection;
-
-@end
-
-
 @implementation AssetBrowser
 
-- (instancetype)initWithRealm:(RLMRealm *)realm {
+- (instancetype)initWithAssetCollection:(AssetCollection *)assetCollection {
     self = [super init];
     
-    _realm = realm;
-    _assetCollection = [[AssetCollection alloc] initWithRealm:_realm];
+    _assetCollection = assetCollection;
     
     return self;
 }

@@ -59,6 +59,20 @@
 @end
 
 
+@interface AssetFilter : NSObject
+
+- (RLMResults *)applyFilter:(RLMResults *)results;
+
+@end
+
+
+@interface TextAssetFilter : AssetFilter
+
+@property (strong) NSString *text;
+
+@end
+
+
 @interface AssetGroup : RLMObject
 
 @property (strong) NSString     *objectId;
@@ -69,6 +83,8 @@
 
 @property (strong) NSString     *title;
 @property (strong) NSString     *subtitle;
+
+@property (strong) NSArray      *filters;
 
 + (AssetGroup *)groupWithSketchPage:(SketchPage *)page;
 
@@ -83,6 +99,8 @@
 @property (strong) RLMRealm     *realm;
 
 - (instancetype)initWithRealm:(RLMRealm *)realm;
+
+- (void)applyFilters:(NSArray *)filters;
 
 // Data Source
 - (NSInteger)numberOfGroups;

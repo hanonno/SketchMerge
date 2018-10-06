@@ -74,20 +74,25 @@
 
 @implementation AssetGroup
 
-@synthesize assets = _assets;
+@synthesize assets = _assets, filters = _filters;
 
 + (NSString *)primaryKey {
     return @"objectId";
 }
 
 + (NSArray *)ignoredProperties {
-    return @[@"assets"];
+    return @[@"assets", @"filters"];
 }
 
 + (AssetGroup *)groupWithSketchPage:(SketchPage *)page {
     AssetGroup *assetGroup = [[AssetGroup alloc] init];
     
     assetGroup.objectId = page.objectId;
+    
+    assetGroup.fileId = page.file.objectId;
+    assetGroup.pageId = page.objectId;
+    assetGroup.pageName = page.name;
+    
     assetGroup.title = page.file.name;
     assetGroup.subtitle = page.name;
     
@@ -106,12 +111,48 @@
     return _assets;
 }
 
+- (void)setFilters:(NSArray *)filters {
+    _filters = filters;
+    
+    _assets = [Asset objectsInRealm:self.realm where:@"pageId == %@", self.objectId];
+    
+    for (AssetFilter *filter in _filters) {
+        _assets = [filter applyFilter:_assets];
+    }
+}
+
+- (NSArray *)filters {
+    return _filters;
+}
+
 - (NSInteger)numberOfAssets {
     return self.assets.count;
 }
 
 - (Asset *)assetAtIndex:(NSInteger)index {
     return [self.assets objectAtIndex:index];
+}
+
+@end
+
+
+@implementation AssetFilter
+
+- (RLMResults *)applyFilter:(RLMResults *)results {
+    return results;
+}
+
+@end
+
+
+@implementation TextAssetFilter
+
+- (RLMResults *)applyFilter:(RLMResults *)results {
+    if(!self.text || self.text.length == 0) {
+        return [super applyFilter:results];
+    }
+    
+    return [results objectsWhere:@"textContent CONTAINS %@", self.text];
 }
 
 @end
@@ -134,6 +175,12 @@
     _assetGroups = [AssetGroup allObjectsInRealm:_realm];
     
     return self;
+}
+
+- (void)applyFilters:(NSArray *)filters {
+    for (AssetGroup *group in self.assetGroups) {
+        group.filters = filters;
+    }
 }
 
 - (NSInteger)numberOfGroups {

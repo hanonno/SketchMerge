@@ -36,8 +36,8 @@
 @property (strong) NSCollectionView             *collectionView;
 @property (strong) NSCollectionViewFlowLayout   *layout;
 
-@property (strong) RLMRealm                     *realm;
+@property (strong) AssetCollection              *assetCollection;
 
-- (instancetype)initWithRealm:(RLMRealm *)realm;
+- (instancetype)initWithAssetCollection:(AssetCollection *)assetCollection;
 
 @end

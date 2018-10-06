@@ -25,6 +25,7 @@
     _indexer.delegate = self;
     
     _pageCollection = [[SketchPageCollection alloc] init];
+    _assetCollection = [[AssetCollection alloc] initWithRealm:_indexer.realm];
     
     _pathFilter = [[PathFilter alloc] init];
     [_pageCollection addFilter:_pathFilter];
@@ -57,7 +58,7 @@
     self.pageCollectionViewController = [[SketchPageCollectionViewController alloc] initWithPageCollection:self.pageCollection];
 //    [self.view addSubview:self.pageCollectionViewController.view];
     
-    self.itemBrowser = [[AssetBrowser alloc] initWithRealm:self.indexer.realm];
+    self.itemBrowser = [[AssetBrowser alloc] initWithAssetCollection:self.assetCollection];
     [self.view addSubview:self.itemBrowser.view];
     
     NSView *browserView = self.itemBrowser.view;
@@ -69,7 +70,7 @@
     [browserView autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, 0, 0, 0) excludingEdge:ALEdgeLeft];
     [browserView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:240];
     
-    self.sidebarController.filterTokenField.delegate = self.pageCollectionViewController;
+    self.sidebarController.filterTokenField.delegate = self;
 }
 
 - (void)sketchFileIndexer:(SketchFileIndexer *)fileIndexer didIndexFile:(SketchFile *)file {
@@ -84,6 +85,19 @@
         [self.pathFilter setPath:file.fileURL.path];
         [self.pageCollectionViewController reloadData];
     }
+}
+
+
+- (void)controlTextDidChange:(NSNotification *)notification {
+    NSTokenField *tokenField = (NSTokenField *)[notification object];
+    NSString *filterString = tokenField.stringValue;
+    NSLog(@"Keyword: %@", filterString);
+    
+    TextAssetFilter *textContentFilter = [[TextAssetFilter alloc] init];
+    textContentFilter.text = filterString;
+    [self.assetCollection applyFilters:@[textContentFilter]];
+    
+    [self.itemBrowser.collectionView reloadData];
 }
 
 @end

@@ -18,16 +18,17 @@
 #import "AssetBrowser.h"
 
 
-@interface SketchFileCollectionViewController : NSViewController <SketchFileIndexerDelegate, SidebarControllerDelegate>
+@interface SketchFileCollectionViewController : NSViewController <SketchFileIndexerDelegate, SidebarControllerDelegate, NSTokenFieldDelegate>
 
 @property (strong) NSWindow                                 *window;
 @property (strong) NSWindowController                       *windowController;
 
 @property (strong) SidebarController                        *sidebarController;
 @property (strong) SketchPageCollectionViewController       *pageCollectionViewController;
-@property (strong) AssetBrowser                        *itemBrowser;
+@property (strong) AssetBrowser                             *itemBrowser;
 
 @property (strong) SketchFileIndexer                        *indexer;
+@property (strong) AssetCollection                          *assetCollection;
 @property (strong) SketchPageCollection                     *pageCollection;
 
 - (void)showWindow:(id)sender;
