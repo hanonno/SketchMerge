@@ -6,11 +6,27 @@
 //  Copyright © 2018 Motion Pixel. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <Cocoa/Cocoa.h>
 #import <Realm/Realm.h>
 
 
-@interface SketchItem : RLMObject
+@class SketchLayer;
+
+
+@protocol SketchItem <NSObject>
+
+@property (strong) NSString     *objectId;
+@property (strong) NSString     *objectClass;
+
+@property (strong) NSString     *name;
+
+@property (readonly) NSImage    *previewImage;
+@property (strong) NSString     *previewImagePath;
+
+@end
+
+
+@interface SketchItem : RLMObject <SketchItem>
 
 @property (strong) NSString     *objectId;
 @property (strong) NSString     *objectClass;
@@ -35,7 +51,9 @@
 
 @property (strong) NSString     *textContent;           // Used for full text search
 
-@property (strong) NSImage      *previewImage;
+@property (readonly) NSImage    *previewImage;
 @property (strong) NSString     *previewImagePath;
+
++ (SketchItem *)itemWithSketchLayer:(SketchLayer *)layer;
 
 @end

@@ -7,8 +7,37 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <PureLayout/PureLayout.h>
 
 
-@interface SketchItemBrowser : NSViewController
+#import "SketchItem.h"
+
+
+@interface ItemBrowserItem : NSCollectionViewItem
+
+@property (strong) NSTextField                      *titleLabel;
+@property (strong) NSImageView                      *artboardImageView;
+@property (strong) NSImageView                      *presetIconView;
+
+@end
+
+
+@interface ItemBrowserHeader : NSView
+
+@property (strong) NSTextField  *titleLabel;
+@property (strong) NSTextField  *subtitleLabel;
+
+@end
+
+
+@interface SketchItemBrowser : NSViewController <NSCollectionViewDataSource, NSCollectionViewDelegate>
+
+@property (strong) NSScrollView                 *scrollView;
+@property (strong) NSCollectionView             *collectionView;
+@property (strong) NSCollectionViewFlowLayout   *layout;
+
+@property (strong) RLMRealm                     *realm;
+
+- (instancetype)initWithRealm:(RLMRealm *)realm;
 
 @end

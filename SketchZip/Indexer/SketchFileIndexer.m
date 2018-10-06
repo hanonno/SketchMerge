@@ -52,29 +52,7 @@
     
     for(SketchPage *page in self.sketchFile.pages.allValues) {
         for(SketchLayer *layer in page.layers.allValues) {
-            SketchItem *item = [[SketchItem alloc] init];
-
-            item.objectId = layer.objectId;
-            item.objectClass = layer.objectClass;
-            item.name = layer.name;
-            
-            item.fileId = self.sketchFile.objectId;
-            item.filePath = self.sketchFile.fileURL.path;
-
-            item.pageId = page.objectId;
-            item.pageName = page.name;
-            
-            item.x = layer.x;
-            item.y = layer.y;
-            item.width = layer.width;
-            item.height = layer.height;
-            
-            item.presetName = layer.presetName;
-            item.presetWidth = layer.presetWidth;
-            item.presetHeight = layer.presetHeight;
-            
-            item.textContent = layer.concatenatedStrings;
-            item.previewImagePath = layer.previewImagePath;
+            SketchItem *item = [SketchItem itemWithSketchLayer:layer];
 
             [realm beginWriteTransaction];
             [realm addOrUpdateObject:item];
@@ -148,7 +126,7 @@
     self = [self init];
 
     _directory = directory;
-    _metaDirectory = [directory stringByAppendingPathComponent:@"/.meta"];
+    _metaDirectory = [directory stringByAppendingPathComponent:@"/meta"];
     [[NSFileManager defaultManager] createDirectoryAtPath:_metaDirectory withIntermediateDirectories:YES attributes:nil error:NULL];
     
     _searchScopes = @[directory];

@@ -26,7 +26,7 @@
     
 //    SketchFile *file = [[SketchFile alloc] initWithFileURL:[[NSBundle mainBundle] URLForResource:@"Symbol" withExtension:@"sketch"]];
     
-    SketchFileCollectionViewController *hannoCollectionController = [[SketchFileCollectionViewController alloc] initWithDirectory:@"~/Design/Folio"];
+    SketchFileCollectionViewController *hannoCollectionController = [[SketchFileCollectionViewController alloc] initWithDirectory:@"~/Design/Hanno"];
     [hannoCollectionController showWindow:self];
 
 //    SketchFileCollectionViewController *homeCollectionController = [[SketchFileCollectionViewController alloc] initWithDirectory:@"~/Design/United Wardrobe"];

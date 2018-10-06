@@ -59,6 +59,7 @@
 		7D29BE7A2168CE5600D3121B /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D29BE782168CE4B00D3121B /* Realm.framework */; };
 		7D29BE7B2168CE5600D3121B /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7D29BE782168CE4B00D3121B /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7D29BE7D2168CE5600D3121B /* PureLayout.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5586E97320F373E0000BCB2F /* PureLayout.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7D29BE842168F58B00D3121B /* SketchItemBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D29BE832168F58B00D3121B /* SketchItemBrowser.m */; };
 		7D611B38215ACDE100C86AF1 /* SketchPageCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D611B37215ACDE100C86AF1 /* SketchPageCollectionViewController.m */; };
 		7D611B3B215ACFD300C86AF1 /* SketchFileCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D611B3A215ACFD300C86AF1 /* SketchFileCollectionViewController.m */; };
 		7D611B42215AE36400C86AF1 /* Folder.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D611B40215AE36300C86AF1 /* Folder.png */; };
@@ -263,6 +264,8 @@
 		7D29BE782168CE4B00D3121B /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/Mac/Realm.framework; sourceTree = SOURCE_ROOT; };
 		7D29BE7F2168D83100D3121B /* SketchLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchLayer.h; sourceTree = "<group>"; };
 		7D29BE802168D83100D3121B /* SketchLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SketchLayer.m; sourceTree = "<group>"; };
+		7D29BE822168F58B00D3121B /* SketchItemBrowser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchItemBrowser.h; sourceTree = "<group>"; };
+		7D29BE832168F58B00D3121B /* SketchItemBrowser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SketchItemBrowser.m; sourceTree = "<group>"; };
 		7D611B36215ACDE100C86AF1 /* SketchPageCollectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchPageCollectionViewController.h; sourceTree = "<group>"; };
 		7D611B37215ACDE100C86AF1 /* SketchPageCollectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SketchPageCollectionViewController.m; sourceTree = "<group>"; };
 		7D611B39215ACFD300C86AF1 /* SketchFileCollectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchFileCollectionViewController.h; sourceTree = "<group>"; };
@@ -560,6 +563,8 @@
 				7D7CCFD121133DD50061EBB0 /* SketchFile.m */,
 				7D29BE752168CE0B00D3121B /* SketchItem.h */,
 				7D29BE762168CE0B00D3121B /* SketchItem.m */,
+				7D29BE822168F58B00D3121B /* SketchItemBrowser.h */,
+				7D29BE832168F58B00D3121B /* SketchItemBrowser.m */,
 				7DE5F07C2157C85900BD2825 /* SketchFileIndexer.h */,
 				7DE5F07D2157C85900BD2825 /* SketchFileIndexer.m */,
 			);
@@ -912,6 +917,7 @@
 			files = (
 				552F296220EE59AF00A845B2 /* NSArray+CoreSync.m in Sources */,
 				55BE525B20ADAD410059EC77 /* ioapi.c in Sources */,
+				7D29BE842168F58B00D3121B /* SketchItemBrowser.m in Sources */,
 				552F295120EE191500A845B2 /* SketchDiffTool.m in Sources */,
 				7D8CBE672153EF82007C884B /* SketchPageCollection.m in Sources */,
 				55BE525820ADAD410059EC77 /* crypt.c in Sources */,

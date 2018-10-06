@@ -7,12 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SketchItem.h"
 
 
 @class SketchFile, SketchPage, SketchLayerDiff;
 
 
-@interface SketchLayer : NSObject
+@interface SketchLayer : NSObject <SketchItem>
 
 @property (nonatomic, strong) NSMutableDictionary   *JSON;
 @property (nonatomic, strong) SketchPage            *page;
@@ -24,14 +25,14 @@
 @property (assign, readonly) float                  height;
 
 // Preview
-@property (nonatomic, strong) NSImage               *previewImage;
-@property (nonatomic, strong) NSString              *previewImagePath;
+@property (strong) NSImage                          *previewImage;
+@property (strong) NSString                         *previewImagePath;
 
 // Convenience
-@property (nonatomic, strong, readonly) NSString    *name;
-@property (nonatomic, strong, readonly) NSString    *objectId;
-@property (nonatomic, strong, readonly) NSString    *objectClass;
-@property (nonatomic, strong, readonly) NSString    *objectClassName;
+@property (strong, readonly) NSString               *name;
+@property (strong, readonly) NSString               *objectId;
+@property (strong, readonly) NSString               *objectClass;
+@property (strong, readonly) NSString               *objectClassName;
 
 // Presets
 @property (nonatomic, strong, readonly) NSString    *presetName;

@@ -55,14 +55,19 @@
     [self.view addSubview:self.sidebarController.view];
     
     self.pageCollectionViewController = [[SketchPageCollectionViewController alloc] initWithPageCollection:self.pageCollection];
-    [self.view addSubview:self.pageCollectionViewController.view];
+//    [self.view addSubview:self.pageCollectionViewController.view];
+    
+    self.itemBrowser = [[SketchItemBrowser alloc] initWithRealm:self.indexer.realm];
+    [self.view addSubview:self.itemBrowser.view];
+    
+    NSView *browserView = self.itemBrowser.view;
     
     // Autolayout
     [self.sidebarController.view autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, 0, 0, 0) excludingEdge:ALEdgeRight];
     [self.sidebarController.view autoSetDimension:ALDimensionWidth toSize:240];
     
-    [self.pageCollectionViewController.view autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, 0, 0, 0) excludingEdge:ALEdgeLeft];
-    [self.pageCollectionViewController.view autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:240];
+    [browserView autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, 0, 0, 0) excludingEdge:ALEdgeLeft];
+    [browserView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:240];
     
     self.sidebarController.filterTokenField.delegate = self.pageCollectionViewController;
 }
