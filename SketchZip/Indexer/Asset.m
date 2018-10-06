@@ -9,9 +9,8 @@
 #import "Asset.h"
 #import "NSImage+PNGAdditions.h"
 
-
+#import "Filter.h"
 #import "SketchFile.h"
-#import "SketchPageCollection.h"
 
 
 @implementation Asset
@@ -56,6 +55,7 @@
 
 - (NSImage *)previewImage {
     if(!_previewImage) {
+        NSLog(@"Reload preview image");
         _previewImage = [[NSImage alloc] initWithContentsOfFile:self.previewImagePath];
         _previewImage = [_previewImage scaleToSize:NSMakeSize(480, 480)];
     }
@@ -107,13 +107,22 @@
 
 - (void)reloadData {
     NSMutableDictionary *groupsById = [[NSMutableDictionary alloc] init];
-
+    NSInteger count = 0;
+    
     for (Asset *asset in self.assets) {
+        BOOL exit = NO;
+        
         for (Filter *filter in self.filters) {
             if(![filter matchAsset:asset]) {
-                continue;
+                exit = YES;
             }
         }
+        
+        if(exit) {
+            continue;
+        }
+        
+        count++;
         
         NSString *groupKey = asset.pageId;
         AssetGroup *group = groupsById[groupKey];
@@ -125,6 +134,8 @@
         
         [group.assets addObject:asset];
     }
+    
+//    NSLog(@"%i Assets of %i", count, self.assets.count);
     
     self.groups = groupsById.allValues;
 }

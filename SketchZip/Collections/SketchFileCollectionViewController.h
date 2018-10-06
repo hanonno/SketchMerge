@@ -11,10 +11,7 @@
 
 
 #import "SketchFileIndexer.h"
-#import "SketchPageCollection.h"
-
 #import "SidebarController.h"
-#import "SketchPageCollectionViewController.h"
 #import "AssetBrowser.h"
 
 
@@ -24,12 +21,10 @@
 @property (strong) NSWindowController                       *windowController;
 
 @property (strong) SidebarController                        *sidebarController;
-@property (strong) SketchPageCollectionViewController       *pageCollectionViewController;
-@property (strong) AssetBrowser                             *itemBrowser;
+@property (strong) AssetBrowser                             *assetBrowser;
 
 @property (strong) SketchFileIndexer                        *indexer;
 @property (strong) AssetCollection                          *assetCollection;
-@property (strong) SketchPageCollection                     *pageCollection;
 
 - (void)showWindow:(id)sender;
 

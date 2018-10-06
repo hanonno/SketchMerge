@@ -9,6 +9,9 @@
 #import "SketchFileCollectionViewController.h"
 
 
+#import "Filter.h"
+
+
 @interface SketchFileCollectionViewController ()
 
 @property (strong) KeywordFilter    *keywordFilter;
@@ -25,11 +28,9 @@
     _indexer = [[SketchFileIndexer alloc] initWithDirectory:[directory stringByExpandingTildeInPath]];
     _indexer.delegate = self;
     
-    _pageCollection = [[SketchPageCollection alloc] init];
     _assetCollection = [[AssetCollection alloc] initWithRealm:_indexer.realm];
     
     _pathFilter = [[PathFilter alloc] init];
-    [_pageCollection addFilter:_pathFilter];
     [_assetCollection addFilter:_pathFilter];
     
     _keywordFilter = [[KeywordFilter alloc] init];
@@ -60,40 +61,31 @@
     self.sidebarController.delegate = self;
     [self.view addSubview:self.sidebarController.view];
     
-    self.pageCollectionViewController = [[SketchPageCollectionViewController alloc] initWithPageCollection:self.pageCollection];
-//    [self.view addSubview:self.pageCollectionViewController.view];
-    
-    self.itemBrowser = [[AssetBrowser alloc] initWithAssetCollection:self.assetCollection];
-    [self.view addSubview:self.itemBrowser.view];
-    
-    NSView *browserView = self.itemBrowser.view;
+    self.assetBrowser = [[AssetBrowser alloc] initWithAssetCollection:self.assetCollection];
+    [self.view addSubview:self.assetBrowser.view];
     
     // Autolayout
     [self.sidebarController.view autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, 0, 0, 0) excludingEdge:ALEdgeRight];
     [self.sidebarController.view autoSetDimension:ALDimensionWidth toSize:240];
     
-    [browserView autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, 0, 0, 0) excludingEdge:ALEdgeLeft];
-    [browserView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:240];
+    [self.assetBrowser.view autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, 0, 0, 0) excludingEdge:ALEdgeLeft];
+    [self.assetBrowser.view autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:240];
     
     self.sidebarController.filterTokenField.delegate = self;
 }
 
 - (void)sketchFileIndexer:(SketchFileIndexer *)fileIndexer didIndexFile:(SketchFile *)file {
     [self.sidebarController addSketchFile:file];
-    [self.pageCollection addPages:file.pages.allValues];
-    [self.pageCollectionViewController reloadData];
 }
 
 - (void)sidebarController:(SidebarController *)sidebarController didSelectItem:(SidebarItem *)sidebarItem atIndexPath:(NSIndexPath *)indexPath {
     if(indexPath.section == 1) {
         SketchFile *file = [sidebarController sketchFileAtIndex:indexPath.item];
         [self.pathFilter setPath:file.fileURL.path];
-        [self.pageCollectionViewController reloadData];
         [self.assetCollection reloadData];
-        [self.itemBrowser.collectionView reloadData];
+        [self.assetBrowser.collectionView reloadData];
     }
 }
-
 
 - (void)controlTextDidChange:(NSNotification *)notification {
     NSTokenField *tokenField = (NSTokenField *)[notification object];
@@ -102,7 +94,7 @@
     
     self.keywordFilter.keywords = filterString;
     [self.assetCollection reloadData];
-    [self.itemBrowser.collectionView reloadData];
+    [self.assetBrowser.collectionView reloadData];
 }
 
 @end

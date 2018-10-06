@@ -60,7 +60,7 @@
 		7D29BE7B2168CE5600D3121B /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7D29BE782168CE4B00D3121B /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7D29BE7D2168CE5600D3121B /* PureLayout.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5586E97320F373E0000BCB2F /* PureLayout.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7D29BE842168F58B00D3121B /* AssetBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D29BE832168F58B00D3121B /* AssetBrowser.m */; };
-		7D611B38215ACDE100C86AF1 /* SketchPageCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D611B37215ACDE100C86AF1 /* SketchPageCollectionViewController.m */; };
+		7D29BE872169316F00D3121B /* Filter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D29BE862169316F00D3121B /* Filter.m */; };
 		7D611B3B215ACFD300C86AF1 /* SketchFileCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D611B3A215ACFD300C86AF1 /* SketchFileCollectionViewController.m */; };
 		7D611B42215AE36400C86AF1 /* Folder.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D611B40215AE36300C86AF1 /* Folder.png */; };
 		7D611B43215AE36400C86AF1 /* Folder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D611B41215AE36400C86AF1 /* Folder@2x.png */; };
@@ -110,7 +110,6 @@
 		7D8CBE5E2153DD42007C884B /* iPhone 8@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D8CBE462153DD42007C884B /* iPhone 8@2x.png */; };
 		7D8CBE5F2153DD42007C884B /* iPad Pro@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D8CBE472153DD42007C884B /* iPad Pro@2x.png */; };
 		7D8CBE602153DD42007C884B /* iPhone Xs.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D8CBE482153DD42007C884B /* iPhone Xs.png */; };
-		7D8CBE672153EF82007C884B /* SketchPageCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D8CBE662153EF82007C884B /* SketchPageCollection.m */; };
 		7DA184F82138271C00EA1FF8 /* rectangle.json in Resources */ = {isa = PBXBuildFile; fileRef = 7DA184F72138271C00EA1FF8 /* rectangle.json */; };
 		7DA184F92138271C00EA1FF8 /* rectangle.json in Resources */ = {isa = PBXBuildFile; fileRef = 7DA184F72138271C00EA1FF8 /* rectangle.json */; };
 		7DA184FB2138276500EA1FF8 /* oval.json in Resources */ = {isa = PBXBuildFile; fileRef = 7DA184FA2138276500EA1FF8 /* oval.json */; };
@@ -266,8 +265,8 @@
 		7D29BE802168D83100D3121B /* SketchLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SketchLayer.m; sourceTree = "<group>"; };
 		7D29BE822168F58B00D3121B /* AssetBrowser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AssetBrowser.h; sourceTree = "<group>"; };
 		7D29BE832168F58B00D3121B /* AssetBrowser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AssetBrowser.m; sourceTree = "<group>"; };
-		7D611B36215ACDE100C86AF1 /* SketchPageCollectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchPageCollectionViewController.h; sourceTree = "<group>"; };
-		7D611B37215ACDE100C86AF1 /* SketchPageCollectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SketchPageCollectionViewController.m; sourceTree = "<group>"; };
+		7D29BE852169316F00D3121B /* Filter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Filter.h; sourceTree = "<group>"; };
+		7D29BE862169316F00D3121B /* Filter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Filter.m; sourceTree = "<group>"; };
 		7D611B39215ACFD300C86AF1 /* SketchFileCollectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchFileCollectionViewController.h; sourceTree = "<group>"; };
 		7D611B3A215ACFD300C86AF1 /* SketchFileCollectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SketchFileCollectionViewController.m; sourceTree = "<group>"; };
 		7D611B40215AE36300C86AF1 /* Folder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Folder.png; sourceTree = "<group>"; };
@@ -315,8 +314,6 @@
 		7D8CBE462153DD42007C884B /* iPhone 8@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone 8@2x.png"; sourceTree = "<group>"; };
 		7D8CBE472153DD42007C884B /* iPad Pro@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPad Pro@2x.png"; sourceTree = "<group>"; };
 		7D8CBE482153DD42007C884B /* iPhone Xs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone Xs.png"; sourceTree = "<group>"; };
-		7D8CBE652153EF82007C884B /* SketchPageCollection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchPageCollection.h; sourceTree = "<group>"; };
-		7D8CBE662153EF82007C884B /* SketchPageCollection.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SketchPageCollection.m; sourceTree = "<group>"; };
 		7DA184F72138271C00EA1FF8 /* rectangle.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = rectangle.json; sourceTree = "<group>"; };
 		7DA184FA2138276500EA1FF8 /* oval.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = oval.json; sourceTree = "<group>"; };
 		7DA184FD213827FA00EA1FF8 /* text.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = text.json; sourceTree = "<group>"; };
@@ -546,10 +543,6 @@
 			children = (
 				7D611B39215ACFD300C86AF1 /* SketchFileCollectionViewController.h */,
 				7D611B3A215ACFD300C86AF1 /* SketchFileCollectionViewController.m */,
-				7D8CBE652153EF82007C884B /* SketchPageCollection.h */,
-				7D8CBE662153EF82007C884B /* SketchPageCollection.m */,
-				7D611B36215ACDE100C86AF1 /* SketchPageCollectionViewController.h */,
-				7D611B37215ACDE100C86AF1 /* SketchPageCollectionViewController.m */,
 			);
 			path = Collections;
 			sourceTree = "<group>";
@@ -561,6 +554,8 @@
 				7D29BE802168D83100D3121B /* SketchLayer.m */,
 				7D7CCFD021133DD50061EBB0 /* SketchFile.h */,
 				7D7CCFD121133DD50061EBB0 /* SketchFile.m */,
+				7D29BE852169316F00D3121B /* Filter.h */,
+				7D29BE862169316F00D3121B /* Filter.m */,
 				7D29BE752168CE0B00D3121B /* Asset.h */,
 				7D29BE762168CE0B00D3121B /* Asset.m */,
 				7D29BE822168F58B00D3121B /* AssetBrowser.h */,
@@ -919,11 +914,11 @@
 				55BE525B20ADAD410059EC77 /* ioapi.c in Sources */,
 				7D29BE842168F58B00D3121B /* AssetBrowser.m in Sources */,
 				552F295120EE191500A845B2 /* SketchDiffTool.m in Sources */,
-				7D8CBE672153EF82007C884B /* SketchPageCollection.m in Sources */,
 				55BE525820ADAD410059EC77 /* crypt.c in Sources */,
 				7DCE03EC215C0770000ABC8A /* TDTheme.m in Sources */,
 				55BE525C20ADAD410059EC77 /* ioapi_buf.c in Sources */,
 				55BE526620ADAD410059EC77 /* pwd2key.c in Sources */,
+				7D29BE872169316F00D3121B /* Filter.m in Sources */,
 				55BE526820ADAD410059EC77 /* SSZipArchive.m in Sources */,
 				55BE520920ADABFD0059EC77 /* main.m in Sources */,
 				7D611B3B215ACFD300C86AF1 /* SketchFileCollectionViewController.m in Sources */,
@@ -933,7 +928,6 @@
 				55BE525D20ADAD410059EC77 /* ioapi_mem.c in Sources */,
 				552F296420EE59AF00A845B2 /* NSDictionary+CoreSync.m in Sources */,
 				7D7CCFD221133DD50061EBB0 /* SketchFile.m in Sources */,
-				7D611B38215ACDE100C86AF1 /* SketchPageCollectionViewController.m in Sources */,
 				552F296120EE59AF00A845B2 /* CoreSyncTransaction.m in Sources */,
 				7D209F0E2159195D00A461A5 /* TDCollectionViewListLayout.m in Sources */,
 				7D209EF82158FD6F00A461A5 /* SidebarController.m in Sources */,
