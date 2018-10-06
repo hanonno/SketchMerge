@@ -292,7 +292,7 @@
     SketchPageHeaderView *headerView = [collectionView makeSupplementaryViewOfKind:NSCollectionElementKindSectionHeader withIdentifier:@"SketchPageHeaderViewIdentifier" forIndexPath:indexPath];
     SketchPage *page = [self.sketchPageCollection pageAtIndex:indexPath.section];
     
-    headerView.titleLabel.stringValue = page.file.fileName;
+    headerView.titleLabel.stringValue = page.file.name;
     headerView.subtitleLabel.stringValue = [NSString stringWithFormat:@"— %@", page.name];
     
     return headerView;

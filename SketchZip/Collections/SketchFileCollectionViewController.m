@@ -57,7 +57,7 @@
     self.pageCollectionViewController = [[SketchPageCollectionViewController alloc] initWithPageCollection:self.pageCollection];
 //    [self.view addSubview:self.pageCollectionViewController.view];
     
-    self.itemBrowser = [[SketchItemBrowser alloc] initWithRealm:self.indexer.realm];
+    self.itemBrowser = [[AssetBrowser alloc] initWithRealm:self.indexer.realm];
     [self.view addSubview:self.itemBrowser.view];
     
     NSView *browserView = self.itemBrowser.view;

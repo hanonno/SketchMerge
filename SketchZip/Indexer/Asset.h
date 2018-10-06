@@ -10,10 +10,10 @@
 #import <Realm/Realm.h>
 
 
-@class SketchLayer;
+@class SketchLayer, SketchPage;
 
 
-@protocol SketchItem <NSObject>
+@protocol Asset <NSObject>
 
 @property (strong) NSString     *objectId;
 @property (strong) NSString     *objectClass;
@@ -26,7 +26,7 @@
 @end
 
 
-@interface SketchItem : RLMObject <SketchItem>
+@interface Asset : RLMObject <Asset>
 
 @property (strong) NSString     *objectId;
 @property (strong) NSString     *objectClass;
@@ -54,6 +54,41 @@
 @property (readonly) NSImage    *previewImage;
 @property (strong) NSString     *previewImagePath;
 
-+ (SketchItem *)itemWithSketchLayer:(SketchLayer *)layer;
++ (Asset *)assetWithSketchLayer:(SketchLayer *)layer;
+
+@end
+
+
+@interface AssetGroup : RLMObject
+
+@property (strong) NSString     *objectId;
+
+@property (strong) NSString     *fileId;
+@property (strong) NSString     *pageId;
+@property (strong) NSString     *pageName;
+
+@property (strong) NSString     *title;
+@property (strong) NSString     *subtitle;
+
++ (AssetGroup *)groupWithSketchPage:(SketchPage *)page;
+
+- (NSInteger)numberOfAssets;
+- (Asset *)assetAtIndex:(NSInteger)index;
+
+@end
+
+
+@interface AssetCollection : NSObject
+
+@property (strong) RLMRealm     *realm;
+
+- (instancetype)initWithRealm:(RLMRealm *)realm;
+
+// Data Source
+- (NSInteger)numberOfGroups;
+- (AssetGroup *)groupAtIndex:(NSInteger)index;
+
+- (NSInteger)numberOfAssetsInGroupAtIndex:(NSInteger)index;
+- (id <Asset>)assetAtIndexPath:(NSIndexPath *)indexPath;
 
 @end

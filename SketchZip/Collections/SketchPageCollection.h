@@ -11,7 +11,7 @@
 
 #import "SketchFile.h"
 #import "SketchDiffTool.h"
-#import "SketchItem.h"
+#import "Asset.h"
 
 
 @interface PageItem : NSObject
@@ -86,6 +86,6 @@
 - (NSInteger)numberOfLayersInPageAtIndex:(NSInteger)pageIndex;
 
 - (SketchPage *)pageAtIndex:(NSInteger)index;
-- (id <SketchItem>)layerAtIndexPath:(NSIndexPath *)indexPath;
+- (id <Asset>)layerAtIndexPath:(NSIndexPath *)indexPath;
 
 @end

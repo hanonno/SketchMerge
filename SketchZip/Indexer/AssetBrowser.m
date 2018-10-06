@@ -6,7 +6,7 @@
 //  Copyright © 2018 Motion Pixel. All rights reserved.
 //
 
-#import "SketchItemBrowser.h"
+#import "AssetBrowser.h"
 
 #import "TDTheme.h"
 #import "CollectionViewLeftAlignedLayout.h"
@@ -21,20 +21,15 @@
     self.artboardImageView = [[NSImageView alloc] initWithFrame:NSMakeRect(0, 0, 320, 320)];
     self.artboardImageView.wantsLayer = YES;
     self.artboardImageView.layer.backgroundColor = [[NSColor colorWithCalibratedWhite:1.0 alpha:0.1] CGColor];
-    //    self.artboardImageView.layer.backgroundColor = [[NSColor redColor] CGColor];
     self.artboardImageView.layer.cornerRadius = 4;
     self.artboardImageView.layer.borderWidth = 2;
     
     [self.view addSubview:self.artboardImageView];
     
-    //    self.statusView = [[SketchOperationTypeIndicator alloc] init];
-    //    [self.view addSubview:self.statusView];
-    
     self.presetIconView = [[NSImageView alloc] init];
     [self.view addSubview:self.presetIconView];
     
     self.titleLabel = [NSTextField labelWithString:@"Test"];
-    //    self.titleLabel.alignment = NSTextAlignmentL;
     self.titleLabel.font = [NSFont systemFontOfSize:12];
     self.titleLabel.textColor = [NSColor colorWithCalibratedWhite:0.50 alpha:1.000];
     self.titleLabel.lineBreakMode = NSLineBreakByTruncatingMiddle;
@@ -48,10 +43,6 @@
     [self.presetIconView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:4];
     [self.presetIconView autoPinEdgeToSuperviewEdge:ALEdgeBottom];
     
-    //    [self.statusView autoSetDimensionsToSize:CGSizeMake(12, 12)];
-    //    [self.statusView autoPinEdgeToSuperviewEdge:ALEdgeLeft];
-    //    [self.statusView autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:8];
-    
     [self.titleLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self.presetIconView withOffset:2];
     [self.titleLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:self.presetIconView withOffset:6];
     [self.titleLabel autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:4];
@@ -61,7 +52,6 @@
 }
 
 - (void)setHighlightState:(NSCollectionViewItemHighlightState)highlightState {
-    
     [super setHighlightState:highlightState];
     
     if(highlightState == NSCollectionViewItemHighlightForSelection) {
@@ -113,9 +103,7 @@
     
     // Autolayout
     [self.titleLabel autoAlignAxisToSuperviewAxis:ALAxisHorizontal];
-    //    [self.titleLabel autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:8];
     [self.titleLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:16];
-    //    [self.titleLabel autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:16];
     
     [self.subtitleLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self.titleLabel];
     [self.subtitleLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:self.titleLabel withOffset:4];
@@ -131,26 +119,23 @@
 
 
 
-@interface SketchItemBrowser ()
+@interface AssetBrowser ()
 
-@property (strong) RLMResults               *items;
-@property (strong) RLMNotificationToken     *notificationToken;
+//@property (strong) RLMResults               *items;
+//@property (strong) RLMNotificationToken     *notificationToken;
+
+@property (strong) AssetCollection  *assetCollection;
 
 @end
 
 
-@implementation SketchItemBrowser
+@implementation AssetBrowser
 
 - (instancetype)initWithRealm:(RLMRealm *)realm {
     self = [super init];
     
     _realm = realm;
-    _items = [SketchItem allObjectsInRealm:_realm];
-    
-    _notificationToken = [_items addNotificationBlock:^(RLMResults * _Nullable results, RLMCollectionChange * _Nullable change, NSError * _Nullable error) {
-        NSLog(@"Updated!");
-    }];
-
+    _assetCollection = [[AssetCollection alloc] initWithRealm:_realm];
     
     return self;
 }
@@ -192,17 +177,16 @@
 #pragma mark Collection View
 
 - (NSInteger)numberOfSectionsInCollectionView:(NSCollectionView *)collectionView {
-//    return self.sketchPageCollection.numberOfPages;
-    return 1;
+    return self.assetCollection.numberOfGroups;
 }
 
 - (NSInteger)collectionView:(NSCollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.items.count;
+    return [self.assetCollection numberOfAssetsInGroupAtIndex:section];
 }
 
 - (NSCollectionViewItem *)collectionView:(NSCollectionView *)collectionView itemForRepresentedObjectAtIndexPath:(NSIndexPath *)indexPath {
     ItemBrowserItem *item = [collectionView makeItemWithIdentifier:@"SketchArtboardCollectionViewItemIdentifier" forIndexPath:indexPath];
-    SketchItem *sketchItem = [self.items objectAtIndex:indexPath.item];
+    Asset *sketchItem = [self.assetCollection assetAtIndexPath:indexPath];
     
     item.artboardImageView.image = sketchItem.previewImage;
     item.titleLabel.stringValue = (sketchItem.name) ? sketchItem.name : @"WHat";
@@ -212,11 +196,10 @@
 
 - (NSView *)collectionView:(NSCollectionView *)collectionView viewForSupplementaryElementOfKind:(NSCollectionViewSupplementaryElementKind)kind atIndexPath:(NSIndexPath *)indexPath {
     ItemBrowserHeader *headerView = [collectionView makeSupplementaryViewOfKind:NSCollectionElementKindSectionHeader withIdentifier:@"SketchPageHeaderViewIdentifier" forIndexPath:indexPath];
-//    SketchPage *page = [self.sketchPageCollection pageAtIndex:indexPath.section];
+    AssetGroup *group = [self.assetCollection groupAtIndex:indexPath.section];
     
-    headerView.titleLabel.stringValue = @"Page";
-//    headerView.subtitleLabel.stringValue = [NSString stringWithFormat:@"— %@", page.name];
-    headerView.subtitleLabel.stringValue = @"Subtitle";
+    headerView.titleLabel.stringValue = group.title;
+    headerView.subtitleLabel.stringValue = group.subtitle;
     
     return headerView;
 }

@@ -7,13 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SketchItem.h"
+#import "Asset.h"
 
 
 @class SketchFile, SketchPage, SketchLayerDiff;
 
 
-@interface SketchLayer : NSObject <SketchItem>
+@interface SketchLayer : NSObject <Asset>
 
 @property (nonatomic, strong) NSMutableDictionary   *JSON;
 @property (nonatomic, strong) SketchPage            *page;
@@ -72,12 +72,11 @@
 
 @interface SketchFile : NSObject
 
-
 @property (strong) NSURL                *fileURL;
 @property (strong) NSMutableDictionary  *pages;
 
 @property (readonly) NSString           *objectId;
-@property (readonly) NSString           *fileName;
+@property (readonly) NSString           *name;
 
 - (id)initWithFileURL:(NSURL *)fileURL;
 

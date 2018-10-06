@@ -10,7 +10,7 @@
 #import <PureLayout/PureLayout.h>
 
 
-#import "SketchItem.h"
+#import "Asset.h"
 
 
 @interface ItemBrowserItem : NSCollectionViewItem
@@ -30,7 +30,7 @@
 @end
 
 
-@interface SketchItemBrowser : NSViewController <NSCollectionViewDataSource, NSCollectionViewDelegate>
+@interface AssetBrowser : NSViewController <NSCollectionViewDataSource, NSCollectionViewDelegate>
 
 @property (strong) NSScrollView                 *scrollView;
 @property (strong) NSCollectionView             *collectionView;

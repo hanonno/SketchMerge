@@ -9,7 +9,7 @@
 #import "SketchFileIndexer.h"
 
 
-#import "SketchItem.h"
+#import "Asset.h"
 
 
 @implementation SketchFileIndexOperation
@@ -51,11 +51,17 @@
     RLMRealm *realm = [RLMRealm realmWithURL:[NSURL fileURLWithPath:self.realmPath]];
     
     for(SketchPage *page in self.sketchFile.pages.allValues) {
+        AssetGroup *assetGroup = [AssetGroup groupWithSketchPage:page];
+        
+        [realm beginWriteTransaction];
+        [realm addOrUpdateObject:assetGroup];
+        [realm commitWriteTransaction];
+
         for(SketchLayer *layer in page.layers.allValues) {
-            SketchItem *item = [SketchItem itemWithSketchLayer:layer];
+            Asset *asset = [Asset assetWithSketchLayer:layer];
 
             [realm beginWriteTransaction];
-            [realm addOrUpdateObject:item];
+            [realm addOrUpdateObject:asset];
             [realm commitWriteTransaction];
         }
     }

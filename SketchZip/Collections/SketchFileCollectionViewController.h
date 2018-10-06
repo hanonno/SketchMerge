@@ -15,7 +15,7 @@
 
 #import "SidebarController.h"
 #import "SketchPageCollectionViewController.h"
-#import "SketchItemBrowser.h"
+#import "AssetBrowser.h"
 
 
 @interface SketchFileCollectionViewController : NSViewController <SketchFileIndexerDelegate, SidebarControllerDelegate>
@@ -25,7 +25,7 @@
 
 @property (strong) SidebarController                        *sidebarController;
 @property (strong) SketchPageCollectionViewController       *pageCollectionViewController;
-@property (strong) SketchItemBrowser                        *itemBrowser;
+@property (strong) AssetBrowser                        *itemBrowser;
 
 @property (strong) SketchFileIndexer                        *indexer;
 @property (strong) SketchPageCollection                     *pageCollection;

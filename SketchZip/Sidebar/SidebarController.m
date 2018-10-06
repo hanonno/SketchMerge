@@ -222,7 +222,7 @@
     SidebarItem *item = [collectionView makeItemWithIdentifier:@"SidebarItem" forIndexPath:indexPath];
     SketchFile *file = [self sketchFileAtIndex:indexPath.item];
     
-    item.titleLabel.stringValue = [file.fileName stringByDeletingPathExtension] ;
+    item.titleLabel.stringValue = [file.name stringByDeletingPathExtension] ;
     item.iconView.image = [NSImage imageNamed:@"File"];
 
     return item;

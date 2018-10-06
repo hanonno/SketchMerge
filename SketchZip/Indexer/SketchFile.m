@@ -250,7 +250,7 @@ static const BOOL kLoggingEnabled = NO;
     return self;
 }
 
-- (NSString *)fileName {
+- (NSString *)name {
     return [self.fileURL lastPathComponent];
 }
 
