@@ -59,10 +59,12 @@
 		7D29BE7A2168CE5600D3121B /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D29BE782168CE4B00D3121B /* Realm.framework */; };
 		7D29BE7B2168CE5600D3121B /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7D29BE782168CE4B00D3121B /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7D29BE7D2168CE5600D3121B /* PureLayout.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5586E97320F373E0000BCB2F /* PureLayout.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		7D29BE842168F58B00D3121B /* AssetBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D29BE832168F58B00D3121B /* AssetBrowser.m */; };
+		7D29BE842168F58B00D3121B /* AssetCollectionBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D29BE832168F58B00D3121B /* AssetCollectionBrowser.m */; };
 		7D29BE872169316F00D3121B /* Filter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D29BE862169316F00D3121B /* Filter.m */; };
-		7D29BE8A2169352F00D3121B /* PINCache.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D29BE882169352800D3121B /* PINCache.framework */; };
-		7D29BE8B2169352F00D3121B /* PINCache.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7D29BE882169352800D3121B /* PINCache.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7D29BE9121693E5300D3121B /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D29BE8F21693E4E00D3121B /* SDWebImage.framework */; };
+		7D29BE9221693E5300D3121B /* SDWebImage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7D29BE8F21693E4E00D3121B /* SDWebImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7D29BE9521693FE200D3121B /* PreviewImagePlaceholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D29BE9321693FE200D3121B /* PreviewImagePlaceholder@2x.png */; };
+		7D29BE9621693FE200D3121B /* PreviewImagePlaceholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D29BE9421693FE200D3121B /* PreviewImagePlaceholder.png */; };
 		7D611B3B215ACFD300C86AF1 /* SketchFileCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D611B3A215ACFD300C86AF1 /* SketchFileCollectionViewController.m */; };
 		7D611B42215AE36400C86AF1 /* Folder.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D611B40215AE36300C86AF1 /* Folder.png */; };
 		7D611B43215AE36400C86AF1 /* Folder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D611B41215AE36400C86AF1 /* Folder@2x.png */; };
@@ -165,8 +167,8 @@
 			dstSubfolderSpec = 10;
 			files = (
 				7D29BE7D2168CE5600D3121B /* PureLayout.framework in Embed Frameworks */,
+				7D29BE9221693E5300D3121B /* SDWebImage.framework in Embed Frameworks */,
 				7D29BE7B2168CE5600D3121B /* Realm.framework in Embed Frameworks */,
-				7D29BE8B2169352F00D3121B /* PINCache.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -266,11 +268,14 @@
 		7D29BE782168CE4B00D3121B /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/Mac/Realm.framework; sourceTree = SOURCE_ROOT; };
 		7D29BE7F2168D83100D3121B /* SketchLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchLayer.h; sourceTree = "<group>"; };
 		7D29BE802168D83100D3121B /* SketchLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SketchLayer.m; sourceTree = "<group>"; };
-		7D29BE822168F58B00D3121B /* AssetBrowser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AssetBrowser.h; sourceTree = "<group>"; };
-		7D29BE832168F58B00D3121B /* AssetBrowser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AssetBrowser.m; sourceTree = "<group>"; };
+		7D29BE822168F58B00D3121B /* AssetCollectionBrowser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AssetCollectionBrowser.h; sourceTree = "<group>"; };
+		7D29BE832168F58B00D3121B /* AssetCollectionBrowser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AssetCollectionBrowser.m; sourceTree = "<group>"; };
 		7D29BE852169316F00D3121B /* Filter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Filter.h; sourceTree = "<group>"; };
 		7D29BE862169316F00D3121B /* Filter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Filter.m; sourceTree = "<group>"; };
 		7D29BE882169352800D3121B /* PINCache.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PINCache.framework; path = Carthage/Build/Mac/PINCache.framework; sourceTree = SOURCE_ROOT; };
+		7D29BE8F21693E4E00D3121B /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDWebImage.framework; path = Carthage/Build/Mac/SDWebImage.framework; sourceTree = SOURCE_ROOT; };
+		7D29BE9321693FE200D3121B /* PreviewImagePlaceholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PreviewImagePlaceholder@2x.png"; sourceTree = "<group>"; };
+		7D29BE9421693FE200D3121B /* PreviewImagePlaceholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PreviewImagePlaceholder.png; sourceTree = "<group>"; };
 		7D611B39215ACFD300C86AF1 /* SketchFileCollectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchFileCollectionViewController.h; sourceTree = "<group>"; };
 		7D611B3A215ACFD300C86AF1 /* SketchFileCollectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SketchFileCollectionViewController.m; sourceTree = "<group>"; };
 		7D611B40215AE36300C86AF1 /* Folder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Folder.png; sourceTree = "<group>"; };
@@ -341,8 +346,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D29BE9121693E5300D3121B /* SDWebImage.framework in Frameworks */,
 				7D29BE7A2168CE5600D3121B /* Realm.framework in Frameworks */,
-				7D29BE8A2169352F00D3121B /* PINCache.framework in Frameworks */,
 				5586E97620F37430000BCB2F /* PureLayout.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -437,6 +442,7 @@
 				5548B89B20F3708000D3A081 /* Cartfile */,
 				55BE520820ADABFD0059EC77 /* main.m */,
 				55BE520A20ADABFD0059EC77 /* SketchZip.entitlements */,
+				7D29BE8F21693E4E00D3121B /* SDWebImage.framework */,
 				7D29BE882169352800D3121B /* PINCache.framework */,
 				7D29BE782168CE4B00D3121B /* Realm.framework */,
 				5586E97320F373E0000BCB2F /* PureLayout.framework */,
@@ -564,10 +570,12 @@
 				7D29BE862169316F00D3121B /* Filter.m */,
 				7D29BE752168CE0B00D3121B /* Asset.h */,
 				7D29BE762168CE0B00D3121B /* Asset.m */,
-				7D29BE822168F58B00D3121B /* AssetBrowser.h */,
-				7D29BE832168F58B00D3121B /* AssetBrowser.m */,
+				7D29BE822168F58B00D3121B /* AssetCollectionBrowser.h */,
+				7D29BE832168F58B00D3121B /* AssetCollectionBrowser.m */,
 				7DE5F07C2157C85900BD2825 /* SketchFileIndexer.h */,
 				7DE5F07D2157C85900BD2825 /* SketchFileIndexer.m */,
+				7D29BE9421693FE200D3121B /* PreviewImagePlaceholder.png */,
+				7D29BE9321693FE200D3121B /* PreviewImagePlaceholder@2x.png */,
 			);
 			path = Indexer;
 			sourceTree = "<group>";
@@ -807,6 +815,7 @@
 				7D209F012159082800A461A5 /* Favorites.png in Resources */,
 				7DE5F0822157F76F00BD2825 /* Artboard@2x.png in Resources */,
 				7D828FA32122E27E00ADBD7E /* Sketch-A.sketch in Resources */,
+				7D29BE9521693FE200D3121B /* PreviewImagePlaceholder@2x.png in Resources */,
 				7D8CBE532153DD42007C884B /* Apple Watch 44mm@2x.png in Resources */,
 				7D7CCFCF21133C630061EBB0 /* Version-6.sketch in Resources */,
 				7D828FA52122E27E00ADBD7E /* Sketch-B.sketch in Resources */,
@@ -818,6 +827,7 @@
 				7D8CBE5C2153DD42007C884B /* Apple Watch 40mm@2x.png in Resources */,
 				7D7CCFC721133AB60061EBB0 /* Version-1.sketch in Resources */,
 				7DC61A6D2162C28D00F3986E /* Symbol.sketch in Resources */,
+				7D29BE9621693FE200D3121B /* PreviewImagePlaceholder.png in Resources */,
 				7D8CBE542153DD42007C884B /* Apple Watch 38mm@2x.png in Resources */,
 				7DE5F0842157F76F00BD2825 /* Artboard.png in Resources */,
 				7D209F0421590B3300A461A5 /* Everything.png in Resources */,
@@ -918,7 +928,7 @@
 			files = (
 				552F296220EE59AF00A845B2 /* NSArray+CoreSync.m in Sources */,
 				55BE525B20ADAD410059EC77 /* ioapi.c in Sources */,
-				7D29BE842168F58B00D3121B /* AssetBrowser.m in Sources */,
+				7D29BE842168F58B00D3121B /* AssetCollectionBrowser.m in Sources */,
 				552F295120EE191500A845B2 /* SketchDiffTool.m in Sources */,
 				55BE525820ADAD410059EC77 /* crypt.c in Sources */,
 				7DCE03EC215C0770000ABC8A /* TDTheme.m in Sources */,

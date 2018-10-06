@@ -12,7 +12,7 @@
 
 #import "SketchFileIndexer.h"
 #import "SidebarController.h"
-#import "AssetBrowser.h"
+#import "AssetCollectionBrowser.h"
 
 
 @interface SketchFileCollectionViewController : NSViewController <SketchFileIndexerDelegate, SidebarControllerDelegate, NSTokenFieldDelegate>
@@ -21,7 +21,7 @@
 @property (strong) NSWindowController                       *windowController;
 
 @property (strong) SidebarController                        *sidebarController;
-@property (strong) AssetBrowser                             *assetBrowser;
+@property (strong) AssetCollectionBrowser                             *assetBrowser;
 
 @property (strong) SketchFileIndexer                        *indexer;
 @property (strong) AssetCollection                          *assetCollection;

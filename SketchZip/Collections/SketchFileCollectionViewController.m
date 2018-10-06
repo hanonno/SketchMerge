@@ -61,7 +61,7 @@
     self.sidebarController.delegate = self;
     [self.view addSubview:self.sidebarController.view];
     
-    self.assetBrowser = [[AssetBrowser alloc] initWithAssetCollection:self.assetCollection];
+    self.assetBrowser = [[AssetCollectionBrowser alloc] initWithAssetCollection:self.assetCollection];
     [self.view addSubview:self.assetBrowser.view];
     
     // Autolayout
@@ -76,6 +76,7 @@
 
 - (void)sketchFileIndexer:(SketchFileIndexer *)fileIndexer didIndexFile:(SketchFile *)file {
     [self.sidebarController addSketchFile:file];
+    [self.assetBrowser.collectionView reloadData];
 }
 
 - (void)sidebarController:(SidebarController *)sidebarController didSelectItem:(SidebarItem *)sidebarItem atIndexPath:(NSIndexPath *)indexPath {

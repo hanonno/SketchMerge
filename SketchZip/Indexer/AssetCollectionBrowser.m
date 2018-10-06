@@ -6,7 +6,7 @@
 //  Copyright © 2018 Motion Pixel. All rights reserved.
 //
 
-#import "AssetBrowser.h"
+#import "AssetCollectionBrowser.h"
 
 #import "TDTheme.h"
 #import "CollectionViewLeftAlignedLayout.h"
@@ -118,13 +118,12 @@
 @end
 
 
-@implementation AssetBrowser
+@implementation AssetCollectionBrowser
 
 - (instancetype)initWithAssetCollection:(AssetCollection *)assetCollection {
     self = [super init];
     
     _assetCollection = assetCollection;
-    _imageCache = [[NSMutableDictionary alloc] init];
     
     return self;
 }
@@ -177,14 +176,8 @@
     ItemBrowserItem *item = [collectionView makeItemWithIdentifier:@"SketchArtboardCollectionViewItemIdentifier" forIndexPath:indexPath];
     Asset *asset = [self.assetCollection assetAtIndexPath:indexPath];
     
-    NSImage *image = [self.imageCache objectForKey:asset.previewImagePath];
+    [item.artboardImageView sd_setImageWithURL:[NSURL fileURLWithPath:asset.previewImagePath] placeholderImage:[NSImage imageNamed:@"PreviewImagePlaceholder.png"] options:SDWebImageCacheMemoryOnly];
     
-    if(!image) {
-        image = asset.previewImage;
-        [self.imageCache setObject:image forKey:asset.previewImagePath];
-    }
-    
-    item.artboardImageView.image = image;
     item.titleLabel.stringValue = (asset.name) ? asset.name : @"WHat";
     
     return item;

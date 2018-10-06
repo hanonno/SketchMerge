@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import <PureLayout/PureLayout.h>
+#import <SDWebImage/SDWebImage.h>
 
 
 #import "Asset.h"
@@ -30,14 +31,13 @@
 @end
 
 
-@interface AssetBrowser : NSViewController <NSCollectionViewDataSource, NSCollectionViewDelegate>
+@interface AssetCollectionBrowser : NSViewController <NSCollectionViewDataSource, NSCollectionViewDelegate>
 
 @property (strong) NSScrollView                 *scrollView;
 @property (strong) NSCollectionView             *collectionView;
 @property (strong) NSCollectionViewFlowLayout   *layout;
 
 @property (strong) AssetCollection              *assetCollection;
-@property (strong) NSMutableDictionary          *imageCache;
 
 - (instancetype)initWithAssetCollection:(AssetCollection *)assetCollection;
 
