@@ -30,6 +30,9 @@
 @property (strong) NSString         *path;
 @property (strong) SketchFile       *sketchFile;
 
+@property (strong) NSString         *realmPath;
+@property (strong) NSString         *previewImageDirectory;
+
 @property (assign) CFTimeInterval   startTime;
 @property (assign) CFTimeInterval   endTime;
 
@@ -47,8 +50,14 @@
 
 @interface SketchFileIndexer : NSObject
 
-@property (strong) NSString                         *directory;
 @property (assign) id <SketchFileIndexerDelegate>   delegate;
+
+@property (strong) NSString                         *directory;
+@property (strong) NSString                         *metaDirectory;
+
+@property (strong) RLMRealm                         *realm;
+@property (strong) NSString                         *realmPath;
+@property (strong) NSString                         *previewImageDirectory;
 
 - (id)initWithDirectory:(NSString *)directory;
 

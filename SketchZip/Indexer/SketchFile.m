@@ -254,6 +254,10 @@ static const BOOL kLoggingEnabled = NO;
     return [self.fileURL lastPathComponent];
 }
 
+- (NSString *)objectId {
+    return self.documentJSON[@"do_objectID"];
+}
+
 - (void)loadPages {
     // Load all page files
     NSString *pagesDirectory = [self.tempFileURL.path stringByAppendingPathComponent:@"pages"];
@@ -376,6 +380,10 @@ static const BOOL kLoggingEnabled = NO;
 }
 
 - (void)generatePreviews {
+    [self generatePreviewsInDirectory:NSTemporaryDirectory()];
+}
+
+- (void)generatePreviewsInDirectory:(NSString *)previewImageDirectory {
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSString *sketchToolPath = @"/Applications/Sketch.app/Contents/Resources/sketchtool/bin/sketchtool";
     
@@ -383,21 +391,21 @@ static const BOOL kLoggingEnabled = NO;
         sketchToolPath = [[NSBundle mainBundle] pathForResource:@"sketchtool/bin/sketchtool" ofType:nil];
     }
     
-    NSURL *tempDir = [NSURL fileURLWithPath:NSTemporaryDirectory()];
-    tempDir = [tempDir URLByAppendingPathComponent:[NSUUID UUID].UUIDString];
+    NSURL *previewImageDirectoryURL = [NSURL fileURLWithPath:previewImageDirectory];
+    previewImageDirectoryURL = [previewImageDirectoryURL URLByAppendingPathComponent:[NSUUID UUID].UUIDString];
     
-    [[NSFileManager defaultManager] createDirectoryAtPath:tempDir.path withIntermediateDirectories:YES attributes:nil error:NULL];
+    [[NSFileManager defaultManager] createDirectoryAtPath:previewImageDirectoryURL.path withIntermediateDirectories:YES attributes:nil error:NULL];
     
     NSTask *task = [[NSTask alloc] init];
     [task setLaunchPath:sketchToolPath];
     [task setArguments:@[
-                         @"export",
-                         @"artboards",
-                         self.fileURL.path,
-                         [NSString stringWithFormat:@"--output=%@", tempDir.path],
-                         @"--use-id-for-name",
-                         //        [NSString stringWithFormat:@"--items=%@", [objectIds componentsJoinedByString:@","]]
-                         ]];
+        @"export",
+        @"artboards",
+        self.fileURL.path,
+        [NSString stringWithFormat:@"--output=%@", previewImageDirectoryURL.path],
+        @"--use-id-for-name",
+        //        [NSString stringWithFormat:@"--items=%@", [objectIds componentsJoinedByString:@","]]
+    ]];
     
     NSPipe *outputPipe = [[NSPipe alloc] init];
     task.standardOutput = outputPipe;
@@ -413,13 +421,13 @@ static const BOOL kLoggingEnabled = NO;
     
     //    DDLogVerbose(@"SketchFilePlugin: sketchtool for %@ in %f ms", fileURL.relativeString, [now timeIntervalSinceNow]);
     
-    NSLog(@"OUTPUT DIR: %@", tempDir);
+    NSLog(@"OUTPUT DIR: %@", previewImageDirectoryURL);
     
     NSString *result;
     if (errorData.length == 0) {
         for(SketchPage *page in self.pages.allValues) {
             for (SketchLayer *layer in page.layers.allValues) {
-                layer.previewImagePath = [[tempDir.path stringByAppendingPathComponent:layer.objectId] stringByAppendingPathExtension:@"png"];
+                layer.previewImagePath = [[previewImageDirectoryURL.path stringByAppendingPathComponent:layer.objectId] stringByAppendingPathExtension:@"png"];
             }
         }
     } else {

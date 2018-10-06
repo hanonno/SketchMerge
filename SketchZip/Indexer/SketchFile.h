@@ -71,9 +71,11 @@
 
 @interface SketchFile : NSObject
 
+
 @property (strong) NSURL                *fileURL;
 @property (strong) NSMutableDictionary  *pages;
 
+@property (readonly) NSString           *objectId;
 @property (readonly) NSString           *fileName;
 
 - (id)initWithFileURL:(NSURL *)fileURL;
@@ -88,5 +90,6 @@
 - (void)deletePage:(SketchPage *)page;
 
 - (void)generatePreviews;
+- (void)generatePreviewsInDirectory:(NSString *)previewImageDirectory;
 
 @end

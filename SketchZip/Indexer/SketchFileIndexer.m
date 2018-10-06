@@ -43,12 +43,12 @@
     [self didChangeValueForKey:@"isExecuting"];
 
     self.sketchFile = [[SketchFile alloc] initWithFileURL:[NSURL fileURLWithPath:self.path]];
-    [self.sketchFile generatePreviews];
+    [self.sketchFile generatePreviewsInDirectory:self.previewImageDirectory];
     
-    RLMRealmConfiguration *config = [RLMRealmConfiguration defaultConfiguration];
-    config.fileURL = [NSURL fileURLWithPath:[@"~/Temp/SketchIndex.realm" stringByExpandingTildeInPath]];
-    
-    RLMRealm *storage = [RLMRealm realmWithConfiguration:config error:nil];
+//    RLMRealmConfiguration *config = [RLMRealmConfiguration defaultConfiguration];
+//    config.fileURL = [NSURL fileURLWithPath:[@"~/Temp/SketchIndex.realm" stringByExpandingTildeInPath]];
+//
+    RLMRealm *realm = [RLMRealm realmWithURL:[NSURL fileURLWithPath:self.realmPath]];
     
     for(SketchPage *page in self.sketchFile.pages.allValues) {
         for(SketchLayer *layer in page.layers.allValues) {
@@ -58,8 +58,9 @@
             item.objectClass = layer.objectClass;
             item.name = layer.name;
             
+            item.fileId = self.sketchFile.objectId;
             item.filePath = self.sketchFile.fileURL.path;
-            
+
             item.pageId = page.objectId;
             item.pageName = page.name;
             
@@ -75,9 +76,9 @@
             item.textContent = layer.concatenatedStrings;
             item.previewImagePath = layer.previewImagePath;
 
-            [storage beginWriteTransaction];
-            [storage addOrUpdateObject:item];
-            [storage commitWriteTransaction];
+            [realm beginWriteTransaction];
+            [realm addOrUpdateObject:item];
+            [realm commitWriteTransaction];
         }
     }
 
@@ -145,10 +146,17 @@
 
 - (id)initWithDirectory:(NSString *)directory {
     self = [self init];
-    
+
     _directory = directory;
+    _metaDirectory = [directory stringByAppendingPathComponent:@"/.meta"];
+    [[NSFileManager defaultManager] createDirectoryAtPath:_metaDirectory withIntermediateDirectories:YES attributes:nil error:NULL];
+    
     _searchScopes = @[directory];
 
+    _realmPath = [[_metaDirectory stringByAppendingPathComponent:@"index"] stringByAppendingPathExtension:@"realm"];
+    _realm = [RLMRealm realmWithURL:[NSURL fileURLWithPath:_realmPath]];
+    _previewImageDirectory = [_metaDirectory stringByAppendingPathComponent:@"Previews"];
+    
     return self;
 }
 
@@ -180,6 +188,8 @@
 
         SketchFileIndexOperation *indexOperation = [SketchFileIndexOperation operationWithPath:filePath];
         indexOperation.delegate = self;
+        indexOperation.realmPath = self.realmPath;
+        indexOperation.previewImageDirectory = self.previewImageDirectory;
 
         [self.indexQueue addOperation:indexOperation];
 

@@ -15,6 +15,7 @@
 @property (strong) NSString     *objectId;
 @property (strong) NSString     *objectClass;
 
+@property (strong) NSString     *fileId;
 @property (strong) NSString     *filePath;
 
 @property (strong) NSString     *pageId;
