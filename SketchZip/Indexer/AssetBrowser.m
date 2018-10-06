@@ -169,7 +169,7 @@
 }
 
 - (NSInteger)collectionView:(NSCollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return [self.assetCollection numberOfAssetsInGroupAtIndex:section];
+    return [self.assetCollection groupAtIndex:section].assets.count;
 }
 
 - (NSCollectionViewItem *)collectionView:(NSCollectionView *)collectionView itemForRepresentedObjectAtIndexPath:(NSIndexPath *)indexPath {

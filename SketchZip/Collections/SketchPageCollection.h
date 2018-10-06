@@ -11,7 +11,9 @@
 
 #import "SketchFile.h"
 #import "SketchDiffTool.h"
-#import "Asset.h"
+
+
+@class Asset;
 
 
 @interface PageItem : NSObject
@@ -41,6 +43,7 @@
 @property (assign) BOOL     enabled;
 
 - (BOOL)matchLayer:(SketchLayer *)layer;
+- (BOOL)matchAsset:(Asset *)asset;
 
 @end
 

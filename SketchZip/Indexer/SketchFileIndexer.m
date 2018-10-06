@@ -51,12 +51,6 @@
     RLMRealm *realm = [RLMRealm realmWithURL:[NSURL fileURLWithPath:self.realmPath]];
     
     for(SketchPage *page in self.sketchFile.pages.allValues) {
-        AssetGroup *assetGroup = [AssetGroup groupWithSketchPage:page];
-        
-        [realm beginWriteTransaction];
-        [realm addOrUpdateObject:assetGroup];
-        [realm commitWriteTransaction];
-
         for(SketchLayer *layer in page.layers.allValues) {
             Asset *asset = [Asset assetWithSketchLayer:layer];
 

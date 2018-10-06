@@ -10,7 +10,7 @@
 #import <Realm/Realm.h>
 
 
-@class SketchLayer, SketchPage;
+@class Filter, SketchLayer, SketchPage;
 
 
 @protocol Asset <NSObject>
@@ -59,37 +59,11 @@
 @end
 
 
-@interface AssetFilter : NSObject
+@interface AssetGroup : NSObject
 
-- (RLMResults *)applyFilter:(RLMResults *)results;
-
-@end
-
-
-@interface TextAssetFilter : AssetFilter
-
-@property (strong) NSString *text;
-
-@end
-
-
-@interface AssetGroup : RLMObject
-
-@property (strong) NSString     *objectId;
-
-@property (strong) NSString     *fileId;
-@property (strong) NSString     *pageId;
-@property (strong) NSString     *pageName;
-
-@property (strong) NSString     *title;
-@property (strong) NSString     *subtitle;
-
-@property (strong) NSArray      *filters;
-
-+ (AssetGroup *)groupWithSketchPage:(SketchPage *)page;
-
-- (NSInteger)numberOfAssets;
-- (Asset *)assetAtIndex:(NSInteger)index;
+@property (strong) NSString         *title;
+@property (strong) NSString         *subtitle;
+@property (strong) NSMutableArray   *assets;
 
 @end
 
@@ -100,13 +74,15 @@
 
 - (instancetype)initWithRealm:(RLMRealm *)realm;
 
-- (void)applyFilters:(NSArray *)filters;
+- (void)reloadData;
+
+// Filtering
+- (void)addFilter:(Filter *)filter;
+- (void)removeFilter:(Filter *)filter;
 
 // Data Source
 - (NSInteger)numberOfGroups;
 - (AssetGroup *)groupAtIndex:(NSInteger)index;
-
-- (NSInteger)numberOfAssetsInGroupAtIndex:(NSInteger)index;
 - (id <Asset>)assetAtIndexPath:(NSIndexPath *)indexPath;
 
 @end

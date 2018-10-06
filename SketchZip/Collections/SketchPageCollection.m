@@ -8,6 +8,10 @@
 
 #import "SketchPageCollection.h"
 
+
+#import "Asset.h"
+
+
 @implementation PageItem
 @end
 
@@ -27,6 +31,10 @@
 }
 
 - (BOOL)matchLayer:(SketchLayer *)layer {
+    return YES;
+}
+
+- (BOOL)matchAsset:(Asset *)asset {
     return YES;
 }
 
@@ -68,6 +76,38 @@
     }
     
     if([concatenatedStrings containsString:keywords]) {
+        return YES;
+    }
+    
+    return NO;
+}
+
+- (BOOL)matchAsset:(Asset *)asset {
+    if(!self.enabled) {
+        return YES;
+    }
+    
+    NSString *keywords = self.keywords.copy;
+    
+    if(keywords == nil || keywords.length == 0) {
+        return YES;
+    }
+    
+    NSString *name = asset.name;
+    NSString *textContent = asset.textContent;
+    
+    if(!self.isCaseSensitive) {
+        keywords = keywords.lowercaseString;
+        
+        name = name.lowercaseString;
+        textContent = textContent.lowercaseString;
+    }
+    
+    if([name containsString:keywords]) {
+        return YES;
+    }
+    
+    if([textContent containsString:keywords]) {
         return YES;
     }
     

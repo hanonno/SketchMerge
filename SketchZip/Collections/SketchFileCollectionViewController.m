@@ -11,7 +11,8 @@
 
 @interface SketchFileCollectionViewController ()
 
-@property (strong) PathFilter   *pathFilter;
+@property (strong) KeywordFilter    *keywordFilter;
+@property (strong) PathFilter       *pathFilter;
 
 @end
 
@@ -29,6 +30,10 @@
     
     _pathFilter = [[PathFilter alloc] init];
     [_pageCollection addFilter:_pathFilter];
+    [_assetCollection addFilter:_pathFilter];
+    
+    _keywordFilter = [[KeywordFilter alloc] init];
+    [_assetCollection addFilter:_keywordFilter];
     
     return self;
 }
@@ -84,6 +89,8 @@
         SketchFile *file = [sidebarController sketchFileAtIndex:indexPath.item];
         [self.pathFilter setPath:file.fileURL.path];
         [self.pageCollectionViewController reloadData];
+        [self.assetCollection reloadData];
+        [self.itemBrowser.collectionView reloadData];
     }
 }
 
@@ -93,10 +100,8 @@
     NSString *filterString = tokenField.stringValue;
     NSLog(@"Keyword: %@", filterString);
     
-    TextAssetFilter *textContentFilter = [[TextAssetFilter alloc] init];
-    textContentFilter.text = filterString;
-    [self.assetCollection applyFilters:@[textContentFilter]];
-    
+    self.keywordFilter.keywords = filterString;
+    [self.assetCollection reloadData];
     [self.itemBrowser.collectionView reloadData];
 }
 

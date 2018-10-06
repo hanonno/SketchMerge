@@ -11,6 +11,7 @@
 
 
 #import "SketchFile.h"
+#import "SketchPageCollection.h"
 
 
 @implementation Asset
@@ -65,103 +66,27 @@
 @end
 
 
-@interface AssetGroup ()
-
-@property (strong) RLMResults   *assets;
-
-@end
-
-
 @implementation AssetGroup
 
-@synthesize assets = _assets, filters = _filters;
-
-+ (NSString *)primaryKey {
-    return @"objectId";
-}
-
-+ (NSArray *)ignoredProperties {
-    return @[@"assets", @"filters"];
-}
-
-+ (AssetGroup *)groupWithSketchPage:(SketchPage *)page {
-    AssetGroup *assetGroup = [[AssetGroup alloc] init];
+- (instancetype)init {
+    self = [super init];
     
-    assetGroup.objectId = page.objectId;
+    _title = @"Title";
+    _subtitle = @"Subtitle";
+    _assets = [[NSMutableArray alloc] init];
     
-    assetGroup.fileId = page.file.objectId;
-    assetGroup.pageId = page.objectId;
-    assetGroup.pageName = page.name;
-    
-    assetGroup.title = page.file.name;
-    assetGroup.subtitle = page.name;
-    
-    return assetGroup;
-}
-
-- (void)setAssets:(RLMResults *)assets {
-    _assets = assets;
-}
-
-- (RLMResults *)assets {
-    if(!_assets) {
-        _assets = [Asset objectsInRealm:self.realm where:@"pageId == %@", self.objectId];
-    }
-    
-    return _assets;
-}
-
-- (void)setFilters:(NSArray *)filters {
-    _filters = filters;
-    
-    _assets = [Asset objectsInRealm:self.realm where:@"pageId == %@", self.objectId];
-    
-    for (AssetFilter *filter in _filters) {
-        _assets = [filter applyFilter:_assets];
-    }
-}
-
-- (NSArray *)filters {
-    return _filters;
-}
-
-- (NSInteger)numberOfAssets {
-    return self.assets.count;
-}
-
-- (Asset *)assetAtIndex:(NSInteger)index {
-    return [self.assets objectAtIndex:index];
+    return self;
 }
 
 @end
 
-
-@implementation AssetFilter
-
-- (RLMResults *)applyFilter:(RLMResults *)results {
-    return results;
-}
-
-@end
-
-
-@implementation TextAssetFilter
-
-- (RLMResults *)applyFilter:(RLMResults *)results {
-    if(!self.text || self.text.length == 0) {
-        return [super applyFilter:results];
-    }
-    
-    return [results objectsWhere:@"textContent CONTAINS %@", self.text];
-}
-
-@end
 
 
 @interface AssetCollection ()
 
-@property (strong) RLMRealmConfiguration    *realmConfiguration;
-@property (strong) RLMResults               *assetGroups;
+@property (strong) RLMResults       *assets;
+@property (strong) NSArray          *groups;
+@property (strong) NSMutableArray   *filters;
 
 @end
 
@@ -172,31 +97,58 @@
     self = [super init];
     
     _realm = realm;
-    _assetGroups = [AssetGroup allObjectsInRealm:_realm];
+    _assets = [Asset allObjectsInRealm:_realm];
+    _filters = [[NSMutableArray alloc] init];
+    
+    [self reloadData];
     
     return self;
 }
 
-- (void)applyFilters:(NSArray *)filters {
-    for (AssetGroup *group in self.assetGroups) {
-        group.filters = filters;
+- (void)reloadData {
+    NSMutableDictionary *groupsById = [[NSMutableDictionary alloc] init];
+
+    for (Asset *asset in self.assets) {
+        for (Filter *filter in self.filters) {
+            if(![filter matchAsset:asset]) {
+                continue;
+            }
+        }
+        
+        NSString *groupKey = asset.pageId;
+        AssetGroup *group = groupsById[groupKey];
+        
+        if(!group) {
+            group = [[AssetGroup alloc] init];
+            [groupsById setObject:group forKey:groupKey];
+        }
+        
+        [group.assets addObject:asset];
     }
+    
+    self.groups = groupsById.allValues;
+}
+
+- (void)addFilter:(Filter *)filter {
+    [self.filters addObject:filter];
+    [self reloadData];
+}
+
+- (void)removeFilter:(Filter *)filter {
+    [self.filters removeObject:filter];
+    [self reloadData];
 }
 
 - (NSInteger)numberOfGroups {
-    return self.assetGroups.count;
+    return self.groups.count;
 }
 
 - (AssetGroup *)groupAtIndex:(NSInteger)groupIndex {
-    return [self.assetGroups objectAtIndex:groupIndex];
-}
-
-- (NSInteger)numberOfAssetsInGroupAtIndex:(NSInteger)groupIndex {
-    return [self groupAtIndex:groupIndex].numberOfAssets;
+    return [self.groups objectAtIndex:groupIndex];
 }
 
 - (id <Asset>)assetAtIndexPath:(NSIndexPath *)indexPath {
-    return [[self groupAtIndex:indexPath.section] assetAtIndex:indexPath.item];
+    return [[self groupAtIndex:indexPath.section].assets objectAtIndex:indexPath.item];
 }
 
 @end
