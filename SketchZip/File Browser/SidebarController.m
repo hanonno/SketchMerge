@@ -98,6 +98,8 @@
 @property (strong) NSArray          *items;
 @property (strong) NSMutableArray   *sketchFiles;
 
+@property (assign) BOOL             fileSectionCollapsed;
+
 @end
 
 
@@ -112,6 +114,8 @@
     self.filterTokenField = [[NSTokenField alloc] initWithFrame:NSMakeRect(0, 0, 240, 52)];
     self.previewSizeSlider = [[NSSlider alloc] init];
     self.sizeFilterPicker = [[SizeFilterPicker alloc] init];
+    
+    self.fileSectionCollapsed = NO;
     
     return self;
 }
@@ -174,15 +178,29 @@
     [divider autoSetDimension:ALDimensionWidth toSize:1];
 }
 
+- (IBAction)toggleFileSection:(id)sender {
+    self.fileSectionCollapsed = !self.fileSectionCollapsed;
+
+    NSMutableSet *indexPaths = [[NSMutableSet alloc] init];
+    NSInteger itemIndex = 0;
+    for (SketchFile *file in self.sketchFiles) {
+        [indexPaths addObject:[NSIndexPath indexPathForItem:itemIndex inSection:1]];
+        itemIndex = itemIndex + 1;
+    }
+    
+    if(self.fileSectionCollapsed) {
+        [self.collectionView.animator deleteItemsAtIndexPaths:indexPaths];
+        
+    }
+    else {
+        [self.collectionView.animator insertItemsAtIndexPaths:indexPaths];
+    }
+}
+
 - (void)viewWillAppear {
     [super viewWillAppear];
     
-//    [self.view setNeedsLayout:YES];
-//    [self.scrollView setNeedsLayout:YES];
-    
     [self.collectionView reloadData];
-    
-    [self.scrollView tile];
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(NSCollectionView *)collectionView {
@@ -191,6 +209,10 @@
 
 - (NSInteger)collectionView:(NSCollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     if(section == 1) {
+        if(self.fileSectionCollapsed) {
+            return 0;
+        }
+        
         return self.sketchFiles.count;
     }
     

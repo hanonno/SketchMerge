@@ -47,7 +47,7 @@
 @end
 
 
-@interface SidebarController : NSViewController <NSTokenFieldDelegate, SizeFilterPickerDelegate>
+@interface SidebarController : NSViewController <NSTokenFieldDelegate>
 
 @property (strong) NSTokenField                         *filterTokenField;
 //@property (strong) NSP
@@ -62,5 +62,7 @@
 
 - (void)addSketchFile:(SketchFile *)sketchFile;
 - (SketchFile *)sketchFileAtIndex:(NSInteger)index;
+
+- (IBAction)toggleFileSection:(id)sender;
 
 @end

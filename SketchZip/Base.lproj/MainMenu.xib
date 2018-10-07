@@ -389,6 +389,12 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="WMR-S2-x0U"/>
+                            <menuItem title="Toggle File section" keyEquivalent="3" id="p5V-ep-rft">
+                                <modifierMask key="keyEquivalentModifierMask" control="YES"/>
+                                <connections>
+                                    <action selector="toggleFileSection:" target="-1" id="mP9-U3-xHV"/>
+                                </connections>
+                            </menuItem>
                             <menuItem title="Show Toolbar" keyEquivalent="t" id="YJq-WD-ghO">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                 <connections>
@@ -717,6 +723,7 @@
                     </menu>
                 </menuItem>
             </items>
+            <point key="canvasLocation" x="-69" y="-193"/>
         </menu>
         <window title="SketchZip" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
@@ -727,7 +734,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="480" height="360"/>
                 <autoresizingMask key="autoresizingMask"/>
             </view>
-            <point key="canvasLocation" x="-109" y="501"/>
+            <point key="canvasLocation" x="30" y="291"/>
         </window>
     </objects>
 </document>

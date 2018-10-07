@@ -174,6 +174,18 @@ typedef NS_ENUM(NSInteger, JNWListEdge) {
 	return attributes;
 }
 
+- (NSCollectionViewLayoutAttributes *)initialLayoutAttributesForAppearingItemAtIndexPath:(NSIndexPath *)itemIndexPath {
+    NSCollectionViewLayoutAttributes *attributes = [self layoutAttributesForItemAtIndexPath:itemIndexPath];
+    attributes.alpha = 0;
+    return attributes;
+}
+
+- (NSCollectionViewLayoutAttributes *)finalLayoutAttributesForDisappearingItemAtIndexPath:(NSIndexPath *)itemIndexPath {
+    NSCollectionViewLayoutAttributes *attributes = [self layoutAttributesForItemAtIndexPath:itemIndexPath];
+    attributes.alpha = 0;
+    return attributes;
+}
+
 - (NSCollectionViewLayoutAttributes *)layoutAttributesForSupplementaryItemInSection:(NSInteger)sectionIdx kind:(NSString *)kind {
 	JNWCollectionViewListLayoutSection *section = self.sections[sectionIdx];
 	CGFloat width = self.availableContentWidth;
