@@ -47,6 +47,42 @@
 @end
 
 
+@implementation SidebarItemView
+
+- (instancetype)initWithFrame:(NSRect)frame {
+    self = [super initWithFrame:NSMakeRect(0, 0, 120, 44)];
+    
+    NSView *highlightView = [[NSView alloc] init];
+    highlightView.cornerRadius = 4;
+    [self addSubview:highlightView];
+    self.highlightView = highlightView;
+    
+    NSImageView *iconView = [[NSImageView alloc] init];
+    [self.highlightView addSubview:iconView];
+    self.iconView = iconView;
+    
+    NSTextField *titleLabel = [NSTextField labelWithString:@"Title"];
+    titleLabel.font = [NSFont systemFontOfSize:13 weight:NSFontWeightMedium];
+    titleLabel.textColor = [NSColor titleTextColor];
+    [self.highlightView addSubview:titleLabel];
+    self.titleLabel = titleLabel;
+    
+    // Auto layout
+    [self.highlightView autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, 16, 0, 16)];
+    
+    [self.iconView autoSetDimensionsToSize:CGSizeMake(20, 20)];
+    [self.iconView autoAlignAxisToSuperviewAxis:ALAxisHorizontal];
+    [self.iconView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:8];
+    
+    [self.titleLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self.highlightView withOffset:0];
+    [self.titleLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:self.iconView withOffset:5];
+    
+    return self;
+}
+
+@end
+
+
 @implementation SidebarCollectionViewItem
 
 - (void)loadView {
@@ -137,6 +173,7 @@
     
     self.listLayout = [[TDCollectionViewListLayout alloc] init];
     self.listLayout.rowHeight = 28;
+//    self.listLayout.headerReferenceSize = NSMakeSize(320, 44);
     self.listLayout.delegate = self;
 
     self.collectionView = [[NSCollectionView alloc] initWithFrame:self.scrollView.bounds];
@@ -146,6 +183,7 @@
     self.collectionView.selectable = YES;
     self.collectionView.allowsEmptySelection = NO;
     [self.collectionView registerClass:[SidebarCollectionViewItem class] forItemWithIdentifier:@"SidebarItem"];
+    [self.collectionView registerClass:[SidebarItemView class] forSupplementaryViewOfKind:NSCollectionElementKindSectionHeader withIdentifier:@"SidebarHeaderIdentifier"];
     self.collectionView.backgroundColors = @[[NSColor backgroundColor]];
     
     self.scrollView = [[NSScrollView alloc] initWithFrame:NSMakeRect(0, 0, 640, 640)];
@@ -275,5 +313,24 @@
     }
 }
 
+- (NSView *)collectionView:(NSCollectionView *)collectionView viewForSupplementaryElementOfKind:(NSCollectionViewSupplementaryElementKind)kind atIndexPath:(NSIndexPath *)indexPath {
+    SidebarItemView *headerView = [collectionView makeSupplementaryViewOfKind:NSCollectionElementKindSectionHeader withIdentifier:@"SidebarHeaderIdentifier" forIndexPath:indexPath];
+//    AssetGroup *group = [self.assetCollection groupAtIndex:indexPath.section];
+    
+    NSString *title = @"Collections";
+    
+    if(indexPath.section == 1) {
+        title = @"Files";
+    }
+    
+    headerView.titleLabel.stringValue = title;
+//    headerView.subtitleLabel.stringValue = [NSString stringWithFormat:@" — %@", group.subtitle];
+    
+    return headerView;
+}
+
+- (CGFloat)collectionView:(NSCollectionView *)collectionView heightForHeaderInSection:(NSInteger)index {
+    return self.listLayout.rowHeight;
+}
 
 @end

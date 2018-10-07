@@ -26,7 +26,7 @@
 @end
 
 
-@interface SidebarCollectionViewItem : NSCollectionViewItem
+@interface SidebarItemView : NSView
 
 @property (strong) NSImageView  *iconView;
 @property (strong) NSTextField  *titleLabel;
@@ -35,7 +35,14 @@
 @end
 
 
-//@interface SidebarItem
+
+@interface SidebarCollectionViewItem : NSCollectionViewItem
+
+@property (strong) NSImageView  *iconView;
+@property (strong) NSTextField  *titleLabel;
+@property (strong) NSView       *highlightView;
+
+@end
 
 
 
