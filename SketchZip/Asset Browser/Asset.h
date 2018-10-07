@@ -42,7 +42,12 @@
 @property (readonly) NSImage    *previewImage;
 @property (strong) NSString     *previewImagePath;
 
+//
+@property (assign) BOOL         favorited;
+
+
 + (Asset *)assetWithSketchLayer:(SketchLayer *)layer;
+- (void)takeValuesFromLayer:(SketchLayer *)layer;
 
 @end
 

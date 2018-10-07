@@ -36,10 +36,6 @@ static const BOOL kLoggingEnabled = NO;
     
     self.concatenatedStrings = [self.strings componentsJoinedByString:@" "];
     
-    if(self.concatenatedStrings.length > 0) {
-        NSLog(@"Concat: %@", self.concatenatedStrings);
-    }
-    
     return self;
 }
 

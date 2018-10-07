@@ -29,28 +29,34 @@
     Asset *item = [[Asset alloc] init];
     
     item.objectId = layer.objectId;
-    item.objectClass = layer.objectClass;
-    item.name = layer.name;
+    [item takeValuesFromLayer:layer];
     
-    item.fileId = layer.page.file.objectId;
-    item.filePath = layer.page.file.fileURL.path;
-
-    item.pageId = layer.page.objectId;
-    item.pageName = layer.page.name;
-    
-    item.x = layer.x;
-    item.y = layer.y;
-    item.width = layer.width;
-    item.height = layer.height;
-    
-    item.presetName = layer.presetName;
-    item.presetWidth = layer.presetWidth;
-    item.presetHeight = layer.presetHeight;
-    
-    item.textContent = layer.concatenatedStrings;
-    item.previewImagePath = layer.previewImagePath;
-
     return item;
+}
+
+- (void)takeValuesFromLayer:(SketchLayer *)layer {
+    [self.realm beginWriteTransaction];
+    self.objectClass = layer.objectClass;
+    self.name = layer.name;
+    
+    self.fileId = layer.page.file.objectId;
+    self.filePath = layer.page.file.fileURL.path;
+    
+    self.pageId = layer.page.objectId;
+    self.pageName = layer.page.name;
+    
+    self.x = layer.x;
+    self.y = layer.y;
+    self.width = layer.width;
+    self.height = layer.height;
+    
+    self.presetName = layer.presetName;
+    self.presetWidth = layer.presetWidth;
+    self.presetHeight = layer.presetHeight;
+    
+    self.textContent = layer.concatenatedStrings;
+    self.previewImagePath = layer.previewImagePath;
+    [self.realm commitWriteTransaction];
 }
 
 - (NSImage *)previewImage {

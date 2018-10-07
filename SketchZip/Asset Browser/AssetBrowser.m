@@ -12,30 +12,37 @@
 #import "CollectionViewLeftAlignedLayout.h"
 
 
-@interface ItemBrowserItem ()
+@interface AssetBrowserItem ()
 
-@property NSView                *containerView;
-@property NSLayoutConstraint    *previewWidth;
-@property NSLayoutConstraint    *previewHeight;
+@property NSView                            *containerView;
+@property NSLayoutConstraint                *previewWidth;
+@property NSLayoutConstraint                *previewHeight;
+
+@property (strong) RLMNotificationToken     *token;
 
 @end
 
 
-@implementation ItemBrowserItem
+@implementation AssetBrowserItem
+
+@synthesize asset = _asset;
 
 - (void)loadView {
     self.view = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, 320, 320)];
     self.view.wantsLayer = YES;
     
-    self.artboardImageView = [[NSImageView alloc] initWithFrame:NSMakeRect(0, 0, 320, 320)];
-    self.artboardImageView.wantsLayer = YES;
-    self.artboardImageView.layer.cornerRadius = 4;
-    self.artboardImageView.layer.borderWidth = 2;
-    self.artboardImageView.layer.backgroundColor = [[NSColor colorWithCalibratedWhite:1.0 alpha:0.02] CGColor];
-    [self.view addSubview:self.artboardImageView];
+    self.previewImageView = [[NSImageView alloc] initWithFrame:NSMakeRect(0, 0, 320, 320)];
+    self.previewImageView.wantsLayer = YES;
+    self.previewImageView.layer.cornerRadius = 4;
+    self.previewImageView.layer.borderWidth = 2;
+    self.previewImageView.layer.backgroundColor = [[NSColor colorWithCalibratedWhite:1.0 alpha:0.02] CGColor];
+    [self.view addSubview:self.previewImageView];
     
     self.presetIconView = [[NSImageView alloc] init];
     [self.view addSubview:self.presetIconView];
+    
+    self.favoriteIconView = [[NSImageView alloc] init];
+    [self.view addSubview:self.favoriteIconView];
 
     self.titleLabel = [NSTextField labelWithString:@"Test"];
     self.titleLabel.font = [NSFont systemFontOfSize:12];
@@ -44,12 +51,16 @@
     [self.view addSubview:self.titleLabel];
     
     // Auto Layout
-    [self.artboardImageView autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, 0, 0, 0) excludingEdge:ALEdgeBottom];
-    [self.artboardImageView autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:self.titleLabel withOffset:-8];
+    [self.previewImageView autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, 0, 0, 0) excludingEdge:ALEdgeBottom];
+    [self.previewImageView autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:self.titleLabel withOffset:-8];
     
     [self.presetIconView autoSetDimensionsToSize:CGSizeMake(20, 20)];
     [self.presetIconView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:4];
     [self.presetIconView autoPinEdgeToSuperviewEdge:ALEdgeBottom];
+    
+    [self.favoriteIconView autoSetDimensionsToSize:CGSizeMake(20, 20)];
+    [self.favoriteIconView autoPinEdgeToSuperviewEdge:ALEdgeRight];
+    [self.favoriteIconView autoPinEdgeToSuperviewEdge:ALEdgeBottom];
     
     [self.titleLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self.presetIconView withOffset:2];
     [self.titleLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:self.presetIconView withOffset:6];
@@ -57,6 +68,28 @@
     [self.titleLabel autoSetDimension:ALDimensionHeight toSize:22];
     
     self.selected = NO;
+}
+
+- (Asset *)asset {
+    return _asset;
+}
+
+- (void)setAsset:(Asset *)asset {
+    _asset = asset;
+    
+    __weak typeof(self) weakSelf = self;
+
+    self.token = [_asset addNotificationBlock:^(BOOL deleted, NSArray<RLMPropertyChange *> * _Nullable changes, NSError * _Nullable error) {
+        [weakSelf takeValuesFromAsset:weakSelf.asset];
+    }];
+    
+    [self takeValuesFromAsset:_asset];
+}
+
+- (void)takeValuesFromAsset:(Asset *)asset {
+    [self.previewImageView sd_setImageWithURL:[NSURL fileURLWithPath:asset.previewImagePath] placeholderImage:[NSImage imageNamed:@"PreviewImagePlaceholder.png"] options:SDWebImageCacheMemoryOnly];
+    self.titleLabel.stringValue = (asset.name) ? asset.name : @"WHat";
+    self.favoriteIconView.image = (asset.favorited) ? [NSImage imageNamed:@"Favorites"] : nil;
 }
 
 - (void)setHighlightState:(NSCollectionViewItemHighlightState)highlightState {
@@ -75,10 +108,10 @@
     [super setSelected:selected];
     
     if(selected) {
-        self.artboardImageView.layer.borderColor =[[NSColor highlightColor] CGColor];
+        self.previewImageView.layer.borderColor =[[NSColor highlightColor] CGColor];
     }
     else {
-        self.artboardImageView.layer.borderColor = [[NSColor clearColor] CGColor];
+        self.previewImageView.layer.borderColor = [[NSColor clearColor] CGColor];
     }
 }
 
@@ -112,7 +145,7 @@
 @end
 
 
-@implementation ItemBrowserHeader
+@implementation AssetBrowserHeader
 
 - (id)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
@@ -190,11 +223,44 @@
     self.collectionView.collectionViewLayout = self.layout;
     self.collectionView.selectable = YES;
     self.collectionView.allowsMultipleSelection = YES;
-    [self.collectionView registerClass:[ItemBrowserItem class] forItemWithIdentifier:@"SketchArtboardCollectionViewItemIdentifier"];
-    [self.collectionView registerClass:[ItemBrowserHeader class] forSupplementaryViewOfKind:NSCollectionElementKindSectionHeader withIdentifier:@"SketchPageHeaderViewIdentifier"];
+    [self.collectionView registerClass:[AssetBrowserItem class] forItemWithIdentifier:@"SketchArtboardCollectionViewItemIdentifier"];
+    [self.collectionView registerClass:[AssetBrowserHeader class] forSupplementaryViewOfKind:NSCollectionElementKindSectionHeader withIdentifier:@"SketchPageHeaderViewIdentifier"];
     self.scrollView.documentView = self.collectionView;
 
     [self.scrollView autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, 0, 0, 0)];
+}
+
+- (IBAction)addToFavorites:(id)sender {
+    NSSet *selectedIndexPaths = [self.collectionView selectionIndexPaths];
+    
+    BOOL allFavorited = YES;
+    
+    NSMutableArray *assets = [[NSMutableArray alloc] init];
+    
+    for (NSIndexPath *indexPath in selectedIndexPaths) {
+        Asset *asset = [self.assetCollection assetAtIndexPath:indexPath];
+        
+        if(asset.favorited == NO) {
+            allFavorited = NO;
+        }
+        
+        [assets addObject:asset];
+    }
+    
+    [self.assetCollection.realm beginWriteTransaction];
+    
+    for (Asset *asset in assets) {
+        asset.favorited = allFavorited ? NO : YES;
+    }
+    
+    if(allFavorited) {
+        NSLog(@"Un favorited");
+    }
+    else {
+        NSLog(@"Favorited");
+    }
+    
+    [self.assetCollection.realm commitWriteTransaction];
 }
 
 #pragma mark Collection View
@@ -208,18 +274,17 @@
 }
 
 - (NSCollectionViewItem *)collectionView:(NSCollectionView *)collectionView itemForRepresentedObjectAtIndexPath:(NSIndexPath *)indexPath {
-    ItemBrowserItem *item = [collectionView makeItemWithIdentifier:@"SketchArtboardCollectionViewItemIdentifier" forIndexPath:indexPath];
+    AssetBrowserItem *item = [collectionView makeItemWithIdentifier:@"SketchArtboardCollectionViewItemIdentifier" forIndexPath:indexPath];
     Asset *asset = [self.assetCollection assetAtIndexPath:indexPath];
     
-    [item.artboardImageView sd_setImageWithURL:[NSURL fileURLWithPath:asset.previewImagePath] placeholderImage:[NSImage imageNamed:@"PreviewImagePlaceholder.png"] options:SDWebImageCacheMemoryOnly];
-    
-    item.titleLabel.stringValue = (asset.name) ? asset.name : @"WHat";
+    item.asset = asset;
+    //    item.favoriteIconView.image = [NSImage imageNamed:@"Favorites"];
     
     return item;
 }
 
 - (NSView *)collectionView:(NSCollectionView *)collectionView viewForSupplementaryElementOfKind:(NSCollectionViewSupplementaryElementKind)kind atIndexPath:(NSIndexPath *)indexPath {
-    ItemBrowserHeader *headerView = [collectionView makeSupplementaryViewOfKind:NSCollectionElementKindSectionHeader withIdentifier:@"SketchPageHeaderViewIdentifier" forIndexPath:indexPath];
+    AssetBrowserHeader *headerView = [collectionView makeSupplementaryViewOfKind:NSCollectionElementKindSectionHeader withIdentifier:@"SketchPageHeaderViewIdentifier" forIndexPath:indexPath];
     AssetGroup *group = [self.assetCollection groupAtIndex:indexPath.section];
     
     headerView.titleLabel.stringValue = group.title;

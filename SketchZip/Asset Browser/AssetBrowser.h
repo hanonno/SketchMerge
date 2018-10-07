@@ -14,19 +14,21 @@
 #import "Asset.h"
 
 
-@interface ItemBrowserItem : NSCollectionViewItem
+@interface AssetBrowserItem : NSCollectionViewItem
 
-@property (strong) NSTextField                      *titleLabel;
-@property (strong) NSView                           *previewBackground;
-@property (strong) NSImageView                      *artboardImageView;
-@property (strong) NSImageView                      *presetIconView;
+@property (strong) NSTextField  *titleLabel;
+@property (strong) NSView       *previewBackground;
+@property (strong) NSImageView  *previewImageView;
+@property (strong) NSImageView  *presetIconView;
+@property (strong) NSImageView  *favoriteIconView;
 
 //- (void)setImageSize:(NSSize)imageSize;
+@property (strong) Asset        *asset;
 
 @end
 
 
-@interface ItemBrowserHeader : NSView
+@interface AssetBrowserHeader : NSView
 
 @property (strong) NSTextField  *titleLabel;
 @property (strong) NSTextField  *subtitleLabel;
@@ -43,5 +45,7 @@
 @property (strong) AssetCollection              *assetCollection;
 
 - (instancetype)initWithAssetCollection:(AssetCollection *)assetCollection;
+
+- (IBAction)addToFavorites:(id)sender;
 
 @end

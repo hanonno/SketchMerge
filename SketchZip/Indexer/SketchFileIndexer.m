@@ -56,7 +56,14 @@
                 continue;
             }
             
-            Asset *asset = [Asset assetWithSketchLayer:layer];
+            Asset *asset = [Asset objectInRealm:realm forPrimaryKey:layer.objectId];
+            
+            if(!asset) {
+                asset = [Asset assetWithSketchLayer:layer];
+            }
+            else {
+                [asset takeValuesFromLayer:layer];
+            }
 
             [realm beginWriteTransaction];
             [realm addOrUpdateObject:asset];
