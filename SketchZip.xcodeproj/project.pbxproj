@@ -65,6 +65,7 @@
 		7D29BE9221693E5300D3121B /* SDWebImage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7D29BE8F21693E4E00D3121B /* SDWebImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7D29BE9521693FE200D3121B /* PreviewImagePlaceholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D29BE9321693FE200D3121B /* PreviewImagePlaceholder@2x.png */; };
 		7D29BE9621693FE200D3121B /* PreviewImagePlaceholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D29BE9421693FE200D3121B /* PreviewImagePlaceholder.png */; };
+		7D29BE992169FBD500D3121B /* SizeFilterPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D29BE982169FBD500D3121B /* SizeFilterPicker.m */; };
 		7D611B3B215ACFD300C86AF1 /* SketchFileCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D611B3A215ACFD300C86AF1 /* SketchFileCollectionViewController.m */; };
 		7D611B42215AE36400C86AF1 /* Folder.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D611B40215AE36300C86AF1 /* Folder.png */; };
 		7D611B43215AE36400C86AF1 /* Folder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D611B41215AE36400C86AF1 /* Folder@2x.png */; };
@@ -276,6 +277,8 @@
 		7D29BE8F21693E4E00D3121B /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDWebImage.framework; path = Carthage/Build/Mac/SDWebImage.framework; sourceTree = SOURCE_ROOT; };
 		7D29BE9321693FE200D3121B /* PreviewImagePlaceholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PreviewImagePlaceholder@2x.png"; sourceTree = "<group>"; };
 		7D29BE9421693FE200D3121B /* PreviewImagePlaceholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PreviewImagePlaceholder.png; sourceTree = "<group>"; };
+		7D29BE972169FBD500D3121B /* SizeFilterPicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SizeFilterPicker.h; sourceTree = "<group>"; };
+		7D29BE982169FBD500D3121B /* SizeFilterPicker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SizeFilterPicker.m; sourceTree = "<group>"; };
 		7D611B39215ACFD300C86AF1 /* SketchFileCollectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchFileCollectionViewController.h; sourceTree = "<group>"; };
 		7D611B3A215ACFD300C86AF1 /* SketchFileCollectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SketchFileCollectionViewController.m; sourceTree = "<group>"; };
 		7D611B40215AE36300C86AF1 /* Folder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Folder.png; sourceTree = "<group>"; };
@@ -544,6 +547,8 @@
 			children = (
 				7D209EF62158FD6F00A461A5 /* SidebarController.h */,
 				7D209EF72158FD6F00A461A5 /* SidebarController.m */,
+				7D29BE972169FBD500D3121B /* SizeFilterPicker.h */,
+				7D29BE982169FBD500D3121B /* SizeFilterPicker.m */,
 				7D209F0D2159195C00A461A5 /* TDCollectionViewListLayout.h */,
 				7D209F0C2159195C00A461A5 /* TDCollectionViewListLayout.m */,
 			);
@@ -958,6 +963,7 @@
 				552F296320EE59AF00A845B2 /* CoreSync.m in Sources */,
 				7D29BE772168CE0B00D3121B /* Asset.m in Sources */,
 				552F296520EE59AF00A845B2 /* NSMutableDictionary+CoreSync.m in Sources */,
+				7D29BE992169FBD500D3121B /* SizeFilterPicker.m in Sources */,
 				55BE526720ADAD410059EC77 /* aestab.c in Sources */,
 				7D209EF42158EE3900A461A5 /* CollectionViewLeftAlignedLayout.m in Sources */,
 				55BE520120ADABFB0059EC77 /* AppDelegate.m in Sources */,

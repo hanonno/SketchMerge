@@ -34,6 +34,11 @@
 @interface SizeFilter : Filter
 
 @property (strong) NSString *presetName;
+@property (assign) CGFloat  width;
+@property (assign) CGFloat  height;
+
++ (SizeFilter *)filterWithName:(NSString *)name width:(CGFloat)width height:(CGFloat)height;
++ (NSArray *)appleDeviceFilters;
 
 @end
 

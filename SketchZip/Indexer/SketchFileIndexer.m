@@ -52,6 +52,10 @@
     
     for(SketchPage *page in self.sketchFile.pages.allValues) {
         for(SketchLayer *layer in page.layers.allValues) {
+            if(![layer.objectClass isEqualToString:@"artboard"]) {
+                continue;
+            }
+            
             Asset *asset = [Asset assetWithSketchLayer:layer];
 
             [realm beginWriteTransaction];

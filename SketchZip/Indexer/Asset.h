@@ -68,6 +68,9 @@
 - (void)addFilter:(Filter *)filter;
 - (void)removeFilter:(Filter *)filter;
 
+// Removes all filters of the same class and adds the new one
+- (void)replaceFilter:(Filter *)filter;
+
 // Data Source
 - (NSInteger)numberOfGroups;
 - (AssetGroup *)groupAtIndex:(NSInteger)index;

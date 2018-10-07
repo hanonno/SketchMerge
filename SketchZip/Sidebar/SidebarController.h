@@ -11,6 +11,7 @@
 
 #import "TDTheme.h"
 #import "SketchFile.h"
+#import "SizeFilterPicker.h"
 #import "TDCollectionViewListLayout.h"
 
 
@@ -25,7 +26,7 @@
 @end
 
 
-@interface SidebarItem : NSCollectionViewItem
+@interface SidebarCollectionViewItem : NSCollectionViewItem
 
 @property (strong) NSImageView  *iconView;
 @property (strong) NSTextField  *titleLabel;
@@ -34,17 +35,24 @@
 @end
 
 
+//@interface SidebarItem
+
+
+
+
 @protocol SidebarControllerDelegate <NSObject>
 
-- (void)sidebarController:(SidebarController *)sidebarController didSelectItem:(SidebarItem *)sidebarItem atIndexPath:(NSIndexPath *)indexPath;
+- (void)sidebarController:(SidebarController *)sidebarController didSelectItem:(SidebarCollectionViewItem *)sidebarItem atIndexPath:(NSIndexPath *)indexPath;
 
 @end
 
 
-@interface SidebarController : NSViewController <NSTokenFieldDelegate>
+@interface SidebarController : NSViewController <NSTokenFieldDelegate, SizeFilterPickerDelegate>
 
 @property (strong) NSTokenField                         *filterTokenField;
+//@property (strong) NSP
 @property (strong) NSSlider                             *previewSizeSlider;
+@property (strong) SizeFilterPicker                     *sizeFilterPicker;
 
 @property (strong) NSScrollView                         *scrollView;
 @property (strong) NSCollectionView                     *collectionView;

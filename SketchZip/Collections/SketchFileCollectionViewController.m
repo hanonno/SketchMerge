@@ -59,6 +59,7 @@
     
     self.sidebarController = [[SidebarController alloc] init];
     self.sidebarController.delegate = self;
+    self.sidebarController.sizeFilterPicker.delegate = self;
     [self.view addSubview:self.sidebarController.view];
     
     self.assetBrowser = [[AssetCollectionBrowser alloc] initWithAssetCollection:self.assetCollection];
@@ -82,10 +83,11 @@
 
 - (void)sketchFileIndexer:(SketchFileIndexer *)fileIndexer didIndexFile:(SketchFile *)file {
     [self.sidebarController addSketchFile:file];
+    [self.assetCollection reloadData];
     [self.assetBrowser.collectionView reloadData];
 }
 
-- (void)sidebarController:(SidebarController *)sidebarController didSelectItem:(SidebarItem *)sidebarItem atIndexPath:(NSIndexPath *)indexPath {
+- (void)sidebarController:(SidebarController *)sidebarController didSelectItem:(SidebarCollectionViewItem *)sidebarItem atIndexPath:(NSIndexPath *)indexPath {
     if(indexPath.section == 1) {
         SketchFile *file = [sidebarController sketchFileAtIndex:indexPath.item];
         [self.pathFilter setPath:file.fileURL.path];
@@ -100,6 +102,14 @@
     NSLog(@"Keyword: %@", filterString);
     
     self.keywordFilter.keywords = filterString;
+    [self.assetCollection reloadData];
+    [self.assetBrowser.collectionView reloadData];
+}
+
+- (void)sizeFilterPicker:(SizeFilterPicker *)sizeFilterPicker didPickFilter:(SizeFilter *)filter {
+    [self.sidebarController dismissViewController:sizeFilterPicker];
+    
+    [self.assetCollection replaceFilter:filter];
     [self.assetCollection reloadData];
     [self.assetBrowser.collectionView reloadData];
 }

@@ -47,7 +47,7 @@
 @end
 
 
-@implementation SidebarItem
+@implementation SidebarCollectionViewItem
 
 - (void)loadView {
     self.view = [[NSView alloc] init];
@@ -111,6 +111,7 @@
 
     self.filterTokenField = [[NSTokenField alloc] initWithFrame:NSMakeRect(0, 0, 240, 52)];
     self.previewSizeSlider = [[NSSlider alloc] init];
+    self.sizeFilterPicker = [[SizeFilterPicker alloc] init];
     
     return self;
 }
@@ -140,16 +141,17 @@
     self.collectionView.collectionViewLayout = self.listLayout;
     self.collectionView.selectable = YES;
     self.collectionView.allowsEmptySelection = NO;
-    [self.collectionView registerClass:[SidebarItem class] forItemWithIdentifier:@"SidebarItem"];
+    [self.collectionView registerClass:[SidebarCollectionViewItem class] forItemWithIdentifier:@"SidebarItem"];
     self.collectionView.backgroundColors = @[[NSColor backgroundColor]];
     
     self.scrollView = [[NSScrollView alloc] initWithFrame:NSMakeRect(0, 0, 640, 640)];
     self.scrollView.translatesAutoresizingMaskIntoConstraints = NO;
     self.scrollView.automaticallyAdjustsContentInsets = NO;
-    self.scrollView.hasHorizontalScroller = NO;
-    self.scrollView.hasVerticalScroller = NO;
-    self.scrollView.horizontalScroller = nil;
-    self.scrollView.verticalScroller = nil;
+//    self.scrollView.autohidesScrollers = YES;
+//    self.scrollView.hasHorizontalScroller = NO;
+//    self.scrollView.hasVerticalScroller = NO;
+//    self.scrollView.horizontalScroller = nil;
+//    self.scrollView.verticalScroller = nil;
     self.scrollView.scrollerStyle = NSScrollerStyleOverlay;
     self.scrollView.contentInsets = NSEdgeInsetsMake(48, 0, 0, 0);
     self.scrollView.backgroundColor = [NSColor backgroundColor];
@@ -200,7 +202,7 @@
         return [self collectionView:collectionView fileItemForRepresentedObjectAtIndexPath:indexPath];
     }
     
-    SidebarItem *item = [collectionView makeItemWithIdentifier:@"SidebarItem" forIndexPath:indexPath];
+    SidebarCollectionViewItem *item = [collectionView makeItemWithIdentifier:@"SidebarItem" forIndexPath:indexPath];
     
     if(indexPath.item == 0) {
         item.titleLabel.stringValue = @"All artboards";
@@ -227,7 +229,7 @@
 }
 
 - (NSCollectionViewItem *)collectionView:(NSCollectionView *)collectionView fileItemForRepresentedObjectAtIndexPath:(NSIndexPath *)indexPath {
-    SidebarItem *item = [collectionView makeItemWithIdentifier:@"SidebarItem" forIndexPath:indexPath];
+    SidebarCollectionViewItem *item = [collectionView makeItemWithIdentifier:@"SidebarItem" forIndexPath:indexPath];
     SketchFile *file = [self sketchFileAtIndex:indexPath.item];
     
     item.titleLabel.stringValue = [file.name stringByDeletingPathExtension] ;
@@ -241,7 +243,15 @@
         if([self.delegate respondsToSelector:@selector(sidebarController:didSelectItem:atIndexPath:)]) {
             [self.delegate sidebarController:self didSelectItem:nil atIndexPath:indexPath];
         }
+        
+        if(indexPath.section == 0 && indexPath.item == 1) {
+            NSCollectionViewLayoutAttributes *layoutAttributes = [collectionView layoutAttributesForItemAtIndexPath:indexPath];
+            NSRect frame = layoutAttributes.frame;
+            
+            [self presentViewController:self.sizeFilterPicker asPopoverRelativeToRect:frame ofView:self.collectionView preferredEdge:NSRectEdgeMaxY behavior:NSPopoverBehaviorTransient];
+        }
     }
 }
+
 
 @end

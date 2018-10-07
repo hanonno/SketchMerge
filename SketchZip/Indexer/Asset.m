@@ -152,6 +152,21 @@
     [self reloadData];
 }
 
+- (void)replaceFilter:(Filter *)filter {
+    NSMutableArray *removeFilters = [[NSMutableArray alloc] init];
+    
+    for (Filter *activeFilter in self.filters) {
+        if([activeFilter isKindOfClass:[filter class]]) {
+            [removeFilters addObject:activeFilter];
+            NSLog(@"Filter remove");
+        }
+    }
+    
+    [self.filters removeObjectsInArray:removeFilters];
+    [self.filters addObject:filter];
+    [self reloadData];
+}
+
 - (NSInteger)numberOfGroups {
     return self.groups.count;
 }
