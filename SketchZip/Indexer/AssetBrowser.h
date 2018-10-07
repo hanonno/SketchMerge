@@ -34,7 +34,7 @@
 @end
 
 
-@interface AssetCollectionBrowser : NSViewController <NSCollectionViewDataSource, NSCollectionViewDelegate>
+@interface AssetBrowser : NSViewController <NSCollectionViewDataSource, NSCollectionViewDelegate>
 
 @property (strong) NSScrollView                 *scrollView;
 @property (strong) NSCollectionView             *collectionView;

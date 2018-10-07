@@ -6,13 +6,13 @@
 //  Copyright © 2018 Motion Pixel. All rights reserved.
 //
 
-#import "SketchFileCollectionViewController.h"
+#import "FileBrowser.h"
 
 
 #import "Filter.h"
 
 
-@interface SketchFileCollectionViewController ()
+@interface FileBrowser ()
 
 @property (strong) KeywordFilter    *keywordFilter;
 @property (strong) PathFilter       *pathFilter;
@@ -21,7 +21,7 @@
 @end
 
 
-@implementation SketchFileCollectionViewController
+@implementation FileBrowser
 
 - (id)initWithDirectory:(NSString *)directory {
     self = [super init];
@@ -67,7 +67,7 @@
     self.sidebarController.sizeFilterPicker.delegate = self;
     [self.view addSubview:self.sidebarController.view];
     
-    self.assetBrowser = [[AssetCollectionBrowser alloc] initWithAssetCollection:self.assetCollection];
+    self.assetBrowser = [[AssetBrowser alloc] initWithAssetCollection:self.assetCollection];
     [self.view addSubview:self.assetBrowser.view];
     
     // Autolayout
@@ -107,12 +107,15 @@
     [self.assetBrowser.collectionView reloadData];
 }
 
-- (void)changePreviewSize:(NSSlider *)sender {
+- (void)updatePreviewSize {
     CGFloat ratio = self.sizeFilter.height / self.sizeFilter.width;
-    
-    NSSize size = NSMakeSize(sender.floatValue, sender.floatValue * ratio);
-    
+    CGFloat previewWidth = self.sidebarController.previewSizeSlider.floatValue;
+    NSSize size = NSMakeSize(previewWidth, (previewWidth * ratio) + 24);
     self.assetBrowser.layout.itemSize = size;
+}
+
+- (void)changePreviewSize:(NSSlider *)sender {
+    [self updatePreviewSize];
 }
 
 - (void)sizeFilterPicker:(SizeFilterPicker *)sizeFilterPicker didPickFilter:(SizeFilter *)filter {
@@ -123,6 +126,8 @@
     [self.assetCollection replaceFilter:filter];
     [self.assetCollection reloadData];
     [self.assetBrowser.collectionView reloadData];
+    
+    [self updatePreviewSize];
 }
 
 @end

@@ -6,7 +6,7 @@
 //  Copyright © 2018 Motion Pixel. All rights reserved.
 //
 
-#import "AssetCollectionBrowser.h"
+#import "AssetBrowser.h"
 
 #import "TDTheme.h"
 #import "CollectionViewLeftAlignedLayout.h"
@@ -153,7 +153,7 @@
 @end
 
 
-@implementation AssetCollectionBrowser
+@implementation AssetBrowser
 
 - (instancetype)initWithAssetCollection:(AssetCollection *)assetCollection {
     self = [super init];

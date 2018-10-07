@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 
 #import "SketchFile.h"
-#import "SketchFileCollectionViewController.h"
+#import "FileBrowser.h"
 
 
 @interface AppDelegate ()
@@ -26,7 +26,7 @@
     
 //    SketchFile *file = [[SketchFile alloc] initWithFileURL:[[NSBundle mainBundle] URLForResource:@"Symbol" withExtension:@"sketch"]];
     
-    SketchFileCollectionViewController *hannoCollectionController = [[SketchFileCollectionViewController alloc] initWithDirectory:@"~/Design/Hanno"];
+    FileBrowser *hannoCollectionController = [[FileBrowser alloc] initWithDirectory:@"~/Design/Hanno"];
     [hannoCollectionController showWindow:self];
 
 //    SketchFileCollectionViewController *homeCollectionController = [[SketchFileCollectionViewController alloc] initWithDirectory:@"~/Design/United Wardrobe"];
@@ -47,7 +47,7 @@
 
     [panel beginWithCompletionHandler:^(NSModalResponse result) {
         for (NSURL *directoryURL in panel.URLs) {
-            SketchFileCollectionViewController  *fileCollectionViewController = [[SketchFileCollectionViewController alloc] initWithDirectory:directoryURL.path];
+            FileBrowser  *fileCollectionViewController = [[FileBrowser alloc] initWithDirectory:directoryURL.path];
             [fileCollectionViewController showWindow:self];
         }
     }];

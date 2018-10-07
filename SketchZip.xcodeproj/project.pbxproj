@@ -59,14 +59,14 @@
 		7D29BE7A2168CE5600D3121B /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D29BE782168CE4B00D3121B /* Realm.framework */; };
 		7D29BE7B2168CE5600D3121B /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7D29BE782168CE4B00D3121B /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7D29BE7D2168CE5600D3121B /* PureLayout.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5586E97320F373E0000BCB2F /* PureLayout.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		7D29BE842168F58B00D3121B /* AssetCollectionBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D29BE832168F58B00D3121B /* AssetCollectionBrowser.m */; };
+		7D29BE842168F58B00D3121B /* AssetBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D29BE832168F58B00D3121B /* AssetBrowser.m */; };
 		7D29BE872169316F00D3121B /* Filter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D29BE862169316F00D3121B /* Filter.m */; };
 		7D29BE9121693E5300D3121B /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D29BE8F21693E4E00D3121B /* SDWebImage.framework */; };
 		7D29BE9221693E5300D3121B /* SDWebImage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7D29BE8F21693E4E00D3121B /* SDWebImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7D29BE9521693FE200D3121B /* PreviewImagePlaceholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D29BE9321693FE200D3121B /* PreviewImagePlaceholder@2x.png */; };
 		7D29BE9621693FE200D3121B /* PreviewImagePlaceholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D29BE9421693FE200D3121B /* PreviewImagePlaceholder.png */; };
 		7D29BE992169FBD500D3121B /* SizeFilterPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D29BE982169FBD500D3121B /* SizeFilterPicker.m */; };
-		7D611B3B215ACFD300C86AF1 /* SketchFileCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D611B3A215ACFD300C86AF1 /* SketchFileCollectionViewController.m */; };
+		7D611B3B215ACFD300C86AF1 /* FileBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D611B3A215ACFD300C86AF1 /* FileBrowser.m */; };
 		7D611B42215AE36400C86AF1 /* Folder.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D611B40215AE36300C86AF1 /* Folder.png */; };
 		7D611B43215AE36400C86AF1 /* Folder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D611B41215AE36400C86AF1 /* Folder@2x.png */; };
 		7D611B46215AE57800C86AF1 /* File@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D611B44215AE57800C86AF1 /* File@2x.png */; };
@@ -269,8 +269,8 @@
 		7D29BE782168CE4B00D3121B /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/Mac/Realm.framework; sourceTree = SOURCE_ROOT; };
 		7D29BE7F2168D83100D3121B /* SketchLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchLayer.h; sourceTree = "<group>"; };
 		7D29BE802168D83100D3121B /* SketchLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SketchLayer.m; sourceTree = "<group>"; };
-		7D29BE822168F58B00D3121B /* AssetCollectionBrowser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AssetCollectionBrowser.h; sourceTree = "<group>"; };
-		7D29BE832168F58B00D3121B /* AssetCollectionBrowser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AssetCollectionBrowser.m; sourceTree = "<group>"; };
+		7D29BE822168F58B00D3121B /* AssetBrowser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AssetBrowser.h; sourceTree = "<group>"; };
+		7D29BE832168F58B00D3121B /* AssetBrowser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AssetBrowser.m; sourceTree = "<group>"; };
 		7D29BE852169316F00D3121B /* Filter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Filter.h; sourceTree = "<group>"; };
 		7D29BE862169316F00D3121B /* Filter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Filter.m; sourceTree = "<group>"; };
 		7D29BE882169352800D3121B /* PINCache.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PINCache.framework; path = Carthage/Build/Mac/PINCache.framework; sourceTree = SOURCE_ROOT; };
@@ -279,8 +279,8 @@
 		7D29BE9421693FE200D3121B /* PreviewImagePlaceholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PreviewImagePlaceholder.png; sourceTree = "<group>"; };
 		7D29BE972169FBD500D3121B /* SizeFilterPicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SizeFilterPicker.h; sourceTree = "<group>"; };
 		7D29BE982169FBD500D3121B /* SizeFilterPicker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SizeFilterPicker.m; sourceTree = "<group>"; };
-		7D611B39215ACFD300C86AF1 /* SketchFileCollectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchFileCollectionViewController.h; sourceTree = "<group>"; };
-		7D611B3A215ACFD300C86AF1 /* SketchFileCollectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SketchFileCollectionViewController.m; sourceTree = "<group>"; };
+		7D611B39215ACFD300C86AF1 /* FileBrowser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FileBrowser.h; sourceTree = "<group>"; };
+		7D611B3A215ACFD300C86AF1 /* FileBrowser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FileBrowser.m; sourceTree = "<group>"; };
 		7D611B40215AE36300C86AF1 /* Folder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Folder.png; sourceTree = "<group>"; };
 		7D611B41215AE36400C86AF1 /* Folder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Folder@2x.png"; sourceTree = "<group>"; };
 		7D611B44215AE57800C86AF1 /* File@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "File@2x.png"; sourceTree = "<group>"; };
@@ -558,8 +558,8 @@
 		7D611B35215ACD9300C86AF1 /* Collections */ = {
 			isa = PBXGroup;
 			children = (
-				7D611B39215ACFD300C86AF1 /* SketchFileCollectionViewController.h */,
-				7D611B3A215ACFD300C86AF1 /* SketchFileCollectionViewController.m */,
+				7D611B39215ACFD300C86AF1 /* FileBrowser.h */,
+				7D611B3A215ACFD300C86AF1 /* FileBrowser.m */,
 			);
 			path = Collections;
 			sourceTree = "<group>";
@@ -575,8 +575,8 @@
 				7D29BE862169316F00D3121B /* Filter.m */,
 				7D29BE752168CE0B00D3121B /* Asset.h */,
 				7D29BE762168CE0B00D3121B /* Asset.m */,
-				7D29BE822168F58B00D3121B /* AssetCollectionBrowser.h */,
-				7D29BE832168F58B00D3121B /* AssetCollectionBrowser.m */,
+				7D29BE822168F58B00D3121B /* AssetBrowser.h */,
+				7D29BE832168F58B00D3121B /* AssetBrowser.m */,
 				7DE5F07C2157C85900BD2825 /* SketchFileIndexer.h */,
 				7DE5F07D2157C85900BD2825 /* SketchFileIndexer.m */,
 				7D29BE9421693FE200D3121B /* PreviewImagePlaceholder.png */,
@@ -933,7 +933,7 @@
 			files = (
 				552F296220EE59AF00A845B2 /* NSArray+CoreSync.m in Sources */,
 				55BE525B20ADAD410059EC77 /* ioapi.c in Sources */,
-				7D29BE842168F58B00D3121B /* AssetCollectionBrowser.m in Sources */,
+				7D29BE842168F58B00D3121B /* AssetBrowser.m in Sources */,
 				552F295120EE191500A845B2 /* SketchDiffTool.m in Sources */,
 				55BE525820ADAD410059EC77 /* crypt.c in Sources */,
 				7DCE03EC215C0770000ABC8A /* TDTheme.m in Sources */,
@@ -942,7 +942,7 @@
 				7D29BE872169316F00D3121B /* Filter.m in Sources */,
 				55BE526820ADAD410059EC77 /* SSZipArchive.m in Sources */,
 				55BE520920ADABFD0059EC77 /* main.m in Sources */,
-				7D611B3B215ACFD300C86AF1 /* SketchFileCollectionViewController.m in Sources */,
+				7D611B3B215ACFD300C86AF1 /* FileBrowser.m in Sources */,
 				55BE526320ADAD410059EC77 /* sha1.c in Sources */,
 				5548B89020EF72C000D3A081 /* NSImage+PNGAdditions.m in Sources */,
 				7DE5F07E2157C85900BD2825 /* SketchFileIndexer.m in Sources */,
