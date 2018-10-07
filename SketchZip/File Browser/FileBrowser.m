@@ -17,6 +17,7 @@
 @property (strong) KeywordFilter    *keywordFilter;
 @property (strong) PathFilter       *pathFilter;
 @property (strong) SizeFilter       *sizeFilter;
+@property (strong) FavoriteFilter   *favoriteFilter;
 
 @end
 
@@ -40,6 +41,10 @@
     _sizeFilter = [[SizeFilter alloc] init];
     _sizeFilter.width = 1;
     _sizeFilter.height = 1;
+    
+    _favoriteFilter = [[FavoriteFilter alloc] init];
+    _favoriteFilter.enabled = NO;
+    [_assetCollection addFilter:_favoriteFilter];
     
     return self;
 }
@@ -128,6 +133,19 @@
     [self.assetBrowser.collectionView reloadData];
     
     [self updatePreviewSize];
+}
+
+
+- (IBAction)showAssets:(id)sender {
+    self.favoriteFilter.enabled = NO;
+    [self.assetCollection reloadData];
+    [self.assetBrowser.collectionView reloadData];
+}
+
+- (IBAction)showFavorites:(id)sender {
+    self.favoriteFilter.enabled = YES;
+    [self.assetCollection reloadData];
+    [self.assetBrowser.collectionView reloadData];
 }
 
 @end

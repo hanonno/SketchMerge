@@ -217,3 +217,16 @@
 }
 
 @end
+
+
+@implementation FavoriteFilter
+
+- (BOOL)matchAsset:(Asset *)asset {
+    if(asset.favorited == YES) {
+        return YES;
+    }
+    
+    return NO;
+}
+
+@end

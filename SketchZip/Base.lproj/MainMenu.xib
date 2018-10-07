@@ -372,6 +372,51 @@
                         </items>
                     </menu>
                 </menuItem>
+                <menuItem title="View" id="H8h-7b-M4v">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="View" id="eEZ-j8-5k1">
+                        <items>
+                            <menuItem title="Show Assets" keyEquivalent="1" id="zf6-eQ-RTr">
+                                <modifierMask key="keyEquivalentModifierMask" control="YES"/>
+                                <connections>
+                                    <action selector="showAssets:" target="-1" id="lO9-72-kYX"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Show Favorites" keyEquivalent="2" id="BzX-W7-2sl">
+                                <modifierMask key="keyEquivalentModifierMask" control="YES"/>
+                                <connections>
+                                    <action selector="showFavorites:" target="-1" id="Tai-nK-Ekw"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="WMR-S2-x0U"/>
+                            <menuItem title="Show Toolbar" keyEquivalent="t" id="YJq-WD-ghO">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                <connections>
+                                    <action selector="toggleToolbarShown:" target="-1" id="3gN-Tg-ItC"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Customize Toolbar…" id="kyN-gI-gtI">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="runToolbarCustomizationPalette:" target="-1" id="SnG-gz-H89"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="fV3-7Y-EeK"/>
+                            <menuItem title="Show Sidebar" keyEquivalent="s" id="6Kp-lH-dB8">
+                                <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
+                                <connections>
+                                    <action selector="toggleSourceList:" target="-1" id="CnJ-jA-u8w"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Enter Full Screen" keyEquivalent="f" id="1J7-jH-wmo">
+                                <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
+                                <connections>
+                                    <action selector="toggleFullScreen:" target="-1" id="mIh-vF-0EG"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
                 <menuItem title="Format" id="jxT-CU-nIS">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Format" id="GEO-Iw-cKr">
@@ -634,38 +679,6 @@
                         </items>
                     </menu>
                 </menuItem>
-                <menuItem title="View" id="H8h-7b-M4v">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" title="View" id="eEZ-j8-5k1">
-                        <items>
-                            <menuItem title="Show Toolbar" keyEquivalent="t" id="zf6-eQ-RTr">
-                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
-                                <connections>
-                                    <action selector="toggleToolbarShown:" target="-1" id="s6k-y3-Ccy"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Customize Toolbar…" id="kyN-gI-gtI">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="runToolbarCustomizationPalette:" target="-1" id="SnG-gz-H89"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES" id="fV3-7Y-EeK"/>
-                            <menuItem title="Show Sidebar" keyEquivalent="s" id="6Kp-lH-dB8">
-                                <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
-                                <connections>
-                                    <action selector="toggleSourceList:" target="-1" id="CnJ-jA-u8w"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Enter Full Screen" keyEquivalent="f" id="1J7-jH-wmo">
-                                <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
-                                <connections>
-                                    <action selector="toggleFullScreen:" target="-1" id="mIh-vF-0EG"/>
-                                </connections>
-                            </menuItem>
-                        </items>
-                    </menu>
-                </menuItem>
                 <menuItem title="Window" id="aUF-d1-5bR">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Window" systemMenu="window" id="Td7-aD-5lo">
@@ -714,7 +727,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="480" height="360"/>
                 <autoresizingMask key="autoresizingMask"/>
             </view>
-            <point key="canvasLocation" x="241" y="29"/>
+            <point key="canvasLocation" x="-109" y="501"/>
         </window>
     </objects>
 </document>

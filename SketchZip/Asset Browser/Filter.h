@@ -48,3 +48,7 @@
 @property (strong) NSString *path;
 
 @end
+
+
+@interface FavoriteFilter : Filter
+@end

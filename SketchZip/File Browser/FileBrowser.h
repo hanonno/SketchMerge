@@ -30,4 +30,7 @@
 
 - (id)initWithDirectory:(NSString *)directory;
 
+- (IBAction)showAssets:(id)sender;
+- (IBAction)showFavorites:(id)sender;
+
 @end

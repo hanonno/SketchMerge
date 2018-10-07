@@ -119,6 +119,10 @@
         BOOL exit = NO;
         
         for (Filter *filter in self.filters) {
+            if(filter.enabled == NO) {
+                continue;
+            }
+            
             if(![filter matchAsset:asset]) {
                 exit = YES;
             }
