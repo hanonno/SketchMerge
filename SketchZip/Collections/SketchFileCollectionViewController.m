@@ -16,6 +16,7 @@
 
 @property (strong) KeywordFilter    *keywordFilter;
 @property (strong) PathFilter       *pathFilter;
+@property (strong) SizeFilter       *sizeFilter;
 
 @end
 
@@ -35,6 +36,10 @@
     
     _keywordFilter = [[KeywordFilter alloc] init];
     [_assetCollection addFilter:_keywordFilter];
+    
+    _sizeFilter = [[SizeFilter alloc] init];
+    _sizeFilter.width = 1;
+    _sizeFilter.height = 1;
     
     return self;
 }
@@ -77,10 +82,6 @@
     [self.sidebarController.previewSizeSlider setAction:@selector(changePreviewSize:)];
 }
 
-- (void)changePreviewSize:(NSSlider *)sender {
-    self.assetBrowser.layout.itemSize = NSMakeSize(sender.floatValue, sender.floatValue);
-}
-
 - (void)sketchFileIndexer:(SketchFileIndexer *)fileIndexer didIndexFile:(SketchFile *)file {
     [self.sidebarController addSketchFile:file];
     [self.assetCollection reloadData];
@@ -106,8 +107,18 @@
     [self.assetBrowser.collectionView reloadData];
 }
 
+- (void)changePreviewSize:(NSSlider *)sender {
+    CGFloat ratio = self.sizeFilter.height / self.sizeFilter.width;
+    
+    NSSize size = NSMakeSize(sender.floatValue, sender.floatValue * ratio);
+    
+    self.assetBrowser.layout.itemSize = size;
+}
+
 - (void)sizeFilterPicker:(SizeFilterPicker *)sizeFilterPicker didPickFilter:(SizeFilter *)filter {
     [self.sidebarController dismissViewController:sizeFilterPicker];
+    
+    self.sizeFilter = filter;
     
     [self.assetCollection replaceFilter:filter];
     [self.assetCollection reloadData];
