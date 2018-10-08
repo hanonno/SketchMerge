@@ -304,7 +304,7 @@
         @"/Users/hanonno/Code/SketchZip/GalleryPlugin/galleryplugin.sketchplugin",
         @"my-command-identifier",
         [NSString stringWithFormat:@"--context={\"documentPath\":\"%@\",\"layerId\":\"%@\"}", filePath, layerId],
-        @"--without-activating"
+//        @"--without-activating"
     ]];
     
     NSPipe *outputPipe = [[NSPipe alloc] init];

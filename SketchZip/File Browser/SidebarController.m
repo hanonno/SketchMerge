@@ -47,13 +47,15 @@
 @end
 
 
-@implementation SidebarItemView
+@implementation SidebarHeaderView
 
 - (instancetype)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:NSMakeRect(0, 0, 120, 44)];
     
     NSView *highlightView = [[NSView alloc] init];
     highlightView.cornerRadius = 4;
+    highlightView.wantsLayer = YES;
+//    highlightView.layer.backgroundColor = [[NSColor redColor] CGColor];
     [self addSubview:highlightView];
     self.highlightView = highlightView;
     
@@ -67,15 +69,26 @@
     [self.highlightView addSubview:titleLabel];
     self.titleLabel = titleLabel;
     
+    NSButton *disclosureButton = [NSButton buttonWithTitle:@"BLA" target:nil action:nil];
+    [self.highlightView addSubview:disclosureButton];
+    self.disclosureButton = disclosureButton;
+    
     // Auto layout
     [self.highlightView autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, 16, 0, 16)];
+//    [self.highlightView autoSetDimension:ALDimensionWidth toSize:28];
+//    [self.highlightView autoPinEdgeToSuperviewEdge:ALEdgeBottom];
     
     [self.iconView autoSetDimensionsToSize:CGSizeMake(20, 20)];
-    [self.iconView autoAlignAxisToSuperviewAxis:ALAxisHorizontal];
+//    [self.iconView autoAlignAxisToSuperviewAxis:ALAxisHorizontal];
     [self.iconView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:8];
     
-    [self.titleLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self.highlightView withOffset:0];
-    [self.titleLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:self.iconView withOffset:5];
+//    [self.titleLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self.highlightView withOffset:0];
+    [self.titleLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:self.iconView withOffset:4];
+    [self.titleLabel autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:4];
+    
+//    [self.disclosureButton autoAlignAxisToSuperviewAxis:ALAxisHorizontal];
+    [self.disclosureButton autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:8];
+    [self.disclosureButton autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:4];
     
     return self;
 }
@@ -175,15 +188,17 @@
     self.listLayout.rowHeight = 28;
 //    self.listLayout.headerReferenceSize = NSMakeSize(320, 44);
     self.listLayout.delegate = self;
+    
+    self.sidebarLayout = [[SidebarLayout alloc] init];
 
     self.collectionView = [[NSCollectionView alloc] initWithFrame:self.scrollView.bounds];
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
-    self.collectionView.collectionViewLayout = self.listLayout;
+    self.collectionView.collectionViewLayout = self.sidebarLayout;
     self.collectionView.selectable = YES;
     self.collectionView.allowsEmptySelection = NO;
     [self.collectionView registerClass:[SidebarCollectionViewItem class] forItemWithIdentifier:@"SidebarItem"];
-    [self.collectionView registerClass:[SidebarItemView class] forSupplementaryViewOfKind:NSCollectionElementKindSectionHeader withIdentifier:@"SidebarHeaderIdentifier"];
+    [self.collectionView registerClass:[SidebarHeaderView class] forSupplementaryViewOfKind:NSCollectionElementKindSectionHeader withIdentifier:@"SidebarHeaderIdentifier"];
     self.collectionView.backgroundColors = @[[NSColor backgroundColor]];
     
     self.scrollView = [[NSScrollView alloc] initWithFrame:NSMakeRect(0, 0, 640, 640)];
@@ -246,11 +261,11 @@
 }
 
 - (NSInteger)collectionView:(NSCollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+//    if([self.sidebarLayout collapsedSectionAtIndex:section]) {
+//        return 0;
+//    }
+
     if(section == 1) {
-        if(self.fileSectionCollapsed) {
-            return 0;
-        }
-        
         return self.sketchFiles.count;
     }
     
@@ -313,8 +328,13 @@
     }
 }
 
+- (void)toggleSection:(NSButton *)button {
+    [self.sidebarLayout toggleSectionAtIndex:button.tag];
+    [self.collectionView.animator reloadSections:[NSIndexSet indexSetWithIndex:button.tag]];
+}
+
 - (NSView *)collectionView:(NSCollectionView *)collectionView viewForSupplementaryElementOfKind:(NSCollectionViewSupplementaryElementKind)kind atIndexPath:(NSIndexPath *)indexPath {
-    SidebarItemView *headerView = [collectionView makeSupplementaryViewOfKind:NSCollectionElementKindSectionHeader withIdentifier:@"SidebarHeaderIdentifier" forIndexPath:indexPath];
+    SidebarHeaderView *headerView = [collectionView makeSupplementaryViewOfKind:NSCollectionElementKindSectionHeader withIdentifier:@"SidebarHeaderIdentifier" forIndexPath:indexPath];
 //    AssetGroup *group = [self.assetCollection groupAtIndex:indexPath.section];
     
     NSString *title = @"Collections";
@@ -323,8 +343,13 @@
         title = @"Files";
     }
     
+    
+
     headerView.titleLabel.stringValue = title;
 //    headerView.subtitleLabel.stringValue = [NSString stringWithFormat:@" — %@", group.subtitle];
+    headerView.disclosureButton.tag = indexPath.section;
+    headerView.disclosureButton.target = self;
+    headerView.disclosureButton.action = @selector(toggleSection:);
     
     return headerView;
 }

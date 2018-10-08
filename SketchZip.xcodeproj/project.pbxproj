@@ -80,6 +80,7 @@
 		7D7CCFD221133DD50061EBB0 /* SketchFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D7CCFD121133DD50061EBB0 /* SketchFile.m */; };
 		7D7CCFD42114697A0061EBB0 /* UW-Shipping.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7D7CCFD3211469790061EBB0 /* UW-Shipping.sketch */; };
 		7D7CCFD6211474AF0061EBB0 /* UW-Shipping-B.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7D7CCFD5211474AF0061EBB0 /* UW-Shipping-B.sketch */; };
+		7D7D35AC216BF60200FFEF9D /* SidebarLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D7D35AB216BF60200FFEF9D /* SidebarLayout.m */; };
 		7D828F962122DBCB00ADBD7E /* SketchOperationTypeIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D828F952122DBCB00ADBD7E /* SketchOperationTypeIndicator.m */; };
 		7D828FA12122E27E00ADBD7E /* Sketch-Root.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7D828F9E2122E27E00ADBD7E /* Sketch-Root.sketch */; };
 		7D828FA22122E27E00ADBD7E /* Sketch-Root.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7D828F9E2122E27E00ADBD7E /* Sketch-Root.sketch */; };
@@ -296,6 +297,8 @@
 		7D7CCFD121133DD50061EBB0 /* SketchFile.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SketchFile.m; sourceTree = "<group>"; };
 		7D7CCFD3211469790061EBB0 /* UW-Shipping.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = "UW-Shipping.sketch"; sourceTree = "<group>"; };
 		7D7CCFD5211474AF0061EBB0 /* UW-Shipping-B.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = "UW-Shipping-B.sketch"; sourceTree = "<group>"; };
+		7D7D35AA216BF60200FFEF9D /* SidebarLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SidebarLayout.h; sourceTree = "<group>"; };
+		7D7D35AB216BF60200FFEF9D /* SidebarLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SidebarLayout.m; sourceTree = "<group>"; };
 		7D828F942122DBCB00ADBD7E /* SketchOperationTypeIndicator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchOperationTypeIndicator.h; sourceTree = "<group>"; };
 		7D828F952122DBCB00ADBD7E /* SketchOperationTypeIndicator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SketchOperationTypeIndicator.m; sourceTree = "<group>"; };
 		7D828F9E2122E27E00ADBD7E /* Sketch-Root.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sketch-Root.sketch"; sourceTree = "<group>"; };
@@ -552,6 +555,8 @@
 				7D611B3A215ACFD300C86AF1 /* FileBrowser.m */,
 				7D209EF62158FD6F00A461A5 /* SidebarController.h */,
 				7D209EF72158FD6F00A461A5 /* SidebarController.m */,
+				7D7D35AA216BF60200FFEF9D /* SidebarLayout.h */,
+				7D7D35AB216BF60200FFEF9D /* SidebarLayout.m */,
 				7D29BE972169FBD500D3121B /* SizeFilterPicker.h */,
 				7D29BE982169FBD500D3121B /* SizeFilterPicker.m */,
 				7D209F0D2159195C00A461A5 /* TDCollectionViewListLayout.h */,
@@ -967,6 +972,7 @@
 				5548B88D20EF720E00D3A081 /* SketchFilePlugin.m in Sources */,
 				55BE526420ADAD410059EC77 /* aes_ni.c in Sources */,
 				55BE525E20ADAD410059EC77 /* minishared.c in Sources */,
+				7D7D35AC216BF60200FFEF9D /* SidebarLayout.m in Sources */,
 				7D828F962122DBCB00ADBD7E /* SketchOperationTypeIndicator.m in Sources */,
 				552F296320EE59AF00A845B2 /* CoreSync.m in Sources */,
 				7D29BE772168CE0B00D3121B /* Asset.m in Sources */,

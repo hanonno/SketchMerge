@@ -12,6 +12,7 @@
 #import "TDTheme.h"
 #import "SketchFile.h"
 #import "SizeFilterPicker.h"
+#import "SidebarLayout.h"
 #import "TDCollectionViewListLayout.h"
 
 
@@ -26,11 +27,12 @@
 @end
 
 
-@interface SidebarItemView : NSView
+@interface SidebarHeaderView : NSView
 
 @property (strong) NSImageView  *iconView;
 @property (strong) NSTextField  *titleLabel;
 @property (strong) NSView       *highlightView;
+@property (strong) NSButton     *disclosureButton;
 
 @end
 
@@ -64,6 +66,7 @@
 @property (strong) NSScrollView                         *scrollView;
 @property (strong) NSCollectionView                     *collectionView;
 @property (strong) TDCollectionViewListLayout           *listLayout;
+@property (strong) SidebarLayout                        *sidebarLayout;
 
 @property (assign) id <SidebarControllerDelegate>       delegate;
 
