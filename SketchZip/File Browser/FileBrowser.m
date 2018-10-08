@@ -67,6 +67,9 @@
 - (void)loadView {
     self.view = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, 640, 480)];
     
+    self.filterListController = [[FilterListController alloc] init];
+//    [self.view addSubview:self.filterListController.view];
+    
     self.sidebarController = [[SidebarController alloc] init];
     self.sidebarController.delegate = self;
     self.sidebarController.sizeFilterPicker.delegate = self;
@@ -75,9 +78,11 @@
     self.assetBrowser = [[AssetBrowser alloc] initWithAssetCollection:self.assetCollection];
     [self.view addSubview:self.assetBrowser.view];
     
+    NSView *sidebar = self.sidebarController.view;
+    
     // Autolayout
-    [self.sidebarController.view autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, 0, 0, 0) excludingEdge:ALEdgeRight];
-    [self.sidebarController.view autoSetDimension:ALDimensionWidth toSize:240];
+    [sidebar autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, 0, 0, 0) excludingEdge:ALEdgeRight];
+    [sidebar autoSetDimension:ALDimensionWidth toSize:240];
     
     [self.assetBrowser.view autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, 0, 0, 0) excludingEdge:ALEdgeLeft];
     [self.assetBrowser.view autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:240];
