@@ -293,4 +293,39 @@
     return headerView;
 }
 
+- (void)openLayerWithId:(NSString *)layerId documentPath:(NSString *)filePath {
+    //    /Applications/Sketch.app/Contents/Resources/sketchtool/bin/sketchtool run /Users/hanonno/Code/SketchZip/GalleryPlugin/galleryplugin.sketchplugin my-command-identifier
+    NSString *sketchToolPath = @"/Applications/Sketch.app/Contents/Resources/sketchtool/bin/sketchtool";
+    
+    NSTask *task = [[NSTask alloc] init];
+    [task setLaunchPath:sketchToolPath];
+    [task setArguments:@[
+        @"run",
+        @"/Users/hanonno/Code/SketchZip/GalleryPlugin/galleryplugin.sketchplugin",
+        @"my-command-identifier",
+        [NSString stringWithFormat:@"--context={\"documentPath\":\"%@\",\"layerId\":\"%@\"}", filePath, layerId],
+        @"--without-activating"
+    ]];
+    
+    NSPipe *outputPipe = [[NSPipe alloc] init];
+    task.standardOutput = outputPipe;
+    NSFileHandle *outputFile = outputPipe.fileHandleForReading;
+    
+    NSPipe *errorPipe = [[NSPipe alloc] init];
+    task.standardError = errorPipe;
+    NSFileHandle *errorFile = errorPipe.fileHandleForReading;
+    
+    [task launch];
+}
+
+- (void)collectionView:(NSCollectionView *)collectionView didSelectItemsAtIndexPaths:(NSSet<NSIndexPath *> *)indexPaths {
+    for (NSIndexPath *indexPath in indexPaths) {
+        Asset *asset = [self.assetCollection assetAtIndexPath:indexPath];
+        
+        NSLog(@"Asset: %@", asset.objectId);
+        
+        [self openLayerWithId:asset.objectId documentPath:asset.filePath];
+    }
+}
+
 @end

@@ -104,8 +104,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var sketch__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sketch__WEBPACK_IMPORTED_MODULE_0__);
  // documentation: https://developer.sketchapp.com/reference/api/
 
+var Document = __webpack_require__(/*! sketch/dom */ "sketch/dom").Document;
+
 /* harmony default export */ __webpack_exports__["default"] = (function () {
-  sketch__WEBPACK_IMPORTED_MODULE_0___default.a.UI.message("It's alive 🙌");
+  // sketch.UI.message("It's dead 🙌")
+  sketch__WEBPACK_IMPORTED_MODULE_0___default.a.UI.message(context.documentPath);
+  Document.open('/Users/hanonno/Design/Hanno/NRC-Times.sketch', function (err, document) {
+    // Document.open(context.path, (err, document) => {
+    if (err) {
+      // oh no, we failed to open the document
+      sketch__WEBPACK_IMPORTED_MODULE_0___default.a.UI.message("Error opening doc!!");
+    } else {
+      // var layer = document.getLayerWithID('EEA2C7E0-C57D-4130-8463-18A78EE5E525')
+      // var layer = document.getLayerWithID('575891A9-3FAD-45D5-884C-9E76F1337ED7')
+      var layer = document.getLayerWithID(context.layerId);
+
+      if (layer) {
+        sketch__WEBPACK_IMPORTED_MODULE_0___default.a.UI.message("Found layer!");
+        document.centerOnLayer(layer);
+      }
+    }
+  });
 });
 
 /***/ }),
@@ -118,6 +137,17 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports) {
 
 module.exports = require("sketch");
+
+/***/ }),
+
+/***/ "sketch/dom":
+/*!*****************************!*\
+  !*** external "sketch/dom" ***!
+  \*****************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("sketch/dom");
 
 /***/ })
 
