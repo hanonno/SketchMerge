@@ -75,6 +75,10 @@
     self.sidebarController.sizeFilterPicker.delegate = self;
     [self.view addSubview:self.sidebarController.view];
     
+    self.filterBarController = [[FilterBarController alloc] init];
+    self.filterBarController.delegate = self;
+    [self.view addSubview:self.filterBarController.view];
+    
     self.assetBrowser = [[AssetBrowser alloc] initWithAssetCollection:self.assetCollection];
     [self.view addSubview:self.assetBrowser.view];
     
@@ -84,7 +88,10 @@
     [sidebar autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, 0, 0, 0) excludingEdge:ALEdgeRight];
     [sidebar autoSetDimension:ALDimensionWidth toSize:240];
     
-    [self.assetBrowser.view autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, 0, 0, 0) excludingEdge:ALEdgeLeft];
+    [self.filterBarController.view autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, 240, 0, 0) excludingEdge:ALEdgeBottom];
+    [self.filterBarController.view autoSetDimension:ALDimensionHeight toSize:52];
+    
+    [self.assetBrowser.view autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(52, 0, 0, 0) excludingEdge:ALEdgeLeft];
     [self.assetBrowser.view autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:240];
     
     self.sidebarController.filterTokenField.delegate = self;

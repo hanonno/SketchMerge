@@ -123,6 +123,7 @@
 		7DA184FE213827FA00EA1FF8 /* text.json in Resources */ = {isa = PBXBuildFile; fileRef = 7DA184FD213827FA00EA1FF8 /* text.json */; };
 		7DA184FF213827FA00EA1FF8 /* text.json in Resources */ = {isa = PBXBuildFile; fileRef = 7DA184FD213827FA00EA1FF8 /* text.json */; };
 		7DC61A6D2162C28D00F3986E /* Symbol.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7DC61A6C2162C28D00F3986E /* Symbol.sketch */; };
+		7DC83EB7216E91E100CC873E /* FilterBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC83EB6216E91E100CC873E /* FilterBarController.m */; };
 		7DCE03EC215C0770000ABC8A /* TDTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DCE03EB215C0770000ABC8A /* TDTheme.m */; };
 		7DE5F07E2157C85900BD2825 /* SketchFileIndexer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE5F07D2157C85900BD2825 /* SketchFileIndexer.m */; };
 		7DE5F07F2157C85900BD2825 /* SketchFileIndexer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE5F07D2157C85900BD2825 /* SketchFileIndexer.m */; };
@@ -334,6 +335,8 @@
 		7DA184FA2138276500EA1FF8 /* oval.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = oval.json; sourceTree = "<group>"; };
 		7DA184FD213827FA00EA1FF8 /* text.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = text.json; sourceTree = "<group>"; };
 		7DC61A6C2162C28D00F3986E /* Symbol.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = Symbol.sketch; sourceTree = "<group>"; };
+		7DC83EB5216E91E100CC873E /* FilterBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FilterBarController.h; sourceTree = "<group>"; };
+		7DC83EB6216E91E100CC873E /* FilterBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FilterBarController.m; sourceTree = "<group>"; };
 		7DCE03EA215C0770000ABC8A /* TDTheme.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TDTheme.h; sourceTree = "<group>"; };
 		7DCE03EB215C0770000ABC8A /* TDTheme.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TDTheme.m; sourceTree = "<group>"; };
 		7DE5F07C2157C85900BD2825 /* SketchFileIndexer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchFileIndexer.h; sourceTree = "<group>"; };
@@ -571,6 +574,8 @@
 		7D29BE9A216A293200D3121B /* Asset Browser */ = {
 			isa = PBXGroup;
 			children = (
+				7DC83EB5216E91E100CC873E /* FilterBarController.h */,
+				7DC83EB6216E91E100CC873E /* FilterBarController.m */,
 				7D29BE822168F58B00D3121B /* AssetBrowser.h */,
 				7D29BE832168F58B00D3121B /* AssetBrowser.m */,
 				7D29BE852169316F00D3121B /* Filter.h */,
@@ -952,6 +957,7 @@
 				55BE525C20ADAD410059EC77 /* ioapi_buf.c in Sources */,
 				7DEEBB29216AA1C7004B234D /* FilterListController.m in Sources */,
 				55BE526620ADAD410059EC77 /* pwd2key.c in Sources */,
+				7DC83EB7216E91E100CC873E /* FilterBarController.m in Sources */,
 				7D29BE872169316F00D3121B /* Filter.m in Sources */,
 				55BE526820ADAD410059EC77 /* SSZipArchive.m in Sources */,
 				55BE520920ADABFD0059EC77 /* main.m in Sources */,

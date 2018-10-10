@@ -151,7 +151,8 @@
     self = [super initWithFrame:frame];
     
     self.wantsLayer = YES;
-    self.layer.backgroundColor = [[NSColor backgroundColor] CGColor];
+    self.layer.backgroundColor = [[[TDTheme currentTheme] backgroundColor] CGColor];
+//     = [[NSColor backgroundColor] CGColor];
     
     NSView *divider = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, 120, 1)];
     divider.wantsLayer = YES;
@@ -198,8 +199,10 @@
 
 - (void)loadView {
     self.view = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, 320, 480)];
+//    self.view.layer.backgroundColor = [[NSColor darkGrayColor] CGColor];
 
     self.scrollView = [[NSScrollView alloc] initWithFrame:self.view.bounds];
+    self.scrollView.backgroundColor = [[TDTheme currentTheme] backgroundColor];
     [self.view addSubview:self.scrollView];
     
     self.layout = [[CollectionViewLeftAlignedLayout alloc] init];
@@ -223,6 +226,8 @@
     self.collectionView.collectionViewLayout = self.layout;
     self.collectionView.selectable = YES;
     self.collectionView.allowsMultipleSelection = YES;
+    self.collectionView.backgroundColors = @[[[TDTheme currentTheme] backgroundColor]];
+
     [self.collectionView registerClass:[AssetBrowserItem class] forItemWithIdentifier:@"SketchArtboardCollectionViewItemIdentifier"];
     [self.collectionView registerClass:[AssetBrowserHeader class] forSupplementaryViewOfKind:NSCollectionElementKindSectionHeader withIdentifier:@"SketchPageHeaderViewIdentifier"];
     self.scrollView.documentView = self.collectionView;
@@ -319,13 +324,13 @@
 }
 
 - (void)collectionView:(NSCollectionView *)collectionView didSelectItemsAtIndexPaths:(NSSet<NSIndexPath *> *)indexPaths {
-    for (NSIndexPath *indexPath in indexPaths) {
-        Asset *asset = [self.assetCollection assetAtIndexPath:indexPath];
-        
-        NSLog(@"Asset: %@", asset.objectId);
-        
-        [self openLayerWithId:asset.objectId documentPath:asset.filePath];
-    }
+//    for (NSIndexPath *indexPath in indexPaths) {
+//        Asset *asset = [self.assetCollection assetAtIndexPath:indexPath];
+//        
+//        NSLog(@"Asset: %@", asset.objectId);
+//        
+//        [self openLayerWithId:asset.objectId documentPath:asset.filePath];
+//    }
 }
 
 @end

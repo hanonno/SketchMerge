@@ -18,6 +18,7 @@
 
 @end
 
+
 @implementation AppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)notification {
@@ -26,6 +27,7 @@
     
 //    SketchFile *file = [[SketchFile alloc] initWithFileURL:[[NSBundle mainBundle] URLForResource:@"Symbol" withExtension:@"sketch"]];
     
+//    FileBrowser *hannoCollectionController = [[FileBrowser alloc] initWithDirectory:@"~/Design/United Wardrobe"];
     FileBrowser *hannoCollectionController = [[FileBrowser alloc] initWithDirectory:@"~/Design/Hanno"];
     [hannoCollectionController showWindow:self];
 

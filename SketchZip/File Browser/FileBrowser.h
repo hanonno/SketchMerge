@@ -13,16 +13,19 @@
 #import "SketchFileIndexer.h"
 #import "SidebarController.h"
 #import "FilterListController.h"
+#import "FilterBarController.h"
 #import "AssetBrowser.h"
 
 
-@interface FileBrowser : NSViewController <SketchFileIndexerDelegate, SidebarControllerDelegate, NSTokenFieldDelegate>
+@interface FileBrowser : NSViewController <SketchFileIndexerDelegate, SidebarControllerDelegate, SizeFilterPickerDelegate, NSTokenFieldDelegate>
 
 @property (strong) NSWindow                                 *window;
 @property (strong) NSWindowController                       *windowController;
 
 @property (strong) FilterListController                     *filterListController;
 @property (strong) SidebarController                        *sidebarController;
+
+@property (strong) FilterBarController                      *filterBarController;
 @property (strong) AssetBrowser                             *assetBrowser;
 
 @property (strong) SketchFileIndexer                        *indexer;
