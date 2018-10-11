@@ -17,7 +17,7 @@
 #import "AssetBrowser.h"
 
 
-@interface FileBrowser : NSViewController <SketchFileIndexerDelegate, SidebarControllerDelegate, SizeFilterPickerDelegate, NSTokenFieldDelegate>
+@interface FileBrowser : NSViewController <SketchFileIndexerDelegate, SidebarControllerDelegate, FilterBarControllerDelegate, NSTokenFieldDelegate>
 
 @property (strong) NSWindow                                 *window;
 @property (strong) NSWindowController                       *windowController;

@@ -65,6 +65,7 @@
 
 @property (strong) RLMRealm     *realm;
 
+
 - (instancetype)initWithRealm:(RLMRealm *)realm;
 
 - (void)reloadData;
@@ -72,9 +73,8 @@
 // Filtering
 - (void)addFilter:(Filter *)filter;
 - (void)removeFilter:(Filter *)filter;
+- (void)replaceFilter:(Filter *)filter; // Removes all filters of the same class and adds the new one
 
-// Removes all filters of the same class and adds the new one
-- (void)replaceFilter:(Filter *)filter;
 
 // Data Source
 - (NSInteger)numberOfGroups;

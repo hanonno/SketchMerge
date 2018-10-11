@@ -13,13 +13,28 @@
 #import "SizeFilterPicker.h"
 
 
+@class FilterBarController;
+
+
+@protocol FilterBarControllerDelegate <NSObject>
+
+- (void)filterBarController:(FilterBarController *)filterBarController didUpdateFilter:(Filter *)filter;
+
+@end
+
+
 @interface FilterBarController : NSViewController <SizeFilterPickerDelegate>
 
-@property (assign) id <SizeFilterPickerDelegate>    delegate;
+@property (assign) id <FilterBarControllerDelegate>    delegate;
 
 @property (strong) NSStackView          *stackView;
 
 @property (strong) NSButton             *sizeFilterButton;
 @property (strong) SizeFilterPicker     *sizeFilterPicker;
+
+@property (strong) FavoriteFilter       *favoriteFilter;
+@property (strong) NSButton             *favoriteButton;
+
+@property (strong) NSButton             *statusButton;
 
 @end
