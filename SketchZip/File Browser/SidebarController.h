@@ -37,7 +37,6 @@
 @end
 
 
-
 @interface SidebarCollectionViewItem : NSCollectionViewItem
 
 @property (strong) NSImageView  *iconView;
@@ -45,8 +44,6 @@
 @property (strong) NSView       *highlightView;
 
 @end
-
-
 
 
 @protocol SidebarControllerDelegate <NSObject>
@@ -59,13 +56,11 @@
 @interface SidebarController : NSViewController <NSTokenFieldDelegate>
 
 @property (strong) NSTokenField                         *filterTokenField;
-//@property (strong) NSP
+
 @property (strong) NSSlider                             *previewSizeSlider;
-@property (strong) SizeFilterPicker                     *sizeFilterPicker;
 
 @property (strong) NSScrollView                         *scrollView;
 @property (strong) NSCollectionView                     *collectionView;
-@property (strong) TDCollectionViewListLayout           *listLayout;
 @property (strong) SidebarLayout                        *sidebarLayout;
 
 @property (assign) id <SidebarControllerDelegate>       delegate;

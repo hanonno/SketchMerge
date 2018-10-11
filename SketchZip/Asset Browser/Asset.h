@@ -61,10 +61,21 @@
 @end
 
 
+@class AssetCollection;
+
+
+@protocol AssetCollectionDelegate <NSObject>
+
+- (void)assetCollectionDidUpdate:(AssetCollection *)assetCollection;
+
+- (void)assetCollectionDidUpdate:(AssetCollection *)assetCollection filter:(Filter *)filter;
+
+@end
+
+
 @interface AssetCollection : NSObject
 
 @property (strong) RLMRealm     *realm;
-
 
 - (instancetype)initWithRealm:(RLMRealm *)realm;
 
@@ -74,11 +85,16 @@
 - (void)addFilter:(Filter *)filter;
 - (void)removeFilter:(Filter *)filter;
 - (void)replaceFilter:(Filter *)filter; // Removes all filters of the same class and adds the new one
-
+- (NSInteger)numberOfFilers;
+- (Filter *)filterAtIndex:(NSInteger)index;
 
 // Data Source
 - (NSInteger)numberOfGroups;
 - (AssetGroup *)groupAtIndex:(NSInteger)index;
 - (Asset *)assetAtIndexPath:(NSIndexPath *)indexPath;
+
+// Delegates
+- (void)addDelegate:(id <AssetCollectionDelegate>)delegate;
+- (void)removeDelegate:(id <AssetCollectionDelegate>)delegate;
 
 @end

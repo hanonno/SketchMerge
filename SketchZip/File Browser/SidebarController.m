@@ -70,8 +70,10 @@
     self.titleLabel = titleLabel;
     
     NSButton *disclosureButton = [NSButton buttonWithTitle:@"BLA" target:nil action:nil];
+    disclosureButton.hidden = YES;
     [self.highlightView addSubview:disclosureButton];
     self.disclosureButton = disclosureButton;
+    
     
     // Auto layout
     [self.highlightView autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, 16, 0, 16)];
@@ -162,7 +164,6 @@
 
     self.filterTokenField = [[NSTokenField alloc] initWithFrame:NSMakeRect(0, 0, 240, 52)];
     self.previewSizeSlider = [[NSSlider alloc] init];
-    self.sizeFilterPicker = [[SizeFilterPicker alloc] init];
     
     self.fileSectionCollapsed = NO;
     
@@ -179,15 +180,9 @@
     self.filterTokenField.delegate = self;
     [self.view addSubview:self.filterTokenField];
     
-    self.previewSizeSlider.minValue = 240;
-    self.previewSizeSlider.maxValue = 2048;
-    self.previewSizeSlider.altIncrementValue = 120;
+    self.previewSizeSlider.minValue = 0.5;
+    self.previewSizeSlider.maxValue = 2;
     [self.view addSubview:self.previewSizeSlider];
-    
-    self.listLayout = [[TDCollectionViewListLayout alloc] init];
-    self.listLayout.rowHeight = 28;
-//    self.listLayout.headerReferenceSize = NSMakeSize(320, 44);
-    self.listLayout.delegate = self;
     
     self.sidebarLayout = [[SidebarLayout alloc] init];
 
@@ -280,7 +275,7 @@
     SidebarCollectionViewItem *item = [collectionView makeItemWithIdentifier:@"SidebarItem" forIndexPath:indexPath];
     
     if(indexPath.item == 0) {
-        item.titleLabel.stringValue = @"All artboards";
+        item.titleLabel.stringValue = @"All";
         item.iconView.image = [NSImage imageNamed:@"Everything"];
     }
     if(indexPath.item == 1) {
@@ -320,10 +315,6 @@
         }
         
         if(indexPath.section == 0 && indexPath.item == 1) {
-            NSCollectionViewLayoutAttributes *layoutAttributes = [collectionView layoutAttributesForItemAtIndexPath:indexPath];
-            NSRect frame = layoutAttributes.frame;
-            
-            [self presentViewController:self.sizeFilterPicker asPopoverRelativeToRect:frame ofView:self.collectionView preferredEdge:NSRectEdgeMaxY behavior:NSPopoverBehaviorTransient];
         }
     }
 }
@@ -342,20 +333,13 @@
     if(indexPath.section == 1) {
         title = @"Files";
     }
-    
-    
 
     headerView.titleLabel.stringValue = title;
-//    headerView.subtitleLabel.stringValue = [NSString stringWithFormat:@" — %@", group.subtitle];
     headerView.disclosureButton.tag = indexPath.section;
     headerView.disclosureButton.target = self;
     headerView.disclosureButton.action = @selector(toggleSection:);
     
     return headerView;
-}
-
-- (CGFloat)collectionView:(NSCollectionView *)collectionView heightForHeaderInSection:(NSInteger)index {
-    return self.listLayout.rowHeight;
 }
 
 @end

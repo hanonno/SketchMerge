@@ -10,6 +10,7 @@
 #import <PureLayout/PureLayout.h>
 
 
+#import "Asset.h"
 #import "SizeFilterPicker.h"
 
 
@@ -36,5 +37,9 @@
 @property (strong) NSButton             *favoriteButton;
 
 @property (strong) NSButton             *statusButton;
+
+@property (strong) AssetCollection      *assetCollection;
+
+- (instancetype)initWithAssetCollection:(AssetCollection *)assetCollection;
 
 @end

@@ -93,6 +93,7 @@
 @property (strong) RLMResults       *assets;
 @property (strong) NSArray          *groups;
 @property (strong) NSMutableArray   *filters;
+@property (strong) NSHashTable      *delegates;
 
 @end
 
@@ -105,6 +106,7 @@
     _realm = realm;
     _assets = [Asset allObjectsInRealm:_realm];
     _filters = [[NSMutableArray alloc] init];
+    _delegates = [NSHashTable weakObjectsHashTable];
     
     [self reloadData];
     
@@ -134,6 +136,7 @@
         
         count++;
         
+        // This can be made more flexible in the future by adding different keys
         NSString *groupKey = asset.pageId;
         AssetGroup *group = groupsById[groupKey];
         
@@ -147,9 +150,14 @@
         [group.assets addObject:asset];
     }
     
-//    NSLog(@"%i Assets of %i", count, self.assets.count);
-    
     self.groups = groupsById.allValues;
+   
+    // Inform all delegates
+    for (id <AssetCollectionDelegate> delegate in self.delegates) {
+        if([delegate respondsToSelector:@selector(assetCollectionDidUpdate:)]) {
+            [delegate assetCollectionDidUpdate:self];
+        }
+    }
 }
 
 - (void)addFilter:(Filter *)filter {
@@ -175,6 +183,20 @@
     [self.filters removeObjectsInArray:removeFilters];
     [self.filters addObject:filter];
     [self reloadData];
+    
+    for (id <AssetCollectionDelegate>delegate in self.delegates) {
+        if([delegate respondsToSelector:@selector(assetCollectionDidUpdate:filter:)]) {
+            [delegate assetCollectionDidUpdate:self filter:filter];
+        }
+    }
+}
+
+- (NSInteger)numberOfFilers {
+    return self.filters.count;
+}
+
+- (Filter *)filterAtIndex:(NSInteger)index {
+    return [self.filters objectAtIndex:index];
 }
 
 - (NSInteger)numberOfGroups {
@@ -187,6 +209,14 @@
 
 - (Asset *)assetAtIndexPath:(NSIndexPath *)indexPath {
     return [[self groupAtIndex:indexPath.section].assets objectAtIndex:indexPath.item];
+}
+
+- (void)addDelegate:(id <AssetCollectionDelegate>)delegate {
+    [self.delegates addObject:delegate];
+}
+
+- (void)removeDelegate:(id <AssetCollectionDelegate>)delegate {
+    [self.delegates removeObject:delegate];
 }
 
 @end

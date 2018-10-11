@@ -189,10 +189,18 @@
 
 @implementation AssetBrowser
 
+@synthesize previewImageSize = _previewImageSize, zoomFactor = _zoomFactor;
+
 - (instancetype)initWithAssetCollection:(AssetCollection *)assetCollection {
     self = [super init];
     
     _assetCollection = assetCollection;
+    [_assetCollection addDelegate:self];
+    
+    _previewImageSize =  CGSizeMake(320, 480);
+    _zoomFactor = 1;
+    
+    [self updateItemSize];
     
     return self;
 }
@@ -331,6 +339,43 @@
 //        
 //        [self openLayerWithId:asset.objectId documentPath:asset.filePath];
 //    }
+}
+
+- (CGFloat)zoomFactor {
+    return _zoomFactor;
+}
+
+- (void)setZoomFactor:(CGFloat)zoomFactor {
+    _zoomFactor = zoomFactor;
+    [self updateItemSize];
+}
+
+- (CGSize)previewImageSize {
+    return _previewImageSize;
+}
+
+- (void)setPreviewImageSize:(CGSize)previewImageSize {
+    _previewImageSize = previewImageSize;
+    [self updateItemSize];
+}
+
+- (void)updateItemSize {
+    CGFloat ratio = self.previewImageSize.height / self.previewImageSize.width;
+    CGFloat previewWidth = self.previewImageSize.width * self.zoomFactor;
+    NSSize itemSize = NSMakeSize(previewWidth, (previewWidth * ratio) + 24);
+    self.layout.itemSize = itemSize;
+}
+
+// Brute force update of the complete collection view on every change
+- (void)assetCollectionDidUpdate:(AssetCollection *)assetCollection {
+    [self.collectionView reloadData];
+}
+
+- (void)assetCollectionDidUpdate:(AssetCollection *)assetCollection filter:(Filter *)filter {
+    if([filter isKindOfClass:[SizeFilter class]]) {
+        SizeFilter *sizeFilter = (SizeFilter *)filter;
+        self.previewImageSize = CGSizeMake(sizeFilter.width, sizeFilter.height);
+    }
 }
 
 @end

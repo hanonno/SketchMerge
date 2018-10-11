@@ -31,6 +31,7 @@
     _indexer.delegate = self;
     
     _assetCollection = [[AssetCollection alloc] initWithRealm:_indexer.realm];
+    [_assetCollection addDelegate:self];
     
     _pathFilter = [[PathFilter alloc] init];
     [_assetCollection addFilter:_pathFilter];
@@ -72,10 +73,9 @@
     
     self.sidebarController = [[SidebarController alloc] init];
     self.sidebarController.delegate = self;
-    self.sidebarController.sizeFilterPicker.delegate = self;
     [self.view addSubview:self.sidebarController.view];
     
-    self.filterBarController = [[FilterBarController alloc] init];
+    self.filterBarController = [[FilterBarController alloc] initWithAssetCollection:self.assetCollection];
     self.filterBarController.delegate = self;
     [self.view addSubview:self.filterBarController.view];
     
@@ -124,44 +124,20 @@
     [self.assetBrowser.collectionView reloadData];
 }
 
-- (void)updatePreviewSize {
-    CGFloat ratio = self.sizeFilter.height / self.sizeFilter.width;
-    CGFloat previewWidth = self.sidebarController.previewSizeSlider.floatValue;
-    NSSize size = NSMakeSize(previewWidth, (previewWidth * ratio) + 24);
-    self.assetBrowser.layout.itemSize = size;
-}
-
 - (void)changePreviewSize:(NSSlider *)sender {
-    [self updatePreviewSize];
+    [self.assetBrowser setZoomFactor:sender.floatValue];
 }
-
-- (void)filterBarController:(FilterBarController *)filterBarController didUpdateFilter:(Filter *)filter {
-
-}
-
-- (void)sizeFilterPicker:(SizeFilterPicker *)sizeFilterPicker didPickFilter:(SizeFilter *)filter {
-    [self.sidebarController dismissViewController:sizeFilterPicker];
-    
-    self.sizeFilter = filter;
-    
-    [self.assetCollection replaceFilter:filter];
-    [self.assetCollection reloadData];
-    [self.assetBrowser.collectionView reloadData];
-    
-    [self updatePreviewSize];
-}
-
 
 - (IBAction)showAssets:(id)sender {
     self.favoriteFilter.enabled = NO;
     [self.assetCollection reloadData];
-    [self.assetBrowser.collectionView reloadData];
+//    [self.assetBrowser.collectionView reloadData];
 }
 
 - (IBAction)showFavorites:(id)sender {
     self.favoriteFilter.enabled = YES;
     [self.assetCollection reloadData];
-    [self.assetBrowser.collectionView reloadData];
+//    [self.assetBrowser.collectionView reloadData];
 }
 
 @end

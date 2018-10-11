@@ -16,8 +16,10 @@
 
 @implementation FilterBarController
 
-- (instancetype)init {
+- (instancetype)initWithAssetCollection:(AssetCollection *)assetCollection {
     self = [super init];
+    
+    _assetCollection = assetCollection;
     
     self.sizeFilterPicker = [[SizeFilterPicker alloc] init];
     self.sizeFilterPicker.delegate = self;
@@ -69,6 +71,9 @@
 //    [self dismissController:self.sizeFilterPicker];
 
     [self.sizeFilterButton setTitle:filter.presetName];
+    
+    [self.assetCollection replaceFilter:filter];
+    [self.assetCollection reloadData];
     
     if([self.delegate respondsToSelector:@selector(filterBarController:didUpdateFilter:)]) {
         [self.delegate filterBarController:self didUpdateFilter:filter];

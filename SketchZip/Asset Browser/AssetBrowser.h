@@ -12,6 +12,7 @@
 
 
 #import "Asset.h"
+#import "Filter.h"
 
 
 @interface AssetBrowserItem : NSCollectionViewItem
@@ -36,11 +37,14 @@
 @end
 
 
-@interface AssetBrowser : NSViewController <NSCollectionViewDataSource, NSCollectionViewDelegate>
+@interface AssetBrowser : NSViewController <NSCollectionViewDataSource, NSCollectionViewDelegate, AssetCollectionDelegate>
 
 @property (strong) NSScrollView                 *scrollView;
 @property (strong) NSCollectionView             *collectionView;
 @property (strong) NSCollectionViewFlowLayout   *layout;
+
+@property (assign) CGFloat                      zoomFactor;
+@property (assign) CGSize                       previewImageSize;
 
 @property (strong) AssetCollection              *assetCollection;
 
