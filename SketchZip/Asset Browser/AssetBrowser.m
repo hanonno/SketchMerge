@@ -54,7 +54,7 @@
     [self.previewImageView autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, 0, 0, 0) excludingEdge:ALEdgeBottom];
     [self.previewImageView autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:self.titleLabel withOffset:-8];
     
-    [self.presetIconView autoSetDimensionsToSize:CGSizeMake(20, 20)];
+    [self.presetIconView autoSetDimensionsToSize:CGSizeMake(0, 20)];
     [self.presetIconView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:4];
     [self.presetIconView autoPinEdgeToSuperviewEdge:ALEdgeBottom];
     
@@ -112,6 +112,15 @@
     }
     else {
         self.previewImageView.layer.borderColor = [[NSColor clearColor] CGColor];
+    }
+}
+
+- (void)mouseDown:(NSEvent *)event {
+    [super mouseDown:event];
+    
+    if(event.clickCount > 1) {
+        NSLog(@"Double Click, Yo");
+        [[NSApplication sharedApplication] sendAction:@selector(assetBrowserItemDoubleClick:) to:nil from:self];
     }
 }
 
@@ -310,13 +319,16 @@
     //    /Applications/Sketch.app/Contents/Resources/sketchtool/bin/sketchtool run /Users/hanonno/Code/SketchZip/GalleryPlugin/galleryplugin.sketchplugin my-command-identifier
     NSString *sketchToolPath = @"/Applications/Sketch.app/Contents/Resources/sketchtool/bin/sketchtool";
     
+    NSString *context = [NSString stringWithFormat:@"--context={\"documentPath\":\"%@\",\"layerId\":\"%@\"}", filePath, layerId];
+//    NSString *context = [NSString stringWithFormat:@"--context={documentPath:\"%@\",layerId:\"%@\"}", filePath, layerId];
+    
     NSTask *task = [[NSTask alloc] init];
     [task setLaunchPath:sketchToolPath];
     [task setArguments:@[
         @"run",
         @"/Users/hanonno/Code/SketchZip/GalleryPlugin/galleryplugin.sketchplugin",
         @"my-command-identifier",
-        [NSString stringWithFormat:@"--context={\"documentPath\":\"%@\",\"layerId\":\"%@\"}", filePath, layerId],
+        context
 //        @"--without-activating"
     ]];
     
@@ -329,6 +341,8 @@
     NSFileHandle *errorFile = errorPipe.fileHandleForReading;
     
     [task launch];
+    
+    NSLog(@"Context: %@", context);
 }
 
 - (void)collectionView:(NSCollectionView *)collectionView didSelectItemsAtIndexPaths:(NSSet<NSIndexPath *> *)indexPaths {
@@ -340,6 +354,17 @@
 //        [self openLayerWithId:asset.objectId documentPath:asset.filePath];
 //    }
 }
+
+- (void)assetBrowserItemDoubleClick:(id)sender {
+    NSLog(@"Double Click Received!");
+    
+    NSIndexPath *indexPath = [self.collectionView indexPathForItem:(AssetBrowserItem *)sender];
+    Asset *asset = [self.assetCollection assetAtIndexPath:indexPath];
+    [self openLayerWithId:asset.objectId documentPath:asset.filePath];
+}
+
+
+#pragma mark - Preview Size
 
 - (CGFloat)zoomFactor {
     return _zoomFactor;
