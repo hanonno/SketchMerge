@@ -341,10 +341,20 @@
     NSFileHandle *errorFile = errorPipe.fileHandleForReading;
     
     [task launch];
-    
-    
-    
+
     NSLog(@"Context: %@", context);
+
+    NSData *errorData = [errorFile readDataToEndOfFile];
+    
+    
+    NSString *errorString = [[NSString alloc] initWithData:[outputFile readDataToEndOfFile] encoding:NSASCIIStringEncoding];
+    NSString *resultString = [[NSString alloc] initWithData:errorData encoding:NSASCIIStringEncoding];
+    //    DDLogVerbose(@"SketchFilePlugin: sketchtool for %@ in %f ms", fileURL.relativeString, [now timeIntervalSinceNow]);
+    NSLog(@"Result: %@", resultString);
+    
+    if (errorData.length > 0) {
+        NSLog(@"Error: %@", errorString);
+    }
 }
 
 - (void)collectionView:(NSCollectionView *)collectionView didSelectItemsAtIndexPaths:(NSSet<NSIndexPath *> *)indexPaths {
@@ -358,12 +368,8 @@
 }
 
 - (void)assetBrowserItemDoubleClick:(id)sender {
-    NSLog(@"Double Click Received!");
-    
     NSIndexPath *indexPath = [self.collectionView indexPathForItem:(AssetBrowserItem *)sender];
     Asset *asset = [self.assetCollection assetAtIndexPath:indexPath];
-    
-    NSLog(@"Double clicked asset with objectId: %@", asset.objectId);
     
     [self openLayerWithId:asset.objectId onPageWithId:asset.pageId inDocumentWithPath:asset.filePath];
 }

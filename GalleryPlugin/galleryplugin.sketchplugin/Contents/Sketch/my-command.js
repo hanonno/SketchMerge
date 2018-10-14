@@ -112,8 +112,6 @@ function pageWithId(pages, pageId) {
   for (var i = 0; i < pages.length; i++) {
     var page = pages[i];
     var currentPageId = page.objectID();
-    log(currentPageId);
-    log(pageId);
 
     if (currentPageId == String(pageId)) {
       return page;
@@ -121,32 +119,25 @@ function pageWithId(pages, pageId) {
       log("===== Not found page");
     }
   }
-
-  log("-----");
 }
 
 var documentURL = NSURL.fileURLWithPath(context.documentPath);
 log(documentURL);
 Document.open(documentURL, function (err, document) {
-  // Document.open(context.documentPath, (err, document) => {		
-  log("==== Found document"); // log(context.document.pages())
-  // document.setCurrentPage(page)
+  log("==== Found document");
 
   if (err) {
     // oh no, we failed to open the document
     Sketch.UI.message("Error opening doc!!");
   } else {
-    log("==== Found File"); // var layer = document.getLayerWithID('EEA2C7E0-C57D-4130-8463-18A78EE5E525')
-
-    var page = pageWithId(context.document.pages(), context.pageId); // if(page != context.document.currentPage) {
-
-    context.document.setCurrentPage(page); // }
-
+    log("==== Found File");
+    var page = pageWithId(context.document.pages(), context.pageId);
     var layer = document.getLayerWithID(context.layerId);
+    document.centerOnLayer(layer);
+    context.document.setCurrentPage(page);
 
     if (layer) {
       log("==== Found Layer");
-      document.centerOnLayer(layer);
     } else {
       log("==== Did not find layer");
     }

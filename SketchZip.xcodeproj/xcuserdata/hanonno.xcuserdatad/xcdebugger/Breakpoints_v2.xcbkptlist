@@ -336,16 +336,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SketchZip/Asset Browser/AssetBrowser.m"
-            timestampString = "561229371.602664"
+            timestampString = "561230266.7769099"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "365"
-            endingLineNumber = "365"
-            landmarkName = "-assetBrowserItemDoubleClick:"
+            startingLineNumber = "354"
+            endingLineNumber = "354"
+            landmarkName = "-openLayerWithId:onPageWithId:inDocumentWithPath:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
