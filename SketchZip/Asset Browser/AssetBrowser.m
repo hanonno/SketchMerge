@@ -327,7 +327,7 @@
     [task setArguments:@[
         @"run",
         @"/Users/hanonno/Code/SketchZip/GalleryPlugin/galleryplugin.sketchplugin",
-        @"my-command-identifier",
+        @"open-document-with-layer-by-id",
         context
 //        @"--without-activating"
     ]];

@@ -4,15 +4,15 @@
   "icon": "icon.png",
   "commands": [
     {
-      "name": "my-command",
-      "identifier": "my-command-identifier",
-      "script": "my-command.js"
+      "name": "open-document-with-layer-by-id",
+      "identifier": "open-document-with-layer-by-id",
+      "script": "open-document-with-layer-by-id"
     }
   ],
   "menu": {
     "title": "GalleryPlugin",
     "items": [
-      "my-command-identifier"
+      "open-document-with-layer-by-id"
     ]
   },
   "version": "0.1.0",

@@ -96,75 +96,9 @@ var exports =
   !*** ./src/my-command.js ***!
   \***************************/
 /*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// documentation: https://developer.sketchapp.com/reference/api/
-var Sketch = __webpack_require__(/*! sketch */ "sketch");
-
-var Document = __webpack_require__(/*! sketch/dom */ "sketch/dom").Document;
-
-log(context.documentPath);
-
-function pageWithId(pages, pageId) {
-  // log(pages)
-  log("====== Looping pages");
-
-  for (var i = 0; i < pages.length; i++) {
-    var page = pages[i];
-    var currentPageId = page.objectID();
-
-    if (currentPageId == String(pageId)) {
-      return page;
-    } else {
-      log("===== Not found page");
-    }
-  }
-}
-
-var documentURL = NSURL.fileURLWithPath(context.documentPath);
-log(documentURL);
-Document.open(documentURL, function (err, document) {
-  log("==== Found document");
-
-  if (err) {
-    // oh no, we failed to open the document
-    Sketch.UI.message("Error opening doc!!");
-  } else {
-    log("==== Found File");
-    var page = pageWithId(context.document.pages(), context.pageId);
-    var layer = document.getLayerWithID(context.layerId);
-    document.centerOnLayer(layer);
-    context.document.setCurrentPage(page);
-
-    if (layer) {
-      log("==== Found Layer");
-    } else {
-      log("==== Did not find layer");
-    }
-  }
-});
-
-/***/ }),
-
-/***/ "sketch":
-/*!*************************!*\
-  !*** external "sketch" ***!
-  \*************************/
-/*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = require("sketch");
-
-/***/ }),
-
-/***/ "sketch/dom":
-/*!*****************************!*\
-  !*** external "sketch/dom" ***!
-  \*****************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("sketch/dom");
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nError: ENOENT: no such file or directory, open '/Users/hanonno/Code/SketchZip/GalleryPlugin/src/my-command.js'");
 
 /***/ })
 
