@@ -10,42 +10,6 @@
 #import <PureLayout/PureLayout.h>
 
 
-@implementation NSView (TDView)
-
-//+ (instancetype)view {
-//    NSView *view = [self new];
-//    
-////    view.wantsLayer = YES;
-//    view.translatesAutoresizingMaskIntoConstraints = NO;
-//    view.backgroundColor = [NSColor colorWithDeviceRed:0.945 green:0.945 blue:0.953 alpha:1.000];
-//    
-//    return view;
-//}
-
-- (NSColor *)backgroundColor {
-    if(!self.layer.backgroundColor) {
-        return nil;
-    }
-    
-    return [NSColor colorWithCGColor:self.layer.backgroundColor];
-}
-
-- (void)setBackgroundColor:(NSColor *)backgroundColor {
-    self.wantsLayer = YES;
-    self.layer.backgroundColor = backgroundColor.CGColor;
-}
-
-- (CGFloat)cornerRadius {
-    return self.layer.cornerRadius;
-}
-
-- (void)setCornerRadius:(CGFloat)cornerRadius {
-    self.wantsLayer = YES;
-    self.layer.cornerRadius = cornerRadius;
-}
-
-@end
-
 
 @implementation SidebarHeaderView
 
@@ -53,8 +17,8 @@
     self = [super initWithFrame:NSMakeRect(0, 0, 120, 44)];
     
     NSView *highlightView = [[NSView alloc] init];
-    highlightView.cornerRadius = 4;
     highlightView.wantsLayer = YES;
+    highlightView.layer.cornerRadius = 4;
 //    highlightView.layer.backgroundColor = [[NSColor redColor] CGColor];
     [self addSubview:highlightView];
     self.highlightView = highlightView;
@@ -105,7 +69,8 @@
     self.view.translatesAutoresizingMaskIntoConstraints = NO;
     
     NSView *highlightView = [[NSView alloc] init];
-    highlightView.cornerRadius = 4;
+    highlightView.wantsLayer = YES;
+    highlightView.layer.cornerRadius = 4;
     [self.view addSubview:highlightView];
     self.highlightView = highlightView;
     
@@ -134,10 +99,10 @@
     [super setSelected:selected];
     
     if(selected) {
-        self.highlightView.backgroundColor = [NSColor headerBackgroundColor];
+        self.highlightView.layer.backgroundColor = [[NSColor headerBackgroundColor] CGColor];
     }
     else {
-        self.highlightView.backgroundColor = [NSColor clearColor];
+        self.highlightView.layer.backgroundColor = [[NSColor clearColor] CGColor];;
     }
 }
 
@@ -159,7 +124,7 @@
 - (id)init {
     self = [super initWithNibName:nil bundle:nil];
 
-    self.items = @[@"Everything", @"Recents", @"Favorites"];
+    self.items = @[@"All", @"Favorites"];
     self.sketchFiles = [[NSMutableArray alloc] init];
     
     return self;
@@ -167,7 +132,7 @@
 
 - (void)loadView {
     self.view = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, 240, 640)];
-    self.view.backgroundColor = [NSColor backgroundColor];
+    self.view.layer.backgroundColor = [[NSColor backgroundColor] CGColor];
         
     self.sidebarLayout = [[SidebarLayout alloc] init];
 
@@ -211,7 +176,6 @@
     [super viewWillAppear];
     
     self.scrollView.verticalScroller.alphaValue = 0.0;
-    
     [self.collectionView reloadData];
 }
 
@@ -220,15 +184,11 @@
 }
 
 - (NSInteger)collectionView:(NSCollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-//    if([self.sidebarLayout collapsedSectionAtIndex:section]) {
-//        return 0;
-//    }
-
-    if(section == 1) {
-        return self.sketchFiles.count;
+    if(section == 0) {
+        return self.items.count;
     }
     
-    return self.items.count;
+    return self.sketchFiles.count;
 }
 
 - (NSCollectionViewItem *)collectionView:(NSCollectionView *)collectionView itemForRepresentedObjectAtIndexPath:(NSIndexPath *)indexPath {
@@ -238,18 +198,11 @@
     
     SidebarCollectionViewItem *item = [collectionView makeItemWithIdentifier:@"SidebarItem" forIndexPath:indexPath];
     
-    if(indexPath.item == 0) {
-        item.titleLabel.stringValue = @"All";
-        item.iconView.image = [NSImage imageNamed:@"Everything"];
-    }
-    if(indexPath.item == 1) {
-        item.titleLabel.stringValue = @"Recents";
-        item.iconView.image = [NSImage imageNamed:@"Recents"];
-    }
-    if(indexPath.item == 2) {
-        item.titleLabel.stringValue = @"Favorites";
-        item.iconView.image = [NSImage imageNamed:@"Favorites"];
-    }
+    NSString *name = [self.items objectAtIndex:indexPath.item];
+    
+    item.titleLabel.stringValue = name;
+    item.iconView.image = [NSImage imageNamed:[NSString stringWithFormat:@"Icon%@", name]];
+    
     return item;
 }
 
@@ -278,8 +231,13 @@
             [self.delegate sidebarController:self didSelectItem:nil atIndexPath:indexPath];
         }
         
-        if(indexPath.section == 0 && indexPath.item == 1) {
-        }
+//        if(indexPath.section == 0) {
+//            NSString *sectionName = [self.items objectAtIndex:indexPath.item];
+//            
+//            if([sectionName isEqualToString:@"Favorites"]) {
+//
+//            }
+//        }
     }
 }
 
@@ -290,7 +248,6 @@
 
 - (NSView *)collectionView:(NSCollectionView *)collectionView viewForSupplementaryElementOfKind:(NSCollectionViewSupplementaryElementKind)kind atIndexPath:(NSIndexPath *)indexPath {
     SidebarHeaderView *headerView = [collectionView makeSupplementaryViewOfKind:NSCollectionElementKindSectionHeader withIdentifier:@"SidebarHeaderIdentifier" forIndexPath:indexPath];
-//    AssetGroup *group = [self.assetCollection groupAtIndex:indexPath.section];
     
     NSString *title = @"Collections";
     

@@ -89,7 +89,7 @@
 - (void)takeValuesFromAsset:(Asset *)asset {
     [self.previewImageView sd_setImageWithURL:[NSURL fileURLWithPath:asset.previewImagePath] placeholderImage:[NSImage imageNamed:@"PreviewImagePlaceholder.png"] options:SDWebImageCacheMemoryOnly];
     self.titleLabel.stringValue = (asset.name) ? asset.name : @"WHat";
-    self.favoriteIconView.image = (asset.favorited) ? [NSImage imageNamed:@"Favorites"] : nil;
+    self.favoriteIconView.image = (asset.favorited) ? [NSImage imageNamed:@"IconFavorites"] : nil;
 }
 
 - (void)setHighlightState:(NSCollectionViewItemHighlightState)highlightState {
@@ -360,6 +360,9 @@
     
     NSIndexPath *indexPath = [self.collectionView indexPathForItem:(AssetBrowserItem *)sender];
     Asset *asset = [self.assetCollection assetAtIndexPath:indexPath];
+    
+    NSLog(@"Double clicked asset with objectId: %@", asset.objectId);
+    
     [self openLayerWithId:asset.objectId documentPath:asset.filePath];
 }
 

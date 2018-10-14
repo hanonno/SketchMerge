@@ -47,11 +47,11 @@
 		7D209EF42158EE3900A461A5 /* CollectionViewLeftAlignedLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D209EF22158EE3900A461A5 /* CollectionViewLeftAlignedLayout.m */; };
 		7D209EF82158FD6F00A461A5 /* SidebarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D209EF72158FD6F00A461A5 /* SidebarController.m */; };
 		7D209EFE2159082800A461A5 /* Recents@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D209EFA2159082700A461A5 /* Recents@2x.png */; };
-		7D209EFF2159082800A461A5 /* Favorites@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D209EFB2159082700A461A5 /* Favorites@2x.png */; };
+		7D209EFF2159082800A461A5 /* IconFavorites@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D209EFB2159082700A461A5 /* IconFavorites@2x.png */; };
 		7D209F002159082800A461A5 /* Recents.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D209EFC2159082800A461A5 /* Recents.png */; };
-		7D209F012159082800A461A5 /* Favorites.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D209EFD2159082800A461A5 /* Favorites.png */; };
-		7D209F0421590B3300A461A5 /* Everything.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D209F0221590B3200A461A5 /* Everything.png */; };
-		7D209F0521590B3300A461A5 /* Everything@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D209F0321590B3200A461A5 /* Everything@2x.png */; };
+		7D209F012159082800A461A5 /* IconFavorites.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D209EFD2159082800A461A5 /* IconFavorites.png */; };
+		7D209F0421590B3300A461A5 /* IconAll.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D209F0221590B3200A461A5 /* IconAll.png */; };
+		7D209F0521590B3300A461A5 /* IconAll@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D209F0321590B3200A461A5 /* IconAll@2x.png */; };
 		7D209F0E2159195D00A461A5 /* TDCollectionViewListLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D209F0C2159195C00A461A5 /* TDCollectionViewListLayout.m */; };
 		7D29BE742168CB5900D3121B /* SketchFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D7CCFD121133DD50061EBB0 /* SketchFile.m */; };
 		7D29BE772168CE0B00D3121B /* Asset.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D29BE762168CE0B00D3121B /* Asset.m */; };
@@ -260,11 +260,11 @@
 		7D209EF62158FD6F00A461A5 /* SidebarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SidebarController.h; sourceTree = "<group>"; };
 		7D209EF72158FD6F00A461A5 /* SidebarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SidebarController.m; sourceTree = "<group>"; };
 		7D209EFA2159082700A461A5 /* Recents@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Recents@2x.png"; sourceTree = "<group>"; };
-		7D209EFB2159082700A461A5 /* Favorites@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Favorites@2x.png"; sourceTree = "<group>"; };
+		7D209EFB2159082700A461A5 /* IconFavorites@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconFavorites@2x.png"; sourceTree = "<group>"; };
 		7D209EFC2159082800A461A5 /* Recents.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Recents.png; sourceTree = "<group>"; };
-		7D209EFD2159082800A461A5 /* Favorites.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Favorites.png; sourceTree = "<group>"; };
-		7D209F0221590B3200A461A5 /* Everything.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Everything.png; sourceTree = "<group>"; };
-		7D209F0321590B3200A461A5 /* Everything@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Everything@2x.png"; sourceTree = "<group>"; };
+		7D209EFD2159082800A461A5 /* IconFavorites.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconFavorites.png; sourceTree = "<group>"; };
+		7D209F0221590B3200A461A5 /* IconAll.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconAll.png; sourceTree = "<group>"; };
+		7D209F0321590B3200A461A5 /* IconAll@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconAll@2x.png"; sourceTree = "<group>"; };
 		7D209F0C2159195C00A461A5 /* TDCollectionViewListLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDCollectionViewListLayout.m; sourceTree = "<group>"; };
 		7D209F0D2159195C00A461A5 /* TDCollectionViewListLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDCollectionViewListLayout.h; sourceTree = "<group>"; };
 		7D29BE752168CE0B00D3121B /* Asset.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Asset.h; sourceTree = "<group>"; };
@@ -646,12 +646,12 @@
 				7D611B44215AE57800C86AF1 /* File@2x.png */,
 				7D611B40215AE36300C86AF1 /* Folder.png */,
 				7D611B41215AE36400C86AF1 /* Folder@2x.png */,
-				7D209F0221590B3200A461A5 /* Everything.png */,
-				7D209F0321590B3200A461A5 /* Everything@2x.png */,
+				7D209F0221590B3200A461A5 /* IconAll.png */,
+				7D209F0321590B3200A461A5 /* IconAll@2x.png */,
 				7D209EFC2159082800A461A5 /* Recents.png */,
 				7D209EFA2159082700A461A5 /* Recents@2x.png */,
-				7D209EFD2159082800A461A5 /* Favorites.png */,
-				7D209EFB2159082700A461A5 /* Favorites@2x.png */,
+				7D209EFD2159082800A461A5 /* IconFavorites.png */,
+				7D209EFB2159082700A461A5 /* IconFavorites@2x.png */,
 				7DE5F0812157F76F00BD2825 /* Artboard.png */,
 				7DE5F0802157F76F00BD2825 /* Artboard@2x.png */,
 				7D8CBE312153DD42007C884B /* iPhone Xs Max@2x.png */,
@@ -833,7 +833,7 @@
 				7D8CBE4C2153DD42007C884B /* iPad@2x.png in Resources */,
 				7D8CBE4F2153DD42007C884B /* iPhone 8 Plus@2x.png in Resources */,
 				7D8CBE492153DD42007C884B /* iPhone Xs Max@2x.png in Resources */,
-				7D209F012159082800A461A5 /* Favorites.png in Resources */,
+				7D209F012159082800A461A5 /* IconFavorites.png in Resources */,
 				7DE5F0822157F76F00BD2825 /* Artboard@2x.png in Resources */,
 				7D828FA32122E27E00ADBD7E /* Sketch-A.sketch in Resources */,
 				7D29BE9521693FE200D3121B /* PreviewImagePlaceholder@2x.png in Resources */,
@@ -851,21 +851,21 @@
 				7D29BE9621693FE200D3121B /* PreviewImagePlaceholder.png in Resources */,
 				7D8CBE542153DD42007C884B /* Apple Watch 38mm@2x.png in Resources */,
 				7DE5F0842157F76F00BD2825 /* Artboard.png in Resources */,
-				7D209F0421590B3300A461A5 /* Everything.png in Resources */,
+				7D209F0421590B3300A461A5 /* IconAll.png in Resources */,
 				55BE526B20ADAE720059EC77 /* TestFile1.sketch in Resources */,
 				7D8CBE502153DD42007C884B /* iPhone SE@2x.png in Resources */,
 				552F295520EE4B0A00A845B2 /* Artboards-B.sketch in Resources */,
 				7D611B42215AE36400C86AF1 /* Folder.png in Resources */,
 				7DEA34382135DC980062075A /* Sketch-Add-B.sketch in Resources */,
 				7D8CBE5B2153DD42007C884B /* Apple Watch 40mm.png in Resources */,
-				7D209F0521590B3300A461A5 /* Everything@2x.png in Resources */,
+				7D209F0521590B3300A461A5 /* IconAll@2x.png in Resources */,
 				55BE520320ADABFD0059EC77 /* Assets.xcassets in Resources */,
 				7D8CBE5D2153DD42007C884B /* iPad.png in Resources */,
 				7D7CCFC921133BAB0061EBB0 /* Version-3.sketch in Resources */,
 				7D7CCFC621133AB60061EBB0 /* Version-2.sketch in Resources */,
 				7D8CBE522153DD42007C884B /* iPad Pro.png in Resources */,
 				7DEA34362135DC980062075A /* Sketch-Add-O.sketch in Resources */,
-				7D209EFF2159082800A461A5 /* Favorites@2x.png in Resources */,
+				7D209EFF2159082800A461A5 /* IconFavorites@2x.png in Resources */,
 				7DEEBB4B216AB2C5004B234D /* FilterItemView.xib in Resources */,
 				7DEA342C2135A79A0062075A /* Sketch-Conflict-B.sketch in Resources */,
 				7D828FA12122E27E00ADBD7E /* Sketch-Root.sketch in Resources */,

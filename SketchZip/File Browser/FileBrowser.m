@@ -106,9 +106,22 @@
 - (void)sidebarController:(SidebarController *)sidebarController didSelectItem:(SidebarCollectionViewItem *)sidebarItem atIndexPath:(NSIndexPath *)indexPath {
     if(indexPath.section == 1) {
         SketchFile *file = [sidebarController sketchFileAtIndex:indexPath.item];
-        [self.pathFilter setPath:file.fileURL.path];
+
+        self.pathFilter.path = file.fileURL.path;
+        self.favoriteFilter.enabled = NO;
         [self.assetCollection reloadData];
         [self.assetBrowser.collectionView reloadData];
+    }
+    else if(indexPath.section == 0) {
+        if(indexPath.item == 0) {
+            self.pathFilter.path = self.indexer.directory;
+            self.favoriteFilter.enabled = NO;
+            [self.assetCollection reloadData];
+        }
+        if(indexPath.item == 1) {
+            self.favoriteFilter.enabled = YES;
+            [self.assetCollection reloadData];
+        }
     }
 }
 

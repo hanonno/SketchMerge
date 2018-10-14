@@ -95,28 +95,34 @@ var exports =
 /*!***************************!*\
   !*** ./src/my-command.js ***!
   \***************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var sketch__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sketch */ "sketch");
-/* harmony import */ var sketch__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sketch__WEBPACK_IMPORTED_MODULE_0__);
- // documentation: https://developer.sketchapp.com/reference/api/
+// documentation: https://developer.sketchapp.com/reference/api/
+var Sketch = __webpack_require__(/*! sketch */ "sketch");
 
 var Document = __webpack_require__(/*! sketch/dom */ "sketch/dom").Document;
 
-/* harmony default export */ __webpack_exports__["default"] = (function () {
-  sketch__WEBPACK_IMPORTED_MODULE_0___default.a.UI.message("It's alive 🙌");
-  Document.open("/Users/hanonno/Design/Hanno/NRC-Times.sketch", function (err, document) {
-    // Document.open(context.path, (err, document) => {
-    if (err) {
-      // oh no, we failed to open the document
-      sketch__WEBPACK_IMPORTED_MODULE_0___default.a.UI.message("Error opening doc!!");
+log(context.documentPath);
+var documentURL = NSURL.fileURLWithPath(context.documentPath);
+log(documentURL);
+Document.open(documentURL, function (err, document) {
+  // Document.open(context.documentPath, (err, document) => {		
+  if (err) {
+    // oh no, we failed to open the document
+    Sketch.UI.message("Error opening doc!!");
+  } else {
+    log("==== Found File"); // var layer = document.getLayerWithID('EEA2C7E0-C57D-4130-8463-18A78EE5E525')
+
+    var layer = document.getLayerWithID(context.layerId);
+
+    if (layer) {
+      log("==== Found Layer");
+      document.centerOnLayer(layer);
     } else {
-      sketch__WEBPACK_IMPORTED_MODULE_0___default.a.UI.message("Foud doc?S!!");
+      log("==== Did not find layer");
     }
-  });
+  }
 });
 
 /***/ }),

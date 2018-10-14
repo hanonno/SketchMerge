@@ -19,14 +19,6 @@
 @class SidebarController;
 
 
-@interface NSView (TDView)
-
-@property (strong) NSColor  *backgroundColor;
-@property (assign) CGFloat  cornerRadius;
-
-@end
-
-
 @interface SidebarHeaderView : NSView
 
 @property (strong) NSImageView  *iconView;
