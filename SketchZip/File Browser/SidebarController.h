@@ -55,10 +55,6 @@
 
 @interface SidebarController : NSViewController <NSTokenFieldDelegate>
 
-@property (strong) NSTokenField                         *filterTokenField;
-
-@property (strong) NSSlider                             *previewSizeSlider;
-
 @property (strong) NSScrollView                         *scrollView;
 @property (strong) NSCollectionView                     *collectionView;
 @property (strong) SidebarLayout                        *sidebarLayout;
@@ -67,7 +63,5 @@
 
 - (void)addSketchFile:(SketchFile *)sketchFile;
 - (SketchFile *)sketchFileAtIndex:(NSInteger)index;
-
-- (IBAction)toggleFileSection:(id)sender;
 
 @end

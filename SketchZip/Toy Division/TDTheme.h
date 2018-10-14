@@ -42,3 +42,8 @@
 + (NSColor *)highlightColor;
 
 @end
+
+
+@interface SearchField : NSSearchField
+
+@end

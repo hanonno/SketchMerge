@@ -11,6 +11,8 @@
 
 @interface FilterBarController ()
 
+@property (strong) NSMutableDictionary *filters;
+
 @end
 
 
@@ -21,10 +23,10 @@
     
     _assetCollection = assetCollection;
     
-    self.sizeFilterPicker = [[SizeFilterPicker alloc] init];
-    self.sizeFilterPicker.delegate = self;
+    self.previewSizeSlider = [[NSSlider alloc] init];
     
-    self.favoriteFilter = [[FavoriteFilter alloc] init];
+    self.sizePopUpButton = [[NSPopUpButton alloc] init];
+    self.filters = [[NSMutableDictionary alloc] init];
     
     return self;
 }
@@ -35,49 +37,52 @@
     self.stackView = [[NSStackView alloc] init];
     [self.view addSubview:self.stackView];
     
-    self.sizeFilterButton = [NSButton buttonWithTitle:@"Size" target:self action:@selector(changeSizeFilter:)];
-    [self.stackView addArrangedSubview:self.sizeFilterButton];
+    self.filterTextField = [[SearchField alloc] init];
+    self.filterTextField.placeholderString = @"Filter";
+    self.filterTextField.sendsSearchStringImmediately = YES;
+    [self.filterTextField setTarget:self];
+    [self.filterTextField setAction:@selector(filterTextFieldChanged:)];
+    [self.stackView addView:self.filterTextField inGravity:NSStackViewGravityLeading];
     
-    self.favoriteButton = [NSButton buttonWithTitle:@"Favorites" target:self action:@selector(changeFavoritesButton:)];
-    [self.stackView addArrangedSubview:self.favoriteButton];
+    for (SizeFilter *filter in [SizeFilter appleDeviceFilters]) {
+        NSString *name = filter.presetName;
+        [self.filters setObject:filter forKey:name];
+        [self.sizePopUpButton addItemWithTitle:name];
+    }
     
-    self.statusButton = [NSButton buttonWithTitle:@"In progress" target:self action:@selector(changeStatusButton:)];
-    [self.stackView addArrangedSubview:self.statusButton];
+    [self.sizePopUpButton setTarget:self];
+    [self.sizePopUpButton setAction:@selector(sizeFilterChanged:)];
+    
+    [self.stackView addView:self.sizePopUpButton inGravity:NSStackViewGravityTrailing];
+
+    self.previewSizeSlider.minValue = 0.5;
+    self.previewSizeSlider.maxValue = 2;
+    [self.stackView addView:self.previewSizeSlider inGravity:NSStackViewGravityTrailing];
     
     // Autolayout
-    [self.stackView autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, 8, 0, 8)];
-}
-
-
-- (void)changeSizeFilter:(id)sender {
-    [self presentViewController:self.sizeFilterPicker asPopoverRelativeToRect:self.sizeFilterButton.frame ofView:self.stackView preferredEdge:NSRectEdgeMaxY behavior:NSPopoverBehaviorTransient];
-}
-
-- (void)changeFavoritesButton:(id)sender {
-    NSLog(@"Favorites!");
+    [self.stackView autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, 4, 0, 4)];
     
-    self.favoriteFilter.enabled = !self.favoriteFilter.enabled;
+    [self.filterTextField autoSetDimension:ALDimensionWidth toSize:320 relation:NSLayoutRelationLessThanOrEqual];
+    [self.previewSizeSlider autoSetDimension:ALDimensionWidth toSize:160 relation:NSLayoutRelationLessThanOrEqual];
+}
+
+- (void)sizeFilterChanged:(id)sender {
     
-    if([self.delegate respondsToSelector:@selector(filterBarController:didUpdateFilter:)]) {
-        [self.delegate filterBarController:self didUpdateFilter:self.favoriteFilter];
-    }
-}
-
-- (void)changeStatusButton:(id)sender{
-    NSLog(@"Status");
-}
-
-- (void)sizeFilterPicker:(SizeFilterPicker *)sizeFilterPicker didPickFilter:(SizeFilter *)filter {
-//    [self dismissController:self.sizeFilterPicker];
-
-    [self.sizeFilterButton setTitle:filter.presetName];
+    NSString *name = [self.sizePopUpButton titleOfSelectedItem];
+    Filter *filter = [self.filters objectForKey:name];
     
     [self.assetCollection replaceFilter:filter];
     [self.assetCollection reloadData];
+}
+
+- (void)filterTextFieldChanged:(id)sender {
+    NSLog(@"Filter: %@", self.filterTextField.stringValue);
     
-    if([self.delegate respondsToSelector:@selector(filterBarController:didUpdateFilter:)]) {
-        [self.delegate filterBarController:self didUpdateFilter:filter];
-    }
+    KeywordFilter *keywordFilter = [[KeywordFilter alloc] init];
+    keywordFilter.keywords = self.filterTextField.stringValue;
+    
+    [self.assetCollection replaceFilter:keywordFilter];
+    [self.assetCollection reloadData];
 }
 
 @end

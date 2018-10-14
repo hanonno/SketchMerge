@@ -52,6 +52,7 @@
     _headerHeight = 56;
     _itemHeight = 28;
     _collapsedSectionIndexes = [[NSMutableIndexSet alloc] init];
+    _headersVisible = NO;
     
     return self;
 }
@@ -83,7 +84,7 @@
     CGSize size = self.collectionView.enclosingScrollView.frame.size;
     CGPoint origin = CGPointZero;
     
-    CGFloat headerHeight = self.headerHeight;
+    CGFloat headerHeight = self.headersVisible ? self.headerHeight : 16;
     
     NSMutableArray *sections = [[NSMutableArray alloc] init];
     
@@ -135,7 +136,9 @@
     NSMutableArray *layoutAttributes = [[NSMutableArray alloc] init];
     
     for (SidebarSection *section in self.sections) {
-        [layoutAttributes addObject:section.headerAttributes];
+        if(self.headersVisible) {
+            [layoutAttributes addObject:section.headerAttributes];
+        }
         [layoutAttributes addObjectsFromArray:section.itemAttributes];
     }
     

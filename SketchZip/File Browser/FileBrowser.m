@@ -54,7 +54,7 @@
     if(!self.window) {
         self.window = [NSWindow windowWithContentViewController:self];
         [self.window setTitleWithRepresentedFilename:self.indexer.directory];
-//        self.window.titlebarAppearsTransparent = YES;
+        self.window.titlebarAppearsTransparent = YES;
 //        self.window.titleVisibility = NSWindowTitleHidden;
 //        self.window.styleMask |= NSWindowStyleMaskFullSizeContentView;
         self.windowController = [[NSWindowController alloc] initWithWindow:self.window];
@@ -77,6 +77,8 @@
     
     self.filterBarController = [[FilterBarController alloc] initWithAssetCollection:self.assetCollection];
     self.filterBarController.delegate = self;
+    [self.filterBarController.previewSizeSlider setTarget:self];
+    [self.filterBarController.previewSizeSlider setAction:@selector(changePreviewSize:)];
     [self.view addSubview:self.filterBarController.view];
     
     self.assetBrowser = [[AssetBrowser alloc] initWithAssetCollection:self.assetCollection];
@@ -93,10 +95,6 @@
     
     [self.assetBrowser.view autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, 0, 32, 0) excludingEdge:ALEdgeLeft];
     [self.assetBrowser.view autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:240];
-    
-    self.sidebarController.filterTokenField.delegate = self;
-    [self.sidebarController.previewSizeSlider setTarget:self];
-    [self.sidebarController.previewSizeSlider setAction:@selector(changePreviewSize:)];
 }
 
 - (void)sketchFileIndexer:(SketchFileIndexer *)fileIndexer didIndexFile:(SketchFile *)file {

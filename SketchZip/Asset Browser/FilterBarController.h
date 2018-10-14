@@ -10,8 +10,9 @@
 #import <PureLayout/PureLayout.h>
 
 
+#import "TDTheme.h"
 #import "Asset.h"
-#import "SizeFilterPicker.h"
+#import "Filter.h"
 
 
 @class FilterBarController;
@@ -24,19 +25,15 @@
 @end
 
 
-@interface FilterBarController : NSViewController <SizeFilterPickerDelegate>
+@interface FilterBarController : NSViewController
 
 @property (assign) id <FilterBarControllerDelegate>    delegate;
 
 @property (strong) NSStackView          *stackView;
 
-@property (strong) NSButton             *sizeFilterButton;
-@property (strong) SizeFilterPicker     *sizeFilterPicker;
-
-@property (strong) FavoriteFilter       *favoriteFilter;
-@property (strong) NSButton             *favoriteButton;
-
-@property (strong) NSButton             *statusButton;
+@property (strong) NSSearchField        *filterTextField;
+@property (strong) NSPopUpButton        *sizePopUpButton;
+@property (strong) NSSlider             *previewSizeSlider;
 
 @property (strong) AssetCollection      *assetCollection;
 

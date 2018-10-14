@@ -86,3 +86,26 @@
 }
 
 @end
+
+
+@implementation SearchField
+
+- (instancetype)init {
+    self = [super init];
+    
+    NSColor *backgroundColor = [NSColor colorWithDeviceHue:0.31 saturation:0.00 brightness:0.20 alpha:1.00];
+    
+    self.centersPlaceholder = NO;
+//    self.drawsBackground = YES;
+    self.focusRingType = NSFocusRingTypeNone;
+//    self.wantsLayer = YES;
+//    self.backgroundColor = backgroundColor;
+//    self.layer.backgroundColor = [backgroundColor CGColor];
+//    self.layer.borderColor = [backgroundColor CGColor];
+//    self.layer.borderWidth = 1;
+//    self.layer.cornerRadius = 4;
+    
+    return self;
+}
+
+@end

@@ -114,7 +114,7 @@
     self.iconView = iconView;
     
     NSTextField *titleLabel = [NSTextField labelWithString:@"Title"];
-    titleLabel.font = [NSFont systemFontOfSize:13 weight:NSFontWeightMedium];
+    titleLabel.font = [NSFont systemFontOfSize:13 weight:NSFontWeightRegular];
     titleLabel.textColor = [NSColor titleTextColor];
     [self.highlightView addSubview:titleLabel];
     self.titleLabel = titleLabel;
@@ -161,11 +161,6 @@
 
     self.items = @[@"Everything", @"Recents", @"Favorites"];
     self.sketchFiles = [[NSMutableArray alloc] init];
-
-    self.filterTokenField = [[NSTokenField alloc] initWithFrame:NSMakeRect(0, 0, 240, 52)];
-    self.previewSizeSlider = [[NSSlider alloc] init];
-    
-    self.fileSectionCollapsed = NO;
     
     return self;
 }
@@ -173,17 +168,7 @@
 - (void)loadView {
     self.view = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, 240, 640)];
     self.view.backgroundColor = [NSColor backgroundColor];
-    
-    self.filterTokenField.tokenStyle = NSTokenStyleSquared;
-    //    self.tokenField.tokenStyle = NSTokenStylePlainSquared;
-    self.filterTokenField.bezelStyle = NSTextFieldRoundedBezel;
-    self.filterTokenField.delegate = self;
-    [self.view addSubview:self.filterTokenField];
-    
-    self.previewSizeSlider.minValue = 0.5;
-    self.previewSizeSlider.maxValue = 2;
-    [self.view addSubview:self.previewSizeSlider];
-    
+        
     self.sidebarLayout = [[SidebarLayout alloc] init];
 
     self.collectionView = [[NSCollectionView alloc] initWithFrame:self.scrollView.bounds];
@@ -216,37 +201,16 @@
     [self.view addSubview:divider];
 
     // Autolayout
-    [self.filterTokenField autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(40, 16, 0, 16) excludingEdge:ALEdgeBottom];
-    
-    [self.scrollView autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(64, 0, 64, 0)];
-    
-    [self.previewSizeSlider autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, 16, 16, 16) excludingEdge:ALEdgeTop];
+    [self.scrollView autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, 0, 0, 0)];
     
     [divider autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsZero excludingEdge:ALEdgeLeft];
     [divider autoSetDimension:ALDimensionWidth toSize:1];
 }
 
-- (IBAction)toggleFileSection:(id)sender {
-    self.fileSectionCollapsed = !self.fileSectionCollapsed;
-
-    NSMutableSet *indexPaths = [[NSMutableSet alloc] init];
-    NSInteger itemIndex = 0;
-    for (SketchFile *file in self.sketchFiles) {
-        [indexPaths addObject:[NSIndexPath indexPathForItem:itemIndex inSection:1]];
-        itemIndex = itemIndex + 1;
-    }
-    
-    if(self.fileSectionCollapsed) {
-        [self.collectionView.animator deleteItemsAtIndexPaths:indexPaths];
-        
-    }
-    else {
-        [self.collectionView.animator insertItemsAtIndexPaths:indexPaths];
-    }
-}
-
 - (void)viewWillAppear {
     [super viewWillAppear];
+    
+    self.scrollView.verticalScroller.alphaValue = 0.0;
     
     [self.collectionView reloadData];
 }
