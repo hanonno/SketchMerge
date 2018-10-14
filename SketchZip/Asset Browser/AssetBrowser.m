@@ -315,11 +315,11 @@
     return headerView;
 }
 
-- (void)openLayerWithId:(NSString *)layerId documentPath:(NSString *)filePath {
+- (void)openLayerWithId:(NSString *)layerId onPageWithId:(NSString *)pageId inDocumentWithPath:(NSString *)documentPath {
     //    /Applications/Sketch.app/Contents/Resources/sketchtool/bin/sketchtool run /Users/hanonno/Code/SketchZip/GalleryPlugin/galleryplugin.sketchplugin my-command-identifier
     NSString *sketchToolPath = @"/Applications/Sketch.app/Contents/Resources/sketchtool/bin/sketchtool";
     
-    NSString *context = [NSString stringWithFormat:@"--context={\"documentPath\":\"%@\",\"layerId\":\"%@\"}", filePath, layerId];
+    NSString *context = [NSString stringWithFormat:@"--context={\"documentPath\":\"%@\",\"pageId\":\"%@\",\"layerId\":\"%@\"}", documentPath, pageId, layerId];
 //    NSString *context = [NSString stringWithFormat:@"--context={documentPath:\"%@\",layerId:\"%@\"}", filePath, layerId];
     
     NSTask *task = [[NSTask alloc] init];
@@ -342,6 +342,8 @@
     
     [task launch];
     
+    
+    
     NSLog(@"Context: %@", context);
 }
 
@@ -363,7 +365,7 @@
     
     NSLog(@"Double clicked asset with objectId: %@", asset.objectId);
     
-    [self openLayerWithId:asset.objectId documentPath:asset.filePath];
+    [self openLayerWithId:asset.objectId onPageWithId:asset.pageId inDocumentWithPath:asset.filePath];
 }
 
 
