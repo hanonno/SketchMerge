@@ -13,7 +13,6 @@
 
 @property (assign) BOOL     headersVisible;
 
-- (BOOL)collapsedSectionAtIndex:(NSInteger)index;
 - (void)collapseSectionAtIndex:(NSInteger)index;
 - (void)expandSectionAtIndex:(NSInteger)index;
 - (void)toggleSectionAtIndex:(NSInteger)index;

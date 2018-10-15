@@ -145,6 +145,7 @@
 		7DEA34392135DC980062075A /* Sketch-Add-B.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7DEA34332135DC980062075A /* Sketch-Add-B.sketch */; };
 		7DEEBB29216AA1C7004B234D /* FilterListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEEBB28216AA1C7004B234D /* FilterListController.m */; };
 		7DEEBB4B216AB2C5004B234D /* FilterItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DEEBB4A216AB2C5004B234D /* FilterItemView.xib */; };
+		7DFF79D62175421F00C70814 /* CanvasLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DFF79D52175421F00C70814 /* CanvasLayout.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -352,6 +353,8 @@
 		7DEEBB27216AA1C7004B234D /* FilterListController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FilterListController.h; sourceTree = "<group>"; };
 		7DEEBB28216AA1C7004B234D /* FilterListController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FilterListController.m; sourceTree = "<group>"; };
 		7DEEBB4A216AB2C5004B234D /* FilterItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterItemView.xib; sourceTree = "<group>"; };
+		7DFF79D42175421F00C70814 /* CanvasLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CanvasLayout.h; sourceTree = "<group>"; };
+		7DFF79D52175421F00C70814 /* CanvasLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CanvasLayout.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -577,6 +580,8 @@
 				7DC83EB5216E91E100CC873E /* FilterBarController.h */,
 				7DC83EB6216E91E100CC873E /* FilterBarController.m */,
 				7D29BE822168F58B00D3121B /* AssetBrowser.h */,
+				7DFF79D42175421F00C70814 /* CanvasLayout.h */,
+				7DFF79D52175421F00C70814 /* CanvasLayout.m */,
 				7D29BE832168F58B00D3121B /* AssetBrowser.m */,
 				7D29BE852169316F00D3121B /* Filter.h */,
 				7D29BE862169316F00D3121B /* Filter.m */,
@@ -977,6 +982,7 @@
 				55BE525A20ADAD410059EC77 /* zip.c in Sources */,
 				5548B88D20EF720E00D3A081 /* SketchFilePlugin.m in Sources */,
 				55BE526420ADAD410059EC77 /* aes_ni.c in Sources */,
+				7DFF79D62175421F00C70814 /* CanvasLayout.m in Sources */,
 				55BE525E20ADAD410059EC77 /* minishared.c in Sources */,
 				7D7D35AC216BF60200FFEF9D /* SidebarLayout.m in Sources */,
 				7D828F962122DBCB00ADBD7E /* SketchOperationTypeIndicator.m in Sources */,

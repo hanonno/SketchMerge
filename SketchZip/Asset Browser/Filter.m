@@ -133,14 +133,26 @@
         return YES;
     }
     
+    // Any device will match everything
     if([self.presetName isEqualToString:@"Any device"]) {
         return YES;
     }
     
+    // No will match everything
     if(self.presetName == nil || self.presetName.length == 0) {
         return YES;
     }
     
+    // Setting width or height to 0 will ignore it
+    if(self.width == 0 && asset.height == self.height) {
+        return YES;
+    }
+    
+    if(asset.width == self.width && self.height == 0) {
+        return YES;
+    }
+    
+    // Else both need to match
     if(asset.width == self.width && asset.height == self.height) {
         return YES;
     }
@@ -161,6 +173,7 @@
 + (NSArray *)appleDeviceFilters {
     NSMutableArray *filters = [[NSMutableArray alloc] init];
     
+    [filters addObject:[SizeFilter filterWithName:@"Any device" width:400 height:400]];
     [filters addObject:[SizeFilter filterWithName:@"iPhone 8" width:375 height:667]];
     [filters addObject:[SizeFilter filterWithName:@"iPhone 8 Plus" width:414 height:736]];
     [filters addObject:[SizeFilter filterWithName:@"iPhone SE" width:320 height:568]];
