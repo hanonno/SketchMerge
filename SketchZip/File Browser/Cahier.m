@@ -25,6 +25,7 @@
         cahier.directory = directoryPath;
         cahier.sizePresetName = @"Any device";
         cahier.zoomFactor = 1.0;
+        cahier.windowVisible = YES;
         
         RLMRealm *realm = [RLMRealm defaultRealm];
         [realm beginWriteTransaction];

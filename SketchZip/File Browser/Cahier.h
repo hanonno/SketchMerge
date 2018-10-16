@@ -14,7 +14,8 @@
 
 @property NSString     *directory;
 @property NSString     *sizePresetName;
-@property float        zoomFactor;
+@property float         zoomFactor;
+@property BOOL          windowVisible;
 
 + (Cahier *)cahierForDirectoryWithPath:(NSString *)directoryPath;
 

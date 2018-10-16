@@ -63,10 +63,22 @@
         self.window.styleMask |= NSWindowStyleMaskUnifiedTitleAndToolbar;
         self.windowController = [[NSWindowController alloc] initWithWindow:self.window];
         self.windowController.windowFrameAutosaveName = self.indexer.directory;
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowWillClose:) name:NSWindowWillCloseNotification object:self.window];
     }
+    
+    [self.cahier.realm beginWriteTransaction];
+    self.cahier.windowVisible = YES;
+    [self.cahier.realm commitWriteTransaction];
 
     [self.windowController showWindow:sender];
     [self.indexer startIndexing];
+}
+
+- (void)windowWillClose:(NSNotification *)notification {
+    [self.cahier.realm beginWriteTransaction];
+    self.cahier.windowVisible = NO;
+    [self.cahier.realm commitWriteTransaction];
 }
 
 - (void)loadView {
@@ -151,7 +163,7 @@
     RLMRealm *realm = [RLMRealm defaultRealm];
     [realm beginWriteTransaction];
     self.cahier.zoomFactor = zoomFactor;
-    [realm commitWriteTransaction];    
+    [realm commitWriteTransaction];
 }
 
 - (IBAction)showAssets:(id)sender {

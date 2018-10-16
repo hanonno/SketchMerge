@@ -42,8 +42,10 @@
     
     RLMResults *cahiers = [Cahier allObjects];
     for (Cahier *cahier in cahiers) {
-        CahierViewController  *cahierViewController = [[CahierViewController alloc] initWithCahier:cahier];
-        [cahierViewController showWindow:self];
+        if(cahier.windowVisible) {
+            CahierViewController  *cahierViewController = [[CahierViewController alloc] initWithCahier:cahier];
+            [cahierViewController showWindow:self];
+        }
     }
 }
 
