@@ -1,34 +1,49 @@
-import sketch from 'sketch'
 // documentation: https://developer.sketchapp.com/reference/api/
 
+var Sketch = require('sketch')
 var Document = require('sketch/dom').Document
 
-export default function() {
-    sketch.UI.message("It's alive 🙌")
 
-	sketch.UI.message(context.documentPath)
-	// sketch.UI.message(context.layerId)
+function pageWithId (pages, pageId) {
+	// log(pages)
+	log("====== Looping pages")
+	for(var i = 0; i < pages.length; i++) {
+		var page = pages[i]
+		var currentPageId = page.objectID()
 
-	Document.open("/Users/hanonno/Design/Hanno/NRC-Times.sketch", (err, document) => {
-	// Document.open(context.path, (err, document) => {
-	  if (err) {
-	    // oh no, we failed to open the document
-	    sketch.UI.message("Error opening doc!!")
-	  }
-	  else {
-	    sketch.UI.message("Foud doc?S!!")	
-
-		// var layer = document.getLayerWithID('EEA2C7E0-C57D-4130-8463-18A78EE5E525')
-		// var layer = document.getLayerWithID('575891A9-3FAD-45D5-884C-9E76F1337ED7')
-		var layer = document.getLayerWithID(context.layerId)
-		
-		if (layer) {
-			sketch.UI.message("Found layer!")
-			document.centerOnLayer(layer)
+		if(currentPageId == String(pageId)) {
+			return page;
 		}
-		else {
-			sketch.UI.message("Did not find layer")
-		}
-	  }
-	})
+	}
 }
+
+
+log("Document path: " + context.documentPath)
+
+var documentURL = NSURL.fileURLWithPath(context.documentPath)
+log("Document URL: " + documentURL)
+
+Document.open(documentURL, (err, document) => {
+  if (err) {
+    // oh no, we failed to open the document
+    Sketch.UI.message("Error opening doc!!")
+  }
+  else {
+    log("==== Found Document ")
+	
+	var page = pageWithId(context.document.pages(), context.pageId)
+	log("==== Found page")
+
+	var layer = document.getLayerWithID(context.layerId)
+
+	document.centerOnLayer(layer)
+	context.document.setCurrentPage(page)	
+
+	if (layer) {
+		log("==== Found Layer")
+	}
+	else {
+		log("==== Did not find layer")
+	}
+  }
+})

@@ -30,14 +30,24 @@ Document.open(documentURL, (err, document) => {
   }
   else {
     log("==== Found Document ")
+
+    var doc = Sketch.fromNative(context.document)
 	
 	var page = pageWithId(context.document.pages(), context.pageId)
 	log("==== Found page")
 
-	var layer = document.getLayerWithID(context.layerId)
+	var layer = doc.getLayerWithID(context.layerId)
 
-	document.centerOnLayer(layer)
-	context.document.setCurrentPage(page)	
+	context.document.setCurrentPage(page)
+	doc.centerOnLayer(layer)
+
+    layer.moveForward();
+    layer.moveBackward();
+
+	var selection = document.selectedLayers
+	selection.clear()
+
+    layer.selected = true;
 
 	if (layer) {
 		log("==== Found Layer")

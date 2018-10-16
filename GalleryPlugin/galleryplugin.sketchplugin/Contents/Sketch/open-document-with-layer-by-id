@@ -126,11 +126,17 @@ Document.open(documentURL, function (err, document) {
     Sketch.UI.message("Error opening doc!!");
   } else {
     log("==== Found Document ");
+    var doc = Sketch.fromNative(context.document);
     var page = pageWithId(context.document.pages(), context.pageId);
     log("==== Found page");
-    var layer = document.getLayerWithID(context.layerId);
-    document.centerOnLayer(layer);
+    var layer = doc.getLayerWithID(context.layerId);
     context.document.setCurrentPage(page);
+    doc.centerOnLayer(layer);
+    layer.moveForward();
+    layer.moveBackward();
+    var selection = document.selectedLayers;
+    selection.clear();
+    layer.selected = true;
 
     if (layer) {
       log("==== Found Layer");
