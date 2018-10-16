@@ -406,6 +406,8 @@ static const BOOL kLoggingEnabled = NO;
         @"--use-id-for-name",
         @"--include-symbols=YES",
         @"--overwriting=YES",
+        @"--formats=jpg",
+        @"--include-symbols",
         @"--background=#ffffff"
         //        [NSString stringWithFormat:@"--items=%@", [objectIds componentsJoinedByString:@","]]
     ]];
@@ -430,7 +432,7 @@ static const BOOL kLoggingEnabled = NO;
     if (errorData.length == 0) {
         for(SketchPage *page in self.pages.allValues) {
             for (SketchLayer *layer in page.layers.allValues) {
-                layer.previewImagePath = [[previewImageDirectoryURL.path stringByAppendingPathComponent:layer.objectId] stringByAppendingPathExtension:@"png"];
+                layer.previewImagePath = [[previewImageDirectoryURL.path stringByAppendingPathComponent:layer.objectId] stringByAppendingPathExtension:@"jpg"];
             }
         }
     } else {
