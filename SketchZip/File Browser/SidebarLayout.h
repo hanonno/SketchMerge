@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 
-@interface SidebarLayout : NSCollectionViewLayout
+@interface SidebarLayout : NSCollectionViewFlowLayout
 
 @property (assign) BOOL     headersVisible;
 

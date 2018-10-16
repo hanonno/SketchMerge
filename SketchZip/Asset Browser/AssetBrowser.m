@@ -254,6 +254,7 @@
     self.collectionView.collectionViewLayout = self.layout;
     self.collectionView.selectable = YES;
     self.collectionView.allowsMultipleSelection = YES;
+    self.collectionView.translatesAutoresizingMaskIntoConstraints = YES;
     self.collectionView.backgroundColors = @[[[TDTheme currentTheme] backgroundColor]];
 
     [self.collectionView registerClass:[AssetBrowserItem class] forItemWithIdentifier:@"SketchArtboardCollectionViewItemIdentifier"];

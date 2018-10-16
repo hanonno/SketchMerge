@@ -53,6 +53,8 @@
     _collapsedSectionIndexes = [[NSMutableIndexSet alloc] init];
     _headersVisible = NO;
     
+    self.scrollDirection = NSCollectionViewScrollDirectionVertical;
+    
     return self;
 }
 

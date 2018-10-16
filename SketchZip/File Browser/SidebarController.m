@@ -136,7 +136,8 @@
         
     self.sidebarLayout = [[SidebarLayout alloc] init];
 
-    self.collectionView = [[NSCollectionView alloc] initWithFrame:self.scrollView.bounds];
+    self.collectionView = [[NSCollectionView alloc] init];
+    self.collectionView.translatesAutoresizingMaskIntoConstraints = YES;
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
     self.collectionView.collectionViewLayout = self.sidebarLayout;
@@ -146,15 +147,13 @@
     [self.collectionView registerClass:[SidebarHeaderView class] forSupplementaryViewOfKind:NSCollectionElementKindSectionHeader withIdentifier:@"SidebarHeaderIdentifier"];
     self.collectionView.backgroundColors = @[[NSColor backgroundColor]];
     
-    self.scrollView = [[NSScrollView alloc] initWithFrame:NSMakeRect(0, 0, 640, 640)];
-    self.scrollView.translatesAutoresizingMaskIntoConstraints = NO;
+    self.scrollView = [[NSScrollView alloc] init];
     self.scrollView.automaticallyAdjustsContentInsets = NO;
-//    self.scrollView.autohidesScrollers = YES;
+    self.scrollView.autohidesScrollers = YES;
 //    self.scrollView.hasHorizontalScroller = NO;
-//    self.scrollView.hasVerticalScroller = NO;
+    self.scrollView.hasVerticalScroller = NO;
 //    self.scrollView.horizontalScroller = nil;
-//    self.scrollView.verticalScroller = nil;
-    self.scrollView.scrollerStyle = NSScrollerStyleOverlay;
+    self.scrollView.verticalScroller = nil;
     self.scrollView.contentInsets = NSEdgeInsetsMake(48, 0, 0, 0);
     self.scrollView.backgroundColor = [NSColor backgroundColor];
     self.scrollView.documentView = self.collectionView;
@@ -175,8 +174,7 @@
 - (void)viewWillAppear {
     [super viewWillAppear];
     
-    self.scrollView.verticalScroller.alphaValue = 0.0;
-    [self.collectionView reloadData];
+//    [self.collectionView reloadData];
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(NSCollectionView *)collectionView {
