@@ -45,7 +45,7 @@
 @interface AssetBrowser : NSViewController <NSCollectionViewDataSource, NSCollectionViewDelegate, AssetCollectionDelegate>
 
 @property (strong) NSScrollView                 *scrollView;
-@property (strong) AssetCollectionView          *collectionView;
+@property (strong) NSCollectionView             *collectionView;
 @property (strong) NSCollectionViewFlowLayout   *layout;
 @property (strong) GalleryLayout                *galleryLayout;
 

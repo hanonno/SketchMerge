@@ -56,9 +56,9 @@
     [self.stackView addView:self.sizePopUpButton inGravity:NSStackViewGravityTrailing];
 
     self.previewSizeSlider.minValue = 0.5;
-    self.previewSizeSlider.maxValue = 2;
+    self.previewSizeSlider.maxValue = 1;
     [self.stackView addView:self.previewSizeSlider inGravity:NSStackViewGravityTrailing];
-    
+
     // Autolayout
     [self.stackView autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, 4, 0, 4)];
     

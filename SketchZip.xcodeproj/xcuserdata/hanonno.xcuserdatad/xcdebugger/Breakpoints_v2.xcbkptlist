@@ -308,7 +308,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SketchZip/File Browser/SidebarLayout.m"
-            timestampString = "561341017.533433"
+            timestampString = "561368933.483933"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "68"
@@ -324,7 +324,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SketchZip/File Browser/SidebarLayout.m"
-            timestampString = "561341017.5334899"
+            timestampString = "561368933.483989"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "64"
@@ -340,12 +340,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SketchZip/Asset Browser/AssetBrowser.m"
-            timestampString = "561341017.533534"
+            timestampString = "561368933.4840339"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "377"
-            endingLineNumber = "377"
+            startingLineNumber = "363"
+            endingLineNumber = "363"
             landmarkName = "-openLayerWithId:onPageWithId:inDocumentWithPath:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SketchZip/Asset Browser/FilterBarController.m"
+            timestampString = "561368933.484091"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "89"
+            endingLineNumber = "89"
+            landmarkName = "-find:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

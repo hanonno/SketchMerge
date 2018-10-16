@@ -233,13 +233,7 @@
 //    self.view.layer.backgroundColor = [[NSColor darkGrayColor] CGColor];
 
     self.scrollView = [[NSScrollView alloc] init];
-    self.scrollView.translatesAutoresizingMaskIntoConstraints = NO;
     self.scrollView.backgroundColor = [[TDTheme currentTheme] backgroundColor];
-//    self.scrollView.horizontalScrollElasticity = NSScrollElasticityAutomatic;
-    self.scrollView.automaticallyAdjustsContentInsets = NO;
-    self.scrollView.usesPredominantAxisScrolling = NO;
-    self.scrollView.magnification = 1.0;
-    self.scrollView.allowsMagnification = NO;
     [self.view addSubview:self.scrollView];
     
     self.layout = [[CollectionViewLeftAlignedLayout alloc] init];
@@ -252,18 +246,10 @@
     
     self.galleryLayout = [[GalleryLayout alloc] initWithAssetCollection:self.assetCollection];
     
-    //    self.layout.itemSize = NSMakeSize(240, 240);
-    //    self.layout.minimumLineSpacing = 16;
-    //    self.layout.minimumInteritemSpacing = 16;
-    //    self.layout.headerReferenceSize = NSMakeSize(320, 44);
-    //    self.layout.sectionInset = NSEdgeInsetsMake(16, 16, 16, 16);
-    //    self.layout.sectionHeadersPinToVisibleBounds = YES;
-    
-    self.collectionView = [[AssetCollectionView alloc] init];
-    self.collectionView.translatesAutoresizingMaskIntoConstraints = NO;
+    self.collectionView = [[NSCollectionView alloc] init];
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
-    self.collectionView.collectionViewLayout = self.galleryLayout;
+    self.collectionView.collectionViewLayout = self.layout;
     self.collectionView.selectable = YES;
     self.collectionView.allowsMultipleSelection = YES;
     self.collectionView.backgroundColors = @[[[TDTheme currentTheme] backgroundColor]];
