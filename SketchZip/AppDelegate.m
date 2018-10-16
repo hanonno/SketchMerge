@@ -9,7 +9,8 @@
 #import "AppDelegate.h"
 
 #import "SketchFile.h"
-#import "FileBrowser.h"
+#import "CahierViewController.h"
+#import "Cahier.h"
 
 
 @interface AppDelegate ()
@@ -28,14 +29,20 @@
 //    SketchFile *file = [[SketchFile alloc] initWithFileURL:[[NSBundle mainBundle] URLForResource:@"Symbol" withExtension:@"sketch"]];
     
 //    FileBrowser *hannoCollectionController = [[FileBrowser alloc] initWithDirectory:@"~/Design/United Wardrobe"];
-    FileBrowser *hannoCollectionController = [[FileBrowser alloc] initWithDirectory:@"~/Design/Hanno"];
-    [hannoCollectionController showWindow:self];
+//    CahierViewController *hannoCollectionController = [[CahierViewController alloc] initWithDirectory:@"~/Design/Hanno"];
+//    [hannoCollectionController showWindow:self];
 
 //    SketchFileCollectionViewController *homeCollectionController = [[SketchFileCollectionViewController alloc] initWithDirectory:@"~/Design/United Wardrobe"];
 //    [homeCollectionController showWindow:self];
 //
 //    SketchFileCollectionViewController *iPracticeCollectionController = [[SketchFileCollectionViewController alloc] initWithDirectory:@"~/Design/iPractice"];
 //    [iPracticeCollectionController showWindow:self];
+    
+    RLMResults *cahiers = [Cahier allObjects];
+    for (Cahier *cahier in cahiers) {
+        CahierViewController  *cahierViewController = [[CahierViewController alloc] initWithCahier:cahier];
+        [cahierViewController showWindow:self];
+    }
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
@@ -49,8 +56,9 @@
 
     [panel beginWithCompletionHandler:^(NSModalResponse result) {
         for (NSURL *directoryURL in panel.URLs) {
-            FileBrowser  *fileCollectionViewController = [[FileBrowser alloc] initWithDirectory:directoryURL.path];
-            [fileCollectionViewController showWindow:self];
+            Cahier *cahier = [Cahier cahierForDirectoryWithPath:directoryURL.path];
+            CahierViewController  *cahierViewController = [[CahierViewController alloc] initWithCahier:cahier];
+            [cahierViewController showWindow:self];
         }
     }];
 }

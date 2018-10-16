@@ -66,7 +66,7 @@
 		7D29BEA4216A2AAA00D3121B /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7D29BE9C216A2AA500D3121B /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7D29BEA5216A2AAA00D3121B /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D29BE9D216A2AA500D3121B /* SDWebImage.framework */; };
 		7D29BEA6216A2AAA00D3121B /* SDWebImage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7D29BE9D216A2AA500D3121B /* SDWebImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		7D611B3B215ACFD300C86AF1 /* FileBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D611B3A215ACFD300C86AF1 /* FileBrowser.m */; };
+		7D611B3B215ACFD300C86AF1 /* CahierViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D611B3A215ACFD300C86AF1 /* CahierViewController.m */; };
 		7D611B42215AE36400C86AF1 /* Folder.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D611B40215AE36300C86AF1 /* Folder.png */; };
 		7D611B43215AE36400C86AF1 /* Folder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D611B41215AE36400C86AF1 /* Folder@2x.png */; };
 		7D611B46215AE57800C86AF1 /* File@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D611B44215AE57800C86AF1 /* File@2x.png */; };
@@ -144,6 +144,7 @@
 		7DEA34382135DC980062075A /* Sketch-Add-B.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7DEA34332135DC980062075A /* Sketch-Add-B.sketch */; };
 		7DEA34392135DC980062075A /* Sketch-Add-B.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7DEA34332135DC980062075A /* Sketch-Add-B.sketch */; };
 		7DFF79D9217548B800C70814 /* GalleryLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DFF79D8217548B800C70814 /* GalleryLayout.m */; };
+		7DFF79DC2175DA9100C70814 /* Cahier.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DFF79DB2175DA9100C70814 /* Cahier.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -200,7 +201,7 @@
 		5548B88E20EF72C000D3A081 /* NSImage+PNGAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSImage+PNGAdditions.m"; sourceTree = "<group>"; };
 		5548B88F20EF72C000D3A081 /* NSImage+PNGAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSImage+PNGAdditions.h"; sourceTree = "<group>"; };
 		5548B89B20F3708000D3A081 /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = SOURCE_ROOT; };
-		55BE51FC20ADABFB0059EC77 /* SketchZip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SketchZip.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		55BE51FC20ADABFB0059EC77 /* Cahier.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cahier.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		55BE51FF20ADABFB0059EC77 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		55BE520020ADABFB0059EC77 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		55BE520220ADABFD0059EC77 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -208,10 +209,10 @@
 		55BE520720ADABFD0059EC77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		55BE520820ADABFD0059EC77 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		55BE520A20ADABFD0059EC77 /* SketchZip.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SketchZip.entitlements; sourceTree = "<group>"; };
-		55BE520F20ADABFD0059EC77 /* SketchZipTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SketchZipTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		55BE520F20ADABFD0059EC77 /* CahierTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CahierTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		55BE521320ADABFD0059EC77 /* SketchZipTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SketchZipTests.m; sourceTree = "<group>"; };
 		55BE521520ADABFD0059EC77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		55BE521A20ADABFD0059EC77 /* SketchZipUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SketchZipUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		55BE521A20ADABFD0059EC77 /* CahierUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CahierUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		55BE521E20ADABFD0059EC77 /* SketchZipUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SketchZipUITests.m; sourceTree = "<group>"; };
 		55BE522020ADABFD0059EC77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		55BE522F20ADAD410059EC77 /* ZipArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZipArchive.h; sourceTree = "<group>"; };
@@ -281,8 +282,8 @@
 		7D29BE9B216A2AA500D3121B /* PureLayout.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PureLayout.framework; path = Carthage/Build/Mac/PureLayout.framework; sourceTree = SOURCE_ROOT; };
 		7D29BE9C216A2AA500D3121B /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/Mac/Realm.framework; sourceTree = SOURCE_ROOT; };
 		7D29BE9D216A2AA500D3121B /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDWebImage.framework; path = Carthage/Build/Mac/SDWebImage.framework; sourceTree = SOURCE_ROOT; };
-		7D611B39215ACFD300C86AF1 /* FileBrowser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FileBrowser.h; sourceTree = "<group>"; };
-		7D611B3A215ACFD300C86AF1 /* FileBrowser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FileBrowser.m; sourceTree = "<group>"; };
+		7D611B39215ACFD300C86AF1 /* CahierViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CahierViewController.h; sourceTree = "<group>"; };
+		7D611B3A215ACFD300C86AF1 /* CahierViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CahierViewController.m; sourceTree = "<group>"; };
 		7D611B40215AE36300C86AF1 /* Folder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Folder.png; sourceTree = "<group>"; };
 		7D611B41215AE36400C86AF1 /* Folder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Folder@2x.png"; sourceTree = "<group>"; };
 		7D611B44215AE57800C86AF1 /* File@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "File@2x.png"; sourceTree = "<group>"; };
@@ -350,6 +351,8 @@
 		7DEA34332135DC980062075A /* Sketch-Add-B.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sketch-Add-B.sketch"; sourceTree = "<group>"; };
 		7DFF79D7217548B800C70814 /* GalleryLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GalleryLayout.h; sourceTree = "<group>"; };
 		7DFF79D8217548B800C70814 /* GalleryLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GalleryLayout.m; sourceTree = "<group>"; };
+		7DFF79DA2175DA9100C70814 /* Cahier.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Cahier.h; sourceTree = "<group>"; };
+		7DFF79DB2175DA9100C70814 /* Cahier.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Cahier.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -418,9 +421,9 @@
 		55BE51FD20ADABFB0059EC77 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				55BE51FC20ADABFB0059EC77 /* SketchZip.app */,
-				55BE520F20ADABFD0059EC77 /* SketchZipTests.xctest */,
-				55BE521A20ADABFD0059EC77 /* SketchZipUITests.xctest */,
+				55BE51FC20ADABFB0059EC77 /* Cahier.app */,
+				55BE520F20ADABFD0059EC77 /* CahierTests.xctest */,
+				55BE521A20ADABFD0059EC77 /* CahierUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -438,11 +441,12 @@
 				7D828F952122DBCB00ADBD7E /* SketchOperationTypeIndicator.m */,
 				5548B88F20EF72C000D3A081 /* NSImage+PNGAdditions.h */,
 				5548B88E20EF72C000D3A081 /* NSImage+PNGAdditions.m */,
+				7DFF79DD2175DA9A00C70814 /* Cahier */,
 				7DCE03ED215C0778000ABC8A /* Toy Division */,
 				7D209EF92158FD7700A461A5 /* File Browser */,
 				7D29BE9A216A293200D3121B /* Asset Browser */,
 				7D611B3C215ADBBA00C86AF1 /* Indexer */,
-				7D209EF02158EE3900A461A5 /* UICollectionViewLeftAlignedLayout */,
+				7D209EF02158EE3900A461A5 /* Layouts */,
 				7D8CBE302153DD42007C884B /* Icons */,
 				7D828F9D2122E0E300ADBD7E /* Sketch */,
 				552F295620EE59AE00A845B2 /* CoreSync */,
@@ -540,28 +544,30 @@
 			path = aes;
 			sourceTree = "<group>";
 		};
-		7D209EF02158EE3900A461A5 /* UICollectionViewLeftAlignedLayout */ = {
+		7D209EF02158EE3900A461A5 /* Layouts */ = {
 			isa = PBXGroup;
 			children = (
+				7D209F0D2159195C00A461A5 /* TDCollectionViewListLayout.h */,
+				7D209F0C2159195C00A461A5 /* TDCollectionViewListLayout.m */,
 				7D209EF12158EE3900A461A5 /* CollectionViewLeftAlignedLayout.h */,
 				7D209EF22158EE3900A461A5 /* CollectionViewLeftAlignedLayout.m */,
 			);
-			path = UICollectionViewLeftAlignedLayout;
+			path = Layouts;
 			sourceTree = "<group>";
 		};
 		7D209EF92158FD7700A461A5 /* File Browser */ = {
 			isa = PBXGroup;
 			children = (
-				7D611B39215ACFD300C86AF1 /* FileBrowser.h */,
-				7D611B3A215ACFD300C86AF1 /* FileBrowser.m */,
+				7DFF79DA2175DA9100C70814 /* Cahier.h */,
+				7DFF79DB2175DA9100C70814 /* Cahier.m */,
+				7D611B39215ACFD300C86AF1 /* CahierViewController.h */,
+				7D611B3A215ACFD300C86AF1 /* CahierViewController.m */,
 				7D209EF62158FD6F00A461A5 /* SidebarController.h */,
 				7D209EF72158FD6F00A461A5 /* SidebarController.m */,
 				7D7D35AA216BF60200FFEF9D /* SidebarLayout.h */,
 				7D7D35AB216BF60200FFEF9D /* SidebarLayout.m */,
 				7D29BE972169FBD500D3121B /* SizeFilterPicker.h */,
 				7D29BE982169FBD500D3121B /* SizeFilterPicker.m */,
-				7D209F0D2159195C00A461A5 /* TDCollectionViewListLayout.h */,
-				7D209F0C2159195C00A461A5 /* TDCollectionViewListLayout.m */,
 			);
 			path = "File Browser";
 			sourceTree = "<group>";
@@ -708,12 +714,19 @@
 			path = Add;
 			sourceTree = "<group>";
 		};
+		7DFF79DD2175DA9A00C70814 /* Cahier */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cahier;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		55BE51FB20ADABFB0059EC77 /* SketchZip */ = {
+		55BE51FB20ADABFB0059EC77 /* Cahier */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 55BE522320ADABFD0059EC77 /* Build configuration list for PBXNativeTarget "SketchZip" */;
+			buildConfigurationList = 55BE522320ADABFD0059EC77 /* Build configuration list for PBXNativeTarget "Cahier" */;
 			buildPhases = (
 				55BE51F820ADABFB0059EC77 /* Sources */,
 				55BE51F920ADABFB0059EC77 /* Frameworks */,
@@ -725,14 +738,14 @@
 			);
 			dependencies = (
 			);
-			name = SketchZip;
+			name = Cahier;
 			productName = SketchZip;
-			productReference = 55BE51FC20ADABFB0059EC77 /* SketchZip.app */;
+			productReference = 55BE51FC20ADABFB0059EC77 /* Cahier.app */;
 			productType = "com.apple.product-type.application";
 		};
-		55BE520E20ADABFD0059EC77 /* SketchZipTests */ = {
+		55BE520E20ADABFD0059EC77 /* CahierTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 55BE522620ADABFD0059EC77 /* Build configuration list for PBXNativeTarget "SketchZipTests" */;
+			buildConfigurationList = 55BE522620ADABFD0059EC77 /* Build configuration list for PBXNativeTarget "CahierTests" */;
 			buildPhases = (
 				55BE520B20ADABFD0059EC77 /* Sources */,
 				55BE520C20ADABFD0059EC77 /* Frameworks */,
@@ -743,14 +756,14 @@
 			dependencies = (
 				55BE521120ADABFD0059EC77 /* PBXTargetDependency */,
 			);
-			name = SketchZipTests;
+			name = CahierTests;
 			productName = SketchZipTests;
-			productReference = 55BE520F20ADABFD0059EC77 /* SketchZipTests.xctest */;
+			productReference = 55BE520F20ADABFD0059EC77 /* CahierTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		55BE521920ADABFD0059EC77 /* SketchZipUITests */ = {
+		55BE521920ADABFD0059EC77 /* CahierUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 55BE522920ADABFD0059EC77 /* Build configuration list for PBXNativeTarget "SketchZipUITests" */;
+			buildConfigurationList = 55BE522920ADABFD0059EC77 /* Build configuration list for PBXNativeTarget "CahierUITests" */;
 			buildPhases = (
 				55BE521620ADABFD0059EC77 /* Sources */,
 				55BE521720ADABFD0059EC77 /* Frameworks */,
@@ -761,9 +774,9 @@
 			dependencies = (
 				55BE521C20ADABFD0059EC77 /* PBXTargetDependency */,
 			);
-			name = SketchZipUITests;
+			name = CahierUITests;
 			productName = SketchZipUITests;
-			productReference = 55BE521A20ADABFD0059EC77 /* SketchZipUITests.xctest */;
+			productReference = 55BE521A20ADABFD0059EC77 /* CahierUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -793,7 +806,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 55BE51F720ADABFB0059EC77 /* Build configuration list for PBXProject "SketchZip" */;
+			buildConfigurationList = 55BE51F720ADABFB0059EC77 /* Build configuration list for PBXProject "Cahier" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -806,9 +819,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				55BE51FB20ADABFB0059EC77 /* SketchZip */,
-				55BE520E20ADABFD0059EC77 /* SketchZipTests */,
-				55BE521920ADABFD0059EC77 /* SketchZipUITests */,
+				55BE51FB20ADABFB0059EC77 /* Cahier */,
+				55BE520E20ADABFD0059EC77 /* CahierTests */,
+				55BE521920ADABFD0059EC77 /* CahierUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -954,9 +967,10 @@
 				55BE526620ADAD410059EC77 /* pwd2key.c in Sources */,
 				7DC83EB7216E91E100CC873E /* FilterBarController.m in Sources */,
 				7D29BE872169316F00D3121B /* Filter.m in Sources */,
+				7DFF79DC2175DA9100C70814 /* Cahier.m in Sources */,
 				55BE526820ADAD410059EC77 /* SSZipArchive.m in Sources */,
 				55BE520920ADABFD0059EC77 /* main.m in Sources */,
-				7D611B3B215ACFD300C86AF1 /* FileBrowser.m in Sources */,
+				7D611B3B215ACFD300C86AF1 /* CahierViewController.m in Sources */,
 				55BE526320ADAD410059EC77 /* sha1.c in Sources */,
 				5548B89020EF72C000D3A081 /* NSImage+PNGAdditions.m in Sources */,
 				7DE5F07E2157C85900BD2825 /* SketchFileIndexer.m in Sources */,
@@ -1012,12 +1026,12 @@
 /* Begin PBXTargetDependency section */
 		55BE521120ADABFD0059EC77 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 55BE51FB20ADABFB0059EC77 /* SketchZip */;
+			target = 55BE51FB20ADABFB0059EC77 /* Cahier */;
 			targetProxy = 55BE521020ADABFD0059EC77 /* PBXContainerItemProxy */;
 		};
 		55BE521C20ADABFD0059EC77 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 55BE51FB20ADABFB0059EC77 /* SketchZip */;
+			target = 55BE51FB20ADABFB0059EC77 /* Cahier */;
 			targetProxy = 55BE521B20ADABFD0059EC77 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1200,7 +1214,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hanonno.SketchZipTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SketchZip.app/Contents/MacOS/SketchZip";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cahier.app/Contents/MacOS/Cahier";
 			};
 			name = Debug;
 		};
@@ -1219,7 +1233,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hanonno.SketchZipTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SketchZip.app/Contents/MacOS/SketchZip";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cahier.app/Contents/MacOS/Cahier";
 			};
 			name = Release;
 		};
@@ -1262,7 +1276,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		55BE51F720ADABFB0059EC77 /* Build configuration list for PBXProject "SketchZip" */ = {
+		55BE51F720ADABFB0059EC77 /* Build configuration list for PBXProject "Cahier" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				55BE522120ADABFD0059EC77 /* Debug */,
@@ -1271,7 +1285,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		55BE522320ADABFD0059EC77 /* Build configuration list for PBXNativeTarget "SketchZip" */ = {
+		55BE522320ADABFD0059EC77 /* Build configuration list for PBXNativeTarget "Cahier" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				55BE522420ADABFD0059EC77 /* Debug */,
@@ -1280,7 +1294,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		55BE522620ADABFD0059EC77 /* Build configuration list for PBXNativeTarget "SketchZipTests" */ = {
+		55BE522620ADABFD0059EC77 /* Build configuration list for PBXNativeTarget "CahierTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				55BE522720ADABFD0059EC77 /* Debug */,
@@ -1289,7 +1303,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		55BE522920ADABFD0059EC77 /* Build configuration list for PBXNativeTarget "SketchZipUITests" */ = {
+		55BE522920ADABFD0059EC77 /* Build configuration list for PBXNativeTarget "CahierUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				55BE522A20ADABFD0059EC77 /* Debug */,

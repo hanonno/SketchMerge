@@ -6,13 +6,13 @@
 //  Copyright © 2018 Motion Pixel. All rights reserved.
 //
 
-#import "FileBrowser.h"
+#import "CahierViewController.h"
 
 
 #import "Filter.h"
 
 
-@interface FileBrowser ()
+@interface CahierViewController ()
 
 @property (strong) KeywordFilter    *keywordFilter;
 @property (strong) PathFilter       *pathFilter;
@@ -22,12 +22,12 @@
 @end
 
 
-@implementation FileBrowser
+@implementation CahierViewController
 
-- (id)initWithDirectory:(NSString *)directory {
+- (id)initWithCahier:(Cahier *)cahier {
     self = [super init];
 
-    _indexer = [[SketchFileIndexer alloc] initWithDirectory:[directory stringByExpandingTildeInPath]];
+    _indexer = [[SketchFileIndexer alloc] initWithDirectory:[cahier.directory stringByExpandingTildeInPath]];
     _indexer.delegate = self;
     
     _assetCollection = [[AssetCollection alloc] initWithRealm:_indexer.realm];
@@ -67,7 +67,7 @@
 }
 
 - (void)loadView {
-    self.view = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, 640, 480)];
+    self.view = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, 1200, 800)];
         
     self.sidebarController = [[SidebarController alloc] init];
     self.sidebarController.delegate = self;
@@ -75,8 +75,11 @@
     
     self.filterBarController = [[FilterBarController alloc] initWithAssetCollection:self.assetCollection];
     self.filterBarController.delegate = self;
-    [self.filterBarController.previewSizeSlider setTarget:self];
-    [self.filterBarController.previewSizeSlider setAction:@selector(changePreviewSize:)];
+    self.filterBarController.previewSizeSlider.target = self;
+    self.filterBarController.previewSizeSlider.action = @selector(changePreviewSize:);
+    self.filterBarController.previewSizeSlider.floatValue = self.cahier.zoomFactor;
+    [self changePreviewSize:self.filterBarController.previewSizeSlider];
+    
     [self.view addSubview:self.filterBarController.view];
     [self addChildViewController:self.filterBarController];
     
