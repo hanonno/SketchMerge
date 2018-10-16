@@ -10,12 +10,16 @@
 #import <Realm/Realm.h>
 
 
+@class CahierViewController;
+
+
 @interface Cahier : RLMObject
 
-@property NSString     *directory;
-@property NSString     *sizePresetName;
-@property float         zoomFactor;
-@property BOOL          windowVisible;
+@property NSString                          *directory;
+@property NSString                          *sizePresetName;
+@property float                             zoomFactor;
+@property BOOL                              windowVisible;
+@property (readonly) CahierViewController   *viewController;
 
 + (Cahier *)cahierForDirectoryWithPath:(NSString *)directoryPath;
 

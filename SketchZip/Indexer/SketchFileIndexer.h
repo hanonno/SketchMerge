@@ -27,7 +27,6 @@
 }
 
 @property (assign) id <SketchFileIndexOperationDelegate> delegate;
-@property (strong) NSString         *path;
 @property (strong) SketchFile       *sketchFile;
 
 @property (strong) NSString         *realmPath;
@@ -36,14 +35,15 @@
 @property (assign) CFTimeInterval   startTime;
 @property (assign) CFTimeInterval   endTime;
 
-+ (SketchFileIndexOperation *)operationWithPath:(NSString *)path;
++ (SketchFileIndexOperation *)operationWithSketchFile:(SketchFile *)sketchFile;
 
 @end
 
 
 @protocol SketchFileIndexerDelegate <NSObject>
 
-- (void)sketchFileIndexer:(SketchFileIndexer *)fileIndexer didIndexFile:(SketchFile *)file;
+- (void)sketchFileIndexer:(SketchFileIndexer *)fileIndexer willIndexFile:(SketchFile *)sketchFile;
+- (void)sketchFileIndexer:(SketchFileIndexer *)fileIndexer didIndexFile:(SketchFile *)sketchFile;
 
 @end
 

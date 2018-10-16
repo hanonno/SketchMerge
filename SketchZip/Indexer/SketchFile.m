@@ -246,8 +246,6 @@ static const BOOL kLoggingEnabled = NO;
     
     if(kLoggingEnabled) NSLog(@"Source: %@", _fileURL.path);
     if(kLoggingEnabled) NSLog(@"Destination: %@", _tempFileURL.path);
-
-    [self loadPages];
     
     return self;
 }

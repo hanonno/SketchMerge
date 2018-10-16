@@ -16,6 +16,7 @@
 @interface AppDelegate ()
 
 @property (weak) IBOutlet NSWindow  *window;
+@property (strong) RLMResults       *cahiers;
 
 @end
 
@@ -40,27 +41,22 @@
 //    SketchFileCollectionViewController *iPracticeCollectionController = [[SketchFileCollectionViewController alloc] initWithDirectory:@"~/Design/iPractice"];
 //    [iPracticeCollectionController showWindow:self];
     
-    RLMResults *cahiers = [Cahier allObjects];
-    for (Cahier *cahier in cahiers) {
+    self.cahiers = [Cahier allObjects];
+    
+    for (Cahier *cahier in self.cahiers) {
 //        if(cahier.windowVisible) {
-            CahierViewController  *cahierViewController = [[CahierViewController alloc] initWithCahier:cahier];
-            [cahierViewController showWindow:self];
+            [cahier.viewController showWindow:self];
 //        }
     }
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
     // Insert code here to tear down your application
-    
-    RLMResults *cahiers = [Cahier allObjects];
-    for (Cahier *cahier in cahiers) {
-        if(cahier.windowVisible) {
-            CahierViewController  *cahierViewController = [[CahierViewController alloc] initWithCahier:cahier];
-            [cahierViewController showWindow:self];
-        }
+    for (Cahier *cahier in self.cahiers) {
+        [cahier.realm beginWriteTransaction];
+        cahier.windowVisible = cahier.viewController.window.isVisible;
+        [cahier.realm commitWriteTransaction];
     }
-
-
 }
 
 - (IBAction)openDocument:(id)sender {

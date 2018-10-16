@@ -16,10 +16,11 @@
 
 @synthesize delegate = _delegate;
 
-+ (SketchFileIndexOperation *)operationWithPath:(NSString *)path {
++ (SketchFileIndexOperation *)operationWithSketchFile:(SketchFile *)sketchFile {
+    
     SketchFileIndexOperation *operation = [[SketchFileIndexOperation alloc] init];
     
-    operation.path = path;
+    operation.sketchFile = sketchFile;
     
     return operation;
 }
@@ -42,7 +43,7 @@
     _isExecuting = YES;
     [self didChangeValueForKey:@"isExecuting"];
 
-    self.sketchFile = [[SketchFile alloc] initWithFileURL:[NSURL fileURLWithPath:self.path]];
+    [self.sketchFile loadPages];
     [self.sketchFile generatePreviewsInDirectory:self.previewImageDirectory];
     
 //    RLMRealmConfiguration *config = [RLMRealmConfiguration defaultConfiguration];
@@ -168,6 +169,8 @@
     NSLog(@"Query has results!");
     
     self.startTime = CACurrentMediaTime();
+    
+    BOOL delegateResponds = [self.delegate respondsToSelector:@selector(sketchFileIndexer:willIndexFile:)] ? YES : NO;
 
     NSUInteger i=0;
     for (i=0; i < self.query.resultCount; i++) {
@@ -175,12 +178,18 @@
         NSMetadataItem *result = [self.query resultAtIndex:i];
         NSString *filePath = [result valueForAttribute:@"kMDItemPath"];
 
-        SketchFileIndexOperation *indexOperation = [SketchFileIndexOperation operationWithPath:filePath];
+        SketchFile *sketchFile = [[SketchFile alloc] initWithFileURL:[NSURL fileURLWithPath:filePath]];
+        
+        SketchFileIndexOperation *indexOperation = [SketchFileIndexOperation operationWithSketchFile:sketchFile];
         indexOperation.delegate = self;
         indexOperation.realmPath = self.realmPath;
         indexOperation.previewImageDirectory = self.previewImageDirectory;
 
         [self.indexQueue addOperation:indexOperation];
+
+        if(delegateResponds) {
+            [self.delegate sketchFileIndexer:self willIndexFile:sketchFile];
+        }
 
         NSLog(@"Display Name: %@", [result valueForAttribute:@"kMDItemDisplayName"]);
 //        NSLog(@"result at %lu - %@",i,displayName);

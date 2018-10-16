@@ -68,18 +68,8 @@
 //        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowWillClose:) name:NSWindowWillCloseNotification object:self.window];
     }
     
-    [self.cahier.realm beginWriteTransaction];
-    self.cahier.windowVisible = YES;
-    [self.cahier.realm commitWriteTransaction];
-
     [self.windowController showWindow:sender];
     [self.indexer startIndexing];
-}
-
-- (void)windowWillClose:(NSNotification *)notification {
-    [self.cahier.realm beginWriteTransaction];
-    self.cahier.windowVisible = NO;
-    [self.cahier.realm commitWriteTransaction];
 }
 
 - (void)loadView {
@@ -118,11 +108,13 @@
     [self changePreviewSize:self.filterBarController.previewSizeSlider];
 }
 
-- (void)sketchFileIndexer:(SketchFileIndexer *)fileIndexer didIndexFile:(SketchFile *)file {
+- (void)sketchFileIndexer:(SketchFileIndexer *)fileIndexer willIndexFile:(SketchFile *)file {
     [self.sidebarController addSketchFile:file];
     [self.assetCollection reloadData];
     [self.assetBrowser.collectionView reloadData];
 }
+
+- (void)sketchFileIndexer:(SketchFileIndexer *)fileIndexer didIndexFile:(SketchFile *)file {}
 
 - (void)sidebarController:(SidebarController *)sidebarController didSelectItem:(SidebarCollectionViewItem *)sidebarItem atIndexPath:(NSIndexPath *)indexPath {
     if(indexPath.section == 1) {
