@@ -58,13 +58,14 @@
         self.window = [NSWindow windowWithContentViewController:self];
         [self.window setTitleWithRepresentedFilename:self.indexer.directory];
         self.window.titlebarAppearsTransparent = YES;
+        self.window.delegate = self;
 //        self.window.titleVisibility = NSWindowTitleHidden;
 //        self.window.styleMask |= NSWindowStyleMaskFullSizeContentView;
         self.window.styleMask |= NSWindowStyleMaskUnifiedTitleAndToolbar;
         self.windowController = [[NSWindowController alloc] initWithWindow:self.window];
         self.windowController.windowFrameAutosaveName = self.indexer.directory;
         
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowWillClose:) name:NSWindowWillCloseNotification object:self.window];
+//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowWillClose:) name:NSWindowWillCloseNotification object:self.window];
     }
     
     [self.cahier.realm beginWriteTransaction];

@@ -17,7 +17,7 @@
 #import "AssetBrowser.h"
 
 
-@interface CahierViewController : NSViewController <SketchFileIndexerDelegate, SidebarControllerDelegate, FilterBarControllerDelegate, AssetCollectionDelegate, NSTokenFieldDelegate>
+@interface CahierViewController : NSViewController <SketchFileIndexerDelegate, SidebarControllerDelegate, FilterBarControllerDelegate, AssetCollectionDelegate, NSWindowDelegate>
 
 @property (strong) NSWindow             *window;
 @property (strong) NSWindowController   *windowController;

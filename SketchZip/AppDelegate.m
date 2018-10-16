@@ -15,7 +15,7 @@
 
 @interface AppDelegate ()
 
-@property (weak) IBOutlet NSWindow              *window;
+@property (weak) IBOutlet NSWindow  *window;
 
 @end
 
@@ -42,15 +42,25 @@
     
     RLMResults *cahiers = [Cahier allObjects];
     for (Cahier *cahier in cahiers) {
-        if(cahier.windowVisible) {
+//        if(cahier.windowVisible) {
             CahierViewController  *cahierViewController = [[CahierViewController alloc] initWithCahier:cahier];
             [cahierViewController showWindow:self];
-        }
+//        }
     }
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
     // Insert code here to tear down your application
+    
+    RLMResults *cahiers = [Cahier allObjects];
+    for (Cahier *cahier in cahiers) {
+        if(cahier.windowVisible) {
+            CahierViewController  *cahierViewController = [[CahierViewController alloc] initWithCahier:cahier];
+            [cahierViewController showWindow:self];
+        }
+    }
+
+
 }
 
 - (IBAction)openDocument:(id)sender {
