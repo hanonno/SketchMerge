@@ -13,6 +13,7 @@
 
 #import "Asset.h"
 #import "Filter.h"
+#import "GalleryLayout.h"
 
 
 @interface AssetBrowserItem : NSCollectionViewItem
@@ -37,11 +38,16 @@
 @end
 
 
+@interface AssetCollectionView : NSCollectionView
+@end
+
+
 @interface AssetBrowser : NSViewController <NSCollectionViewDataSource, NSCollectionViewDelegate, AssetCollectionDelegate>
 
 @property (strong) NSScrollView                 *scrollView;
-@property (strong) NSCollectionView             *collectionView;
+@property (strong) AssetCollectionView          *collectionView;
 @property (strong) NSCollectionViewFlowLayout   *layout;
+@property (strong) GalleryLayout                *galleryLayout;
 
 @property (assign) CGFloat                      zoomFactor;
 @property (assign) CGSize                       previewImageSize;

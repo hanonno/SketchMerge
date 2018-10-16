@@ -67,7 +67,6 @@
 @protocol AssetCollectionDelegate <NSObject>
 
 - (void)assetCollectionDidUpdate:(AssetCollection *)assetCollection;
-
 - (void)assetCollectionDidUpdate:(AssetCollection *)assetCollection filter:(Filter *)filter;
 
 @end

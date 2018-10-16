@@ -34,7 +34,6 @@
 @interface SidebarLayout ()
 
 @property (strong) NSArray              *sections;
-@property (strong) NSArray              *oldSections;
 
 @property (assign) CGFloat              headerHeight;
 @property (assign) CGFloat              itemHeight;
@@ -130,6 +129,8 @@
     
     self.collectionViewContentSize = NSMakeSize(size.width, origin.y);
     self.sections = sections;
+    
+    [self invalidateLayout];
 }
 
 - (NSArray*)layoutAttributesForElementsInRect:(NSRect)rect {

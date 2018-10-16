@@ -85,4 +85,8 @@
     [self.assetCollection reloadData];
 }
 
+- (IBAction)find:(id)sender {
+    [self.filterTextField becomeFirstResponder];
+}
+
 @end

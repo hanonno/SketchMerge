@@ -38,4 +38,7 @@
 - (IBAction)showAssets:(id)sender;
 - (IBAction)showFavorites:(id)sender;
 
+- (IBAction)viewAsGrid:(id)sender;
+- (IBAction)viewAsGallery:(id)sender;
+
 @end

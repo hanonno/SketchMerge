@@ -57,6 +57,7 @@
         self.window.titlebarAppearsTransparent = YES;
 //        self.window.titleVisibility = NSWindowTitleHidden;
 //        self.window.styleMask |= NSWindowStyleMaskFullSizeContentView;
+        self.window.styleMask |= NSWindowStyleMaskUnifiedTitleAndToolbar;
         self.windowController = [[NSWindowController alloc] initWithWindow:self.window];
         self.windowController.windowFrameAutosaveName = self.indexer.directory;
     }
@@ -80,9 +81,11 @@
     [self.filterBarController.previewSizeSlider setTarget:self];
     [self.filterBarController.previewSizeSlider setAction:@selector(changePreviewSize:)];
     [self.view addSubview:self.filterBarController.view];
+    [self addChildViewController:self.filterBarController];
     
     self.assetBrowser = [[AssetBrowser alloc] initWithAssetCollection:self.assetCollection];
     [self.view addSubview:self.assetBrowser.view];
+    [self addChildViewController:self.assetBrowser];
     
     NSView *sidebar = self.sidebarController.view;
     
@@ -149,6 +152,14 @@
     self.favoriteFilter.enabled = YES;
     [self.assetCollection reloadData];
 //    [self.assetBrowser.collectionView reloadData];
+}
+
+- (IBAction)viewAsGrid:(id)sender {
+    [self.assetBrowser.collectionView.animator setCollectionViewLayout:self.assetBrowser.layout];
+}
+
+- (IBAction)viewAsGallery:(id)sender {
+    [self.assetBrowser.collectionView.animator setCollectionViewLayout:self.assetBrowser.galleryLayout];
 }
 
 @end

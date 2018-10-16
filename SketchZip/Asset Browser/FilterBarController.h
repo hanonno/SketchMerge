@@ -39,4 +39,6 @@
 
 - (instancetype)initWithAssetCollection:(AssetCollection *)assetCollection;
 
+- (IBAction)find:(id)sender;
+
 @end

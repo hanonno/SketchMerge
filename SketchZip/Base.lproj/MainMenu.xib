@@ -395,10 +395,24 @@
                                     <action selector="toggleFileSection:" target="-1" id="mP9-U3-xHV"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Show Toolbar" keyEquivalent="t" id="YJq-WD-ghO">
+                            <menuItem isSeparatorItem="YES" id="aA1-p7-ekd"/>
+                            <menuItem title="View as Grid" keyEquivalent="1" id="YJq-WD-ghO">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                 <connections>
-                                    <action selector="toggleToolbarShown:" target="-1" id="3gN-Tg-ItC"/>
+                                    <action selector="viewAsGrid:" target="-1" id="9SC-O8-KZI"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="View as Gallery" keyEquivalent="2" id="CuR-fi-q6N">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                <connections>
+                                    <action selector="viewAsGallery:" target="-1" id="Hmh-W3-lUf"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="0qf-Yu-Yvm"/>
+                            <menuItem title="Show Toolbar" keyEquivalent="t" id="EsT-Vg-cv9">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                <connections>
+                                    <action selector="toggleToolbarShown:" target="-1" id="HKr-PX-hlS"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Customize Toolbar…" id="kyN-gI-gtI">

@@ -196,6 +196,20 @@
 @end
 
 
+@implementation AssetCollectionView
+
+// Stupid hack to work around a bug in NSCollectionView to allow scrolling in 2 directions at once
+-(void)setFrameSize:(NSSize)size {
+    if (size.width != self.collectionViewLayout.collectionViewContentSize.width) {
+        size.width = self.collectionViewLayout.collectionViewContentSize.width;
+    }
+    
+    [super setFrameSize:size];
+}
+
+@end
+
+
 @implementation AssetBrowser
 
 @synthesize previewImageSize = _previewImageSize, zoomFactor = _zoomFactor;
@@ -218,8 +232,14 @@
     self.view = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, 320, 480)];
 //    self.view.layer.backgroundColor = [[NSColor darkGrayColor] CGColor];
 
-    self.scrollView = [[NSScrollView alloc] initWithFrame:self.view.bounds];
+    self.scrollView = [[NSScrollView alloc] init];
+    self.scrollView.translatesAutoresizingMaskIntoConstraints = NO;
     self.scrollView.backgroundColor = [[TDTheme currentTheme] backgroundColor];
+//    self.scrollView.horizontalScrollElasticity = NSScrollElasticityAutomatic;
+    self.scrollView.automaticallyAdjustsContentInsets = NO;
+    self.scrollView.usesPredominantAxisScrolling = NO;
+    self.scrollView.magnification = 1.0;
+    self.scrollView.allowsMagnification = NO;
     [self.view addSubview:self.scrollView];
     
     self.layout = [[CollectionViewLeftAlignedLayout alloc] init];
@@ -230,6 +250,8 @@
     self.layout.sectionInset = NSEdgeInsetsMake(16, 16, 16, 16);
     self.layout.sectionHeadersPinToVisibleBounds = YES;
     
+    self.galleryLayout = [[GalleryLayout alloc] initWithAssetCollection:self.assetCollection];
+    
     //    self.layout.itemSize = NSMakeSize(240, 240);
     //    self.layout.minimumLineSpacing = 16;
     //    self.layout.minimumInteritemSpacing = 16;
@@ -237,10 +259,11 @@
     //    self.layout.sectionInset = NSEdgeInsetsMake(16, 16, 16, 16);
     //    self.layout.sectionHeadersPinToVisibleBounds = YES;
     
-    self.collectionView = [[NSCollectionView alloc] initWithFrame:self.view.bounds];
+    self.collectionView = [[AssetCollectionView alloc] init];
+    self.collectionView.translatesAutoresizingMaskIntoConstraints = NO;
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
-    self.collectionView.collectionViewLayout = self.layout;
+    self.collectionView.collectionViewLayout = self.galleryLayout;
     self.collectionView.selectable = YES;
     self.collectionView.allowsMultipleSelection = YES;
     self.collectionView.backgroundColors = @[[[TDTheme currentTheme] backgroundColor]];
