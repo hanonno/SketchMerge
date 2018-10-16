@@ -57,5 +57,6 @@
 - (instancetype)initWithAssetCollection:(AssetCollection *)assetCollection;
 
 - (IBAction)addToFavorites:(id)sender;
+- (void)assetBrowserItemDoubleClick:(id)sender;
 
 @end

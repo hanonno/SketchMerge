@@ -68,10 +68,7 @@
 
 - (void)loadView {
     self.view = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, 640, 480)];
-    
-    self.filterListController = [[FilterListController alloc] init];
-//    [self.view addSubview:self.filterListController.view];
-    
+        
     self.sidebarController = [[SidebarController alloc] init];
     self.sidebarController.delegate = self;
     [self.view addSubview:self.sidebarController.view];
@@ -160,6 +157,18 @@
 
 - (IBAction)viewAsGallery:(id)sender {
     [self.assetBrowser.collectionView.animator setCollectionViewLayout:self.assetBrowser.galleryLayout];
+}
+
+- (void)filterBarController:(FilterBarController *)filterBarController didUpdateFilter:(Filter *)filter {
+    
+}
+
+- (void)assetCollectionDidUpdate:(AssetCollection *)assetCollection {
+    
+}
+
+- (void)assetCollectionDidUpdate:(AssetCollection *)assetCollection filter:(Filter *)filter {
+    
 }
 
 @end

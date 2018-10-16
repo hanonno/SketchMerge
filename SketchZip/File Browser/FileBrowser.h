@@ -12,7 +12,6 @@
 
 #import "SketchFileIndexer.h"
 #import "SidebarController.h"
-#import "FilterListController.h"
 #import "FilterBarController.h"
 #import "AssetBrowser.h"
 
@@ -22,7 +21,6 @@
 @property (strong) NSWindow                                 *window;
 @property (strong) NSWindowController                       *windowController;
 
-@property (strong) FilterListController                     *filterListController;
 @property (strong) SidebarController                        *sidebarController;
 
 @property (strong) FilterBarController                      *filterBarController;

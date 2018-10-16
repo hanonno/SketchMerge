@@ -87,7 +87,6 @@
 @end
 
 
-
 @interface AssetCollection ()
 
 @property (strong) RLMResults       *assets;

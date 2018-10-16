@@ -24,6 +24,8 @@ static const BOOL kLoggingEnabled = NO;
 
 @implementation SketchLayer
 
+@synthesize previewImage = _previewImage;
+
 - (id)initWithJSON:(NSMutableDictionary *)JSON fromPage:(SketchPage *)page {
     self = [super init];
 
@@ -129,6 +131,10 @@ static const BOOL kLoggingEnabled = NO;
     }
     
     return [NSImage imageNamed:@"Artboard"];
+}
+
+- (void)setPreviewImage:(NSImage *)previewImage {
+    _previewImage = previewImage;
 }
 
 - (NSImage *)previewImage {

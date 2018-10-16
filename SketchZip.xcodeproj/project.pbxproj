@@ -143,8 +143,6 @@
 		7DEA34372135DC980062075A /* Sketch-Add-O.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7DEA34322135DC980062075A /* Sketch-Add-O.sketch */; };
 		7DEA34382135DC980062075A /* Sketch-Add-B.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7DEA34332135DC980062075A /* Sketch-Add-B.sketch */; };
 		7DEA34392135DC980062075A /* Sketch-Add-B.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7DEA34332135DC980062075A /* Sketch-Add-B.sketch */; };
-		7DEEBB29216AA1C7004B234D /* FilterListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DEEBB28216AA1C7004B234D /* FilterListController.m */; };
-		7DEEBB4B216AB2C5004B234D /* FilterItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DEEBB4A216AB2C5004B234D /* FilterItemView.xib */; };
 		7DFF79D9217548B800C70814 /* GalleryLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DFF79D8217548B800C70814 /* GalleryLayout.m */; };
 /* End PBXBuildFile section */
 
@@ -350,9 +348,6 @@
 		7DEA34312135DC980062075A /* Sketch-Add-A.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sketch-Add-A.sketch"; sourceTree = "<group>"; };
 		7DEA34322135DC980062075A /* Sketch-Add-O.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sketch-Add-O.sketch"; sourceTree = "<group>"; };
 		7DEA34332135DC980062075A /* Sketch-Add-B.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sketch-Add-B.sketch"; sourceTree = "<group>"; };
-		7DEEBB27216AA1C7004B234D /* FilterListController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FilterListController.h; sourceTree = "<group>"; };
-		7DEEBB28216AA1C7004B234D /* FilterListController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FilterListController.m; sourceTree = "<group>"; };
-		7DEEBB4A216AB2C5004B234D /* FilterItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterItemView.xib; sourceTree = "<group>"; };
 		7DFF79D7217548B800C70814 /* GalleryLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GalleryLayout.h; sourceTree = "<group>"; };
 		7DFF79D8217548B800C70814 /* GalleryLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GalleryLayout.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -567,9 +562,6 @@
 				7D29BE982169FBD500D3121B /* SizeFilterPicker.m */,
 				7D209F0D2159195C00A461A5 /* TDCollectionViewListLayout.h */,
 				7D209F0C2159195C00A461A5 /* TDCollectionViewListLayout.m */,
-				7DEEBB27216AA1C7004B234D /* FilterListController.h */,
-				7DEEBB28216AA1C7004B234D /* FilterListController.m */,
-				7DEEBB4A216AB2C5004B234D /* FilterItemView.xib */,
 			);
 			path = "File Browser";
 			sourceTree = "<group>";
@@ -871,7 +863,6 @@
 				7D8CBE522153DD42007C884B /* iPad Pro.png in Resources */,
 				7DEA34362135DC980062075A /* Sketch-Add-O.sketch in Resources */,
 				7D209EFF2159082800A461A5 /* IconFavorites@2x.png in Resources */,
-				7DEEBB4B216AB2C5004B234D /* FilterItemView.xib in Resources */,
 				7DEA342C2135A79A0062075A /* Sketch-Conflict-B.sketch in Resources */,
 				7D828FA12122E27E00ADBD7E /* Sketch-Root.sketch in Resources */,
 				7D8CBE552153DD42007C884B /* iPhone 8 Plus.png in Resources */,
@@ -960,7 +951,6 @@
 				55BE525820ADAD410059EC77 /* crypt.c in Sources */,
 				7DCE03EC215C0770000ABC8A /* TDTheme.m in Sources */,
 				55BE525C20ADAD410059EC77 /* ioapi_buf.c in Sources */,
-				7DEEBB29216AA1C7004B234D /* FilterListController.m in Sources */,
 				55BE526620ADAD410059EC77 /* pwd2key.c in Sources */,
 				7DC83EB7216E91E100CC873E /* FilterBarController.m in Sources */,
 				7D29BE872169316F00D3121B /* Filter.m in Sources */,
@@ -1169,7 +1159,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.hanonno.SketchZip;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hanonno.Cahier;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -1190,7 +1180,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.hanonno.SketchZip;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hanonno.Cahier;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

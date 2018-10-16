@@ -11,6 +11,8 @@
 #import "TDTheme.h"
 #import "CollectionViewLeftAlignedLayout.h"
 
+#import "AssetBrowser.h"
+
 
 @interface AssetBrowserItem ()
 
