@@ -28,6 +28,8 @@
     
 //    SketchFile *file = [[SketchFile alloc] initWithFileURL:[[NSBundle mainBundle] URLForResource:@"Symbol" withExtension:@"sketch"]];
     
+    NSLog(@"Path to realm: %@", [[[RLMRealm defaultRealm] configuration] fileURL]);
+    
 //    FileBrowser *hannoCollectionController = [[FileBrowser alloc] initWithDirectory:@"~/Design/United Wardrobe"];
 //    CahierViewController *hannoCollectionController = [[CahierViewController alloc] initWithDirectory:@"~/Design/Hanno"];
 //    [hannoCollectionController showWindow:self];

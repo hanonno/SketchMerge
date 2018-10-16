@@ -12,9 +12,9 @@
 
 @interface Cahier : RLMObject
 
-@property (strong) NSString     *directory;
-@property (strong) NSString     *sizePresetName;
-@property (assign) float        zoomFactor;
+@property NSString     *directory;
+@property NSString     *sizePresetName;
+@property float        zoomFactor;
 
 + (Cahier *)cahierForDirectoryWithPath:(NSString *)directoryPath;
 

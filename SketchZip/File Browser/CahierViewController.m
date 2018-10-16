@@ -27,10 +27,13 @@
 - (id)initWithCahier:(Cahier *)cahier {
     self = [super init];
 
+    _cahier = cahier;
+    
     _indexer = [[SketchFileIndexer alloc] initWithDirectory:[cahier.directory stringByExpandingTildeInPath]];
     _indexer.delegate = self;
     
     _assetCollection = [[AssetCollection alloc] initWithRealm:_indexer.realm];
+//    [_assetCollection replaceFilter:<#(Filter *)#>]
     [_assetCollection addDelegate:self];
     
     _pathFilter = [[PathFilter alloc] init];
@@ -78,7 +81,6 @@
     self.filterBarController.previewSizeSlider.target = self;
     self.filterBarController.previewSizeSlider.action = @selector(changePreviewSize:);
     self.filterBarController.previewSizeSlider.floatValue = self.cahier.zoomFactor;
-    [self changePreviewSize:self.filterBarController.previewSizeSlider];
     
     [self.view addSubview:self.filterBarController.view];
     [self addChildViewController:self.filterBarController];
@@ -98,6 +100,9 @@
     
     [self.assetBrowser.view autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, 0, 32, 0) excludingEdge:ALEdgeLeft];
     [self.assetBrowser.view autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:240];
+    
+    // Setup default zoom level
+    [self changePreviewSize:self.filterBarController.previewSizeSlider];
 }
 
 - (void)sketchFileIndexer:(SketchFileIndexer *)fileIndexer didIndexFile:(SketchFile *)file {
@@ -139,7 +144,14 @@
 }
 
 - (void)changePreviewSize:(NSSlider *)sender {
-    [self.assetBrowser setZoomFactor:sender.floatValue];
+    float zoomFactor = sender.floatValue;
+    
+    [self.assetBrowser setZoomFactor:zoomFactor];
+    
+    RLMRealm *realm = [RLMRealm defaultRealm];
+    [realm beginWriteTransaction];
+    self.cahier.zoomFactor = zoomFactor;
+    [realm commitWriteTransaction];    
 }
 
 - (IBAction)showAssets:(id)sender {
@@ -171,7 +183,11 @@
 }
 
 - (void)assetCollectionDidUpdate:(AssetCollection *)assetCollection filter:(Filter *)filter {
-    
+    if([filter isKindOfClass:[SizeFilter class]]) {
+        [self.cahier.realm beginWriteTransaction];
+        self.cahier.sizePresetName = [(SizeFilter *)filter presetName];
+        [self.cahier.realm commitWriteTransaction];
+    }
 }
 
 @end
