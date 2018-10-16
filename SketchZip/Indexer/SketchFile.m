@@ -164,6 +164,7 @@ static const BOOL kLoggingEnabled = NO;
         if(layer[@"do_objectID"] != nil) {
             if([layer[@"_class"] isEqualToString:@"symbolMaster"]) {
                 symbolsById[layer[@"do_objectID"]] = [[SketchLayer alloc] initWithJSON:layer fromPage:self];
+                layers[layer[@"do_objectID"]] = [[SketchLayer alloc] initWithJSON:layer fromPage:self]; // TODO: decide if symbols are actually just layers
             }
             else {
                 layers[layer[@"do_objectID"]] = [[SketchLayer alloc] initWithJSON:layer fromPage:self];

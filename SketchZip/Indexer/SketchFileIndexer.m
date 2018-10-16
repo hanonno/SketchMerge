@@ -53,10 +53,11 @@
     
     for(SketchPage *page in self.sketchFile.pages.allValues) {
         for(SketchLayer *layer in page.layers.allValues) {
-            if(![layer.objectClass isEqualToString:@"artboard"]) {
+            if(![layer.objectClass isEqualToString:@"artboard"] && ![layer.objectClass isEqualToString:@"symbolMaster"]) {
+//                NSLog(layer.objectClass);
                 continue;
             }
-            
+
             Asset *asset = [Asset objectInRealm:realm forPrimaryKey:layer.objectId];
             
             if(!asset) {

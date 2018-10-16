@@ -14,12 +14,6 @@
 
 @implementation Cahier
 
-@synthesize viewController = _viewController;
-
-+ (NSArray *)ignoredProperties {
-    return @[@"viewController"];
-}
-
 + (Cahier *)cahierForDirectoryWithPath:(NSString *)directoryPath {
     RLMResults *cahiers = [Cahier objectsWhere:@"directory == %@", directoryPath];
     
@@ -43,14 +37,6 @@
     }
     
     return cahier;
-}
-
-- (CahierViewController *)viewController {
-    if(!_viewController) {
-        _viewController = [[CahierViewController alloc] initWithCahier:self];
-    }
-    
-    return _viewController;
 }
 
 @end

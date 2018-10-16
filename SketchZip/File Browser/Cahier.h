@@ -19,7 +19,6 @@
 @property NSString                          *sizePresetName;
 @property float                             zoomFactor;
 @property BOOL                              windowVisible;
-@property (readonly) CahierViewController   *viewController;
 
 + (Cahier *)cahierForDirectoryWithPath:(NSString *)directoryPath;
 

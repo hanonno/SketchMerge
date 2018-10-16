@@ -17,6 +17,7 @@
 
 @property (weak) IBOutlet NSWindow  *window;
 @property (strong) RLMResults       *cahiers;
+@property (strong) NSMutableArray   *cahierControllers;
 
 @end
 
@@ -42,19 +43,26 @@
 //    [iPracticeCollectionController showWindow:self];
     
     self.cahiers = [Cahier allObjects];
+    self.cahierControllers = [[NSMutableArray alloc] init];
+
+    
+//    [(CahierViewController *)[[self.cahiers firstObject] viewController] showWindow:self];
     
     for (Cahier *cahier in self.cahiers) {
-//        if(cahier.windowVisible) {
-            [cahier.viewController showWindow:self];
-//        }
+        if(cahier.windowVisible) {
+            CahierViewController *cahierController = [[CahierViewController alloc] initWithCahier:cahier];
+            [self.cahierControllers addObject:cahierController];
+            [cahierController showWindow:self];
+        }
     }
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
     // Insert code here to tear down your application
-    for (Cahier *cahier in self.cahiers) {
+    for (CahierViewController *cahierController in self.cahierControllers) {
+        Cahier *cahier = cahierController.cahier;
         [cahier.realm beginWriteTransaction];
-        cahier.windowVisible = cahier.viewController.window.isVisible;
+        cahier.windowVisible = cahierController.window.isVisible;
         [cahier.realm commitWriteTransaction];
     }
 }
@@ -66,8 +74,15 @@
 
     [panel beginWithCompletionHandler:^(NSModalResponse result) {
         for (NSURL *directoryURL in panel.URLs) {
+            for (CahierViewController *cahierController in self.cahierControllers) {
+                if([cahierController.cahier.directory isEqualToString:directoryURL.path]) {
+                    return [cahierController showWindow:self];
+                }
+            }
+            
             Cahier *cahier = [Cahier cahierForDirectoryWithPath:directoryURL.path];
             CahierViewController  *cahierViewController = [[CahierViewController alloc] initWithCahier:cahier];
+            [self.cahierControllers addObject:cahierViewController];
             [cahierViewController showWindow:self];
         }
     }];

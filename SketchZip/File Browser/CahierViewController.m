@@ -114,7 +114,9 @@
     [self.assetBrowser.collectionView reloadData];
 }
 
-- (void)sketchFileIndexer:(SketchFileIndexer *)fileIndexer didIndexFile:(SketchFile *)file {}
+- (void)sketchFileIndexer:(SketchFileIndexer *)fileIndexer didIndexFile:(SketchFile *)file {
+    [self.assetCollection reloadData];
+}
 
 - (void)sidebarController:(SidebarController *)sidebarController didSelectItem:(SidebarCollectionViewItem *)sidebarItem atIndexPath:(NSIndexPath *)indexPath {
     if(indexPath.section == 1) {
