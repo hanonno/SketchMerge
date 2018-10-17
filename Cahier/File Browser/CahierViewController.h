@@ -25,8 +25,6 @@
 
 @property (strong) SidebarController        *sidebarController;
 
-@property (strong) FilterBarController      *filterBarController;
-
 @property (strong) BrowserHeaderController  *browserHeaderController;
 @property (strong) AssetBrowser             *assetBrowser;
 

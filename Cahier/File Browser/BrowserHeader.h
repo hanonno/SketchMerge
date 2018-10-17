@@ -18,7 +18,7 @@
 @property (strong) NSTextField      *titleLabel;
 @property (strong) FilterField      *filterField;
 @property (strong) NSStackView      *filterStackView;
-@property (strong) NSSlider         *slider;
+@property (strong) NSSlider         *zoomFactorSlider;
 @property (strong) View             *divider;
 
 @property (strong) AssetCollection  *assetCollection;

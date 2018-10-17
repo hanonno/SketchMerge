@@ -79,16 +79,10 @@
     self.sidebarController.delegate = self;
     [self.view addSubview:self.sidebarController.view];
     
-    self.filterBarController = [[FilterBarController alloc] initWithAssetCollection:self.assetCollection];
-    self.filterBarController.delegate = self;
-    self.filterBarController.previewSizeSlider.target = self;
-    self.filterBarController.previewSizeSlider.action = @selector(changePreviewSize:);
-    self.filterBarController.previewSizeSlider.floatValue = self.cahier.zoomFactor;
-    
-    [self.view addSubview:self.filterBarController.view];
-    [self addChildViewController:self.filterBarController];
-    
     self.browserHeaderController = [[BrowserHeaderController alloc] initWithAssetCollection:self.assetCollection];
+    self.browserHeaderController.zoomFactorSlider.floatValue = self.cahier.zoomFactor;
+    self.browserHeaderController.zoomFactorSlider.target = self;
+    self.browserHeaderController.zoomFactorSlider.action = @selector(changePreviewSize:);
     [self.view addSubview:self.browserHeaderController.view];
     
     self.assetBrowser = [[AssetBrowser alloc] initWithAssetCollection:self.assetCollection];
@@ -104,17 +98,14 @@
     [sidebar autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, 0, 0, 0) excludingEdge:ALEdgeRight];
     [sidebar autoSetDimension:ALDimensionWidth toSize:sidebarWidth];
     
-    [self.filterBarController.view autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, sidebarWidth, 0, 0) excludingEdge:ALEdgeTop];
-    [self.filterBarController.view autoSetDimension:ALDimensionHeight toSize:32];
-    
     [self.browserHeaderController.view autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, sidebarWidth, 0, 0) excludingEdge:ALEdgeBottom];
     [self.browserHeaderController.view autoSetDimension:ALDimensionHeight toSize:headerHeight];
     
-    [self.assetBrowser.view autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(headerHeight, 0, 32, 0) excludingEdge:ALEdgeLeft];
+    [self.assetBrowser.view autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(headerHeight, 0, 0, 0) excludingEdge:ALEdgeLeft];
     [self.assetBrowser.view autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:sidebarWidth];
     
     // Setup default zoom level
-    [self changePreviewSize:self.filterBarController.previewSizeSlider];
+    [self changePreviewSize:self.browserHeaderController.zoomFactorSlider];
 }
 
 - (void)sketchFileIndexer:(SketchFileIndexer *)fileIndexer willIndexFile:(SketchFile *)file {

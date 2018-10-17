@@ -20,6 +20,10 @@
     _assetCollection = assetCollection;
     [_assetCollection addDelegate:self];
     
+    self.zoomFactorSlider = [[NSSlider alloc] init];
+    self.zoomFactorSlider.minValue = 0.5;
+    self.zoomFactorSlider.maxValue = 1;
+    
     return self;
 }
 
@@ -29,6 +33,8 @@
     self.titleLabel = [NSTextField labelWithString:@"Title"];
     self.titleLabel.font = [NSFont systemFontOfSize:22 weight:NSFontWeightMedium];
     [self.view addSubview:self.titleLabel];
+    
+    [self.view addSubview:self.zoomFactorSlider];
     
     self.filterField = [[FilterField alloc] init];
     [self.view addSubview:self.filterField];
@@ -56,6 +62,10 @@
     [self.filterStackView autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:inset];
     
     [self.filterStackView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.titleLabel withOffset:-16];
+
+    [self.zoomFactorSlider autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:inset];
+    [self.zoomFactorSlider autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:inset];
+    [self.zoomFactorSlider autoSetDimension:ALDimensionWidth toSize:120];
     
     [self.divider autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.filterStackView withOffset:16];
     [self.divider pinToBottomOfView:self.view];

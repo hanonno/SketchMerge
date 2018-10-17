@@ -176,6 +176,7 @@
 
 - (void)updateLayer {
     self.layer.backgroundColor = [_backgroundColor CGColor];
+    self.layer.borderColor = [_borderColor CGColor];
 }
 
 - (void)pinToBottomOfView:(NSView *)view {
@@ -293,11 +294,12 @@
     _filterTextField.backgroundColor = [NSColor clearColor];
     _filterTextField.bordered = NO;
     _filterTextField.font = [NSFont systemFontOfSize:13 weight:NSFontWeightRegular];
+    _filterTextField.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:_filterTextField];
     
     // Autolayout
     [_backgroundView autoPinEdgesToSuperviewEdges];
-    [_filterTextField autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(2, 22, 0, 22)];
+    [_filterTextField autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(2, 11, 0, 11)];
     
     _widthLayoutConstraint = [self autoSetDimension:ALDimensionWidth toSize:22];
     
