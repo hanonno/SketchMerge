@@ -202,7 +202,7 @@
     [self.filters removeObjectsInArray:removeFilters];
     [self.filters addObject:filter];
     [self reloadData];
-    
+
     for (id <AssetCollectionDelegate>delegate in self.delegates) {
         if([delegate respondsToSelector:@selector(assetCollectionDidUpdate:filter:)]) {
             [delegate assetCollectionDidUpdate:self filter:filter];

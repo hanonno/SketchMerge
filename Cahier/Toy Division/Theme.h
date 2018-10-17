@@ -60,6 +60,9 @@
 @property (assign) CGFloat  cornerRadius;
 @property (strong) NSColor  *backgroundColor;
 
+@property (strong) NSColor  *borderColor;
+@property (assign) CGFloat  borderWidth;
+
 
 + (instancetype)horizontalDivider;
 + (instancetype)verticalDivider;
@@ -87,6 +90,14 @@
 
 @property (strong) View         *backgroundView;
 @property (strong) NSTextField  *titleLabel;
+
+@end
+
+
+@interface FilterField : Control
+
+@property (strong) View         *backgroundView;
+@property (strong) NSTextField  *filterTextField;
 
 @end
 

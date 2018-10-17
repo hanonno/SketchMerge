@@ -12,45 +12,6 @@
 #import "Filter.h"
 
 
-@implementation BrowserHeader
-
-- (instancetype)init {
-    self = [super init];
-    
-    _titleLabel = [NSTextField labelWithString:@"Title"];
-    _titleLabel.font = [NSFont systemFontOfSize:22 weight:NSFontWeightMedium];
-    [self addSubview:_titleLabel];
-    
-    _filterStackView = [[NSStackView alloc] init];
-    [self addSubview:_filterStackView];
-    
-    _divider = [View horizontalDivider];
-    [self addSubview:_divider];
-    
-    self.backgroundColor = [NSColor browserBackgroundColor];
-    
-    // Autolayout
-    CGFloat inset = 24;
-    
-    [_titleLabel autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:inset];
-    [_titleLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:inset];
-    [_titleLabel autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:inset];
-
-    [_filterStackView autoSetDimension:ALDimensionHeight toSize:22];
-    [_filterStackView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:inset];
-    [_filterStackView autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:inset];
-    
-    [_filterStackView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_titleLabel withOffset:-16];
-
-    [_divider autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:_filterStackView withOffset:16];
-    [_divider pinToBottomOfView:self];    
-    
-    return self;
-}
-
-@end
-
-
 @implementation BrowserHeaderController
 
 - (instancetype)initWithAssetCollection:(AssetCollection *)assetCollection {
@@ -63,18 +24,81 @@
 }
 
 - (void)loadView {
-    self.browserHeaderView = [[BrowserHeader alloc] init];
+    self.view = [[View alloc] initWithBackgroundColor:[NSColor browserBackgroundColor]];
     
-    self.view = self.browserHeaderView;
+    self.titleLabel = [NSTextField labelWithString:@"Title"];
+    self.titleLabel.font = [NSFont systemFontOfSize:22 weight:NSFontWeightMedium];
+    [self.view addSubview:self.titleLabel];
+    
+    self.filterField = [[FilterField alloc] init];
+    [self.view addSubview:self.filterField];
+    
+    self.filterStackView = [[NSStackView alloc] init];
+    [self.view addSubview:self.filterStackView];
+    
+    self.divider = [View horizontalDivider];
+    [self.view addSubview:self.divider];
+    
+    // Autolayout
+    CGFloat inset = 24;
+    
+    [self.titleLabel autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:inset];
+    [self.titleLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:inset];
+    [self.titleLabel autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:inset];
+    
+    [self.filterField autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:inset];
+    [self.filterField autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self.filterStackView];
+    [self.filterField autoSetDimension:ALDimensionHeight toSize:22];
+    
+    [self.filterStackView autoSetDimension:ALDimensionHeight toSize:22];
+    [self.filterStackView autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:self.filterField withOffset:8];
+    //    [_filterStackView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:inset];
+    [self.filterStackView autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:inset];
+    
+    [self.filterStackView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.titleLabel withOffset:-16];
+    
+    [self.divider autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.filterStackView withOffset:16];
+    [self.divider pinToBottomOfView:self.view];
+
+    
+    self.filterField.target = self;
+    self.filterField.action = @selector(toggleFilterField:);
+    
+//    self.filterField.filterTextField.target = self;
+//    self.filterField.filterTextField.action = @selector(filterFieldChanged:);
+    
+    self.filterField.filterTextField.delegate = self;
+}
+
+- (void)controlTextDidChange:(NSNotification *)obj {
+    KeywordFilter *filter = [[KeywordFilter alloc] init];
+    filter.keywords = self.filterField.filterTextField.stringValue;
+    [self.assetCollection replaceFilter:filter];
+}
+
+- (void)toggleFilterField:(id)sender {
+    [self.filterField.filterTextField becomeFirstResponder];
+    
+    [NSAnimationContext runAnimationGroup:^(NSAnimationContext * _Nonnull context) {
+        context.duration = 0.16;
+        context.allowsImplicitAnimation = YES;
+        
+        [self.filterField setSelected:!self.filterField.selected animated:NO];
+        
+//        [self.filterField layoutSubtreeIfNeeded];
+        [self.view layoutSubtreeIfNeeded];
+    }];
 }
 
 - (void)reloadFilters {
-//    [self.browserHeaderView.filterStack ]
-    NSArray *subviews = [self.browserHeaderView.filterStackView.subviews copy];
+//    [self.filterStack ]
+    NSArray *subviews = [self.filterStackView.subviews copy];
     
     for (NSView *subview in subviews) {
         [subview removeFromSuperview];
     }
+    
+//    [self.filterStackView addView:self.filterField inGravity:NSStackViewGravityLeading];
     
     NSArray *activeFilters = self.assetCollection.activeFilters;
     
@@ -90,12 +114,12 @@
             }
         }
         
-        [self.browserHeaderView.filterStackView addView:button inGravity:NSStackViewGravityLeading];
+        [self.filterStackView addView:button inGravity:NSStackViewGravityLeading];
     }
 }
 
 - (void)filterSelected:(Button *)sender {
-    NSArray *subviews = [self.browserHeaderView.filterStackView.subviews copy];
+    NSArray *subviews = [self.filterStackView.subviews copy];
     
     for (Button *button in subviews) {
         [button setSelected:NO animated:NO];
@@ -118,6 +142,10 @@
 
 - (void)assetCollectionDidUpdate:(AssetCollection *)assetCollection filter:(Filter *)filter {
     
+}
+
+- (void)filterFieldChanged:(id)sender {
+    NSLog(@"Hahah");
 }
 
 @end

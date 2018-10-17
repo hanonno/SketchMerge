@@ -13,18 +13,14 @@
 #import "Asset.h"
 
 
-@interface BrowserHeader : View
+@interface BrowserHeaderController : NSViewController <AssetCollectionDelegate, NSTextFieldDelegate>
 
-@property (strong) NSTextField  *titleLabel;
-@property (strong) NSStackView  *filterStackView;
-@property (strong) View         *divider;
+@property (strong) NSTextField      *titleLabel;
+@property (strong) FilterField      *filterField;
+@property (strong) NSStackView      *filterStackView;
+@property (strong) NSSlider         *slider;
+@property (strong) View             *divider;
 
-@end
-
-
-@interface BrowserHeaderController : NSViewController <AssetCollectionDelegate>
-
-@property (strong) BrowserHeader    *browserHeaderView;
 @property (strong) AssetCollection  *assetCollection;
 
 - (instancetype)initWithAssetCollection:(AssetCollection *)assetCollection;

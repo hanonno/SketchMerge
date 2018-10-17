@@ -44,4 +44,6 @@
 - (IBAction)viewAsGrid:(id)sender;
 - (IBAction)viewAsGallery:(id)sender;
 
+- (IBAction)filterAssets:(id)sender;
+
 @end

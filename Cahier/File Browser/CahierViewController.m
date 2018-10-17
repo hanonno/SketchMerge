@@ -133,7 +133,7 @@
 
         self.pathFilter.path = file.fileURL.path;
         self.favoriteFilter.enabled = NO;
-        self.browserHeaderController.browserHeaderView.titleLabel.stringValue = [file.fileURL.path.lastPathComponent stringByDeletingPathExtension];
+        self.browserHeaderController.titleLabel.stringValue = [file.fileURL.path.lastPathComponent stringByDeletingPathExtension];
         [self.assetCollection reloadData];
         [self.assetBrowser.collectionView reloadData];
     }
@@ -142,11 +142,11 @@
             self.pathFilter.path = self.indexer.directory;
             self.favoriteFilter.enabled = NO;
             [self.assetCollection reloadData];
-            self.browserHeaderController.browserHeaderView.titleLabel.stringValue = self.indexer.directory.lastPathComponent;
+            self.browserHeaderController.titleLabel.stringValue = self.indexer.directory.lastPathComponent;
         }
         if(indexPath.item == 1) {
             self.favoriteFilter.enabled = YES;
-            self.browserHeaderController.browserHeaderView.titleLabel.stringValue = @"Favorites";
+            self.browserHeaderController.titleLabel.stringValue = @"Favorites";
             [self.assetCollection reloadData];
         }
     }

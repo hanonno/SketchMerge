@@ -116,7 +116,7 @@
 
 @implementation View
 
-@synthesize cornerRadius = _cornerRadius, backgroundColor = _backgroundColor;
+@synthesize cornerRadius = _cornerRadius, backgroundColor = _backgroundColor, borderWidth = _borderWidth, borderColor = _borderColor;
 
 + (instancetype)horizontalDivider {
     View *divider = [[View alloc] initWithBackgroundColor:[NSColor dividerColor]];
@@ -157,6 +157,23 @@
     self.layer.backgroundColor = [_backgroundColor CGColor];
 }
 
+- (CGFloat)borderWidth {
+    return self.layer.borderWidth;
+}
+
+- (void)setBorderWidth:(CGFloat)borderWidth {
+    self.layer.borderWidth = borderWidth;
+}
+
+- (NSColor *)borderColor {
+    return _borderColor;
+}
+
+- (void)setBorderColor:(NSColor *)borderColor {
+    _borderColor = borderColor;
+    self.layer.borderColor = [_borderColor CGColor];
+}
+
 - (void)updateLayer {
     self.layer.backgroundColor = [_backgroundColor CGColor];
 }
@@ -188,10 +205,6 @@
     self = [super initWithFrame:NSMakeRect(0, 0, 120, 120)];
     
     return self;
-}
-
-- (void)setupAutolayout {
-
 }
 
 - (void)mouseDown:(NSEvent *)event {
@@ -231,16 +244,15 @@
     _titleLabel = [NSTextField labelWithString:@"Title"];
     [self addSubview:_titleLabel];
     
-    [self setupAutolayout];
+    // Autolayout
+    [_backgroundView autoPinEdgesToSuperviewEdges];
+    [_titleLabel autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(2, 10, 3, 10)];
+
     [self setSelected:NO animated:NO];
     
     return self;
 }
 
-- (void)setupAutolayout {
-    [_backgroundView autoPinEdgesToSuperviewEdges];
-    [_titleLabel autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(1, 10, 3, 10)];
-}
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
@@ -253,6 +265,54 @@
         self.titleLabel.textColor = [NSColor secondaryLabelColor];
         self.backgroundView.backgroundColor = [NSColor dividerColor];
     }
+}
+
+@end
+
+@interface FilterField ()
+
+@property (strong) NSLayoutConstraint   *widthLayoutConstraint;
+
+@end
+
+
+@implementation FilterField
+
+- (instancetype)init {
+    self = [super init];
+    
+    _backgroundView = [[View alloc] initWithBackgroundColor:[NSColor browserBackgroundColor]];
+    _backgroundView.borderColor = [NSColor dividerColor];
+    _backgroundView.borderWidth = 1;
+    _backgroundView.cornerRadius = 11;
+    [self addSubview:_backgroundView];
+    
+    _filterTextField = [[NSTextField alloc] init];
+    _filterTextField.focusRingType = NSFocusRingTypeNone;
+    _filterTextField.drawsBackground = NO;
+    _filterTextField.backgroundColor = [NSColor clearColor];
+    _filterTextField.bordered = NO;
+    _filterTextField.font = [NSFont systemFontOfSize:13 weight:NSFontWeightRegular];
+    [self addSubview:_filterTextField];
+    
+    // Autolayout
+    [_backgroundView autoPinEdgesToSuperviewEdges];
+    [_filterTextField autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(2, 22, 0, 22)];
+    
+    _widthLayoutConstraint = [self autoSetDimension:ALDimensionWidth toSize:22];
+    
+    return self;
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected];
+    
+    if(selected) {
+        self.widthLayoutConstraint.constant = 160;
+    }
+    else {
+        self.widthLayoutConstraint.constant = 22;
+    }        
 }
 
 @end
