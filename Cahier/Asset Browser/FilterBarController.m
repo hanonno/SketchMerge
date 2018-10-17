@@ -32,7 +32,7 @@
 }
 
 - (void)loadView {
-    self.view = [[NSView alloc] init];
+    self.view = [[BackgroundView alloc] initWithBackgroundColor:[NSColor sidebarBackgroundColor]];
     
     self.stackView = [[NSStackView alloc] init];
     [self.view addSubview:self.stackView];

@@ -8,7 +8,7 @@
 
 #import "AssetBrowser.h"
 
-#import "TDTheme.h"
+#import "Theme.h"
 #import "CollectionViewLeftAlignedLayout.h"
 
 #import "AssetBrowser.h"
@@ -162,7 +162,8 @@
     self = [super initWithFrame:frame];
     
     self.wantsLayer = YES;
-    self.layer.backgroundColor = [[[TDTheme currentTheme] backgroundColor] CGColor];
+    self.layer.backgroundColor = [[NSColor sidebarBackgroundColor] CGColor];
+//    self.layer.backgroundColor = [[[TDTheme currentTheme] backgroundColor] CGColor];
 //     = [[NSColor backgroundColor] CGColor];
     
     NSView *divider = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, 120, 1)];
@@ -193,6 +194,10 @@
     [divider autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsZero excludingEdge:ALEdgeTop];
     
     return self;
+}
+
+- (void)updateLayer {
+    self.layer.backgroundColor = [[NSColor sidebarBackgroundColor] CGColor];
 }
 
 @end
@@ -235,7 +240,7 @@
 //    self.view.layer.backgroundColor = [[NSColor darkGrayColor] CGColor];
 
     self.scrollView = [[NSScrollView alloc] init];
-    self.scrollView.backgroundColor = [[TDTheme currentTheme] backgroundColor];
+//    self.scrollView.backgroundColor = [[TDTheme currentTheme] backgroundColor];
     [self.view addSubview:self.scrollView];
     
     self.layout = [[CollectionViewLeftAlignedLayout alloc] init];
@@ -255,7 +260,7 @@
     self.collectionView.selectable = YES;
     self.collectionView.allowsMultipleSelection = YES;
     self.collectionView.translatesAutoresizingMaskIntoConstraints = YES;
-    self.collectionView.backgroundColors = @[[[TDTheme currentTheme] backgroundColor]];
+//    self.collectionView.backgroundColors = @[[[TDTheme currentTheme] backgroundColor]];
 
     [self.collectionView registerClass:[AssetBrowserItem class] forItemWithIdentifier:@"SketchArtboardCollectionViewItemIdentifier"];
     [self.collectionView registerClass:[AssetBrowserHeader class] forSupplementaryViewOfKind:NSCollectionElementKindSectionHeader withIdentifier:@"SketchPageHeaderViewIdentifier"];

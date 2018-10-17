@@ -68,7 +68,7 @@
     self.view = [[NSView alloc] init];
     self.view.translatesAutoresizingMaskIntoConstraints = NO;
     
-    NSView *highlightView = [[NSView alloc] init];
+    BackgroundView *highlightView = [[BackgroundView alloc] initWithBackgroundColor:[NSColor sidebarBackgroundColor]];
     highlightView.wantsLayer = YES;
     highlightView.layer.cornerRadius = 4;
     [self.view addSubview:highlightView];
@@ -80,7 +80,7 @@
     
     NSTextField *titleLabel = [NSTextField labelWithString:@"Title"];
     titleLabel.font = [NSFont systemFontOfSize:13 weight:NSFontWeightRegular];
-    titleLabel.textColor = [NSColor titleTextColor];
+    titleLabel.textColor = [NSColor sidebarTextColor];
     [self.highlightView addSubview:titleLabel];
     self.titleLabel = titleLabel;
     
@@ -99,13 +99,14 @@
     [super setSelected:selected];
     
     if(selected) {
-        self.highlightView.layer.backgroundColor = [[NSColor headerBackgroundColor] CGColor];
+        self.titleLabel.textColor = [NSColor sidebarTextColor];
+        self.highlightView.backgroundColor = [NSColor selectedSidebarItemColor];
     }
     else {
-        self.highlightView.layer.backgroundColor = [[NSColor clearColor] CGColor];;
+        self.titleLabel.textColor = [NSColor sidebarTextColor];
+        self.highlightView.backgroundColor = [NSColor sidebarBackgroundColor];
     }
 }
-
 @end
 
 
@@ -132,7 +133,7 @@
 
 - (void)loadView {
     self.view = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, 240, 640)];
-    self.view.layer.backgroundColor = [[NSColor backgroundColor] CGColor];
+    self.view.layer.backgroundColor = [[NSColor sidebarBackgroundColor] CGColor];
         
     self.sidebarLayout = [[SidebarLayout alloc] init];
 
@@ -145,7 +146,7 @@
     self.collectionView.allowsEmptySelection = NO;
     [self.collectionView registerClass:[SidebarCollectionViewItem class] forItemWithIdentifier:@"SidebarItem"];
     [self.collectionView registerClass:[SidebarHeaderView class] forSupplementaryViewOfKind:NSCollectionElementKindSectionHeader withIdentifier:@"SidebarHeaderIdentifier"];
-    self.collectionView.backgroundColors = @[[NSColor backgroundColor]];
+    self.collectionView.backgroundColors = @[[NSColor sidebarBackgroundColor]];
     
     self.scrollView = [[NSScrollView alloc] init];
     self.scrollView.automaticallyAdjustsContentInsets = NO;
@@ -155,7 +156,7 @@
 //    self.scrollView.horizontalScroller = nil;
     self.scrollView.verticalScroller = nil;
     self.scrollView.contentInsets = NSEdgeInsetsMake(48, 0, 0, 0);
-    self.scrollView.backgroundColor = [NSColor backgroundColor];
+//    self.scrollView.backgroundColor = [NSColor sidebarBackgroundColor];
     self.scrollView.documentView = self.collectionView;
     [self.view addSubview:self.scrollView];
     

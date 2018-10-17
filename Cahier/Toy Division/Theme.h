@@ -9,12 +9,12 @@
 #import <Cocoa/Cocoa.h>
 
 
-@class TDTheme;
+@class Theme;
 
 
-@interface TDTheme : NSObject
+@interface Theme : NSObject
 
-+ (TDTheme *)currentTheme;
++ (Theme *)currentTheme;
 
 - (NSColor *)titleTextColor;
 - (NSColor *)subtitleTextColor;
@@ -29,7 +29,7 @@
 @end
 
 
-@interface NSColor (TDTheme)
+@interface NSColor (Cahier)
 
 + (NSColor *)titleTextColor;
 + (NSColor *)subtitleTextColor;
@@ -40,6 +40,21 @@
 + (NSColor *)dividerColor;
 
 + (NSColor *)highlightColor;
+
+//
+
++ (NSColor *)sidebarTextColor;
++ (NSColor *)sidebarBackgroundColor;
++ (NSColor *)selectedSidebarItemColor;
+
+@end
+
+
+@interface BackgroundView : NSView
+
+@property (strong) NSColor  *backgroundColor;
+
+- (instancetype)initWithBackgroundColor:(NSColor *)backgroundColor;
 
 @end
 

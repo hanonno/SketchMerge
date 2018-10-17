@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 
-#import "TDTheme.h"
+#import "Theme.h"
 #import "SketchFile.h"
 #import "SizeFilterPicker.h"
 #import "SidebarLayout.h"
@@ -31,9 +31,9 @@
 
 @interface SidebarCollectionViewItem : NSCollectionViewItem
 
-@property (strong) NSImageView  *iconView;
-@property (strong) NSTextField  *titleLabel;
-@property (strong) NSView       *highlightView;
+@property (strong) NSImageView      *iconView;
+@property (strong) NSTextField      *titleLabel;
+@property (strong) BackgroundView   *highlightView;
 
 @end
 

@@ -6,11 +6,11 @@
 //  Copyright © 2018 Motion Pixel. All rights reserved.
 //
 
-#import "TDTheme.h"
+#import "Theme.h"
 
-@implementation TDTheme
+@implementation Theme
 
-+ (TDTheme *)currentTheme {
++ (Theme *)currentTheme {
     static id sharedInstance = nil;
     
     static dispatch_once_t onceToken;
@@ -55,34 +55,79 @@
 
 
 
-@implementation NSColor (TDTheme)
+@implementation NSColor (Cahier)
 
 + (NSColor *)titleTextColor {
-    return [[TDTheme currentTheme] titleTextColor];
+    return [[Theme currentTheme] titleTextColor];
 }
 
 + (NSColor *)subtitleTextColor {
-    return [[TDTheme currentTheme] subtitleTextColor];
+    return [[Theme currentTheme] subtitleTextColor];
 }
 
 + (NSColor *)bodyTextColor {
-    return [[TDTheme currentTheme] bodyTextColor];
+    return [[Theme currentTheme] bodyTextColor];
 }
 
 + (NSColor *)backgroundColor {
-    return [[TDTheme currentTheme] backgroundColor];
+    return [[Theme currentTheme] backgroundColor];
 }
 
 + (NSColor *)headerBackgroundColor {
-    return [[TDTheme currentTheme] headerBackgroundColor];
+    return [[Theme currentTheme] headerBackgroundColor];
 }
 
 + (NSColor *)dividerColor {
-    return [[TDTheme currentTheme] dividerColor];
+    return [NSColor colorNamed:@"dividerColor"];
+//    return [NSColor colorWithDeviceHue:0.49 saturation:0.00 brightness:0.96 alpha:1.00];
 }
 
 + (NSColor *)highlightColor {
-    return [[TDTheme currentTheme] highlightColor];
+    return [[Theme currentTheme] highlightColor];
+}
+
++ (NSColor *)sidebarTextColor {
+    return [NSColor colorNamed:@"sidebarTextColor"];
+//    return [NSColor colorWithDeviceHue:0.57 saturation:0.12 brightness:0.25 alpha:1.00];
+}
+
++ (NSColor *)sidebarBackgroundColor {
+    return [NSColor colorNamed:@"sidebarBackgroundColor"];
+//    return [NSColor colorWithDeviceHue:0.58 saturation:0.01 brightness:0.97 alpha:1.00];
+}
+
++ (NSColor *)selectedSidebarItemColor {
+    return [NSColor colorNamed:@"selectedSidebarItemColor"];
+//    return [NSColor colorWithDeviceHue:0.59 saturation:0.03 brightness:0.91 alpha:1.00];
+}
+
+@end
+
+
+@implementation BackgroundView
+
+@synthesize backgroundColor = _backgroundColor;
+
+- (instancetype)initWithBackgroundColor:(NSColor *)backgroundColor {
+    self = [super initWithFrame:NSMakeRect(0, 0, 120, 120)];
+    
+    self.wantsLayer = YES;
+    self.backgroundColor = backgroundColor;
+    
+    return self;
+}
+
+- (NSColor *)backgroundColor {
+    return _backgroundColor;
+}
+
+- (void)setBackgroundColor:(NSColor *)backgroundColor {
+    _backgroundColor = backgroundColor;
+    self.layer.backgroundColor = [_backgroundColor CGColor];
+}
+
+- (void)updateLayer {
+    self.layer.backgroundColor = [_backgroundColor CGColor];
 }
 
 @end
