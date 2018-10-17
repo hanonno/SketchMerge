@@ -102,8 +102,13 @@
 }
 
 + (NSColor *)browserBackgroundColor {
+    return [NSColor colorNamed:@"browserBackgroundColor"];
     return [NSColor colorWithDeviceHue:0.31 saturation:0.00 brightness:0.04 alpha:1.00];
     return [NSColor colorWithDeviceHue:0.65 saturation:0.15 brightness:0.19 alpha:1.00];
+}
+
++ (NSColor *)accentColor {
+    return [NSColor controlAccentColor];
 }
 
 @end
@@ -111,7 +116,7 @@
 
 @implementation View
 
-@synthesize backgroundColor = _backgroundColor;
+@synthesize cornerRadius = _cornerRadius, backgroundColor = _backgroundColor;
 
 + (instancetype)horizontalDivider {
     View *divider = [[View alloc] initWithBackgroundColor:[NSColor dividerColor]];
@@ -123,9 +128,7 @@
     View *divider = [[View alloc] initWithBackgroundColor:[NSColor dividerColor]];
     [divider autoSetDimension:ALDimensionWidth toSize:1];
     return divider;
-
 }
-
 
 - (instancetype)initWithBackgroundColor:(NSColor *)backgroundColor {
     self = [super initWithFrame:NSMakeRect(0, 0, 120, 120)];
@@ -134,6 +137,15 @@
     self.backgroundColor = backgroundColor;
     
     return self;
+}
+
+- (CGFloat)cornerRadius {
+    return _cornerRadius;
+}
+
+- (void)setCornerRadius:(CGFloat)cornerRadius {
+    _cornerRadius = cornerRadius;
+    self.layer.cornerRadius = cornerRadius;
 }
 
 - (NSColor *)backgroundColor {
@@ -150,7 +162,11 @@
 }
 
 - (void)pinToBottomOfView:(NSView *)view {
-    [self autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsZero excludingEdge:ALEdgeTop];
+    [self pinToBottomOfView:view withInset:0];
+}
+
+- (void)pinToBottomOfView:(NSView *)view withInset:(CGFloat)inset {
+    [self autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, inset, 0, inset) excludingEdge:ALEdgeTop];
 }
 
 - (void)pinToLeftOfView:(NSView *)view {
@@ -159,6 +175,84 @@
 
 - (void)pinToRightOfView:(NSView *)view {
     [self autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsZero excludingEdge:ALEdgeLeft];
+}
+
+@end
+
+
+@implementation Control
+
+@synthesize selected = _selected;
+
+- (instancetype)init {
+    self = [super initWithFrame:NSMakeRect(0, 0, 120, 120)];
+    
+    return self;
+}
+
+- (void)setupAutolayout {
+
+}
+
+- (void)mouseDown:(NSEvent *)event {
+    NSLog(@"Mouse DOWN!");
+}
+
+- (void)mouseMoved:(NSEvent *)event {
+    NSLog(@"Mouse MOVED!");
+}
+
+- (void)mouseDragged:(NSEvent *)event {
+    NSLog(@"Mouse DRAGGED!");
+}
+
+- (void)mouseUp:(NSEvent *)event {
+    NSLog(@"Mouse UP!");
+    
+    [self sendAction:self.action to:self.target];
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    _selected = selected;
+}
+
+@end
+
+
+@implementation Button
+
+- (instancetype)init {
+    self = [super init];
+    
+    _backgroundView = [[View alloc] initWithBackgroundColor:[NSColor accentColor]];
+    _backgroundView.cornerRadius = 11;
+    [self addSubview:_backgroundView];
+    
+    _titleLabel = [NSTextField labelWithString:@"Title"];
+    [self addSubview:_titleLabel];
+    
+    [self setupAutolayout];
+    [self setSelected:NO animated:NO];
+    
+    return self;
+}
+
+- (void)setupAutolayout {
+    [_backgroundView autoPinEdgesToSuperviewEdges];
+    [_titleLabel autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(1, 10, 3, 10)];
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+    
+    if(selected) {
+        self.titleLabel.textColor = [NSColor browserBackgroundColor];
+        self.backgroundView.backgroundColor = [NSColor accentColor];
+    }
+    else {
+        self.titleLabel.textColor = [NSColor secondaryLabelColor];
+        self.backgroundView.backgroundColor = [NSColor controlBackgroundColor];
+    }
 }
 
 @end

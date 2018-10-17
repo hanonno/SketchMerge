@@ -50,12 +50,16 @@
 
 + (NSColor *)browserBackgroundColor;
 
++ (NSColor *)accentColor;
+
 @end
 
 
 @interface View : NSView
 
+@property (assign) CGFloat  cornerRadius;
 @property (strong) NSColor  *backgroundColor;
+
 
 + (instancetype)horizontalDivider;
 + (instancetype)verticalDivider;
@@ -63,8 +67,26 @@
 - (instancetype)initWithBackgroundColor:(NSColor *)backgroundColor;
 
 - (void)pinToBottomOfView:(NSView *)view;
+- (void)pinToBottomOfView:(NSView *)view withInset:(CGFloat)inset;
 - (void)pinToLeftOfView:(NSView *)view;
 - (void)pinToRightOfView:(NSView *)view;
+
+@end
+
+
+@interface Control : NSControl
+
+@property (assign) BOOL     selected;
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated;
+
+@end
+
+
+@interface Button : Control
+
+@property (strong) View         *backgroundView;
+@property (strong) NSTextField  *titleLabel;
 
 @end
 

@@ -98,7 +98,7 @@
     NSView *sidebar = self.sidebarController.view;
     
     // Autolayout
-    CGFloat headerHeight = 67+8;
+    CGFloat headerHeight = 67+8+19+7;
     CGFloat sidebarWidth = 240;
     
     [sidebar autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, 0, 0, 0) excludingEdge:ALEdgeRight];
@@ -115,6 +115,31 @@
     
     // Setup default zoom level
     [self changePreviewSize:self.filterBarController.previewSizeSlider];
+    
+    [self setupFilters];
+}
+
+- (void)setupFilters {
+    Button *allButton = [[Button alloc] init];
+    allButton.titleLabel.stringValue = @"All";
+    
+    Button *iPhoneButton = [[Button alloc] init];
+    iPhoneButton.titleLabel.stringValue = @"iPhone";
+    iPhoneButton.target = self;
+    iPhoneButton.action = @selector(filterSelected:);
+    
+    Button *watchButton = [[Button alloc] init];
+    watchButton.titleLabel.stringValue = @"Watch";
+    
+    [self.cahierHeader.filterStackView addView:allButton inGravity:NSStackViewGravityLeading];
+    [self.cahierHeader.filterStackView addView:iPhoneButton inGravity:NSStackViewGravityLeading];
+    [self.cahierHeader.filterStackView addView:watchButton inGravity:NSStackViewGravityLeading];
+}
+
+- (void)filterSelected:(id)sender {
+    NSLog(@"HAHAHAH");
+    
+    
 }
 
 - (void)sketchFileIndexer:(SketchFileIndexer *)fileIndexer willIndexFile:(SketchFile *)file {

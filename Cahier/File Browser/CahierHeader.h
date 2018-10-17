@@ -15,6 +15,7 @@
 @interface CahierHeader : View
 
 @property (strong) NSTextField  *titleLabel;
+@property (strong) NSStackView  *filterStackView;
 @property (strong) View         *divider;
 
 @end

@@ -161,10 +161,8 @@
 - (id)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
     
-    self.wantsLayer = YES;
-    self.layer.backgroundColor = [[NSColor sidebarBackgroundColor] CGColor];
-//    self.layer.backgroundColor = [[[TDTheme currentTheme] backgroundColor] CGColor];
-//     = [[NSColor backgroundColor] CGColor];
+    View *backgroundView = [[View alloc] initWithBackgroundColor:[NSColor browserBackgroundColor]];
+    [self addSubview:backgroundView];
     
     View *divider = [View horizontalDivider];
     [self addSubview:divider];
@@ -188,13 +186,11 @@
     [self.subtitleLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:self.titleLabel withOffset:4];
     [self.subtitleLabel autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:16];
     
-    [divider pinToBottomOfView:self];
+    [divider pinToBottomOfView:self withInset:16];
+    [backgroundView autoPinEdgesToSuperviewEdges];
+    divider.hidden = YES;
     
     return self;
-}
-
-- (void)updateLayer {
-    self.layer.backgroundColor = [[NSColor sidebarBackgroundColor] CGColor];
 }
 
 @end
