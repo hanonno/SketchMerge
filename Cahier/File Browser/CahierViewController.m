@@ -56,12 +56,12 @@
 - (void)showWindow:(id)sender {
     if(!self.window) {
         self.window = [NSWindow windowWithContentViewController:self];
-        [self.window setTitleWithRepresentedFilename:self.indexer.directory];
+//        [self.window setTitleWithRepresentedFilename:self.indexer.directory];
         self.window.titlebarAppearsTransparent = YES;
         self.window.delegate = self;
-//        self.window.titleVisibility = NSWindowTitleHidden;
-//        self.window.styleMask |= NSWindowStyleMaskFullSizeContentView;
-        self.window.styleMask |= NSWindowStyleMaskUnifiedTitleAndToolbar;
+        self.window.titleVisibility = NSWindowTitleHidden;
+        self.window.styleMask |= NSWindowStyleMaskFullSizeContentView;
+//        self.window.styleMask |= NSWindowStyleMaskUnifiedTitleAndToolbar;
         self.windowController = [[NSWindowController alloc] initWithWindow:self.window];
         self.windowController.windowFrameAutosaveName = self.indexer.directory;
         
@@ -88,6 +88,9 @@
     [self.view addSubview:self.filterBarController.view];
     [self addChildViewController:self.filterBarController];
     
+    self.cahierHeader = [[CahierHeader alloc] init];
+    [self.view addSubview:self.cahierHeader];
+    
     self.assetBrowser = [[AssetBrowser alloc] initWithAssetCollection:self.assetCollection];
     [self.view addSubview:self.assetBrowser.view];
     [self addChildViewController:self.assetBrowser];
@@ -95,14 +98,20 @@
     NSView *sidebar = self.sidebarController.view;
     
     // Autolayout
-    [sidebar autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, 0, 0, 0) excludingEdge:ALEdgeRight];
-    [sidebar autoSetDimension:ALDimensionWidth toSize:240];
+    CGFloat headerHeight = 67+8;
+    CGFloat sidebarWidth = 240;
     
-    [self.filterBarController.view autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, 240, 0, 0) excludingEdge:ALEdgeTop];
+    [sidebar autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, 0, 0, 0) excludingEdge:ALEdgeRight];
+    [sidebar autoSetDimension:ALDimensionWidth toSize:sidebarWidth];
+    
+    [self.filterBarController.view autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, sidebarWidth, 0, 0) excludingEdge:ALEdgeTop];
     [self.filterBarController.view autoSetDimension:ALDimensionHeight toSize:32];
     
-    [self.assetBrowser.view autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, 0, 32, 0) excludingEdge:ALEdgeLeft];
-    [self.assetBrowser.view autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:240];
+    [self.cahierHeader autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, sidebarWidth, 0, 0) excludingEdge:ALEdgeBottom];
+    [self.cahierHeader autoSetDimension:ALDimensionHeight toSize:headerHeight];
+    
+    [self.assetBrowser.view autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(headerHeight, 0, 32, 0) excludingEdge:ALEdgeLeft];
+    [self.assetBrowser.view autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:sidebarWidth];
     
     // Setup default zoom level
     [self changePreviewSize:self.filterBarController.previewSizeSlider];
@@ -124,6 +133,7 @@
 
         self.pathFilter.path = file.fileURL.path;
         self.favoriteFilter.enabled = NO;
+        self.cahierHeader.titleLabel.stringValue = [file.fileURL.path.lastPathComponent stringByDeletingPathExtension];
         [self.assetCollection reloadData];
         [self.assetBrowser.collectionView reloadData];
     }
@@ -132,9 +142,11 @@
             self.pathFilter.path = self.indexer.directory;
             self.favoriteFilter.enabled = NO;
             [self.assetCollection reloadData];
+            self.cahierHeader.titleLabel.stringValue = self.indexer.directory.lastPathComponent;
         }
         if(indexPath.item == 1) {
             self.favoriteFilter.enabled = YES;
+            self.cahierHeader.titleLabel.stringValue = @"Favorites";
             [self.assetCollection reloadData];
         }
     }

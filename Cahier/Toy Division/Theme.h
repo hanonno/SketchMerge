@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <PureLayout/PureLayout.h>
 
 
 @class Theme;
@@ -47,18 +48,33 @@
 + (NSColor *)sidebarBackgroundColor;
 + (NSColor *)selectedSidebarItemColor;
 
++ (NSColor *)browserBackgroundColor;
+
 @end
 
 
-@interface BackgroundView : NSView
+@interface View : NSView
 
 @property (strong) NSColor  *backgroundColor;
 
++ (instancetype)horizontalDivider;
++ (instancetype)verticalDivider;
+
 - (instancetype)initWithBackgroundColor:(NSColor *)backgroundColor;
+
+- (void)pinToBottomOfView:(NSView *)view;
+- (void)pinToLeftOfView:(NSView *)view;
+- (void)pinToRightOfView:(NSView *)view;
 
 @end
 
 
 @interface SearchField : NSSearchField
+
+@end
+
+
+@interface Label : NSTextField
+
 
 @end

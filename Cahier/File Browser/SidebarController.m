@@ -68,7 +68,7 @@
     self.view = [[NSView alloc] init];
     self.view.translatesAutoresizingMaskIntoConstraints = NO;
     
-    BackgroundView *highlightView = [[BackgroundView alloc] initWithBackgroundColor:[NSColor sidebarBackgroundColor]];
+    View *highlightView = [[View alloc] initWithBackgroundColor:[NSColor sidebarBackgroundColor]];
     highlightView.wantsLayer = YES;
     highlightView.layer.cornerRadius = 4;
     [self.view addSubview:highlightView];
@@ -160,16 +160,13 @@
     self.scrollView.documentView = self.collectionView;
     [self.view addSubview:self.scrollView];
     
-    NSView *divider = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, 1, 120)];
-    divider.wantsLayer = YES;
-    divider.layer.backgroundColor = [[NSColor dividerColor] CGColor];
+    View *divider = [View verticalDivider];
     [self.view addSubview:divider];
-
+    
     // Autolayout
     [self.scrollView autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, 0, 0, 0)];
     
-    [divider autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsZero excludingEdge:ALEdgeLeft];
-    [divider autoSetDimension:ALDimensionWidth toSize:1];
+    [divider pinToRightOfView:self.view];
 }
 
 - (void)viewWillAppear {

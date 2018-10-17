@@ -124,6 +124,7 @@
 		7DC61A6D2162C28D00F3986E /* Symbol.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 7DC61A6C2162C28D00F3986E /* Symbol.sketch */; };
 		7DC83EB7216E91E100CC873E /* FilterBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC83EB6216E91E100CC873E /* FilterBarController.m */; };
 		7DCE03EC215C0770000ABC8A /* Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DCE03EB215C0770000ABC8A /* Theme.m */; };
+		7DE4BB44217752A900305F6D /* CahierHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE4BB43217752A900305F6D /* CahierHeader.m */; };
 		7DE5F07E2157C85900BD2825 /* SketchFileIndexer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE5F07D2157C85900BD2825 /* SketchFileIndexer.m */; };
 		7DE5F07F2157C85900BD2825 /* SketchFileIndexer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE5F07D2157C85900BD2825 /* SketchFileIndexer.m */; };
 		7DE5F0822157F76F00BD2825 /* Artboard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DE5F0802157F76F00BD2825 /* Artboard@2x.png */; };
@@ -338,6 +339,8 @@
 		7DC83EB6216E91E100CC873E /* FilterBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FilterBarController.m; sourceTree = "<group>"; };
 		7DCE03EA215C0770000ABC8A /* Theme.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Theme.h; sourceTree = "<group>"; };
 		7DCE03EB215C0770000ABC8A /* Theme.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Theme.m; sourceTree = "<group>"; };
+		7DE4BB42217752A900305F6D /* CahierHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CahierHeader.h; sourceTree = "<group>"; };
+		7DE4BB43217752A900305F6D /* CahierHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CahierHeader.m; sourceTree = "<group>"; };
 		7DE5F07C2157C85900BD2825 /* SketchFileIndexer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchFileIndexer.h; sourceTree = "<group>"; };
 		7DE5F07D2157C85900BD2825 /* SketchFileIndexer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SketchFileIndexer.m; sourceTree = "<group>"; };
 		7DE5F0802157F76F00BD2825 /* Artboard@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Artboard@2x.png"; sourceTree = "<group>"; };
@@ -553,6 +556,8 @@
 			children = (
 				7DFF79DA2175DA9100C70814 /* Cahier.h */,
 				7DFF79DB2175DA9100C70814 /* Cahier.m */,
+				7DE4BB42217752A900305F6D /* CahierHeader.h */,
+				7DE4BB43217752A900305F6D /* CahierHeader.m */,
 				7D611B39215ACFD300C86AF1 /* CahierViewController.h */,
 				7D611B3A215ACFD300C86AF1 /* CahierViewController.m */,
 				7D209EF62158FD6F00A461A5 /* SidebarController.h */,
@@ -977,6 +982,7 @@
 				55BE526820ADAD410059EC77 /* SSZipArchive.m in Sources */,
 				55BE520920ADABFD0059EC77 /* main.m in Sources */,
 				7D611B3B215ACFD300C86AF1 /* CahierViewController.m in Sources */,
+				7DE4BB44217752A900305F6D /* CahierHeader.m in Sources */,
 				55BE526320ADAD410059EC77 /* sha1.c in Sources */,
 				5548B89020EF72C000D3A081 /* NSImage+PNGAdditions.m in Sources */,
 				7DE5F07E2157C85900BD2825 /* SketchFileIndexer.m in Sources */,

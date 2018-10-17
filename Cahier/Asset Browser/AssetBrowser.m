@@ -166,32 +166,29 @@
 //    self.layer.backgroundColor = [[[TDTheme currentTheme] backgroundColor] CGColor];
 //     = [[NSColor backgroundColor] CGColor];
     
-    NSView *divider = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, 120, 1)];
-    divider.wantsLayer = YES;
-    divider.layer.backgroundColor = [[NSColor dividerColor] CGColor];
+    View *divider = [View horizontalDivider];
     [self addSubview:divider];
     
     self.titleLabel = [NSTextField labelWithString:@"File Name"];
-    self.titleLabel.font = [NSFont systemFontOfSize:14];
-    self.titleLabel.textColor = [NSColor titleTextColor];
+    self.titleLabel.font = [NSFont systemFontOfSize:12];
+    self.titleLabel.textColor = [NSColor subtitleTextColor];
     [self.titleLabel setContentHuggingPriority:NSLayoutPriorityDefaultHigh forOrientation:NSLayoutConstraintOrientationHorizontal];
     [self addSubview:self.titleLabel];
-    
+
     self.subtitleLabel = [NSTextField labelWithString:@"Page Name"];
-    self.subtitleLabel.font = [NSFont systemFontOfSize:14];
-    self.subtitleLabel.textColor = [NSColor subtitleTextColor];
+    self.subtitleLabel.font = [NSFont systemFontOfSize:12];
+    self.subtitleLabel.textColor = [NSColor bodyTextColor];
     [self addSubview:self.subtitleLabel];
     
     // Autolayout
     [self.titleLabel autoAlignAxisToSuperviewAxis:ALAxisHorizontal];
-    [self.titleLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:16];
+    [self.titleLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:24];
     
     [self.subtitleLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self.titleLabel];
     [self.subtitleLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:self.titleLabel withOffset:4];
     [self.subtitleLabel autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:16];
     
-    [divider autoSetDimension:ALDimensionHeight toSize:1];
-    [divider autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsZero excludingEdge:ALEdgeTop];
+    [divider pinToBottomOfView:self];
     
     return self;
 }
@@ -240,14 +237,14 @@
 //    self.view.layer.backgroundColor = [[NSColor darkGrayColor] CGColor];
 
     self.scrollView = [[NSScrollView alloc] init];
-//    self.scrollView.backgroundColor = [[TDTheme currentTheme] backgroundColor];
+//    self.scrollView.backgroundColor = [NSColor sidebarBackgroundColor];
     [self.view addSubview:self.scrollView];
     
     self.layout = [[CollectionViewLeftAlignedLayout alloc] init];
     self.layout.itemSize = NSMakeSize(240, 240);
     self.layout.minimumLineSpacing = 16;
     self.layout.minimumInteritemSpacing = 16;
-    self.layout.headerReferenceSize = NSMakeSize(320, 44);
+    self.layout.headerReferenceSize = NSMakeSize(320, 32);
     self.layout.sectionInset = NSEdgeInsetsMake(16, 16, 16, 16);
     self.layout.sectionHeadersPinToVisibleBounds = YES;
     
@@ -260,7 +257,7 @@
     self.collectionView.selectable = YES;
     self.collectionView.allowsMultipleSelection = YES;
     self.collectionView.translatesAutoresizingMaskIntoConstraints = YES;
-//    self.collectionView.backgroundColors = @[[[TDTheme currentTheme] backgroundColor]];
+    self.collectionView.backgroundColors = @[[NSColor browserBackgroundColor]];
 
     [self.collectionView registerClass:[AssetBrowserItem class] forItemWithIdentifier:@"SketchArtboardCollectionViewItemIdentifier"];
     [self.collectionView registerClass:[AssetBrowserHeader class] forSupplementaryViewOfKind:NSCollectionElementKindSectionHeader withIdentifier:@"SketchPageHeaderViewIdentifier"];

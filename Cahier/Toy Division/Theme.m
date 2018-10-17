@@ -58,15 +58,15 @@
 @implementation NSColor (Cahier)
 
 + (NSColor *)titleTextColor {
-    return [[Theme currentTheme] titleTextColor];
+    return [NSColor labelColor];
 }
 
 + (NSColor *)subtitleTextColor {
-    return [[Theme currentTheme] subtitleTextColor];
+    return [NSColor secondaryLabelColor];
 }
 
 + (NSColor *)bodyTextColor {
-    return [[Theme currentTheme] bodyTextColor];
+    return [NSColor tertiaryLabelColor];
 }
 
 + (NSColor *)backgroundColor {
@@ -101,12 +101,31 @@
 //    return [NSColor colorWithDeviceHue:0.59 saturation:0.03 brightness:0.91 alpha:1.00];
 }
 
++ (NSColor *)browserBackgroundColor {
+    return [NSColor colorWithDeviceHue:0.31 saturation:0.00 brightness:0.04 alpha:1.00];
+    return [NSColor colorWithDeviceHue:0.65 saturation:0.15 brightness:0.19 alpha:1.00];
+}
+
 @end
 
 
-@implementation BackgroundView
+@implementation View
 
 @synthesize backgroundColor = _backgroundColor;
+
++ (instancetype)horizontalDivider {
+    View *divider = [[View alloc] initWithBackgroundColor:[NSColor dividerColor]];
+    [divider autoSetDimension:ALDimensionHeight toSize:1];
+    return divider;
+}
+
++ (instancetype)verticalDivider {
+    View *divider = [[View alloc] initWithBackgroundColor:[NSColor dividerColor]];
+    [divider autoSetDimension:ALDimensionWidth toSize:1];
+    return divider;
+
+}
+
 
 - (instancetype)initWithBackgroundColor:(NSColor *)backgroundColor {
     self = [super initWithFrame:NSMakeRect(0, 0, 120, 120)];
@@ -128,6 +147,18 @@
 
 - (void)updateLayer {
     self.layer.backgroundColor = [_backgroundColor CGColor];
+}
+
+- (void)pinToBottomOfView:(NSView *)view {
+    [self autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsZero excludingEdge:ALEdgeTop];
+}
+
+- (void)pinToLeftOfView:(NSView *)view {
+    [self autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsZero excludingEdge:ALEdgeRight];
+}
+
+- (void)pinToRightOfView:(NSView *)view {
+    [self autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsZero excludingEdge:ALEdgeLeft];
 }
 
 @end
@@ -154,3 +185,12 @@
 }
 
 @end
+
+
+//@implementation Label
+//
+//- (instancetype)init {
+//    self = [NSTextField la
+//}
+//
+//@end

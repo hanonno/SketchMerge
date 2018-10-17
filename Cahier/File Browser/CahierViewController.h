@@ -15,6 +15,7 @@
 #import "SidebarController.h"
 #import "FilterBarController.h"
 #import "AssetBrowser.h"
+#import "CahierHeader.h"
 
 
 @interface CahierViewController : NSViewController <SketchFileIndexerDelegate, SidebarControllerDelegate, FilterBarControllerDelegate, AssetCollectionDelegate, NSWindowDelegate>
@@ -25,6 +26,8 @@
 @property (strong) SidebarController    *sidebarController;
 
 @property (strong) FilterBarController  *filterBarController;
+
+@property (strong) CahierHeader         *cahierHeader;
 @property (strong) AssetBrowser         *assetBrowser;
 
 @property (strong) Cahier               *cahier;

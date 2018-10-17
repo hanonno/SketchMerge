@@ -33,7 +33,7 @@
 
 @property (strong) NSImageView      *iconView;
 @property (strong) NSTextField      *titleLabel;
-@property (strong) BackgroundView   *highlightView;
+@property (strong) View   *highlightView;
 
 @end
 
