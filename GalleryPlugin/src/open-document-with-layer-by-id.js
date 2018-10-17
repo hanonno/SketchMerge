@@ -31,10 +31,17 @@ Document.open(documentURL, (err, document) => {
   else {
     log("==== Found Document ")
 
+    var documentData = context.document.documentData();
+
+	var page = pageWithId(documentData.pages(), context.pageId)
+	if(page) {
+		log("==== Found page")	
+	}
+	else {
+		log("==== Did NOT find page")
+	}
+
     var doc = Sketch.fromNative(context.document)
-	
-	var page = pageWithId(context.document.pages(), context.pageId)
-	log("==== Found page")
 
 	var layer = doc.getLayerWithID(context.layerId)
 

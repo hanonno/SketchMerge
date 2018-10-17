@@ -23,8 +23,8 @@
 		55BE520320ADABFD0059EC77 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55BE520220ADABFD0059EC77 /* Assets.xcassets */; };
 		55BE520620ADABFD0059EC77 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55BE520420ADABFD0059EC77 /* MainMenu.xib */; };
 		55BE520920ADABFD0059EC77 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 55BE520820ADABFD0059EC77 /* main.m */; };
-		55BE521420ADABFD0059EC77 /* SketchZipTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 55BE521320ADABFD0059EC77 /* SketchZipTests.m */; };
-		55BE521F20ADABFD0059EC77 /* SketchZipUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 55BE521E20ADABFD0059EC77 /* SketchZipUITests.m */; };
+		55BE521420ADABFD0059EC77 /* CahierTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 55BE521320ADABFD0059EC77 /* CahierTests.m */; };
+		55BE521F20ADABFD0059EC77 /* Cahier.m in Sources */ = {isa = PBXBuildFile; fileRef = 55BE521E20ADABFD0059EC77 /* Cahier.m */; };
 		55BE525820ADAD410059EC77 /* crypt.c in Sources */ = {isa = PBXBuildFile; fileRef = 55BE523120ADAD410059EC77 /* crypt.c */; };
 		55BE525920ADAD410059EC77 /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 55BE523220ADAD410059EC77 /* unzip.c */; };
 		55BE525A20ADAD410059EC77 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 55BE523320ADAD410059EC77 /* zip.c */; };
@@ -43,7 +43,6 @@
 		55BE526720ADAD410059EC77 /* aestab.c in Sources */ = {isa = PBXBuildFile; fileRef = 55BE525120ADAD410059EC77 /* aestab.c */; };
 		55BE526820ADAD410059EC77 /* SSZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 55BE525620ADAD410059EC77 /* SSZipArchive.m */; };
 		55BE526920ADAD410059EC77 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 55BE525720ADAD410059EC77 /* Info.plist */; };
-		55BE526B20ADAE720059EC77 /* TestFile1.sketch in Resources */ = {isa = PBXBuildFile; fileRef = 55BE526A20ADAE720059EC77 /* TestFile1.sketch */; };
 		7D209EF42158EE3900A461A5 /* CollectionViewLeftAlignedLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D209EF22158EE3900A461A5 /* CollectionViewLeftAlignedLayout.m */; };
 		7D209EF82158FD6F00A461A5 /* SidebarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D209EF72158FD6F00A461A5 /* SidebarController.m */; };
 		7D209EFE2159082800A461A5 /* Recents@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D209EFA2159082700A461A5 /* Recents@2x.png */; };
@@ -210,10 +209,10 @@
 		55BE520820ADABFD0059EC77 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		55BE520A20ADABFD0059EC77 /* SketchZip.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SketchZip.entitlements; sourceTree = "<group>"; };
 		55BE520F20ADABFD0059EC77 /* CahierTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CahierTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		55BE521320ADABFD0059EC77 /* SketchZipTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SketchZipTests.m; sourceTree = "<group>"; };
+		55BE521320ADABFD0059EC77 /* CahierTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CahierTests.m; sourceTree = "<group>"; };
 		55BE521520ADABFD0059EC77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		55BE521A20ADABFD0059EC77 /* CahierUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CahierUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		55BE521E20ADABFD0059EC77 /* SketchZipUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SketchZipUITests.m; sourceTree = "<group>"; };
+		55BE521E20ADABFD0059EC77 /* Cahier.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Cahier.m; sourceTree = "<group>"; };
 		55BE522020ADABFD0059EC77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		55BE522F20ADAD410059EC77 /* ZipArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZipArchive.h; sourceTree = "<group>"; };
 		55BE523120ADAD410059EC77 /* crypt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = crypt.c; sourceTree = "<group>"; };
@@ -254,7 +253,6 @@
 		55BE525520ADAD410059EC77 /* SSZipCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSZipCommon.h; sourceTree = "<group>"; };
 		55BE525620ADAD410059EC77 /* SSZipArchive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSZipArchive.m; sourceTree = "<group>"; };
 		55BE525720ADAD410059EC77 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		55BE526A20ADAE720059EC77 /* TestFile1.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; name = TestFile1.sketch; path = SketchZip/Sketch/TestFile1.sketch; sourceTree = SOURCE_ROOT; };
 		7D209EF12158EE3900A461A5 /* CollectionViewLeftAlignedLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewLeftAlignedLayout.h; sourceTree = "<group>"; };
 		7D209EF22158EE3900A461A5 /* CollectionViewLeftAlignedLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewLeftAlignedLayout.m; sourceTree = "<group>"; };
 		7D209EF62158FD6F00A461A5 /* SidebarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SidebarController.h; sourceTree = "<group>"; };
@@ -282,6 +280,7 @@
 		7D29BE9B216A2AA500D3121B /* PureLayout.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PureLayout.framework; path = Carthage/Build/Mac/PureLayout.framework; sourceTree = SOURCE_ROOT; };
 		7D29BE9C216A2AA500D3121B /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/Mac/Realm.framework; sourceTree = SOURCE_ROOT; };
 		7D29BE9D216A2AA500D3121B /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDWebImage.framework; path = Carthage/Build/Mac/SDWebImage.framework; sourceTree = SOURCE_ROOT; };
+		7D2CA5902176827B0003ACF9 /* RESEARCH.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = RESEARCH.md; sourceTree = "<group>"; };
 		7D611B39215ACFD300C86AF1 /* CahierViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CahierViewController.h; sourceTree = "<group>"; };
 		7D611B3A215ACFD300C86AF1 /* CahierViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CahierViewController.m; sourceTree = "<group>"; };
 		7D611B40215AE36300C86AF1 /* Folder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Folder.png; sourceTree = "<group>"; };
@@ -410,9 +409,9 @@
 		55BE51F320ADABFB0059EC77 = {
 			isa = PBXGroup;
 			children = (
-				55BE51FE20ADABFB0059EC77 /* SketchZip */,
-				55BE521220ADABFD0059EC77 /* SketchZipTests */,
-				55BE521D20ADABFD0059EC77 /* SketchZipUITests */,
+				55BE51FE20ADABFB0059EC77 /* Cahier */,
+				55BE521220ADABFD0059EC77 /* CahierTests */,
+				55BE521D20ADABFD0059EC77 /* CahierUITests */,
 				55BE51FD20ADABFB0059EC77 /* Products */,
 				5586E97520F37430000BCB2F /* Frameworks */,
 			);
@@ -428,19 +427,13 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		55BE51FE20ADABFB0059EC77 /* SketchZip */ = {
+		55BE51FE20ADABFB0059EC77 /* Cahier */ = {
 			isa = PBXGroup;
 			children = (
 				55BE51FF20ADABFB0059EC77 /* AppDelegate.h */,
 				55BE520020ADABFB0059EC77 /* AppDelegate.m */,
-				5548B88C20EF720E00D3A081 /* SketchFilePlugin.h */,
-				5548B88B20EF720E00D3A081 /* SketchFilePlugin.m */,
-				552F294F20EE191500A845B2 /* SketchDiffTool.h */,
-				552F295020EE191500A845B2 /* SketchDiffTool.m */,
-				7D828F942122DBCB00ADBD7E /* SketchOperationTypeIndicator.h */,
-				7D828F952122DBCB00ADBD7E /* SketchOperationTypeIndicator.m */,
-				5548B88F20EF72C000D3A081 /* NSImage+PNGAdditions.h */,
-				5548B88E20EF72C000D3A081 /* NSImage+PNGAdditions.m */,
+				7D2CA5902176827B0003ACF9 /* RESEARCH.md */,
+				7D5B0C8721772F2900C80785 /* Diff & Merge */,
 				7DFF79DD2175DA9A00C70814 /* Cahier */,
 				7DCE03ED215C0778000ABC8A /* Toy Division */,
 				7D209EF92158FD7700A461A5 /* File Browser */,
@@ -461,25 +454,25 @@
 				7D29BE9C216A2AA500D3121B /* Realm.framework */,
 				7D29BE9D216A2AA500D3121B /* SDWebImage.framework */,
 			);
-			path = SketchZip;
+			path = Cahier;
 			sourceTree = "<group>";
 		};
-		55BE521220ADABFD0059EC77 /* SketchZipTests */ = {
+		55BE521220ADABFD0059EC77 /* CahierTests */ = {
 			isa = PBXGroup;
 			children = (
-				55BE521320ADABFD0059EC77 /* SketchZipTests.m */,
+				55BE521320ADABFD0059EC77 /* CahierTests.m */,
 				55BE521520ADABFD0059EC77 /* Info.plist */,
 			);
-			path = SketchZipTests;
+			path = CahierTests;
 			sourceTree = "<group>";
 		};
-		55BE521D20ADABFD0059EC77 /* SketchZipUITests */ = {
+		55BE521D20ADABFD0059EC77 /* CahierUITests */ = {
 			isa = PBXGroup;
 			children = (
-				55BE521E20ADABFD0059EC77 /* SketchZipUITests.m */,
+				55BE521E20ADABFD0059EC77 /* Cahier.m */,
 				55BE522020ADABFD0059EC77 /* Info.plist */,
 			);
-			path = SketchZipUITests;
+			path = CahierUITests;
 			sourceTree = "<group>";
 		};
 		55BE522E20ADAD410059EC77 /* SSZipArchive */ = {
@@ -589,6 +582,19 @@
 			path = "Asset Browser";
 			sourceTree = "<group>";
 		};
+		7D5B0C8721772F2900C80785 /* Diff & Merge */ = {
+			isa = PBXGroup;
+			children = (
+				5548B88C20EF720E00D3A081 /* SketchFilePlugin.h */,
+				5548B88B20EF720E00D3A081 /* SketchFilePlugin.m */,
+				552F294F20EE191500A845B2 /* SketchDiffTool.h */,
+				552F295020EE191500A845B2 /* SketchDiffTool.m */,
+				7D828F942122DBCB00ADBD7E /* SketchOperationTypeIndicator.h */,
+				7D828F952122DBCB00ADBD7E /* SketchOperationTypeIndicator.m */,
+			);
+			path = "Diff & Merge";
+			sourceTree = "<group>";
+		};
 		7D611B3C215ADBBA00C86AF1 /* Indexer */ = {
 			isa = PBXGroup;
 			children = (
@@ -608,7 +614,6 @@
 			isa = PBXGroup;
 			children = (
 				7DC61A6C2162C28D00F3986E /* Symbol.sketch */,
-				55BE526A20ADAE720059EC77 /* TestFile1.sketch */,
 				552F295220EE3D0A00A845B2 /* Artboards-A.sketch */,
 				552F295420EE4B0A00A845B2 /* Artboards-B.sketch */,
 				7D7CCFC521133AB60061EBB0 /* Version-1.sketch */,
@@ -690,6 +695,8 @@
 			children = (
 				7DCE03EA215C0770000ABC8A /* TDTheme.h */,
 				7DCE03EB215C0770000ABC8A /* TDTheme.m */,
+				5548B88F20EF72C000D3A081 /* NSImage+PNGAdditions.h */,
+				5548B88E20EF72C000D3A081 /* NSImage+PNGAdditions.m */,
 			);
 			path = "Toy Division";
 			sourceTree = "<group>";
@@ -862,7 +869,6 @@
 				7D8CBE542153DD42007C884B /* Apple Watch 38mm@2x.png in Resources */,
 				7DE5F0842157F76F00BD2825 /* Artboard.png in Resources */,
 				7D209F0421590B3300A461A5 /* IconAll.png in Resources */,
-				55BE526B20ADAE720059EC77 /* TestFile1.sketch in Resources */,
 				7D8CBE502153DD42007C884B /* iPhone SE@2x.png in Resources */,
 				552F295520EE4B0A00A845B2 /* Artboards-B.sketch in Resources */,
 				7D611B42215AE36400C86AF1 /* Folder.png in Resources */,
@@ -1007,7 +1013,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				55BE521420ADABFD0059EC77 /* SketchZipTests.m in Sources */,
+				55BE521420ADABFD0059EC77 /* CahierTests.m in Sources */,
 				7D29BE742168CB5900D3121B /* SketchFile.m in Sources */,
 				7DE5F07F2157C85900BD2825 /* SketchFileIndexer.m in Sources */,
 			);
@@ -1017,7 +1023,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				55BE521F20ADABFD0059EC77 /* SketchZipUITests.m in Sources */,
+				55BE521F20ADABFD0059EC77 /* Cahier.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1168,7 +1174,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
 				);
-				INFOPLIST_FILE = SketchZip/Info.plist;
+				INFOPLIST_FILE = Cahier/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -1189,7 +1195,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
 				);
-				INFOPLIST_FILE = SketchZip/Info.plist;
+				INFOPLIST_FILE = Cahier/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
