@@ -200,4 +200,9 @@
     }
 }
 
+- (IBAction)filterAssets:(id)sender {
+    [self.browserHeaderController.filterField setSelected:YES animated:YES];
+    [self.browserHeaderController.filterField.filterTextField becomeFirstResponder];
+}
+
 @end
