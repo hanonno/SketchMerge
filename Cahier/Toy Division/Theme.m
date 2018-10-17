@@ -251,7 +251,7 @@
     }
     else {
         self.titleLabel.textColor = [NSColor secondaryLabelColor];
-        self.backgroundView.backgroundColor = [NSColor controlBackgroundColor];
+        self.backgroundView.backgroundColor = [NSColor dividerColor];
     }
 }
 

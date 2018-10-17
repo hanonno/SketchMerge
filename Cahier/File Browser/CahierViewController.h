@@ -15,24 +15,24 @@
 #import "SidebarController.h"
 #import "FilterBarController.h"
 #import "AssetBrowser.h"
-#import "CahierHeader.h"
+#import "BrowserHeader.h"
 
 
 @interface CahierViewController : NSViewController <SketchFileIndexerDelegate, SidebarControllerDelegate, FilterBarControllerDelegate, AssetCollectionDelegate, NSWindowDelegate>
 
-@property (strong) NSWindow             *window;
-@property (strong) NSWindowController   *windowController;
+@property (strong) NSWindow                 *window;
+@property (strong) NSWindowController       *windowController;
 
-@property (strong) SidebarController    *sidebarController;
+@property (strong) SidebarController        *sidebarController;
 
-@property (strong) FilterBarController  *filterBarController;
+@property (strong) FilterBarController      *filterBarController;
 
-@property (strong) CahierHeader         *cahierHeader;
-@property (strong) AssetBrowser         *assetBrowser;
+@property (strong) BrowserHeaderController  *browserHeaderController;
+@property (strong) AssetBrowser             *assetBrowser;
 
-@property (strong) Cahier               *cahier;
-@property (strong) SketchFileIndexer    *indexer;
-@property (strong) AssetCollection      *assetCollection;
+@property (strong) Cahier                   *cahier;
+@property (strong) SketchFileIndexer        *indexer;
+@property (strong) AssetCollection          *assetCollection;
 
 - (void)showWindow:(id)sender;
 

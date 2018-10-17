@@ -87,6 +87,9 @@
 - (NSInteger)numberOfFilers;
 - (Filter *)filterAtIndex:(NSInteger)index;
 
+- (NSArray *)activeFilters;
+- (NSArray *)matchedFilters;
+
 // Data Source
 - (NSInteger)numberOfGroups;
 - (AssetGroup *)groupAtIndex:(NSInteger)index;

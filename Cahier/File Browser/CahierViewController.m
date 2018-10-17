@@ -88,8 +88,8 @@
     [self.view addSubview:self.filterBarController.view];
     [self addChildViewController:self.filterBarController];
     
-    self.cahierHeader = [[CahierHeader alloc] init];
-    [self.view addSubview:self.cahierHeader];
+    self.browserHeaderController = [[BrowserHeaderController alloc] initWithAssetCollection:self.assetCollection];
+    [self.view addSubview:self.browserHeaderController.view];
     
     self.assetBrowser = [[AssetBrowser alloc] initWithAssetCollection:self.assetCollection];
     [self.view addSubview:self.assetBrowser.view];
@@ -107,39 +107,14 @@
     [self.filterBarController.view autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, sidebarWidth, 0, 0) excludingEdge:ALEdgeTop];
     [self.filterBarController.view autoSetDimension:ALDimensionHeight toSize:32];
     
-    [self.cahierHeader autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, sidebarWidth, 0, 0) excludingEdge:ALEdgeBottom];
-    [self.cahierHeader autoSetDimension:ALDimensionHeight toSize:headerHeight];
+    [self.browserHeaderController.view autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(0, sidebarWidth, 0, 0) excludingEdge:ALEdgeBottom];
+    [self.browserHeaderController.view autoSetDimension:ALDimensionHeight toSize:headerHeight];
     
     [self.assetBrowser.view autoPinEdgesToSuperviewEdgesWithInsets:NSEdgeInsetsMake(headerHeight, 0, 32, 0) excludingEdge:ALEdgeLeft];
     [self.assetBrowser.view autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:sidebarWidth];
     
     // Setup default zoom level
     [self changePreviewSize:self.filterBarController.previewSizeSlider];
-    
-    [self setupFilters];
-}
-
-- (void)setupFilters {
-    Button *allButton = [[Button alloc] init];
-    allButton.titleLabel.stringValue = @"All";
-    
-    Button *iPhoneButton = [[Button alloc] init];
-    iPhoneButton.titleLabel.stringValue = @"iPhone";
-    iPhoneButton.target = self;
-    iPhoneButton.action = @selector(filterSelected:);
-    
-    Button *watchButton = [[Button alloc] init];
-    watchButton.titleLabel.stringValue = @"Watch";
-    
-    [self.cahierHeader.filterStackView addView:allButton inGravity:NSStackViewGravityLeading];
-    [self.cahierHeader.filterStackView addView:iPhoneButton inGravity:NSStackViewGravityLeading];
-    [self.cahierHeader.filterStackView addView:watchButton inGravity:NSStackViewGravityLeading];
-}
-
-- (void)filterSelected:(id)sender {
-    NSLog(@"HAHAHAH");
-    
-    
 }
 
 - (void)sketchFileIndexer:(SketchFileIndexer *)fileIndexer willIndexFile:(SketchFile *)file {
@@ -158,7 +133,7 @@
 
         self.pathFilter.path = file.fileURL.path;
         self.favoriteFilter.enabled = NO;
-        self.cahierHeader.titleLabel.stringValue = [file.fileURL.path.lastPathComponent stringByDeletingPathExtension];
+        self.browserHeaderController.browserHeaderView.titleLabel.stringValue = [file.fileURL.path.lastPathComponent stringByDeletingPathExtension];
         [self.assetCollection reloadData];
         [self.assetBrowser.collectionView reloadData];
     }
@@ -167,11 +142,11 @@
             self.pathFilter.path = self.indexer.directory;
             self.favoriteFilter.enabled = NO;
             [self.assetCollection reloadData];
-            self.cahierHeader.titleLabel.stringValue = self.indexer.directory.lastPathComponent;
+            self.browserHeaderController.browserHeaderView.titleLabel.stringValue = self.indexer.directory.lastPathComponent;
         }
         if(indexPath.item == 1) {
             self.favoriteFilter.enabled = YES;
-            self.cahierHeader.titleLabel.stringValue = @"Favorites";
+            self.browserHeaderController.browserHeaderView.titleLabel.stringValue = @"Favorites";
             [self.assetCollection reloadData];
         }
     }

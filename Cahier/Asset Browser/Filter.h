@@ -15,7 +15,8 @@
 
 @interface Filter : NSObject
 
-@property (assign) BOOL     enabled;
+@property (readonly) NSString   *title;
+@property (assign) BOOL         enabled;
 
 - (BOOL)matchLayer:(SketchLayer *)layer;
 - (BOOL)matchAsset:(Asset *)asset;

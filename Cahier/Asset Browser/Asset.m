@@ -94,6 +94,8 @@
 @property (strong) NSMutableArray   *filters;
 @property (strong) NSHashTable      *delegates;
 
+@property (strong) NSArray          *matchedFilters;
+
 @end
 
 
@@ -113,12 +115,25 @@
 }
 
 - (void)reloadData {
+    NSMutableArray *filters = [[SizeFilter appleDeviceFilters] mutableCopy];
+    NSMutableSet *matchedFilters = [[NSMutableSet alloc] init];
+    
     NSMutableDictionary *groupsById = [[NSMutableDictionary alloc] init];
     NSInteger count = 0;
     
     for (Asset *asset in self.assets) {
         BOOL exit = NO;
+
+        // Figure out if a filter should be available
+        for (Filter *filter in filters) {
+            if([filter matchAsset:asset]) {
+                [matchedFilters addObject:filter];
+                [filters removeObject:filter];
+                break;
+            }
+        }
         
+        // See if the asset matches any filters
         for (Filter *filter in self.filters) {
             if(filter.enabled == NO) {
                 continue;
@@ -150,6 +165,7 @@
     }
     
     self.groups = groupsById.allValues;
+    self.matchedFilters = [[matchedFilters allObjects] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES]]];
    
     // Inform all delegates
     for (id <AssetCollectionDelegate> delegate in self.delegates) {
@@ -157,6 +173,10 @@
             [delegate assetCollectionDidUpdate:self];
         }
     }
+}
+
+- (NSArray *)activeFilters {
+    return [self.filters copy];
 }
 
 - (void)addFilter:(Filter *)filter {

@@ -10,12 +10,23 @@
 
 
 #import "Theme.h"
+#import "Asset.h"
 
 
-@interface CahierHeader : View
+@interface BrowserHeader : View
 
 @property (strong) NSTextField  *titleLabel;
 @property (strong) NSStackView  *filterStackView;
 @property (strong) View         *divider;
+
+@end
+
+
+@interface BrowserHeaderController : NSViewController <AssetCollectionDelegate>
+
+@property (strong) BrowserHeader    *browserHeaderView;
+@property (strong) AssetCollection  *assetCollection;
+
+- (instancetype)initWithAssetCollection:(AssetCollection *)assetCollection;
 
 @end

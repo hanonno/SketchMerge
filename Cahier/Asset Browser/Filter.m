@@ -27,6 +27,10 @@
     return YES;
 }
 
+- (NSString *)title {
+    return @"Filter";
+}
+
 @end
 
 @implementation KeywordFilter
@@ -39,6 +43,11 @@
     
     return self;
 }
+
+- (NSString *)title {
+    return self.keywords;
+}
+
 
 - (BOOL)matchLayer:(SketchLayer *)layer {
     if(!self.enabled) {
@@ -108,6 +117,10 @@
 
 @implementation SizeFilter
 
+- (NSString *)title {
+    return self.presetName;
+}
+
 - (BOOL)matchLayer:(SketchLayer *)layer {
     if(!self.enabled) {
         return YES;
@@ -134,7 +147,7 @@
     }
     
     // Any device will match everything
-    if([self.presetName isEqualToString:@"Any device"]) {
+    if([self.presetName isEqualToString:@"All"]) {
         return YES;
     }
     
@@ -173,7 +186,7 @@
 + (NSArray *)appleDeviceFilters {
     NSMutableArray *filters = [[NSMutableArray alloc] init];
     
-    [filters addObject:[SizeFilter filterWithName:@"Any device" width:400 height:400]];
+    [filters addObject:[SizeFilter filterWithName:@"All" width:400 height:400]];
     [filters addObject:[SizeFilter filterWithName:@"iPhone 8" width:375 height:667]];
     [filters addObject:[SizeFilter filterWithName:@"iPhone 8 Plus" width:414 height:736]];
     [filters addObject:[SizeFilter filterWithName:@"iPhone SE" width:320 height:568]];
@@ -233,6 +246,10 @@
 
 
 @implementation FavoriteFilter
+
+- (NSString *)title {
+    return @"Favorites";
+}
 
 - (BOOL)matchAsset:(Asset *)asset {
     if(asset.favorited == YES) {
